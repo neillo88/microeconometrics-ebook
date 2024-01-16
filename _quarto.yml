@@ -1,0 +1,35 @@
+project:
+  type: book
+
+book:
+  title: "Microeconometrics"
+  author: "Neil Lloyd"
+  date: "2024-01-02"
+  chapters:
+    - index.qmd
+    - intro.qmd
+    - cef.qmd
+    - regression.qmd 
+    - instruments.qmd
+    - panel.qmd
+    - causality.qmd
+    - regular.qmd
+    - irregular.qmd
+    - unconfoundedness.qmd
+    - observational.qmd
+    - paralleltrends.qmd
+    - discontinuities.qmd
+    - discussion.qmd
+    - references.qmd
+    
+
+bibliography: references.bib
+
+format:
+  html:
+    theme: cosmo
+  pdf:
+    documentclass: scrreprt
+
+editor: visual
+
