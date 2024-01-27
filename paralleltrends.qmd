@@ -1,9 +1,438 @@
-# Parallel Trends
+---
+title: "EC338: Microeconometrics"
+subtitle: "Difference-in-Differences - Part 1"
+author: "Neil Lloyd"
+institute: "Department of Economics, University of Warwick"
+date: "`r format(Sys.Date(), '%B %d, %Y')`"
+format: 
+  html:
+    number-sections: true
+    toc: true
+    toc-depth: 2
+---
 
-This is a book created from markdown and executable code.
+# Difference-in-Differences - Part 1 
 
-See @knuth84 for additional discussion of literate programming.
+Recall Lecture 1.2 *Causal Inference*,
 
-```{r}
-1 + 1
-```
+::: block
+(Imbens and Rubin, 2015, p. 6)
+
+1.  "First, the definition of the causal effect depends on the potential outcomes, but it does not depend on which outcome is actually observed."
+2.  "Second, the causal effect is the comparison of potential outcomes, for the same unit, at the same moment in time post-treatment. In particular, **the causal effect is not defined in terms of comparisons of outcomes at different times.**[^paralleltrends-1]"
+:::
+
+[^paralleltrends-1]: Emphasis added.
+
+## Set-up: 2-group-2-period
+
+The simple 2-group-2-period difference-in-differences set-up has the following characteristics,
+
+-   Two periods of data: either panel (longitudinal) or repeated cross-section
+-   A control group that is never-treated[^paralleltrends-2]
+-   Treatment is absorbing: 'always-on'[^paralleltrends-3]
+-   Typically, the treatment takes place in the second period.
+
+[^paralleltrends-2]: If you use an always-treated control group you would need to assume static treatment effects.
+
+[^paralleltrends-3]: More relevant for multiple periods.
+
+## Set-up
+
+Assuming additive treatment effects,
+
+$$
+Y_{it} = \begin{cases}
+Y_{it}(0) & \text{if } t < t_0 \\
+Y_{it}(0) + D_i\cdot(Y_{it}(1)-Y_{it}(0)) & \text{if } t \geq t_0
+\end{cases}
+$$
+
+$$
+= Y_{it}(0) + T_t\cdot D_i\cdot(Y_{it}(1)-Y_{it}(0))
+$$
+
+where, - ( $T_t$ ): dummy variable ( $=1$ ) after period of treatment (( $t_0$ ) onwards). - ( $D_i$ ): dummy variable ( $=1$ ) if unit ( $i$ ) is in the treated group, 0 otherwise.
+
+::: block
+Note: ( $(Y_{it}(1),Y_{it}(0))$) depend on time; so,
+
+$$
+Y_{it}(1)-Y_{it}(0) \lesseqqgtr Y_{it'}(1)-Y_{it'}(0)
+$$
+:::
+
+## Exclusion Restrictions
+
+The above set-up implies the following exclusion restrictions,[^paralleltrends-4]
+
+[^paralleltrends-4]: Particularly important in observational studies with group and/or irregular assignment.
+
+::: exampleblock
+**Exclusion restriction: No pre-emptive behaviour**
+
+$$
+Y_{it}=Y_{it}(0) \quad \forall\; (i,t)\;\text{s.t. }\;t< t_0
+$$
+:::
+
+and,
+
+::: exampleblock
+**Exclusion restriction: No spillovers**
+
+$$
+Y_{it}=Y_{it}(0) \quad \forall \;(i,t) \;\text{s.t.}\;D_i=0
+$$
+:::
+
+and,
+
+::: exampleblock
+**Exclusion restriction: No switching**
+
+**Treatment group** status, ( $D_i$ ), does not depend on time. Only treatment status, $D_i \cdot T_t$, varies with time.
+:::
+
+## Dynamic Confounding Factors
+
+Let us consider the first (dynamic) difference with just **two periods of data**,
+
+$$
+\begin{aligned}
+&E[Y_{it}|D_i=1,T_t=1]-E[Y_{it}|D_i=1,T_t=0] \\
+=&E[Y_{it}(1)|D_i=1,T_t=1]-E[Y_{it}(0)|D_i=1,T_t=0] \\
+=&\underbrace{E[Y_{it}(1)|D_i=1,T_t=1]-E[Y_{it}(0)|D_i=1,T_t=1]}_{\text{ATT in period } t_0} \\
+&\underbrace{+E[Y_{it}(0)|D_i=1,T_t=1]-E[Y_{it}(0)|D_i=1,T_t=0]}_{\text{(dynamic) confounding factors}}
+\end{aligned}
+$$
+
+Once again, we don't observe the counterfactual for the treated group. **As such**, the CEF does not trace out a causal relationship.
+
+Notice, however, that for the untreated group,
+
+$$
+\begin{aligned}
+&E[Y_{it}|D_i=0,T_t=1]-E[Y_{it}|D_i=0,T_t=0] \\
+=&E[Y_{it}(0)|D_i=0,T_t=1]-E[Y_{it}(0)|D_i=0,T_t=0]
+\end{aligned}
+$$
+
+which looks very similar to,
+
+$$
+E[Y_{it}(0)|D_i=1,T_t=1]-E[Y_{it}(0)|D_i=1,T_t=0]
+$$
+
+from the treated group.
+
+::: block
+**Parallel Trends Assumption (General version)**
+
+$$
+\begin{aligned}
+&E[Y_{it}(0)|D_i=0,T_t=1]-E[Y_{it}(0)|D_i=0,T_t=0] \\
+=&E[Y_{it}(0)|D_i=1,T_t=1]-E[Y_{it}(0)|D_i=1,T_t=0]
+\end{aligned}
+$$
+:::
+
+With this assumption and the above exclusion restrictions, we have identification of the Average Treatment Effect **of the Treated**.
+
+With this assumption we can identify the ATT,
+
+$$
+\begin{aligned}
+&\big[E[Y_{it}|D_i=1,T_t=1]-E[Y_{it}|D_i=1,T_t=0]\big]\\
+&-\big[\textcolor{blue}{E[Y_{it}|D_i=0,T_t=1]-E[Y_{it}|D_i=0,T_t=0]}\big] \\
+=&\big[E[Y_{it}(1)|D_i=1,T_t=1]-E[Y_{it}(0)|D_i=1,T_t=0]\big] \\
+&-\big[\textcolor{blue}{E[Y_{it}(0)|D_i=0,T_t=1]-E[Y_{it}(0)|D_i=0,T_t=0]}\big] \\
+=&\big[E[Y_{it}(1)|D_i=1,T_t=1]\textcolor{red}{-E[Y_{it}(0)|D_i=1,T_t=1]}\big] \\
+&+\big[\textcolor{red}{E[Y_{it}(0)|D_i=1,T_t=1]}-E[Y_{it}(0)|D_i=1,T_t=0]\big] \\
+&-\big[\textcolor{blue}{E[Y_{it}(0)|D_i=0,T_t=1]-E[Y_{it}(0)|D_i=0,T_t=0]}\big] \\
+=&\underbrace{\big[E[Y_{it}(1)|D_i=1,T_t=1]\textcolor{red}{-E[Y_{it}(0)|D_i=1,T_t=1]}\big]}_{\text{ATT in period } t_0}
+\end{aligned}
+$$
+
+where the two penultimate lines cancel one another under parallel trends. Hence, the name **difference-in-differences**.
+
+## Mapping to Linear Model
+
+Let's consider the CEF of ( $Y_{it}^{obs}$ ),
+
+$$
+E[Y_{it}|D_i,T_t]
+$$
+
+where, ( $Y_{it} = Y_{it}(0) + T_t \cdot D_i(Y_{it}(1) - Y_{it}(0))$ ).[^paralleltrends-5]
+
+[^paralleltrends-5]: Remember, this equation implies our exclusion restrictions.
+
+$$
+\begin{aligned}
+E[Y_{it}|D_i,T_t] &= E[Y_{it}(0)|D_i,T_t] + T_t \cdot D_i E[(Y_{it}(1) - Y_{it}(0))|D_i,T_t] \\
+&= E[Y_{it}(0)|D_i,T_t=0] \\
+&\quad + T_t \cdot \left( E[Y_{it}(0)|D_i,T_t=1] - E[Y_{it}(0)|D_i,T_t=0] \right) \\
+&\quad + T_t \cdot D_i \cdot E[(Y_{it}(1) - Y_{it}(0))|D_i,T_t]
+\end{aligned}
+$$
+
+**Under parallel trends**,
+
+$$
+\begin{aligned}
+&E[Y_{it}(0)|D_i,T_t=1]-E[Y_{it}(0)|D_i,T_t=0] \\
+&= \textcolor{blue}{E[Y_{it}(0)|T_t=1]-E[Y_{it}(0)|T_t=0]} \\
+&= \textcolor{blue}{\delta}
+\end{aligned}
+$$
+
+a constant! So, we have
+
+$$
+\begin{aligned}
+E[Y_{it}|D_i,T_t] &= E[Y_{it}(0)|D_i,T_t=0] \\
+&+ T_t \cdot \left( \textcolor{blue}{\underbrace{E[Y_{it}(0)|T_t=1]-E[Y_{it}(0)|T_t=0]}_{\delta}} \right) \\
+&+ T_t \cdot D_i \cdot E[(Y_{it}(1)-Y_{it}(0))|D_i,T_t]
+\end{aligned}
+$$
+
+We can then expand ($E[Y_{it}(0)|D_i, T_t=0]$)
+
+$$
+\begin{aligned}
+E[Y_{it}(0)|D_i,T_t=0] &= E[Y_{it}(0)|D_i=0,T_t=0] \\
+&+ D_i \cdot \left( \textcolor{red}{E[Y_{it}(0)|D_i=1,T_t=0] - E[Y_{it}(0)|D_i=0,T_t=0]} \right) \\
+&= \alpha + \psi D_i
+\end{aligned}
+$$
+
+where \$\\{\\alpha, \\psi\\}\$ are two more constants. So, we have
+
+$$
+\begin{aligned}
+E[Y_{it}|D_i,T_t] &= \underbrace{E[Y_{it}(0)|D_i=0,T_t=0]}_{\alpha} \\
+&+ D_i \cdot \left( \textcolor{red}{\underbrace{E[Y_{it}(0)|D_i=1,T_t=0] - E[Y_{it}(0)|D_i=0,T_t=0]}_{\psi}} \right) \\
+&+ T_t \cdot \textcolor{blue}{\delta} + T_t \cdot D_i \cdot E[(Y_{it}(1)-Y_{it}(0))|D_i,T_t]
+\end{aligned}
+$$
+
+Finally, we can show,
+
+$$
+\begin{aligned}
+&T_t \cdot D_i \cdot E[(Y_{it}(1) - Y_{it}(0))|D_i,T_t] \\
+&= T_t \cdot D_i \cdot \textcolor{purple}{E[(Y_{it}(1) - Y_{it}(0))|D_i=1,T_t=1]} \\
+&= T_t \cdot D_i \cdot \tau_{ATT}(t_0) 
+\end{aligned}
+$$
+
+If we want, we can assume the ATT is static: ( \tau*{ATT}(t_0) =* \tau{ATT} ; \forall ; t ).
+
+$$
+\begin{aligned}
+E[Y_{it}|D_i,T_t] &= \alpha + \textcolor{red}{\psi}D_i + \textcolor{blue}{\delta}T_t \\
+&+ T_t \cdot D_i \cdot \textcolor{purple}{\underbrace{E[(Y_{it}(1) - Y_{it}(0))|D_i=1,T_t=1}_{\tau_{ATT}(t_0)}} \\
+&= \alpha + \textcolor{red}{\psi}D_i + \textcolor{blue}{\delta}T_t + \textcolor{purple}{\tau_{ATT}(t_0)} T_t \cdot D_i
+\end{aligned}
+$$
+
+::: block
+**Parallel Trends Assumption (Parametric version)**
+
+$$
+E[Y_{it}(0)|D_i,T_t] = \alpha + \psi D_i + \delta T_t
+$$
+:::
+
+-   Note: assumption concerning the CEF.
+-   Note: includes treatment group status.
+
+Thus,
+
+$$
+\underbrace{E[Y_{it}(0)|D_i=0,T_t=1]}_{\alpha + \delta} - \underbrace{E[Y_{it}(0)|D_i=0,T_t=0]}_{\alpha} = \delta
+$$
+
+and,
+
+$$
+\underbrace{\textcolor{red}{E[Y_{it}(0)|D_i=1,T_t=1]}}_{\alpha + \psi + \delta} - \underbrace{E[Y_{it}(0)|D_i=1,T_t=0]}_{\alpha + \psi} = \delta
+$$
+
+REMEMBER TO ADD THE IMAGES FRANKLIN!!!!
+
+## DiD and CIA
+
+Do we need the CIA/Unconfoundedness assumption?\
+**NO**, Why not?
+
+-   We do not identify the ATT as the coefficient on ( $D_i$ ).
+
+-   With two sources of variation, both time and treatment group, we can identify the selection term in the pre-period,
+
+    $$
+    E[Y_i(0)|D_i=1,T_i=0] - E[Y_i(0)|D_i=0,T_i=0] = \psi
+    $$
+
+-   Key assumption: selection doesn't change over time; i.e., *parallel/common trends*.
+
+## Selection
+
+Let us consider the first (cross-sectional) difference,
+
+$$
+\begin{aligned}
+&E[Y_{it}|D_i=1,T_t=1] - E[Y_{it}|D_i=0,T_t=1] \\
+&= E[Y_{it}(1)|D_i=1,T_t=1] - E[Y_{it}(0)|D_i=0,T_t=1] \\
+&= \underbrace{E[Y_{it}(1)|D_i=1,T_t=1] \textcolor{red}{- E[Y_{it}(0)|D_i=1,T_t=1]}}_{\text{ATT in period } t_0} \\
+&\quad \underbrace{\textcolor{red}{+ E[Y_{it}(0)|D_i=1,T_t=1]} - E[Y_{it}(0)|D_i=0,T_t=1]}_{\text{selection between groups}}
+\end{aligned}
+$$
+
+which is very similar to,
+
+$$
+E[Y_{it}(0)|D_i=1,T_t=0] - E[Y_{it}(0)|D_i=0,T_t=0]
+$$
+
+from the first period.
+
+## Selection
+
+With the parallel trends assumption,
+
+Selection is given by
+
+$$
+\underbrace{\textcolor{red}{E[Y_{it}(0)|D_i=1,T_t=1]}}_{\alpha + \psi + \delta} - \underbrace{E[Y_{it}(0)|D_i=0,T_t=1]}_{\alpha + \delta} = \psi
+$$
+
+and
+
+$$
+\underbrace{E[Y_{it}(0)|D_i=1,T_t=0]}_{\alpha + \psi} - \underbrace{E[Y_{it}(0)|D_i=0,T_t=0]}_{\alpha} = \psi
+$$
+
+-   Permits level differences between treatment and control.
+-   Selection term is identified in pre-period.[^paralleltrends-6]
+
+[^paralleltrends-6]: Emphasizes importance of 'no pre-emptive behaviour' assumption.
+
+## Difference-in-differences
+
+Again we can identify the ATT as a *difference-in-differences*,
+
+$$
+\begin{aligned}
+&\left[E[Y_{it}|D_i=1,T_t=1] - \textcolor{blue}{E[Y_{it}|D_i=0,T_t=1]}\right] \\
+&- \left[E[Y_{it}|D_i=1,T_t=0] - \textcolor{blue}{E[Y_{it}|D_i=0,T_t=0]}\right] \\
+&= \left[E[Y_{it}(1)|D_i=1,T_t=1] - \textcolor{blue}{E[Y_{it}(0)|D_i=0,T_t=1]}\right] \\
+&- \left[E[Y_{it}(0)|D_i=1,T_t=0] - \textcolor{blue}{E[Y_{it}(0)|D_i=0,T_t=0]}\right] \\
+&= \underbrace{\left[E[Y_{it}(1)|D_i=1,T_t=1] \textcolor{red}{- E[Y_{it}(0)|D_i=1,T_t=1]}\right]}_{\tau_{ATT}(t_0)} \\
+&+ \underbrace{\left[\textcolor{red}{E[Y_{it}(0)|D_i=1,T_t=1]} - \textcolor{blue}{E[Y_{it}(0)|D_i=0,T_t=1]}\right]}_{= \psi} \\
+&- \underbrace{\left[E[Y_{it}(0)|D_i=1,T_t=0] - \textcolor{blue}{E[Y_{it}(0)|D_i=0,T_t=0]}\right]}_{= \psi}
+\end{aligned}
+$$
+
+-   Parallel trends allow us to pin down the selection component.
+-   We do not need unconfoundedness to rule out selection.
+
+## DiD in Practice
+
+### Multi-group-2-period
+
+**In a 'natural' experiment setting**, treatment is almost always assigned at a group-level setting: geographical, demographic, etc.
+
+Let ( Y\_{itc} ) be the outcome of unit ( i ) in period ( t ), member of assignment-group ( c(i) ),
+
+$$
+c(i) \in \{1, \ldots, c_0, c_0 + 1, \ldots, C\}
+$$
+
+where groups are:
+
+-   Treated: ( $1$, $\ldots, c_0$ ) (no. treated groups = ( $c_0$ ))
+-   Control: ( $c_0 + 1$, \ldots, C ) (no. control groups $=$ ( $C - c_0$ ))
+
+Thus,
+
+$$
+D_i = D_{c(i)} = \mathbf{1}\{c(i) \leq c_0\}
+$$
+
+## Group Assignment
+
+The relevant estimating equation is then,
+
+$$
+Y^{obs}_{itc} = \alpha + \psi D_{c} + \delta T_t + \beta D_{c} \cdot T_t + \varepsilon_{itc}
+$$
+
+-   A model that can be estimated using repeated cross-sections or panel/longitudinal data.[^paralleltrends-7]
+
+[^paralleltrends-7]: This is also true for unit-level assignment, assuming sample selection of the subsequent cross-sections is independent of treatment.
+
+## Group Fixed Effects
+
+Fixed effects notation is used extensively in Microeconometrics.
+
+Given a set of assignment-groups ( c = 1, 2, 3, \ldots, C ), assignment-group FE's can be written as,
+
+$$
+\psi_c = \sum_{j=1}^{C} \psi_j \mathbf{1}\{c = j\}
+$$
+
+-   A dummy variable for each value.
+-   Standard to drop the constant term in the regression equation.
+-   Implicitly, this is a group-specific constant.
+
+::: block
+**Parallel Trends Assumption (parametric version)**
+
+$$
+E[Y_{it}(0)|D_c,T_t] = \psi_c + \delta T_t
+$$
+:::
+
+## Group Fixed Effects
+
+Consider the two estimating equations,
+
+$$
+Y^{obs}_{itc} = \alpha + \psi D_c + \delta T_t + \beta_1 D_c \cdot T_t + \varepsilon_{itc}
+$$
+
+and
+
+$$
+Y^{obs}_{itc} = \psi_c + \delta T_t + \beta_2 D_c \cdot T_t + \epsilon_{itc}
+$$
+
+-   (\hat{\beta}\_2 = \hat{\beta}\_1) **IF** group size does not change with time; i.e., a balanced panel of groups with stable group sizes. Group size need not be equal.
+-   Does not introduce bias.
+-   But, ( se(\hat{\beta}\_2) ) **tends to be** smaller than ( se(\hat{\beta}\_1) )[^paralleltrends-8].
+
+[^paralleltrends-8]: \`tends to be', because you also decrease the degree of freedom.
+
+With group FE's we *typically* explain more of the variation in ( Y(0) ).
+
+## Example: UK Policy
+
+Suppose Scotland and Wales introduce a policy to restrict access to fast food in year ( t_0 ) and you have individual-level measures of BMI from across the UK.
+
+-   ( c(i) \in {1; \text{``Scotland''}, 2; \text{``Wales''}, 3; \text{``England''}, 4; \text{``Northern Ireland''} } )
+
+-   ( D_c = \mathbf{1}{c \leq 2} )
+
+-   Estimating equations,
+
+    $$
+    Y^{obs}_{itc} = \alpha + \psi D_c + \delta T_t + \beta_1 D_c \cdot T_t + \varepsilon_{itc}
+    $$
+
+    and
+
+    $$
+    Y^{obs}_{itc} = \underbrace{\sum_{j=1}^{4} \psi_j \mathbf{1}\{c = j\}}_{\psi_c} + \delta T_t + \beta_2 D_c \cdot T_t + \epsilon_{itc}
+    $$
