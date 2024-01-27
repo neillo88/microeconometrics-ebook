@@ -11,7 +11,7 @@ format:
     toc-depth: 2
 ---
 
-# Difference-in-Differences - Part 1 
+# Difference-in-Differences - Part 1
 
 Recall Lecture 1.2 *Causal Inference*,
 
@@ -227,7 +227,7 @@ $$
 \end{aligned}
 $$
 
-If we want, we can assume the ATT is static: ( \tau*{ATT}(t_0) =* \tau{ATT} ; \forall ; t ).
+If we want, we can assume the ATT is static: ( \tau*{ATT}(t_0) =\* \tau{ATT} ; \forall ; t ).
 
 $$
 \begin{aligned}
