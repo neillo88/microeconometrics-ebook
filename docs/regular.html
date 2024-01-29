@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.450">
+<meta name="generator" content="quarto-1.3.433">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -20,60 +20,7 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
-/* CSS for citations */
-div.csl-bib-body { }
-div.csl-entry {
-  clear: both;
-}
-.hanging-indent div.csl-entry {
-  margin-left:2em;
-  text-indent:-2em;
-}
-div.csl-left-margin {
-  min-width:2em;
-  float:left;
-}
-div.csl-right-inline {
-  margin-left:2em;
-  padding-left:1em;
-}
-div.csl-indent {
-  margin-left: 2em;
-}</style>
+</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -115,6 +62,8 @@ div.csl-indent {
   }
 }</script>
 
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 </head>
 
@@ -221,7 +170,7 @@ div.csl-indent {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./paralleltrends.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Parallel Trends</span></span></a>
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">EC338: Microeconometrics</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -248,7 +197,21 @@ div.csl-indent {
 <div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#key-definitions" id="toc-key-definitions" class="nav-link active" data-scroll-target="#key-definitions"><span class="header-section-number">7.1</span> Key Definitions</a>
+  <ul class="collapse">
+  <li><a href="#classical-randomized-experiment" id="toc-classical-randomized-experiment" class="nav-link" data-scroll-target="#classical-randomized-experiment"><span class="header-section-number">7.1.1</span> Classical Randomized Experiment</a></li>
+  <li><a href="#unconfoundedness" id="toc-unconfoundedness" class="nav-link" data-scroll-target="#unconfoundedness"><span class="header-section-number">7.1.2</span> Unconfoundedness</a></li>
+  <li><a href="#propensity-score" id="toc-propensity-score" class="nav-link" data-scroll-target="#propensity-score"><span class="header-section-number">7.1.3</span> Propensity Score</a></li>
+  <li><a href="#stratified-randomized-experiment" id="toc-stratified-randomized-experiment" class="nav-link" data-scroll-target="#stratified-randomized-experiment"><span class="header-section-number">7.1.4</span> Stratified Randomized Experiment</a></li>
+  <li><a href="#unconfoundedness-1" id="toc-unconfoundedness-1" class="nav-link" data-scroll-target="#unconfoundedness-1"><span class="header-section-number">7.1.5</span> Unconfoundedness</a></li>
+  </ul></li>
+  <li><a href="#why-randomize" id="toc-why-randomize" class="nav-link" data-scroll-target="#why-randomize"><span class="header-section-number">7.2</span> Why randomize?</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -270,21 +233,192 @@ div.csl-indent {
 
 </header>
 
-<p>This is a book created from markdown and executable code.</p>
-<p>See <span class="citation" data-cites="knuth84">Knuth (<a href="references.html#ref-knuth84" role="doc-biblioref">1984</a>)</span> for additional discussion of literate programming.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">+</span> <span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 2</code></pre>
+<section id="key-definitions" class="level2" data-number="7.1">
+<h2 data-number="7.1" class="anchored" data-anchor-id="key-definitions"><span class="header-section-number">7.1</span> Key Definitions</h2>
+<section id="classical-randomized-experiment" class="level3" data-number="7.1.1">
+<h3 data-number="7.1.1" class="anchored" data-anchor-id="classical-randomized-experiment"><span class="header-section-number">7.1.1</span> Classical Randomized Experiment</h3>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Def. Classical Randomized Experiment
 </div>
 </div>
+<div class="callout-body-container callout-body">
+A randomized experiment that is both,
+<ol type="1">
+<li>individualistic</li>
+<li>unconfounded<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></li>
+</ol>
+</div>
+</div>
+<ul>
+<li>individualistic: probability of selection depends on the characteristics of the individual, <strong>alone</strong></li>
+<li>unconfounded: treatment is independent on potential outcomes, conditional on characteristics.</li>
+</ul>
+</section>
+<section id="unconfoundedness" class="level3" data-number="7.1.2">
+<h3 data-number="7.1.2" class="anchored" data-anchor-id="unconfoundedness"><span class="header-section-number">7.1.2</span> Unconfoundedness</h3>
+<p>Let <span class="math inline">\(W\)</span> be a <span class="math inline">\(N × 1\)</span> vector denoting the treatment assignment of each individual in the sample.</p>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Def. Unconfounded Assignment (Version 1)
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><span class="math display">\[
+\mathbf{Pr}(W|X,Y(0),Y(1))=\mathbf{Pr}(W|X, Y'(0),Y'(1))
+\]</span> for all <span class="math inline">\(W\)</span> , <span class="math inline">\(X\)</span> (<span class="math inline">\(N\times k\)</span> matrix of <span class="math inline">\(k\)</span>-covariates), Y(0), Y(1), Y’(0), and Y’(1).</p>
+</div>
+</div>
+<ul>
+<li>Assignment is independent of potential outcomes.</li>
+<li>This statement is equivalent to, <span class="math display">\[
+  \mathbf{Pr}(W|X, Y'(0),Y'(1))=\mathbf{Pr}(W|X,Y(0),Y(1))
+  \]</span> ### Completely Randomized Experiment A fixed, pre-determined number of subjects is assigned to receive the treatment.</li>
+</ul>
+<p><span class="math display">\[
+\mathbf{Pr}(W|X,Y(0),Y(1))=
+\begin{cases}
+(\frac{N!}{N_t!(N-N_t)!})^{-1} &amp; \text{if} \space\space \Sigma^N_{i=1} W_i = N_t\\
+0 &amp; \text{otherwise}
+\end{cases}
+\]</span></p>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Def. Completely Randomized Experiment
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>A classical randomized experiment in which the number of units assigned to treatment is fixed according to,</p>
+<p><span class="math display">\[
+1 \leq N_t \leq N - 1
+\]</span></p>
+</div>
+</div>
+</section>
+<section id="propensity-score" class="level3" data-number="7.1.3">
+<h3 data-number="7.1.3" class="anchored" data-anchor-id="propensity-score"><span class="header-section-number">7.1.3</span> Propensity Score</h3>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Def. Finite Population Propensity Score
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The propensity score at <span class="math inline">\(x\)</span> is the average unit assignment probability for units with <span class="math inline">\(X_i = x\)</span> <span class="math display">\[
+e(x)=\frac{1}{N(x)} \sum_{i=1} p_i(X,Y(0),Y(1))
+\]</span></p>
+</div>
+</div>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Def. Unit Assignment Probability
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The probability that unit <span class="math inline">\(i\)</span> is assigned to treatment, <span class="math display">\[
+p_i(X,Y(0),Y(1)) = \sum_{W:W_i=1}\mathbf{Pr}(W|X,Y(0),Y(1))
+\]</span></p>
+</div>
+</div>
+<p>In a completely randomized experiment, <span class="math display">\[
+e(X_i)=\frac{N_t}{N}
+\]</span> i.e.&nbsp;equal for all units and independent of <span class="math inline">\(X_i\)</span></p>
+</section>
+<section id="stratified-randomized-experiment" class="level3" data-number="7.1.4">
+<h3 data-number="7.1.4" class="anchored" data-anchor-id="stratified-randomized-experiment"><span class="header-section-number">7.1.4</span> Stratified Randomized Experiment</h3>
+Stratification involves the dividing of the population into <strong>blocks</strong> or <strong>strata</strong> (<span class="math inline">\(B_i \in \{1,...,J\}\)</span>), based on <em>pre-treatment</em>, observable characteristics <span class="math inline">\(X_i\)</span>: <span class="math inline">\(B_i = B_i(X_i)\)</span>
+<ul>
+<li>Completely randomized experiment within each block and assignment is independent across blocks.</li>
+</ul>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Def. Stratified Randomized Experiment
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>A stratified randomized experiment with <span class="math inline">\(J\)</span> blocks satisfying, <span class="math display">\[
+\mathbf{Pr}(W|X,Y(0),Y(1))=
+\begin{cases}
+\prod^J_{j=1} (\frac{N(j)!}{N(j)_t!(N(j)-N(j)_t)!})^{-1} &amp; \text{if} \quad \sum^N_{i:B_i=j} W_i=N(j)_t \\
+                    0 &amp;\text{otherwise}
+\end{cases}
+\]</span> and $N(j)_c is preset such that, <span class="math display">\[
+0 &lt; N(j)_t &lt;N(j) \quad \text{for} \space j = 1,...,J
+\]</span></p>
+</div>
+</div>
+</section>
+<section id="unconfoundedness-1" class="level3" data-number="7.1.5">
+<h3 data-number="7.1.5" class="anchored" data-anchor-id="unconfoundedness-1"><span class="header-section-number">7.1.5</span> Unconfoundedness</h3>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Def. Independent Assignment
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><span class="math display">\[Y(1),Y(0)\perp W\]</span></p>
+</div>
+</div>
+<ul>
+<li>Randomization is the <strong>assignment mechanism</strong> that gives you independence.</li>
+<li>If you stratify based on characteristics X we might generalize the notion of independence to <em>unconfoundedness</em></li>
+</ul>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Def. Unconfounded Assignmet (Version 2)
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><span class="math display">\[
+Y(1),Y(0) \perp W|X
+\]</span></p>
+</div>
+</div>
+<p>This matches Angrist and Pischke’s definition of the Conditional Independence Assumption (MM and MHE; week 3)</p>
+</section>
+</section>
+<section id="why-randomize" class="level2" data-number="7.2">
+<h2 data-number="7.2" class="anchored" data-anchor-id="why-randomize"><span class="header-section-number">7.2</span> Why randomize?</h2>
 
 
-<div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
-<div id="ref-knuth84" class="csl-entry" role="listitem">
-Knuth, Donald E. 1984. <span>“Literate Programming.”</span> <em>Comput. J.</em> 27 (2): 97–111. <a href="https://doi.org/10.1093/comjnl/27.2.97">https://doi.org/10.1093/comjnl/27.2.97</a>.
-</div>
-</div>
+</section>
+<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn1"><p>First used in Rubin, D.B. (1990) ‘Formal Mode of Statistical Inference for Causal Effects’ Journal of Statistical Planning and Inference, 25(3), pp.&nbsp;279-292<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

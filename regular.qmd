@@ -1,9 +1,122 @@
 # Experiments: Regular Assignment
+## Key Definitions
+### Classical Randomized Experiment
+:::{.callout-note icon=false}
+### Def. Classical Randomized Experiment
+A randomized experiment that is both, \par
+1.    individualistic \par
+2.    unconfounded[^1]
+:::
+[^1]: First used in Rubin, D.B. (1990) ‘Formal Mode of Statistical Inference for Causal Effects’
+Journal of Statistical Planning and Inference, 25(3), pp. 279-292
 
-This is a book created from markdown and executable code.
+-   individualistic: probability of selection depends on the characteristics of the
+individual, **alone**
+-    unconfounded: treatment is independent on potential outcomes,
+conditional on characteristics.
 
-See @knuth84 for additional discussion of literate programming.
+### Unconfoundedness
+Let $W$ be a $N × 1$ vector denoting the treatment assignment of each individual in the sample.
 
-```{r}
-1 + 1
-```
+:::{.callout-note icon=false}
+### Def. Unconfounded Assignment (Version 1)
+$$
+\mathbf{Pr}(W|X,Y(0),Y(1))=\mathbf{Pr}(W|X, Y'(0),Y'(1))
+$$
+for all $W$ , $X$ ($N\times k$ matrix of $k$-covariates), Y(0), Y(1), Y'(0), and Y'(1).
+:::
+
+-   Assignment is independent of potential outcomes.
+-   This statement is equivalent to,
+  $$
+  \mathbf{Pr}(W|X, Y'(0),Y'(1))=\mathbf{Pr}(W|X,Y(0),Y(1))
+  $$
+### Completely Randomized Experiment
+A fixed, pre-determined number of subjects is assigned to receive the treatment.
+
+$$
+\mathbf{Pr}(W|X,Y(0),Y(1))=
+\begin{cases}
+(\frac{N!}{N_t!(N-N_t)!})^{-1} & \text{if} \space\space \Sigma^N_{i=1} W_i = N_t\\
+0 & \text{otherwise}
+\end{cases}
+$$
+
+:::{.callout-note icon=false}
+### Def. Completely Randomized Experiment
+A classical randomized experiment in which the number of units assigned to treatment is fixed according to,
+
+$$
+1 \leq N_t \leq N - 1
+$$
+:::
+
+### Propensity Score
+
+:::{.callout-note icon=false}
+### Def. Finite Population Propensity Score
+The propensity score at $x$ is the average unit assignment probability for units
+with $X_i = x$
+$$
+e(x)=\frac{1}{N(x)} \sum_{i=1} p_i(X,Y(0),Y(1))
+$$
+:::
+
+:::{.callout-note icon=false}
+### Def. Unit Assignment Probability
+The probability that unit $i$ is assigned to treatment,
+$$
+p_i(X,Y(0),Y(1)) = \sum_{W:W_i=1}\mathbf{Pr}(W|X,Y(0),Y(1))
+$$
+:::
+In a completely randomized experiment,
+$$
+e(X_i)=\frac{N_t}{N}
+$$
+i.e. equal for all units and independent of $X_i$
+
+### Stratified Randomized Experiment
+Stratification involves the dividing of the population into **blocks** or **strata** ($B_i \in \{1,...,J\}$), based on *pre-treatment*, observable characteristics $X_i$:  $B_i = B_i(X_i)$ \par
+-   Completely randomized experiment within each block and assignment is
+independent across blocks.
+
+:::{.callout-note icon=false}
+### Def. Stratified Randomized Experiment
+
+A stratified randomized experiment with $J$ blocks satisfying,
+$$
+\mathbf{Pr}(W|X,Y(0),Y(1))=
+\begin{cases}
+\prod^J_{j=1} (\frac{N(j)!}{N(j)_t!(N(j)-N(j)_t)!})^{-1} & \text{if} \quad \sum^N_{i:B_i=j} W_i=N(j)_t \\
+					0 &\text{otherwise}
+\end{cases}
+$$
+and $N(j)_c is preset such that,
+$$
+0 < N(j)_t <N(j) \quad \text{for} \space j = 1,...,J
+$$
+:::
+
+### Unconfoundedness
+
+:::{.callout-note icon=false}
+### Def. Independent Assignment
+
+$$Y(1),Y(0)\perp W$$
+:::
+
+-   Randomization is the **assignment mechanism** that gives you
+independence.
+-   If you stratify based on characteristics X we might generalize the notion of
+independence to *unconfoundedness*
+
+:::{.callout-note icon=false}
+### Def. Unconfounded Assignmet (Version 2)
+$$
+Y(1),Y(0) \perp W|X
+$$
+:::
+This matches Angrist and Pischke’s definition of the Conditional Independence Assumption (MM and MHE; week 3)
+
+## Why randomize?
+
