@@ -205,9 +205,10 @@ ul.task-list li input[type="checkbox"] {
   <ul class="collapse">
   <li><a href="#classical-randomized-experiment" id="toc-classical-randomized-experiment" class="nav-link" data-scroll-target="#classical-randomized-experiment"><span class="header-section-number">7.1.1</span> Classical Randomized Experiment</a></li>
   <li><a href="#unconfoundedness" id="toc-unconfoundedness" class="nav-link" data-scroll-target="#unconfoundedness"><span class="header-section-number">7.1.2</span> Unconfoundedness</a></li>
-  <li><a href="#propensity-score" id="toc-propensity-score" class="nav-link" data-scroll-target="#propensity-score"><span class="header-section-number">7.1.3</span> Propensity Score</a></li>
-  <li><a href="#stratified-randomized-experiment" id="toc-stratified-randomized-experiment" class="nav-link" data-scroll-target="#stratified-randomized-experiment"><span class="header-section-number">7.1.4</span> Stratified Randomized Experiment</a></li>
-  <li><a href="#unconfoundedness-1" id="toc-unconfoundedness-1" class="nav-link" data-scroll-target="#unconfoundedness-1"><span class="header-section-number">7.1.5</span> Unconfoundedness</a></li>
+  <li><a href="#completely-randomized-experiment" id="toc-completely-randomized-experiment" class="nav-link" data-scroll-target="#completely-randomized-experiment"><span class="header-section-number">7.1.3</span> Completely Randomized Experiment</a></li>
+  <li><a href="#propensity-score" id="toc-propensity-score" class="nav-link" data-scroll-target="#propensity-score"><span class="header-section-number">7.1.4</span> Propensity Score</a></li>
+  <li><a href="#stratified-randomized-experiment" id="toc-stratified-randomized-experiment" class="nav-link" data-scroll-target="#stratified-randomized-experiment"><span class="header-section-number">7.1.5</span> Stratified Randomized Experiment</a></li>
+  <li><a href="#unconfoundedness-1" id="toc-unconfoundedness-1" class="nav-link" data-scroll-target="#unconfoundedness-1"><span class="header-section-number">7.1.6</span> Unconfoundedness</a></li>
   </ul></li>
   <li><a href="#why-randomize" id="toc-why-randomize" class="nav-link" data-scroll-target="#why-randomize"><span class="header-section-number">7.2</span> Why randomize?</a></li>
   </ul>
@@ -281,8 +282,12 @@ Def. Unconfounded Assignment (Version 1)
 <li>Assignment is independent of potential outcomes.</li>
 <li>This statement is equivalent to, <span class="math display">\[
   \mathbf{Pr}(W|X, Y'(0),Y'(1))=\mathbf{Pr}(W|X,Y(0),Y(1))
-  \]</span> ### Completely Randomized Experiment A fixed, pre-determined number of subjects is assigned to receive the treatment.</li>
+  \]</span></li>
 </ul>
+</section>
+<section id="completely-randomized-experiment" class="level3" data-number="7.1.3">
+<h3 data-number="7.1.3" class="anchored" data-anchor-id="completely-randomized-experiment"><span class="header-section-number">7.1.3</span> Completely Randomized Experiment</h3>
+<p>A fixed, pre-determined number of subjects is assigned to receive the treatment.</p>
 <p><span class="math display">\[
 \mathbf{Pr}(W|X,Y(0),Y(1))=
 \begin{cases}
@@ -307,8 +312,8 @@ Def. Completely Randomized Experiment
 </div>
 </div>
 </section>
-<section id="propensity-score" class="level3" data-number="7.1.3">
-<h3 data-number="7.1.3" class="anchored" data-anchor-id="propensity-score"><span class="header-section-number">7.1.3</span> Propensity Score</h3>
+<section id="propensity-score" class="level3" data-number="7.1.4">
+<h3 data-number="7.1.4" class="anchored" data-anchor-id="propensity-score"><span class="header-section-number">7.1.4</span> Propensity Score</h3>
 <div class="callout callout-style-default callout-note no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -343,8 +348,8 @@ p_i(X,Y(0),Y(1)) = \sum_{W:W_i=1}\mathbf{Pr}(W|X,Y(0),Y(1))
 e(X_i)=\frac{N_t}{N}
 \]</span> i.e.&nbsp;equal for all units and independent of <span class="math inline">\(X_i\)</span></p>
 </section>
-<section id="stratified-randomized-experiment" class="level3" data-number="7.1.4">
-<h3 data-number="7.1.4" class="anchored" data-anchor-id="stratified-randomized-experiment"><span class="header-section-number">7.1.4</span> Stratified Randomized Experiment</h3>
+<section id="stratified-randomized-experiment" class="level3" data-number="7.1.5">
+<h3 data-number="7.1.5" class="anchored" data-anchor-id="stratified-randomized-experiment"><span class="header-section-number">7.1.5</span> Stratified Randomized Experiment</h3>
 Stratification involves the dividing of the population into <strong>blocks</strong> or <strong>strata</strong> (<span class="math inline">\(B_i \in \{1,...,J\}\)</span>), based on <em>pre-treatment</em>, observable characteristics <span class="math inline">\(X_i\)</span>: <span class="math inline">\(B_i = B_i(X_i)\)</span>
 <ul>
 <li>Completely randomized experiment within each block and assignment is independent across blocks.</li>
@@ -371,8 +376,8 @@ Def. Stratified Randomized Experiment
 </div>
 </div>
 </section>
-<section id="unconfoundedness-1" class="level3" data-number="7.1.5">
-<h3 data-number="7.1.5" class="anchored" data-anchor-id="unconfoundedness-1"><span class="header-section-number">7.1.5</span> Unconfoundedness</h3>
+<section id="unconfoundedness-1" class="level3" data-number="7.1.6">
+<h3 data-number="7.1.6" class="anchored" data-anchor-id="unconfoundedness-1"><span class="header-section-number">7.1.6</span> Unconfoundedness</h3>
 <div class="callout callout-style-default callout-note no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">

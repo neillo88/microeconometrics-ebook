@@ -31,6 +31,7 @@ for all $W$ , $X$ ($N\times k$ matrix of $k$-covariates), Y(0), Y(1), Y'(0), and
   $$
   \mathbf{Pr}(W|X, Y'(0),Y'(1))=\mathbf{Pr}(W|X,Y(0),Y(1))
   $$
+  
 ### Completely Randomized Experiment
 A fixed, pre-determined number of subjects is assigned to receive the treatment.
 
