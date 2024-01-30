@@ -92,10 +92,10 @@ $$
 
 and,
 
-::: exampleblock
-**Exclusion restriction: No switching**
+::: {.callout-note icon="false"}
+## Exclusion restriction: No switching
 
-**Treatment group** status, ( $D_i$ ), does not depend on time. Only treatment status, $D_i \cdot T_t$, varies with time.
+**Treatment group** status, $D_i$, does not depend on time. Only treatment status, $D_i \cdot T_t$, varies with time.
 :::
 
 ## Dynamic Confounding Factors
@@ -125,13 +125,19 @@ $$
 which looks very similar to,
 
 $$
-E[Y_{it}(0)|D_i=1,T_t=1]-E[Y_{it}(0)|D_i=1,T_t=0]
+\color{red}{E[Y_{it}(0)|D_i=1,T_t=1]}
 $$
+$$
+-E[Y_{it}(0)|D_i=1,T_t=0]
+$$
+(Note to myself: Find a way to change this)
+
+
 
 from the treated group.
 
-::: block
-**Parallel Trends Assumption (General version)**
+::: {.callout-note icon="false"}
+## Parallel Trends Assumption (General version)
 
 $$
 \begin{aligned}
@@ -211,7 +217,7 @@ E[Y_{it}(0)|D_i,T_t=0] &= E[Y_{it}(0)|D_i=0,T_t=0] \\
 \end{aligned}
 $$
 
-where \$\\{\\alpha, \\psi\\}\$ are two more constants. So, we have
+where $\{ \alpha, \psi \}$ are two more constants. So, we have
 
 $$
 \begin{aligned}
@@ -231,7 +237,7 @@ $$
 \end{aligned}
 $$
 
-If we want, we can assume the ATT is static: ( \tau\*{ATT}(t_0) =\* \tau{ATT} ; \forall ; t ).
+If we want, we can assume the ATT is static: $\tau_{ATT}(t_0) = \tau_{ATT} \quad \forall t$.
 
 $$
 \begin{aligned}
@@ -241,8 +247,9 @@ E[Y_{it}|D_i,T_t] &= \alpha + \textcolor{red}{\psi}D_i + \textcolor{blue}{\delta
 \end{aligned}
 $$
 
-::: block
-**Parallel Trends Assumption (Parametric version)**
+
+::: {.callout-note icon="false"}
+## Parallel Trends Assumption (Parametric version)
 
 $$
 E[Y_{it}(0)|D_i,T_t] = \alpha + \psi D_i + \delta T_t
