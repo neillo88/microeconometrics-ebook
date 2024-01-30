@@ -16,7 +16,7 @@ format:
 Recall Lecture 1.2 *Causal Inference*,
 
 ::: {.callout-note icon="false"}
-(Imbens and Rubin, 2015, p. 6)
+## (Imbens and Rubin, 2015, p. 6)
 
 1.  "First, the definition of the causal effect depends on the potential outcomes, but it does not depend on which outcome is actually observed."
 2.  "Second, the causal effect is the comparison of potential outcomes, for the same unit, at the same moment in time post-treatment. In particular, **the causal effect is not defined in terms of comparisons of outcomes at different times.**[^paralleltrends-1]"
@@ -26,22 +26,18 @@ Recall Lecture 1.2 *Causal Inference*,
 
 ## Set-up: 2-group-2-period
 
-::: {.callout-note icon="false"}
-### 
-
 The simple 2-group-2-period difference-in-differences set-up has the following characteristics,
 
 -   Two periods of data: either panel (longitudinal) or repeated cross-section
 -   A control group that is never-treated[^paralleltrends-2]
 -   Treatment is absorbing: 'always-on'[^paralleltrends-3]
 -   Typically, the treatment takes place in the second period.
-:::
 
 [^paralleltrends-2]: If you use an always-treated control group you would need to assume static treatment effects.
 
 [^paralleltrends-3]: More relevant for multiple periods.
 
-::: {.callout-note icon="false"}
+
 ### Set-up
 
 Assuming additive treatment effects,
@@ -58,10 +54,10 @@ $$
 $$
 
 where, - ( $T_t$ ): dummy variable ( $=1$ ) after period of treatment (( $t_0$ ) onwards). - ( $D_i$ ): dummy variable ( $=1$ ) if unit ( $i$ ) is in the treated group, 0 otherwise.
-:::
 
-::: block
-Note: ( $(Y_{it}(1),Y_{it}(0))$) depend on time; so,
+
+::: {.callout-note icon="false"}
+## Note: ( $(Y_{it}(1),Y_{it}(0))$) depend on time; so,
 
 $$
 Y_{it}(1)-Y_{it}(0) \lesseqqgtr Y_{it'}(1)-Y_{it'}(0)
@@ -74,18 +70,20 @@ The above set-up implies the following exclusion restrictions,[^paralleltrends-4
 
 [^paralleltrends-4]: Particularly important in observational studies with group and/or irregular assignment.
 
-::: exampleblock
-**Exclusion restriction: No pre-emptive behaviour**
+
+::: {.callout-note icon="false"}
+## Exclusion restriction: No pre-emptive behaviour
 
 $$
 Y_{it}=Y_{it}(0) \quad \forall\; (i,t)\;\text{s.t. }\;t< t_0
 $$
-:::
+::: 
+
 
 and,
 
-::: exampleblock
-**Exclusion restriction: No spillovers**
+::: {.callout-note icon="false"}
+## Exclusion restriction: No spillovers
 
 $$
 Y_{it}=Y_{it}(0) \quad \forall \;(i,t) \;\text{s.t.}\;D_i=0
@@ -266,7 +264,13 @@ $$
 \underbrace{\textcolor{red}{E[Y_{it}(0)|D_i=1,T_t=1]}}_{\alpha + \psi + \delta} - \underbrace{E[Y_{it}(0)|D_i=1,T_t=0]}_{\alpha + \psi} = \delta
 $$
 
-REMEMBER TO ADD THE IMAGES FRANKLIN!!!!
+## Graphical Example
+
+::: {style="border: 2px solid black; padding: 10px;"}
+```         
+<img src="Images/did_equ1.pdf" alt="Graphical Example 1" style="width: 100%;">
+```
+:::
 
 ## DiD and CIA
 
@@ -350,7 +354,7 @@ $$
 
 **In a 'natural' experiment setting**, treatment is almost always assigned at a group-level setting: geographical, demographic, etc.
 
-Let ( Y\_{itc} ) be the outcome of unit ( i ) in period ( t ), member of assignment-group ( c(i) ),
+Let ( $Y_{itc}$ ) be the outcome of unit ( $i$ ) in period ( $t$), member of assignment-group ( $c(i)$ ),
 
 $$
 c(i) \in \{1, \ldots, c_0, c_0 + 1, \ldots, C\}
@@ -383,7 +387,7 @@ $$
 
 Fixed effects notation is used extensively in Microeconometrics.
 
-Given a set of assignment-groups ( c = 1, 2, 3, \ldots, C ), assignment-group FE's can be written as,
+Given a set of assignment-groups ( $c = 1, 2, 3, \ldots, C$), assignment-group FE's can be written as,
 
 $$
 \psi_c = \sum_{j=1}^{C} \psi_j \mathbf{1}\{c = j\}
@@ -427,7 +431,7 @@ With group FE's we *typically* explain more of the variation in ( Y(0) ).
 
 Suppose Scotland and Wales introduce a policy to restrict access to fast food in year ( t_0 ) and you have individual-level measures of BMI from across the UK.
 
--   ( c(i) \in {1; \\text{\`\`Scotland''}, 2; \\text{\`\`Wales''}, 3; \\text{\`\`England''}, 4; \\text{\`\`Northern Ireland''} } )
+-   ( c(i) \in {1; \\\\\\\\text{\\\\\\\`\\\\\\\`Scotland''}, 2; \\\\\\\\text{\\\\\\\`\\\\\\\`Wales''}, 3; \\\\\\\\text{\\\\\\\`\\\\\\\`England''}, 4; \\\\\\\\text{\\\\\\\`\\\\\\\`Northern Ireland''} } )
 
 -   ( D_c = \mathbf{1}{c \leq 2} )
 
@@ -544,3 +548,51 @@ This paper[^paralleltrends-9],
 -   Find **no evidence** of a negative employment effect.
 
 This paper highlights the fact that you can make strong conclusions from what is effectively a very simple research design.
+
+Include graph for {Card & Krueger (1994)}
+
+Include more graphs Card & Krueger (1994)
+
+## Legislative Change
+
+This minimum wage change **was not unexpected**:
+
+-   Federal minimum wage is the floor to all state level minimum wages.
+-   Federal increase from \$3.35 to \$3.80 in April 1990.
+-   Federal increase from \$3.80 to \$4.25 in April 1991.
+-   New Jersey chose to increase its own minimum wage to \$5.05 effective April 1992, giving it the highest minimum wage in the country.
+-   Opposed by business leaders, but the opposition lost an appeal (March, 1992) by a close margin.
+
+This last-minute appeal and close election do create some uncertainty.
+
+## Research Design
+
+CK (1994) implement a basic difference-in-difference research design
+
+$$
+\tau_{ATT} = \big(E[Y_{it}|T_t=1,D_i=1] - E[Y_{it}|T_t=0,D_i=1]\big) - \big(E[Y_{it}|T_t=1,D_i=0] - E[Y_{it}|T_t=0,D_i=0]\big)
+$$
+
+where ( T_t = \mathbf{1}{\text{after April 1992}} ), and
+
+$$
+D_i = 
+\begin{cases}
+1 & \text{New Jersey} \\
+0 & \text{Pennsylvania}
+\end{cases}
+$$
+
+Include more graphs here \
+\
+Card & Krueger (1994)}
+
+## Card & Krueger (1994)
+
+Conclusion,
+
+-   No evidence of a negative effect, as competitive models would predict.
+-   If anything, some evidence of a small positive effect, as suggested by monopsonistic models.
+-   Card & Krueger (1994) don't show pre-trends to help persuade you that the parallel trends assumption is likely to hold.
+-   After this paper comes the rebuttal by Neumark & Wascher (2000, AER), followed immediately by a response from Card & Krueger (2000, AER).
+-   This is just round 1 of what is a multi-round debate. The discussion has now shifted away from state-level minimum wages to the study of city-specific policies.
