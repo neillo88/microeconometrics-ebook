@@ -120,4 +120,4 @@ $$
 This matches Angrist and Pischke’s definition of the Conditional Independence Assumption (MM and MHE; week 3)
 
 ## Why randomize?
-
+d
