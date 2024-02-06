@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.543">
+<meta name="generator" content="quarto-1.3.433">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -22,7 +22,7 @@ ul.task-list li input[type="checkbox"] {
 }
 /* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -81,13 +81,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   "collapse-after": 3,
   "panel-placement": "start",
   "type": "textbox",
-  "limit": 50,
-  "keyboard-shortcut": [
-    "f",
-    "/",
-    "s"
-  ],
-  "show-item-context": false,
+  "limit": 20,
   "language": {
     "search-no-results-text": "No results",
     "search-matching-documents-text": "matching documents",
@@ -96,7 +90,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-more-match-text": "more match in this document",
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
-    "search-text-placeholder": "",
     "search-detached-cancel-button-title": "Cancel",
     "search-submit-button-title": "Submit",
     "search-label": "Search"
@@ -106,33 +99,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
-
 </head>
 
 <body class="nav-sidebar floating">
@@ -141,12 +107,12 @@ window.Quarto = {
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav">
     <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./regular.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Experiments: Regular Assignment</span></a></li></ol></nav>
-        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
-        </a>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./regular.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Experiments: Regular Assignment</span></a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
@@ -156,7 +122,7 @@ window.Quarto = {
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Microeconometrics</a> 
@@ -262,7 +228,7 @@ window.Quarto = {
     </ul>
     </div>
 </nav>
-<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
@@ -281,6 +247,16 @@ window.Quarto = {
   <li><a href="#why-randomize" id="toc-why-randomize" class="nav-link" data-scroll-target="#why-randomize"><span class="header-section-number">7.2</span> Why randomize?</a>
   <ul class="collapse">
   <li><a href="#selection" id="toc-selection" class="nav-link" data-scroll-target="#selection"><span class="header-section-number">7.2.1</span> Selection</a></li>
+  <li><a href="#why-randomize-1" id="toc-why-randomize-1" class="nav-link" data-scroll-target="#why-randomize-1"><span class="header-section-number">7.2.2</span> Why randomize?</a></li>
+  <li><a href="#limits-of-randomization" id="toc-limits-of-randomization" class="nav-link" data-scroll-target="#limits-of-randomization"><span class="header-section-number">7.2.3</span> Limits of randomization</a></li>
+  </ul></li>
+  <li><a href="#hypothesis-testing-fisher-vs-neyman" id="toc-hypothesis-testing-fisher-vs-neyman" class="nav-link" data-scroll-target="#hypothesis-testing-fisher-vs-neyman"><span class="header-section-number">7.3</span> Hypothesis Testing: Fisher vs Neyman</a>
+  <ul class="collapse">
+  <li><a href="#the-relevant-hypothesis-for-finite-sample" id="toc-the-relevant-hypothesis-for-finite-sample" class="nav-link" data-scroll-target="#the-relevant-hypothesis-for-finite-sample"><span class="header-section-number">7.3.1</span> The Relevant Hypothesis for Finite Sample</a></li>
+  <li><a href="#fishers-exact-p-values" id="toc-fishers-exact-p-values" class="nav-link" data-scroll-target="#fishers-exact-p-values"><span class="header-section-number">7.3.2</span> Fisher’s exact p-values</a></li>
+  <li><a href="#fisher-how-does-this-work" id="toc-fisher-how-does-this-work" class="nav-link" data-scroll-target="#fisher-how-does-this-work"><span class="header-section-number">7.3.3</span> Fisher: How does this work?</a></li>
+  <li><a href="#neymans-ate-test" id="toc-neymans-ate-test" class="nav-link" data-scroll-target="#neymans-ate-test"><span class="header-section-number">7.3.4</span> Neyman’s ATE test</a></li>
+  <li><a href="#sampling-variance-of-neyman-estimator" id="toc-sampling-variance-of-neyman-estimator" class="nav-link" data-scroll-target="#sampling-variance-of-neyman-estimator"><span class="header-section-number">7.3.5</span> Sampling Variance of Neyman estimator</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -303,9 +279,7 @@ window.Quarto = {
   </div>
   
 
-
 </header>
-
 
 <section id="key-definitions" class="level2" data-number="7.1">
 <h2 data-number="7.1" class="anchored" data-anchor-id="key-definitions"><span class="header-section-number">7.1</span> Key Definitions</h2>
@@ -498,37 +472,417 @@ E[Y_i|W_i=1] - E[Y_i|W_i=0]\\
 \end{aligned}
 \]</span> What is the source of selection bias?</p>
 <ul>
-<li><p>Individuals may select into treatment.</p>
+<li>Individuals may select into treatment.
 <ul>
-<li><p>e.g.&nbsp;job training for unemployed workers.</p></li>
-<li><p>e.g.&nbsp;maternity leave.</p></li>
+<li>e.g.&nbsp;job training for unemployed workers.</li>
+<li>e.g.&nbsp;maternity leave.</li>
+</ul></li>
+<li>Treatment may be assigned according to a predefined grouping.
+<ul>
+<li>e.g.&nbsp;minimum wage set at the state level.</li>
+<li>e.g.&nbsp;means tested public policy.</li>
 </ul></li>
 </ul>
-<section id="notes-on-sample-variance-in-r" class="level4" data-number="7.2.1.1">
-<h4 data-number="7.2.1.1" class="anchored" data-anchor-id="notes-on-sample-variance-in-r"><span class="header-section-number">7.2.1.1</span> Notes on sample variance (in R)</h4>
+</section>
+<section id="why-randomize-1" class="level3" data-number="7.2.2">
+<h3 data-number="7.2.2" class="anchored" data-anchor-id="why-randomize-1"><span class="header-section-number">7.2.2</span> Why randomize?</h3>
+<p>Unconfoundedness gives us <span class="math display">\[
+E\left[Y_i(0)|W_i=1\right]=E\left[Y_i(0)|W_i=0\right]=E\left[Y_i(0)\right]
+\]</span> implying no selection <strong>in expectation</strong></p>
+<p><span class="math display">\[
+\underbrace{E\left[Y_i(0)|W_i=1\right]-E\left[Y_i(0)|W_i=0\right]}_\text{Selection}=0
+\]</span> The observed difference the ATT. <span class="math display">\[\begin{equation*}       
+        E\left[Y_i|W_i=1\right]-E\left[Y_i|W_i=0\right]=\tau_{att}
+    \end{equation*}\]</span> and <span class="math display">\[\begin{equation*}
+        \tau_{ATT}=\tau_{ATU}=\tau_{ATE}
+    \end{equation*}\]</span> Randomization makes the comparison of two samples <em>ceteris paribus</em> <strong>in expectation</strong>.</p>
+</section>
+<section id="limits-of-randomization" class="level3" data-number="7.2.3">
+<h3 data-number="7.2.3" class="anchored" data-anchor-id="limits-of-randomization"><span class="header-section-number">7.2.3</span> Limits of randomization</h3>
+Recall,
+<ul>
+<li>Randomization allows us to learn about <span class="math inline">\(f_{Y(1)}\)</span> and <span class="math inline">\(f_{Y(0)}\)</span></li>
+<li>Randomization <strong>does not</strong> allow us to learn about <span class="math inline">\(f_{Y(1),Y(0)}\)</span> or <span class="math inline">\(f_{Y(1)-Y(0)}\)</span></li>
+</ul>
+<p>Example from Banerjee <em>et al.</em> (2015, p.&nbsp;38) <a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> <img src="images/Banerjee_p38.png" class="img-fluid"></p>
+In Applied Economics, policy evaluations that embrace randomization are commonly referred to as <strong>Randomized Control Trials (RCTs)</strong>.
+<ul>
+<li>These are typically the gold standard.</li>
+<li>Unfortunately, randomization is not always feasible, it can be unethical, and RCTs are generally very expensive.
+<ul>
+<li>Rely on the design and implementation of policies to exploit other research designs: difference-in-differences, regression discontinuity designs.</li>
+</ul></li>
+<li>Useful lens through which to approach a research question?
+<ul>
+<li>For example, what is the impact of attending an Ivy-league school?</li>
+<li>The ideal experiment: randomize university allocation across all applicants.</li>
+<li>How far is another research design from this ideal?</li>
+</ul></li>
+</ul>
+</section>
+</section>
+<section id="hypothesis-testing-fisher-vs-neyman" class="level2" data-number="7.3">
+<h2 data-number="7.3" class="anchored" data-anchor-id="hypothesis-testing-fisher-vs-neyman"><span class="header-section-number">7.3</span> Hypothesis Testing: Fisher vs Neyman</h2>
+<section id="the-relevant-hypothesis-for-finite-sample" class="level3" data-number="7.3.1">
+<h3 data-number="7.3.1" class="anchored" data-anchor-id="the-relevant-hypothesis-for-finite-sample"><span class="header-section-number">7.3.1</span> The Relevant Hypothesis for Finite Sample</h3>
+<p>When evaluating <strong>finite samples</strong>, there are two potential null hypothesis: 1. Fisher’s sharp null hypothesis: <span class="math display">\[
+            \begin{align*}
+                &amp;H_0: Y_i(1)=Y_i(0) \quad\forall i=1,...,N \\
+                \text{against }&amp;H_1:\;\exists\;i\; \text{s.t.}\;Y_i(1)\neq Y_i(0)
+            \end{align*}
+            \]</span> 2. Neyman’s (finite sample) average treatment effect (ATE) hypothesis: <span class="math display">\[
+            \begin{align*}
+                &amp;H'_0: \frac{1}{N}\sum_{i=1}^{N}(Y_i(1)-Y_i(0))=0 \\
+                \text{against }&amp;H'_1:\frac{1}{N}\sum_{i=1}^{N}(Y_i(1)-Y_i(0))\neq0
+        \end{align*}
+          \]</span></p>
+</section>
+<section id="fishers-exact-p-values" class="level3" data-number="7.3.2">
+<h3 data-number="7.3.2" class="anchored" data-anchor-id="fishers-exact-p-values"><span class="header-section-number">7.3.2</span> Fisher’s exact p-values</h3>
+<p>Consider the test statistic, <span class="math display">\[
+T(W,Y^{obs}) = \bar{Y}^{obs}_t-\bar{Y}^{obs}_c
+\]</span></p>
+Since we know the assignment mechanism under randomization, we can consider other realizations of W, <span class="math display">\[
+            T(\tilde{W},Y^{obs})
+        \]</span> <strong>under the null hypothesis.</strong>
+<ul>
+<li><strong>Why?</strong> Under <span class="math inline">\(H_0\)</span>, <span class="math inline">\(Y^{obs}=Y(1)=Y(0)\)</span></li>
+<li>Just need to consider other allocations of <span class="math inline">\(W\)</span></li>
+<li>In fact, we can calculate the distribution of <span class="math inline">\(T\)</span> under the null.</li>
+<li>Can calculate p-value</li>
+<li>Works for many test-statistics, including rank</li>
+</ul>
+<p>Suppose we observe the data on outcomes <span class="math inline">\(Y^{obs}\)</span> and treatment status <span class="math inline">\(W\)</span>,</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th>Y^{obs}</th>
+<th>W</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>3</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td>6</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td>9</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td>5</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="fisher-how-does-this-work" class="level3" data-number="7.3.3">
+<h3 data-number="7.3.3" class="anchored" data-anchor-id="fisher-how-does-this-work"><span class="header-section-number">7.3.3</span> Fisher: How does this work?</h3>
+<p>Depending on treatment status, we either observe <span class="math inline">\(Y_i(0)\)</span> or <span class="math inline">\(Y_i(1)\)</span>,</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th><span class="math inline">\(Y^{obs}\)</span></th>
+<th><span class="math inline">\(W\)</span></th>
+<th><span class="math inline">\(Y(0)\)</span></th>
+<th><span class="math inline">\(Y(1)\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>3</td>
+<td>1</td>
+<td>-</td>
+<td>3</td>
+</tr>
+<tr class="even">
+<td>6</td>
+<td>0</td>
+<td>6</td>
+<td>-</td>
+</tr>
+<tr class="odd">
+<td>9</td>
+<td>1</td>
+<td>-</td>
+<td>9</td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td>1</td>
+<td>-</td>
+<td>4</td>
+</tr>
+<tr class="odd">
+<td>5</td>
+<td>0</td>
+<td>5</td>
+<td>-</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>0</td>
+<td>2</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>With this data we can compute any test-static <span class="math inline">\(T(W,Y^{obs})\)</span>. For example, the standard t-statistic (assuming unequal variances),</p>
+<p><span class="math display">\[
+T(W,Y^{obs}) = \frac{\hat{\tau}}{\hat{se}(\hat{\tau})} = \frac{\bar{Y}^{obs}_t-\bar{Y}^{obs}_c}{\sqrt{\frac{S^2_c}{N_c}+\frac{S^2_t}{N_t}}}
+\]</span> Since the null hypothesis - <span class="math inline">\(H_0: Y_i(0)=Y_i(1) \quad\forall\; i=1,...,N\)</span> - <strong>is sharp</strong>, we know,</p>
+<table class="table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th><span class="math inline">\(Y^{obs}\)</span></th>
+<th><span class="math inline">\(W\)</span></th>
+<th><span class="math inline">\(Y(0)\)</span></th>
+<th><span class="math inline">\(Y(1)\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>3</td>
+<td>1</td>
+<td><span style="color: red">3</span></td>
+<td>3</td>
+</tr>
+<tr class="even">
+<td>6</td>
+<td>0</td>
+<td>6</td>
+<td><span style="color: red">6</span></td>
+</tr>
+<tr class="odd">
+<td>9</td>
+<td>1</td>
+<td><span style="color: red">9</span></td>
+<td>9</td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td>1</td>
+<td><span style="color: red">4</span></td>
+<td>4</td>
+</tr>
+<tr class="odd">
+<td>5</td>
+<td>0</td>
+<td>5</td>
+<td><span style="color: red">5</span></td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>0</td>
+<td>2</td>
+<td><span style="color: red">2</span></td>
+</tr>
+</tbody>
+</table>
+<p><strong>under the null</strong>.</p>
+<p>We can therefore construct other realizations of the treatment allocation: <span class="math inline">\(W'\)</span>.</p>
+<table class="table">
+<colgroup>
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+</colgroup>
+<thead>
+<tr class="header">
+<th><span class="math inline">\(Y^{obs}\)</span></th>
+<th><span class="math inline">\(W\)</span></th>
+<th><span class="math inline">\(Y(0)\)</span></th>
+<th><span class="math inline">\(Y(1)\)</span></th>
+<th><span style="color: blue"><span class="math inline">\(W'\)</span></span></th>
+<th><span style="color: blue"><span class="math inline">\(Y^{obs'}\)</span></span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>3</td>
+<td>1</td>
+<td><span style="color: red">3</span></td>
+<td>3</td>
+<td><span style="color: blue">0</span></td>
+<td><span style="color: blue">3</span></td>
+</tr>
+<tr class="even">
+<td>6</td>
+<td>0</td>
+<td>6</td>
+<td><span style="color: red">6</span></td>
+<td><span style="color: blue">1</span></td>
+<td><span style="color: blue">6</span></td>
+</tr>
+<tr class="odd">
+<td>9</td>
+<td>1</td>
+<td><span style="color: red">9</span></td>
+<td>9</td>
+<td><span style="color: blue">1</span></td>
+<td><span style="color: blue">9</span></td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td>1</td>
+<td><span style="color: red">4</span></td>
+<td>4</td>
+<td><span style="color: blue">0</span></td>
+<td><span style="color: blue">4</span></td>
+</tr>
+<tr class="odd">
+<td>5</td>
+<td>0</td>
+<td>5</td>
+<td><span style="color: red">5</span></td>
+<td><span style="color: blue">0</span></td>
+<td><span style="color: blue">5</span></td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>0</td>
+<td>2</td>
+<td><span style="color: red">2</span></td>
+<td><span style="color: blue">1</span></td>
+<td><span style="color: blue">2</span></td>
+</tr>
+</tbody>
+</table>
+<p><span class="math display">\[
+T(W',Y(1),Y(0))
+\]</span> Compute for <strong>all</strong> possible realizations of <span class="math inline">\(W\)</span>, get the exact distribution of the test static <strong>under the sharp null hypothesis</strong>.</p>
+</section>
+<section id="neymans-ate-test" class="level3" data-number="7.3.4">
+<h3 data-number="7.3.4" class="anchored" data-anchor-id="neymans-ate-test"><span class="header-section-number">7.3.4</span> Neyman’s ATE test</h3>
+Neyman’s null hypothesis is,
+<p><span class="math display">\[
+H_0:\;\tau^{fs}_{ATE} = 0 \qquad\text{against}\qquad H_0:\;\tau^{fs}_{ATE} \neq 0
+\]</span></p>
+<p>We can express,</p>
+<p><span class="math display">\[
+        \tau^{fs}_{ATE} = \frac{1}{N}\sum_{i=1}^{N}(Y_i(1)-Y_i(0))=\bar{Y}(1)-\bar{Y}(0)
+\]</span></p>
+<pre><code>Then, </code></pre>
+<p><span class="math display">\[
+        \hat{\tau} = \bar{Y}^{obs}_t-\bar{Y}^{obs}_c
+\]</span></p>
+<p>Is an <strong>unbiased</strong> estimator for <span class="math inline">\(\tau^{fs}_{ATE}\)</span>.</p>
+<div style="text-align: center;">
+PROOF [ON BOARD]
+</div>
+</section>
+<section id="sampling-variance-of-neyman-estimator" class="level3" data-number="7.3.5">
+<h3 data-number="7.3.5" class="anchored" data-anchor-id="sampling-variance-of-neyman-estimator"><span class="header-section-number">7.3.5</span> Sampling Variance of Neyman estimator</h3>
+<p>Remember, with a fixed sample, the source of variation is <span class="math inline">\(W\)</span>.</p>
+<ul>
+<li><span class="math inline">\(E_W[W_i]=E_W[W_i^2] = \frac{N_t}{N}\)</span></li>
+<li><span class="math inline">\(Var_W(W_i) = \frac{N_t}{N}\cdot(1-\frac{N_t}{N})\)</span></li>
+</ul>
+<p>But we also need to consider the correlation between <span class="math inline">\(W_i\)</span> and <span class="math inline">\(W_{i'}\)</span>:</p>
+<ul>
+<li><span class="math inline">\(E_W[W_iW_{i'}]=Pr_W(W_i=1)\cdot Pr(W_i=1|W_i=1) = \frac{N_t}{N}\cdot\frac{N_t-1}{N-1}\)</span> for <span class="math inline">\(i\neq i'\)</span></li>
+</ul>
+<div class="callout callout-style-default callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Finite sampling variance of <span class="math inline">\(\hat{\tau}\)</span>
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><span class="math display">\[
+                V^{fs}(\hat{\tau}) = \frac{S^2_c}{N_c}+\frac{S^2_t}{N_t}-\frac{S^2_{ct}}{N}
+\]</span></p>
+</div>
+</div>
+<ul>
+<li>The proof is a little involved!</li>
+</ul>
+<p><span class="math display">\[
+        S^2_c = \frac{1}{N-1}\sum_{i=1}^N (Y_i(0)-\bar{Y}(0))^2
+\]</span></p>
+<p><span class="math display">\[
+    S^2_t = \frac{1}{N-1}\sum_{i=1}^N (Y_i(1)-\bar{Y}(1))^2
+\]</span> **Note, the variance of <span class="math inline">\(Y(1)\)</span> and <span class="math inline">\(Y(0)\)</span> need not be the same. And, <span class="math display">\[
+        \begin{align*}
+        S^2_{ct} &amp;= \frac{1}{N-1}\sum_{i=1}^N (Y_i(1)-Y_i(0)-(\bar{Y}(1)-\bar{Y}(0)))^2 \\
+        &amp;=\frac{1}{N-1}\sum_{i=1}^N (Y_i(1)-Y_i(0)-\tau^{fs}_{ATE})^2
+        \end{align*}
+\]</span></p>
+<ul>
+<li><p>Third term captures the sample variation in the unit-level TE.</p></li>
+<li><p>If TE are constant (i.e.&nbsp;<em>homogenous</em>), then equals 0.</p>
+<p>We have no way of estimating the <span class="math inline">\(S^2_{ct}\)</span> since it requires observation of both <span class="math inline">\(Y_i(1)\)</span> and <span class="math inline">\(Y_i(0)\)</span> for the same unit.</p></li>
+</ul>
+<div class="callout callout-style-default callout-important no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Theorem: Neyman’s variance estimator
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>If the treatment effect is constant, then an unbiased estimator for the sampling variance is, <span class="math display">\[
+        \hat{V}^{neyman} = \frac{s^2_c}{N_c}+\frac{s^2_t}{N_t}
+\]</span></p>
+</div>
+</div>
+<p>where, <span class="math display">\[
+        s^2_c = \frac{1}{N_c-1}\sum_{i:W_i=0}^N (Y_i^{obs}-\bar{Y}^{obs}_c)^2
+\]</span> <span class="math display">\[
+        s^2_t = \frac{1}{N_t-1}\sum_{i:W_i=1}^N (Y_i^{obs}-\bar{Y}^{obs}_t)^2
+\]</span><br>
+** Note, this is different to the T-test variance</p>
+<section id="notes-on-sample-variance-in-r" class="level4" data-number="7.3.5.1">
+<h4 data-number="7.3.5.1" class="anchored" data-anchor-id="notes-on-sample-variance-in-r"><span class="header-section-number">7.3.5.1</span> Notes on sample variance (in R)</h4>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>y0 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">2</span>,<span class="dv">4</span>)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>y1 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">3</span>)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>tau <span class="ot">&lt;-</span> y1<span class="sc">-</span>y0</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>St <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">sd</span>(y1)<span class="sc">^</span><span class="dv">2</span>,<span class="fu">sd</span>(y0)<span class="sc">^</span><span class="dv">2</span>,<span class="fu">sd</span>(tau)<span class="sc">^</span><span class="dv">2</span>)</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">"Finite Sample Variance Tau-hat:"</span>, St[<span class="dv">1</span>]<span class="sc">/</span><span class="dv">2</span><span class="sc">+</span>St[<span class="dv">2</span>]<span class="sc">/</span><span class="dv">2</span><span class="sc">-</span>St[<span class="dv">3</span>]<span class="sc">/</span><span class="dv">4</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>y0 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">2</span>,<span class="dv">4</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>y1 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">3</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>tau <span class="ot">&lt;-</span> y1<span class="sc">-</span>y0</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>St <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">sd</span>(y1)<span class="sc">^</span><span class="dv">2</span>,<span class="fu">sd</span>(y0)<span class="sc">^</span><span class="dv">2</span>,<span class="fu">sd</span>(tau)<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">"Finite Sample Variance Tau-hat:"</span>, St[<span class="dv">1</span>]<span class="sc">/</span><span class="dv">2</span><span class="sc">+</span>St[<span class="dv">2</span>]<span class="sc">/</span><span class="dv">2</span><span class="sc">-</span>St[<span class="dv">3</span>]<span class="sc">/</span><span class="dv">4</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "Finite Sample Variance Tau-hat: 0.5"</code></pre>
 </div>
 </div>
 <p>Code out all the possible realizations of W (unfinished)</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">#m = 1</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co">#j = 0</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co">#for (i in 1:3){</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co">#  j = i + 1</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co">#  while (j&lt;=4){</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co">#    names &lt;- paste0("w", 1:4)</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co">#     &lt;- ifelse(nrow(i)|nrow(j),1,0)</span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co">#    m = m + 1</span></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="co">#    j = j + 1</span></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="co">#  }</span></span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="co">#}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">#m = 1</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co">#j = 0</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co">#for (i in 1:3){</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co">#  j = i + 1</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co">#  while (j&lt;=4){</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="co">#    names &lt;- paste0("w", 1:4)</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="co">#     &lt;- ifelse(nrow(i)|nrow(j),1,0)</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="co">#    m = m + 1</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="co">#    j = j + 1</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="co">#  }</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="co">#}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
 
@@ -539,6 +893,7 @@ E[Y_i|W_i=1] - E[Y_i|W_i=0]\\
 <hr>
 <ol>
 <li id="fn1"><p>First used in Rubin, D.B. (1990) ‘Formal Mode of Statistical Inference for Causal Effects’ Journal of Statistical Planning and Inference, 25(3), pp.&nbsp;279-292<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>Banerjee, A., Duflo, E., Glennerster, R. &amp; Kinnan, C. 2015, “The Miracle of Microfinance? Evidence from a Randomized Evaluation”, American economic journal. Applied economics, vol.&nbsp;7, no. 1, pp.&nbsp;22-53. ### Randomization in practice<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
 
@@ -622,9 +977,10 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
-  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+  function tippyHover(el, contentFn) {
     const config = {
       allowHTML: true,
+      content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
@@ -634,17 +990,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
-      placement: 'bottom-start',
+      placement: 'bottom-start'
     };
-    if (contentFn) {
-      config.content = contentFn;
-    }
-    if (onTriggerFn) {
-      config.onTrigger = onTriggerFn;
-    }
-    if (onUntriggerFn) {
-      config.onUntrigger = onUntriggerFn;
-    }
     window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
@@ -657,125 +1004,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
       return note.innerHTML;
-    });
-  }
-  const xrefs = window.document.querySelectorAll('a.quarto-xref');
-  const processXRef = (id, note) => {
-    // Strip column container classes
-    const stripColumnClz = (el) => {
-      el.classList.remove("page-full", "page-columns");
-      if (el.children) {
-        for (const child of el.children) {
-          stripColumnClz(child);
-        }
-      }
-    }
-    stripColumnClz(note)
-    if (id === null || id.startsWith('sec-')) {
-      // Special case sections, only their first couple elements
-      const container = document.createElement("div");
-      if (note.children && note.children.length > 2) {
-        container.appendChild(note.children[0].cloneNode(true));
-        for (let i = 1; i < note.children.length; i++) {
-          const child = note.children[i];
-          if (child.tagName === "P" && child.innerText === "") {
-            continue;
-          } else {
-            container.appendChild(child.cloneNode(true));
-            break;
-          }
-        }
-        if (window.Quarto?.typesetMath) {
-          window.Quarto.typesetMath(container);
-        }
-        return container.innerHTML
-      } else {
-        if (window.Quarto?.typesetMath) {
-          window.Quarto.typesetMath(note);
-        }
-        return note.innerHTML;
-      }
-    } else {
-      // Remove any anchor links if they are present
-      const anchorLink = note.querySelector('a.anchorjs-link');
-      if (anchorLink) {
-        anchorLink.remove();
-      }
-      if (window.Quarto?.typesetMath) {
-        window.Quarto.typesetMath(note);
-      }
-      // TODO in 1.5, we should make sure this works without a callout special case
-      if (note.classList.contains("callout")) {
-        return note.outerHTML;
-      } else {
-        return note.innerHTML;
-      }
-    }
-  }
-  for (var i=0; i<xrefs.length; i++) {
-    const xref = xrefs[i];
-    tippyHover(xref, undefined, function(instance) {
-      instance.disable();
-      let url = xref.getAttribute('href');
-      let hash = undefined; 
-      if (url.startsWith('#')) {
-        hash = url;
-      } else {
-        try { hash = new URL(url).hash; } catch {}
-      }
-      if (hash) {
-        const id = hash.replace(/^#\/?/, "");
-        const note = window.document.getElementById(id);
-        if (note !== null) {
-          try {
-            const html = processXRef(id, note.cloneNode(true));
-            instance.setContent(html);
-          } finally {
-            instance.enable();
-            instance.show();
-          }
-        } else {
-          // See if we can fetch this
-          fetch(url.split('#')[0])
-          .then(res => res.text())
-          .then(html => {
-            const parser = new DOMParser();
-            const htmlDoc = parser.parseFromString(html, "text/html");
-            const note = htmlDoc.getElementById(id);
-            if (note !== null) {
-              const html = processXRef(id, note);
-              instance.setContent(html);
-            } 
-          }).finally(() => {
-            instance.enable();
-            instance.show();
-          });
-        }
-      } else {
-        // See if we can fetch a full url (with no hash to target)
-        // This is a special case and we should probably do some content thinning / targeting
-        fetch(url)
-        .then(res => res.text())
-        .then(html => {
-          const parser = new DOMParser();
-          const htmlDoc = parser.parseFromString(html, "text/html");
-          const note = htmlDoc.querySelector('main.content');
-          if (note !== null) {
-            // This should only happen for chapter cross references
-            // (since there is no id in the URL)
-            // remove the first header
-            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
-              note.children[0].remove();
-            }
-            const html = processXRef(null, note);
-            instance.setContent(html);
-          } 
-        }).finally(() => {
-          instance.enable();
-          instance.show();
-        });
-      }
-    }, function(instance) {
     });
   }
       let selectedAnnoteEl;
@@ -819,7 +1047,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             }
             div.style.top = top - 2 + "px";
             div.style.height = height + 4 + "px";
-            div.style.left = 0;
             let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
             if (gutterDiv === null) {
               gutterDiv = window.document.createElement("div");
@@ -845,32 +1072,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         });
         selectedAnnoteEl = undefined;
       };
-        // Handle positioning of the toggle
-    window.addEventListener(
-      "resize",
-      throttle(() => {
-        elRect = undefined;
-        if (selectedAnnoteEl) {
-          selectCodeLines(selectedAnnoteEl);
-        }
-      }, 10)
-    );
-    function throttle(fn, ms) {
-    let throttle = false;
-    let timer;
-      return (...args) => {
-        if(!throttle) { // first call gets through
-            fn.apply(this, args);
-            throttle = true;
-        } else { // all the others get throttled
-            if(timer) clearTimeout(timer); // cancel #2
-            timer = setTimeout(() => {
-              fn.apply(this, args);
-              timer = throttle = false;
-            }, ms);
-        }
-      };
-    }
       // Attach click handler to the DT
       const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
       for (const annoteDlNode of annoteDls) {
@@ -932,18 +1133,17 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./causality.html" class="pagination-link  aria-label=" &lt;span="">
+      <a href="./causality.html" class="pagination-link">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Causality</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./irregular.html" class="pagination-link" aria-label="<span class='chapter-number'>8</span>&nbsp; <span class='chapter-title'>Experiments: Irregular Assignment</span>">
+      <a href="./irregular.html" class="pagination-link">
         <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Experiments: Irregular Assignment</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
 </div> <!-- /content -->
-
 
 
 
