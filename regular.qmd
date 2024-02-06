@@ -1,39 +1,61 @@
-# Experiments: Regular Assignment
-## Key Definitions
-### Classical Randomized Experiment
-:::{.callout-note icon=false}
-### Def. Classical Randomized Experiment
-A randomized experiment that is both, \par
-1.    individualistic \par
-2.    unconfounded[^1]
-:::
-[^1]: First used in Rubin, D.B. (1990) ‘Formal Mode of Statistical Inference for Causal Effects’
-Journal of Statistical Planning and Inference, 25(3), pp. 279-292
+---
+editor: 
+  markdown: 
+    wrap: 72
+---
 
--   individualistic: probability of selection depends on the characteristics of the
-individual, **alone**
--    unconfounded: treatment is independent on potential outcomes,
-conditional on characteristics.
+# Experiments: Regular Assignment
+
+## Key Definitions
+
+### Classical Randomized Experiment
+
+::: {.callout-note icon="false"}
+### Def. Classical Randomized Experiment
+
+A randomized experiment that is both,
+
+\par
+
+1.  individualistic
+
+    \par
+
+2.  unconfounded[^1]
+:::
+
+[^1]: First used in Rubin, D.B. (1990) 'Formal Mode of Statistical
+    Inference for Causal Effects' Journal of Statistical Planning and
+    Inference, 25(3), pp. 279-292
+
+-   individualistic: probability of selection depends on the
+    characteristics of the individual, **alone**
+-   unconfounded: treatment is independent on potential outcomes,
+    conditional on characteristics.
 
 ### Unconfoundedness
-Let $W$ be a $N × 1$ vector denoting the treatment assignment of each individual in the sample.
 
-:::{.callout-note icon=false}
+Let $W$ be a $N × 1$ vector denoting the treatment assignment of each
+individual in the sample.
+
+::: {.callout-note icon="false"}
 ### Def. Unconfounded Assignment (Version 1)
+
 $$
 \mathbf{Pr}(W|X,Y(0),Y(1))=\mathbf{Pr}(W|X, Y'(0),Y'(1))
-$$
-for all $W$ , $X$ ($N\times k$ matrix of $k$-covariates), Y(0), Y(1), Y'(0), and Y'(1).
+$$ for all $W$ , $X$ ($N\times k$ matrix of $k$-covariates), Y(0), Y(1),
+Y'(0), and Y'(1).
 :::
 
 -   Assignment is independent of potential outcomes.
--   This statement is equivalent to,
-  $$
-  \mathbf{Pr}(W|X, Y'(0),Y'(1))=\mathbf{Pr}(W|X,Y(0),Y(1))
-  $$
-  
+-   This statement is equivalent to, $$
+      \mathbf{Pr}(W|X, Y'(0),Y'(1))=\mathbf{Pr}(W|X,Y(0),Y(1))
+      $$
+
 ### Completely Randomized Experiment
-A fixed, pre-determined number of subjects is assigned to receive the treatment.
+
+A fixed, pre-determined number of subjects is assigned to receive the
+treatment.
 
 $$
 \mathbf{Pr}(W|X,Y(0),Y(1))=
@@ -43,9 +65,11 @@ $$
 \end{cases}
 $$
 
-:::{.callout-note icon=false}
+::: {.callout-note icon="false"}
 ### Def. Completely Randomized Experiment
-A classical randomized experiment in which the number of units assigned to treatment is fixed according to,
+
+A classical randomized experiment in which the number of units assigned
+to treatment is fixed according to,
 
 $$
 1 \leq N_t \leq N - 1
@@ -54,70 +78,340 @@ $$
 
 ### Propensity Score
 
-:::{.callout-note icon=false}
+::: {.callout-note icon="false"}
 ### Def. Finite Population Propensity Score
-The propensity score at $x$ is the average unit assignment probability for units
-with $X_i = x$
-$$
+
+The propensity score at $x$ is the average unit assignment probability
+for units with $X_i = x$ $$
 e(x)=\frac{1}{N(x)} \sum_{i=1} p_i(X,Y(0),Y(1))
 $$
 :::
 
-:::{.callout-note icon=false}
+::: {.callout-note icon="false"}
 ### Def. Unit Assignment Probability
-The probability that unit $i$ is assigned to treatment,
-$$
+
+The probability that unit $i$ is assigned to treatment, $$
 p_i(X,Y(0),Y(1)) = \sum_{W:W_i=1}\mathbf{Pr}(W|X,Y(0),Y(1))
 $$
 :::
-In a completely randomized experiment,
-$$
+
+In a completely randomized experiment, $$
 e(X_i)=\frac{N_t}{N}
-$$
-i.e. equal for all units and independent of $X_i$
+$$ i.e. equal for all units and independent of $X_i$
 
 ### Stratified Randomized Experiment
-Stratification involves the dividing of the population into **blocks** or **strata** ($B_i \in \{1,...,J\}$), based on *pre-treatment*, observable characteristics $X_i$:  $B_i = B_i(X_i)$ \par
--   Completely randomized experiment within each block and assignment is
-independent across blocks.
 
-:::{.callout-note icon=false}
+Stratification involves the dividing of the population into **blocks**
+or **strata** ($B_i \in \{1,...,J\}$), based on *pre-treatment*,
+observable characteristics $X_i$: $B_i = B_i(X_i)$
+
+\par
+
+-   Completely randomized experiment within each block and assignment is
+    independent across blocks.
+
+::: {.callout-note icon="false"}
 ### Def. Stratified Randomized Experiment
 
-A stratified randomized experiment with $J$ blocks satisfying,
-$$
+A stratified randomized experiment with $J$ blocks satisfying, $$
 \mathbf{Pr}(W|X,Y(0),Y(1))=
 \begin{cases}
 \prod^J_{j=1} (\frac{N(j)!}{N(j)_t!(N(j)-N(j)_t)!})^{-1} & \text{if} \quad \sum^N_{i:B_i=j} W_i=N(j)_t \\
-					0 &\text{otherwise}
+                    0 &\text{otherwise}
 \end{cases}
-$$
-and $N(j)_c is preset such that,
-$$
+$$ and \$N(j)\_c is preset such that, $$
 0 < N(j)_t <N(j) \quad \text{for} \space j = 1,...,J
 $$
 :::
 
 ### Unconfoundedness
 
-:::{.callout-note icon=false}
+::: {.callout-note icon="false"}
 ### Def. Independent Assignment
 
 $$Y(1),Y(0)\perp W$$
 :::
 
 -   Randomization is the **assignment mechanism** that gives you
-independence.
--   If you stratify based on characteristics X we might generalize the notion of
-independence to *unconfoundedness*
+    independence.
+-   If you stratify based on characteristics X we might generalize the
+    notion of independence to *unconfoundedness*
 
-:::{.callout-note icon=false}
+::: {.callout-note icon="false"}
 ### Def. Unconfounded Assignmet (Version 2)
+
 $$
 Y(1),Y(0) \perp W|X
 $$
 :::
-This matches Angrist and Pischke’s definition of the Conditional Independence Assumption (MM and MHE; week 3)
+
+This matches Angrist and Pischke's definition of the Conditional
+Independence Assumption (MM and MHE; week 3)
 
 ## Why randomize?
-d
+
+### Selection
+
+The difference between means gives us, $$
+\begin{aligned}
+E[Y_i|W_i=1] - E[Y_i|W_i=0]\\
+=E[Y_i(1)|W_i=1]- E[Y_i(0)|W_i=0] \\
+=\underbrace{E[Y_i(1)|W_i=1]-E[Y_i(0)|W_i=1]}_{\tau_{ATT}=E[Y_i(1)-Y_i(0)|W_i=1]} & + \underbrace{E[Y_i(0)|W_i=1]- E[Y_i(0)|W_i=0]}_{\text{Selection}}
+\end{aligned}
+$$ What is the source of selection bias?
+
+\par
+
+-   Individuals may select into treatment.
+    -   e.g. job training for unemployed workers.
+    -   e.g. maternity leave.
+-   Treatment may be assigned according to a predefined grouping.
+    -   e.g. minimum wage set at the state level.
+    -   e.g. means tested public policy.
+
+### Why randomize?
+
+Unconfoundedness gives us $$
+E\left[Y_i(0)|W_i=1\right]=E\left[Y_i(0)|W_i=0\right]=E\left[Y_i(0)\right]
+$$ implying no selection **in expectation**
+
+$$
+\underbrace{E\left[Y_i(0)|W_i=1\right]-E\left[Y_i(0)|W_i=0\right]}_\text{Selection}=0 
+$$
+The observed difference \textbf{identifies} the ATT. 
+	\begin{equation*}		
+		E\left[Y_i|W_i=1\right]-E\left[Y_i|W_i=0\right]=\tau_{att} 
+	\end{equation*}
+	and 
+	\begin{equation*}
+		\tau_{ATT}=\tau_{ATU}=\tau_{ATE}
+	\end{equation*}
+	Randomization makes the comparison of two samples *ceteris paribus*   **in expectation**.
+
+### Limits of randomization
+Recall, \par
+-   Randomization allows us to learn about $f_{Y(1)}$ and $f_{Y(0)}$
+-   Randomization **does not** allow us to learn about $f_{Y(1),Y(0)}$ or $f_{Y(1)-Y(0)}$ 
+
+Example from Banerjee *et al.* (2015, p. 38) [^2]
+![](images/Banerjee_p38.png) 
+
+[^2]:Banerjee, A., Duflo, E., Glennerster, R. & Kinnan, C. 2015, "The Miracle of Microfinance? Evidence from a Randomized Evaluation", American economic journal. Applied economics, vol. 7, no. 1, pp. 22-53.
+### Randomization in practice
+
+In Applied Economics, policy evaluations that embrace randomization are commonly referred to as **Randomized Control Trials (RCTs)**. \par
+-   These are typically the gold standard. 
+-   Unfortunately, randomization is not always feasible, it can be unethical, and RCTs are generally very expensive.
+    -   Rely on the design and implementation of policies to exploit other research designs: difference-in-differences, regression discontinuity designs.
+-   Useful lens through which to approach a research question? 
+    -   For example, what is the impact of attending an Ivy-league school?
+    -   The ideal experiment: randomize university allocation across all applicants.
+    -   How far is another research design from this ideal?
+
+## Hypothesis Testing: Fisher vs Neyman
+
+### The Relevant Hypothesis for Finite Sample
+
+When evaluating **finite samples**, there are two potential null hypothesis:
+1.    Fisher's sharp null hypothesis:
+			$$
+			\begin{align*}
+				&H_0: Y_i(1)=Y_i(0) \quad\forall i=1,...,N \\
+				\text{against }&H_1:\;\exists\;i\; \text{s.t.}\;Y_i(1)\neq Y_i(0)
+			\end{align*}
+			$$
+2.    Neyman's (finite sample) average treatment effect (ATE) hypothesis:
+			$$
+			\begin{align*}
+				&H'_0: \frac{1}{N}\sum_{i=1}^{N}(Y_i(1)-Y_i(0))=0 \\
+				\text{against }&H'_1:\frac{1}{N}\sum_{i=1}^{N}(Y_i(1)-Y_i(0))\neq0
+		\end{align*}
+		  $$
+
+### Fisher's exact p-values
+
+Consider the test statistic,
+$$
+T(W,Y^{obs}) = \bar{Y}^{obs}_t-\bar{Y}^{obs}_c
+$$
+
+Since we know the assignment mechanism under randomization, we can consider other realizations of W,
+		$$
+			T(\tilde{W},Y^{obs})
+		$$
+**under the null hypothesis.**\par
+-   **Why?** Under $H_0$, $Y^{obs}=Y(1)=Y(0)$ 
+-   Just need to consider other allocations of $W$
+-   In fact, we can calculate the \textit{exact} distribution of $T$ under the null. 
+-   Can calculate \textit{exact} p-value
+-   Works for many test-statistics, including rank
+		
+Suppose we observe the data on outcomes $Y^{obs}$ and treatment status $W$, 
+
+|Y^{obs}|W|
+|--|--|
+|	3 |  1|  
+| 6 |  0 |
+|	9 |  1 |
+|	4 |  1 |
+|	5 |  0  |
+|	2 |  0  |
+
+### Fisher: How does this work?
+
+Depending on treatment status, we either observe $Y_i(0)$ or $Y_i(1)$,
+
+$Y^{obs}$ | $W$ | $Y(0)$ | $Y(1)$ 
+-|-|-|-
+				3 |  1 | - | 3 
+				6 |  0 | 6 | - 
+				9 |  1 |-  |9 
+				4 |  1 | - | 4 
+				5 |  0 | 5 | - 
+				2 |  0 | 2 | 
+
+With this data we can compute any test-static $T(W,Y^{obs})$. For example, the standard t-statistic (assuming unequal variances),
+
+$$
+T(W,Y^{obs}) = \frac{\hat{\tau}}{\hat{se}(\hat{\tau})} = \frac{\bar{Y}^{obs}_t-\bar{Y}^{obs}_c}{\sqrt{\frac{S^2_c}{N_c}+\frac{S^2_t}{N_t}}}
+$$
+Since the null hypothesis - $H_0: Y_i(0)=Y_i(1) \quad\forall\; i=1,...,N$ - **is sharp**, we know, 
+
+$Y^{obs}$ | $W$ | $Y(0)$ | $Y(1)$ 
+-|-|-|-
+				3 |  1 |  <span style="color: red">3</span> | 3 
+				6 |  0 | 6 | <span style="color: red">6</span> 
+				9 |  1 |<span style="color: red">9</span> | 9 
+				4 |  1 | <span style="color: red">4</span> | 4 
+				5 |  0 | 5 | <span style="color: red">5</span> 
+				2 |  0 | 2 | <span style="color: red">2</span>											
+
+**under the null**. 
+		
+We can therefore construct other realizations of the treatment allocation: $W'$.		
+		
+$Y^{obs}$ | $W$ | $Y(0)$ | $Y(1)$ | <span style="color: blue">$W'$</span> | <span style="color: blue">$Y^{obs'}$</span>
+-|-|-|-|-|-
+			3 |  1 |  <span style="color: red">3</span> | 3| <span style="color: blue">0</span> | <span style="color: blue">3</span> 
+			6 |  0 | 6 | <span style="color: red">6</span> | <span style="color: blue">1</span> | <span style="color: blue">6</span> 
+				9 |  1 |<span style="color: red">9</span> | 9  | <span style="color: blue">1</span> | <span style="color: blue">9</span> 
+		4 |  1 | <span style="color: red">4</span> | 4 | <span style="color: blue">0</span> | <span style="color: blue">4</span> 
+				5 |  0 | 5 | <span style="color: red">5</span> | <span style="color: blue">0</span> | <span style="color: blue">5</span> 
+				2 |  0 | 2 | <span style="color: red">2</span> |  <span style="color: blue">1</span> | <span style="color: blue">2</span>		
+
+$$
+T(W',Y(1),Y(0)) 
+$$
+Compute for **all** possible realizations of $W$, get the exact distribution of the test static **under the sharp null hypothesis**. 
+
+
+### Neyman's ATE test
+
+Neyman's null hypothesis is, \par
+
+$$
+H_0:\;\tau^{fs}_{ATE} = 0 \qquad\text{against}\qquad H_0:\;\tau^{fs}_{ATE} \neq 0
+$$
+
+We can express,
+	
+$$
+		\tau^{fs}_{ATE} = \frac{1}{N}\sum_{i=1}^{N}(Y_i(1)-Y_i(0))=\bar{Y}(1)-\bar{Y}(0)
+$$
+	
+	Then, 
+	
+$$
+		\hat{\tau} = \bar{Y}^{obs}_t-\bar{Y}^{obs}_c
+$$
+	
+Is an **unbiased** estimator for $\tau^{fs}_{ATE}$. 
+	
+
+<div style="text-align: center;">PROOF [ON BOARD]</div>
+
+### Sampling Variance of Neyman estimator
+
+Remember, with a fixed sample, the source of variation is $W$.
+
+-   $E_W[W_i]=E_W[W_i^2] = \frac{N_t}{N}$
+-   $Var_W(W_i) = \frac{N_t}{N}\cdot(1-\frac{N_t}{N})$
+
+But we also need to consider the correlation between $W_i$ and $W_{i'}$:
+
+-   $E_W[W_iW_{i'}]=Pr_W(W_i=1)\cdot Pr(W_i=1|W_i=1)  = \frac{N_t}{N}\cdot\frac{N_t-1}{N-1}$ for $i\neq i'$
+		
+::: {.callout-tip icon="false"}
+
+#### Finite sampling variance of $\hat{\tau}$
+$$
+				V^{fs}(\hat{\tau}) = \frac{S^2_c}{N_c}+\frac{S^2_t}{N_t}-\frac{S^2_{ct}}{N}
+$$
+:::
+
+-   The proof is a little involved!
+
+$$
+		S^2_c = \frac{1}{N-1}\sum_{i=1}^N (Y_i(0)-\bar{Y}(0))^2
+$$
+
+$$
+	S^2_t = \frac{1}{N-1}\sum_{i=1}^N (Y_i(1)-\bar{Y}(1))^2
+$$
+**Note, the variance of $Y(1)$ and $Y(0)$ need not be the same. And,
+$$
+		\begin{align*}
+		S^2_{ct} &= \frac{1}{N-1}\sum_{i=1}^N (Y_i(1)-Y_i(0)-(\bar{Y}(1)-\bar{Y}(0)))^2 \\
+		&=\frac{1}{N-1}\sum_{i=1}^N (Y_i(1)-Y_i(0)-\tau^{fs}_{ATE})^2
+		\end{align*}
+$$
+	
+-   Third term captures the sample variation in the unit-level TE.
+-   If TE are constant (i.e. *homogenous*), then equals 0. 
+
+	We have no way of estimating the $S^2_{ct}$ since it requires observation of both $Y_i(1)$ and $Y_i(0)$ for the same unit.
+		
+::: {.callout-important icon="false"}
+
+#### Theorem: Neyman's variance estimator
+
+If the treatment effect is constant, then an unbiased estimator for the sampling variance is,
+$$
+		\hat{V}^{neyman} = \frac{s^2_c}{N_c}+\frac{s^2_t}{N_t}
+$$
+:::
+where, 
+$$
+		s^2_c = \frac{1}{N_c-1}\sum_{i:W_i=0}^N (Y_i^{obs}-\bar{Y}^{obs}_c)^2
+$$
+$$
+		s^2_t = \frac{1}{N_t-1}\sum_{i:W_i=1}^N (Y_i^{obs}-\bar{Y}^{obs}_t)^2
+$$	
+** Note, this is different to the T-test variance
+
+
+#### Notes on sample variance (in R)
+
+```{r}
+y0 <- c(1,3,2,4)
+y1 <- c(3,1,3,3)
+tau <- y1-y0
+St <- c(sd(y1)^2,sd(y0)^2,sd(tau)^2)
+print(paste("Finite Sample Variance Tau-hat:", St[1]/2+St[2]/2-St[3]/4))
+```
+
+Code out all the possible realizations of W (unfinished)
+
+```{r}
+#m = 1
+#j = 0
+#for (i in 1:3){
+#  j = i + 1
+#  while (j<=4){
+#    names <- paste0("w", 1:4)
+#     <- ifelse(nrow(i)|nrow(j),1,0)
+#    m = m + 1
+#    j = j + 1
+#  }
+#}
+```
