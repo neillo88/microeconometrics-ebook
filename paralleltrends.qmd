@@ -1,26 +1,11 @@
----
-title: "EC338: Microeconometrics"
-subtitle: "Difference-in-Differences - Part 1"
-author: "Neil Lloyd"
-institute: "Department of Economics, University of Warwick"
-date: "`r format(Sys.Date(), '%B %d, %Y')`"
-format: 
-  html:
-    number-sections: true
-    toc: true
-    toc-depth: 2
----
-
 # Difference-in-Differences - Part 1
 
 Recall Lecture 1.2 *Causal Inference*,
 
-::: {.callout-note icon="false"}
 ## (Imbens and Rubin, 2015, p. 6)
 
 1.  "First, the definition of the causal effect depends on the potential outcomes, but it does not depend on which outcome is actually observed."
 2.  "Second, the causal effect is the comparison of potential outcomes, for the same unit, at the same moment in time post-treatment. In particular, **the causal effect is not defined in terms of comparisons of outcomes at different times.**[^paralleltrends-1]"
-:::
 
 [^paralleltrends-1]: Emphasis added.
 
@@ -37,9 +22,6 @@ The simple 2-group-2-period difference-in-differences set-up has the following c
 
 [^paralleltrends-3]: More relevant for multiple periods.
 
-
-### Set-up
-
 Assuming additive treatment effects,
 
 $$
@@ -55,7 +37,6 @@ $$
 
 where, - ( $T_t$ ): dummy variable ( $=1$ ) after period of treatment (( $t_0$ ) onwards). - ( $D_i$ ): dummy variable ( $=1$ ) if unit ( $i$ ) is in the treated group, 0 otherwise.
 
-
 ::: {.callout-note icon="false"}
 ## Note: ( $(Y_{it}(1),Y_{it}(0))$) depend on time; so,
 
@@ -70,15 +51,13 @@ The above set-up implies the following exclusion restrictions,[^paralleltrends-4
 
 [^paralleltrends-4]: Particularly important in observational studies with group and/or irregular assignment.
 
-
 ::: {.callout-note icon="false"}
 ## Exclusion restriction: No pre-emptive behaviour
 
 $$
 Y_{it}=Y_{it}(0) \quad \forall\; (i,t)\;\text{s.t. }\;t< t_0
 $$
-::: 
-
+:::
 
 and,
 
@@ -126,13 +105,9 @@ which looks very similar to,
 
 $$
 \color{red}{E[Y_{it}(0)|D_i=1,T_t=1]}
-$$
-$$
+$$ $$
 -E[Y_{it}(0)|D_i=1,T_t=0]
-$$
-(Note to myself: Find a way to change this)
-
-
+$$ (Note to myself: Find a way to change this)
 
 from the treated group.
 
@@ -247,7 +222,6 @@ E[Y_{it}|D_i,T_t] &= \alpha + \textcolor{red}{\psi}D_i + \textcolor{blue}{\delta
 \end{aligned}
 $$
 
-
 ::: {.callout-note icon="false"}
 ## Parallel Trends Assumption (Parametric version)
 
@@ -273,11 +247,49 @@ $$
 
 ## Graphical Example
 
-::: {style="border: 2px solid black; padding: 10px;"}
-```         
-<img src="Images/did_equ1.pdf" alt="Graphical Example 1" style="width: 100%;">
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+#| label: fig-graph1
+#| fig-cap: "Difference-in-Differences Plot 1"
+
+library(latex2exp)
+library(ggplot2)
+library(dplyr)
+
+data <- data.frame(
+  D = c(0, 0, 1, 1),
+  T = c(0, 1, 0, 1),
+  Y = c(0.54, 0.57, 0.6, 0.59),
+  count = c(0.54, 0.57, 0.6, 0.63)
+)
+
+data <- data %>%
+  mutate(label = case_when(
+    D == 0 & T == 0 ~ "alpha",
+    D == 0 & T == 1 ~ "alpha + delta",
+    TRUE ~ ""  
+  ))
+
+p <- ggplot(data %>% filter(D == 0), aes(x = T, y = Y)) +
+  geom_line(color = "blue") +
+  geom_point(color = "blue", size = 3) +
+  geom_text(aes(label = label), parse = TRUE, nudge_y = 0.02, hjust = 0, color = "blue") +
+  labs(x = "T", y = TeX("E[Y|D,T]"), title = "DiD 1") +
+  theme_minimal() +
+  theme(
+    legend.position = "none",
+    panel.grid.major = element_blank(),
+    panel.grid.minor = element_blank(),
+    panel.background = element_blank(),
+    panel.border = element_rect(colour = "black", fill=NA, linewidth=1) 
+  ) +
+  scale_x_continuous(limits = c(-0.5, 1.5), breaks = 0:1, labels = c("0", "1")) +
+  scale_y_continuous(limits = c(0.4, 0.7), breaks = seq(0.4, 0.7, by = 0.1))
+
+print(p)
 ```
-:::
 
 ## DiD and CIA
 
@@ -314,8 +326,6 @@ E[Y_{it}(0)|D_i=1,T_t=0] - E[Y_{it}(0)|D_i=0,T_t=0]
 $$
 
 from the first period.
-
-## Selection
 
 With the parallel trends assumption,
 
@@ -412,8 +422,6 @@ E[Y_{it}(0)|D_c,T_t] = \psi_c + \delta T_t
 $$
 :::
 
-## Group Fixed Effects
-
 Consider the two estimating equations,
 
 $$
@@ -438,7 +446,7 @@ With group FE's we *typically* explain more of the variation in ( Y(0) ).
 
 Suppose Scotland and Wales introduce a policy to restrict access to fast food in year ( t_0 ) and you have individual-level measures of BMI from across the UK.
 
--   ( c(i) \in {1; \\\\\\\\text{\\\\\\\`\\\\\\\`Scotland''}, 2; \\\\\\\\text{\\\\\\\`\\\\\\\`Wales''}, 3; \\\\\\\\text{\\\\\\\`\\\\\\\`England''}, 4; \\\\\\\\text{\\\\\\\`\\\\\\\`Northern Ireland''} } )
+-   ( c(i) \in {1; \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\text{\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\`\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\`Scotland''}, 2; \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\text{\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\`\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\`Wales''}, 3; \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\text{\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\`\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\`England''}, 4; \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\text{\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\`\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\`Northern Ireland''} } )
 
 -   ( D_c = \mathbf{1}{c \leq 2} )
 
@@ -494,8 +502,6 @@ $$
 E[Y_{it}(0)|D_i,T_t,X_{it}] = \alpha + \psi D_i + \delta T_t + X_{it}'\gamma
 $$
 
-## Adding Covariates
-
 -   A *weaker* assumption.
 -   In a balanced panel, time-invariant differences across groups are captured by treatment-group dummy (or assignment-group/unit FEs).
 
@@ -527,13 +533,14 @@ This paper[^paralleltrends-9],
 [^paralleltrends-9]: Angrist & Pischke attribute the first use of DiD in Economics to Obenauer & von den Nienburg (1915) (see page 228 of *Mostly Harmless Econometrics*).
 
 -   arguably, established difference-in-difference as the central tool in Applied Microeconomics research;
+
 -   turned the literature on the minimum wage upside down;
+
 -   won David Card the Nobel Prize in Economics;
+
 -   and started the closest thing to a fight in academic Economics.[^paralleltrends-10]
 
 [^paralleltrends-10]: The debate between Card and Krueger (since deceased, 2019), and Neumark and Wascher is ongoing.
-
-## Card & Krueger (1994)
 
 ### Pre-1990's Literature
 
@@ -542,8 +549,6 @@ This paper[^paralleltrends-9],
 -   Largely based on time-series evidence (Brown et al., 1982) or cross-country studies.
 
 > "Isolating the impacts of labor market institutions is inherently difficult... Identification issues essentially result from the endogeneity of labor market institutions and the interactions between them... makes it difficult to attribute variations in outcomes to the institutions themselves, rather than other features of the societies in which they exist." - Baetcherman (2012)
-
-## Card & Krueger (1994)
 
 **Card & Krueger (AER, 1994)** is a seminal paper in this literature[^paralleltrends-11],
 
@@ -558,7 +563,172 @@ This paper highlights the fact that you can make strong conclusions from what is
 
 Include graph for {Card & Krueger (1994)}
 
-Include more graphs Card & Krueger (1994)
+NOTE: We could generate the same graph you copied from CK paper by using R and it looks more neat. Please find both and choose which one you like the most:\
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+#| label: Replicated Graph
+#| fig-cap: "Replicating CK"
+
+#This is not my code, the code is borrowed and it is very neat but I could replicate it so that we do not have to reference it. Please see https://rpubs.com/phle/r_tutorial_difference_in_differences if you want to have a look at the original code. 
+
+library(dplyr)
+library(readr)
+library(stringr)
+library(ggplot2)
+library(tidyr)
+library(ggrepel)
+library(scales)
+library(ggpubr)
+library(plm)
+library(sjlabelled)
+library(lmtest)
+
+#Data Cleaning: can be left out. 
+
+# Temporary file and path
+tfile_path <- tempfile()
+tdir_path <- tempdir()
+
+# Download zip file
+download.file("http://davidcard.berkeley.edu/data_sets/njmin.zip", 
+              destfile = tfile_path)
+
+# Unzip
+unzip(tfile_path, exdir = tdir_path)
+
+# Read codebook
+codebook <- read_lines(file = paste0(tdir_path, "/codebook"))
+
+# Generate a vector with variable names
+variable_names <- codebook %>%
+  `[`(8:59) %>% # Variablennamen starten bei Element 8 (sheet)
+  `[`(-c(5, 6, 13, 14, 32, 33)) %>% # Elemente ohne Variablennamen entfernen
+  str_sub(1, 8) %>% # längster Variablenname enthält 8 Zeichen
+  str_squish() %>% # Whitespaces entfernen
+  str_to_lower() # nur Kleinbuchstaben verwenden
+
+# Generate a vector with variable labels
+variable_labels <- codebook %>%
+  `[`(8:59) %>% # variable names start at element 8 (sheet)
+  `[`(-c(5, 6, 13, 14, 32, 33)) %>% # remove elements w/o variable names
+  sub(".*\\.[0-9]", "", .) %>%
+  `[`(-c(5:10))  %>% # these elements are combined later on
+  str_squish() # remove white spaces
+  
+# Region
+variable_labels[41] <- "region of restaurant"
+
+# Read raw data
+data_raw <- read_table2(paste0(tdir_path, "/public.dat"),
+                        col_names = FALSE)
+
+
+# Add variable names
+data_mod <- data_raw %>%
+  select(-X47) %>% # remove empty column
+  `colnames<-`(., variable_names) %>% # Assign variable names
+  mutate_all(as.numeric) %>% # treat all variables as numeric
+  mutate(sheet = ifelse(sheet == 407 & chain == 4, 408, sheet)) # duplicated sheet id 407
+
+# Process data (currently wide format)
+data_mod <- data_mod %>%
+  # chain value label
+  mutate(chain = case_when(chain == 1 ~ "bk",
+                           chain == 2 ~ "kfc",
+                           chain == 3 ~ "roys",
+                           chain == 4 ~ "wendys")) %>%
+  # state value label
+  mutate(state = case_when(state == 1 ~ "New Jersey",
+                           state == 0 ~ "Pennsylvania")) %>%
+  # Region dummy
+  mutate(region = case_when(southj == 1 ~ "southj",
+                            centralj == 1 ~ "centralj",
+                            northj == 1 ~ "northj",
+                            shore == 1 ~ "shorej",
+                            pa1 == 1 ~ "phillypa",
+                            pa2 == 1 ~ "eastonpa")) %>%
+  # meals value label
+  mutate(meals = case_when(meals == 0 ~ "none",
+                           meals == 1 ~ "free meals",
+                           meals == 2 ~ "reduced price meals",
+                           meals == 3 ~ "both free and reduced price meals")) %>%
+  # meals value label
+  mutate(meals2 = case_when(meals2 == 0 ~ "none",
+                            meals2 == 1 ~ "free meals",
+                            meals2 == 2 ~ "reduced price meals",
+                            meals2 == 3 ~ "both free and reduced price meals")) %>%
+  # status2 value label
+  mutate(status2 = case_when(status2 == 0 ~ "refused second interview",
+                             status2 == 1 ~ "answered 2nd interview",
+                             status2 == 2 ~ "closed for renovations",
+                             status2 == 3 ~ "closed permanently",
+                             status2 == 4 ~ "closed for highway construction",
+                             status2 == 5 ~ "closed due to Mall fire")) %>%
+  mutate(co_owned = if_else(co_owned == 1, "yes", "no")) %>%
+  mutate(bonus = if_else(bonus == 1, "yes", "no")) %>%
+  mutate(special2 = if_else(special2 == 1, "yes", "no")) %>%
+  mutate(type2 = if_else(type2 == 1, "phone", "personal")) %>%
+  select(-southj, -centralj, -northj, -shore, -pa1, -pa2) %>% # now included in region dummy
+  mutate(date2 = lubridate::mdy(date2)) %>% # Convert date
+  rename(open2 = open2r) %>% #Fit name to wave 1
+  rename(firstinc2 = firstin2) %>% # Fit name to wave 1
+  sjlabelled::set_label(variable_labels) # Add stored variable labels
+
+# Structural variables
+structure <- data_mod %>%
+  select(sheet, chain, co_owned, state, region)
+
+# Wave 1 variables
+wave1 <- data_mod %>%
+  select(-ends_with("2"), - names(structure)) %>%
+  mutate(observation = "February 1992") %>%
+  bind_cols(structure) 
+
+# Wave 2 variables
+wave2 <- data_mod %>%
+  select(ends_with("2")) %>%
+  rename_all(~str_remove(., "2"))  %>%
+  mutate(observation = "November 1992") %>%
+  bind_cols(structure) 
+
+# Final dataset
+card_krueger_1994 <- bind_rows(wave1, wave2) %>%
+  select(sort(names(.))) %>% # Sort columns alphabetically
+  sjlabelled::copy_labels(data_mod) # Restore variable labels
+
+card_krueger_1994_mod <- card_krueger_1994 %>%
+  mutate(emptot = empft + nmgrs + 0.5 * emppt,
+         pct_fte = empft / emptot * 100)
+
+# Now we plot with the cleaned data (This code is also not mine)
+
+
+hist.feb <- card_krueger_1994_mod %>%
+  filter(observation == "February 1992") %>%
+  ggplot(aes(wage_st, fill = state)) +
+  geom_histogram(aes(y=c(..count..[..group..==1]/sum(..count..[..group..==1]),
+                         ..count..[..group..==2]/sum(..count..[..group..==2]))*100),
+                 alpha=0.5, position = "dodge", bins = 23) +
+  labs(title = "February 1992", x = "Wage range", y = "Percent of stores", fill = "") +
+  scale_fill_grey()
+
+hist.nov <- card_krueger_1994_mod %>%
+  filter(observation == "November 1992") %>%
+  ggplot(aes(wage_st, fill = state)) +
+  geom_histogram(aes(y=c(..count..[..group..==1]/sum(..count..[..group..==1]),
+                         ..count..[..group..==2]/sum(..count..[..group..==2]))*100),
+                 alpha = 0.5, position = "dodge", bins = 23) +
+  labs(title = "November 1992", x="Wage range", y = "Percent of stores", fill="") +
+  scale_fill_grey()
+
+ggarrange(hist.feb, hist.nov, ncol = 2, 
+          common.legend = TRUE, legend = "bottom")
+```
+
+Note: the graph is not quite right but I will fix it \
 
 ## Legislative Change
 
@@ -574,13 +744,13 @@ This last-minute appeal and close election do create some uncertainty.
 
 ## Research Design
 
-CK (1994) implement a basic difference-in-difference research design
+Card & Krueger (1994) implement a basic difference-in-difference research design
 
 $$
 \tau_{ATT} = \big(E[Y_{it}|T_t=1,D_i=1] - E[Y_{it}|T_t=0,D_i=1]\big) - \big(E[Y_{it}|T_t=1,D_i=0] - E[Y_{it}|T_t=0,D_i=0]\big)
 $$
 
-where ( T_t = \mathbf{1}{\text{after April 1992}} ), and
+where $T_t = \mathbf{1}{\text{after April 1992}}$, and
 
 $$
 D_i = 
@@ -590,11 +760,9 @@ D_i =
 \end{cases}
 $$
 
-Include more graphs here \
+Include more graphs here\
 \
 Card & Krueger (1994)}
-
-## Card & Krueger (1994)
 
 Conclusion,
 
