@@ -6,9 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Neil Lloyd">
 
-<title>Microeconometrics - 11&nbsp; EC338: Microeconometrics</title>
+<title>Microeconometrics - 11&nbsp; Difference-in-Differences - Part 1</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -77,7 +76,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./paralleltrends.html"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">EC338: Microeconometrics</span></a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./paralleltrends.html"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Difference-in-Differences - Part 1</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -171,7 +170,7 @@ ul.task-list li input[type="checkbox"] {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./paralleltrends.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">EC338: Microeconometrics</span></span></a>
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Difference-in-Differences - Part 1</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -201,34 +200,32 @@ ul.task-list li input[type="checkbox"] {
         <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">Table of contents</h2>
    
+  <ul>
+  <li><a href="#imbens-and-rubin-2015-p.-6" id="toc-imbens-and-rubin-2015-p.-6" class="nav-link active" data-scroll-target="#imbens-and-rubin-2015-p.-6"><span class="header-section-number">11.1</span> (Imbens and Rubin, 2015, p.&nbsp;6)</a></li>
+  <li><a href="#set-up-2-group-2-period" id="toc-set-up-2-group-2-period" class="nav-link" data-scroll-target="#set-up-2-group-2-period"><span class="header-section-number">11.2</span> Set-up: 2-group-2-period</a></li>
+  <li><a href="#exclusion-restrictions" id="toc-exclusion-restrictions" class="nav-link" data-scroll-target="#exclusion-restrictions"><span class="header-section-number">11.3</span> Exclusion Restrictions</a></li>
+  <li><a href="#dynamic-confounding-factors" id="toc-dynamic-confounding-factors" class="nav-link" data-scroll-target="#dynamic-confounding-factors"><span class="header-section-number">11.4</span> Dynamic Confounding Factors</a></li>
+  <li><a href="#mapping-to-linear-model" id="toc-mapping-to-linear-model" class="nav-link" data-scroll-target="#mapping-to-linear-model"><span class="header-section-number">11.5</span> Mapping to Linear Model</a></li>
+  <li><a href="#graphical-example" id="toc-graphical-example" class="nav-link" data-scroll-target="#graphical-example"><span class="header-section-number">11.6</span> Graphical Example</a></li>
+  <li><a href="#did-and-cia" id="toc-did-and-cia" class="nav-link" data-scroll-target="#did-and-cia"><span class="header-section-number">11.7</span> DiD and CIA</a></li>
+  <li><a href="#selection" id="toc-selection" class="nav-link" data-scroll-target="#selection"><span class="header-section-number">11.8</span> Selection</a></li>
+  <li><a href="#difference-in-differences" id="toc-difference-in-differences" class="nav-link" data-scroll-target="#difference-in-differences"><span class="header-section-number">11.9</span> Difference-in-differences</a></li>
+  <li><a href="#did-in-practice" id="toc-did-in-practice" class="nav-link" data-scroll-target="#did-in-practice"><span class="header-section-number">11.10</span> DiD in Practice</a>
   <ul class="collapse">
-  <li><a href="#difference-in-differences---part-1" id="toc-difference-in-differences---part-1" class="nav-link active" data-scroll-target="#difference-in-differences---part-1"><span class="header-section-number">12</span> Difference-in-Differences - Part 1</a>
-  <ul class="collapse">
-  <li><a href="#set-up-2-group-2-period" id="toc-set-up-2-group-2-period" class="nav-link" data-scroll-target="#set-up-2-group-2-period"><span class="header-section-number">12.1</span> Set-up: 2-group-2-period</a></li>
-  <li><a href="#exclusion-restrictions" id="toc-exclusion-restrictions" class="nav-link" data-scroll-target="#exclusion-restrictions"><span class="header-section-number">12.2</span> Exclusion Restrictions</a></li>
-  <li><a href="#dynamic-confounding-factors" id="toc-dynamic-confounding-factors" class="nav-link" data-scroll-target="#dynamic-confounding-factors"><span class="header-section-number">12.3</span> Dynamic Confounding Factors</a></li>
-  <li><a href="#mapping-to-linear-model" id="toc-mapping-to-linear-model" class="nav-link" data-scroll-target="#mapping-to-linear-model"><span class="header-section-number">12.4</span> Mapping to Linear Model</a></li>
-  <li><a href="#graphical-example" id="toc-graphical-example" class="nav-link" data-scroll-target="#graphical-example"><span class="header-section-number">12.5</span> Graphical Example</a></li>
-  <li><a href="#did-and-cia" id="toc-did-and-cia" class="nav-link" data-scroll-target="#did-and-cia"><span class="header-section-number">12.6</span> DiD and CIA</a></li>
-  <li><a href="#selection" id="toc-selection" class="nav-link" data-scroll-target="#selection"><span class="header-section-number">12.7</span> Selection</a></li>
-  <li><a href="#selection-1" id="toc-selection-1" class="nav-link" data-scroll-target="#selection-1"><span class="header-section-number">12.8</span> Selection</a></li>
-  <li><a href="#difference-in-differences" id="toc-difference-in-differences" class="nav-link" data-scroll-target="#difference-in-differences"><span class="header-section-number">12.9</span> Difference-in-differences</a></li>
-  <li><a href="#did-in-practice" id="toc-did-in-practice" class="nav-link" data-scroll-target="#did-in-practice"><span class="header-section-number">12.10</span> DiD in Practice</a></li>
-  <li><a href="#group-assignment" id="toc-group-assignment" class="nav-link" data-scroll-target="#group-assignment"><span class="header-section-number">12.11</span> Group Assignment</a></li>
-  <li><a href="#group-fixed-effects" id="toc-group-fixed-effects" class="nav-link" data-scroll-target="#group-fixed-effects"><span class="header-section-number">12.12</span> Group Fixed Effects</a></li>
-  <li><a href="#group-fixed-effects-1" id="toc-group-fixed-effects-1" class="nav-link" data-scroll-target="#group-fixed-effects-1"><span class="header-section-number">12.13</span> Group Fixed Effects</a></li>
-  <li><a href="#example-uk-policy" id="toc-example-uk-policy" class="nav-link" data-scroll-target="#example-uk-policy"><span class="header-section-number">12.14</span> Example: UK Policy</a></li>
-  <li><a href="#unit-fixed-effects" id="toc-unit-fixed-effects" class="nav-link" data-scroll-target="#unit-fixed-effects"><span class="header-section-number">12.15</span> Unit Fixed Effects</a></li>
-  <li><a href="#adding-covariates" id="toc-adding-covariates" class="nav-link" data-scroll-target="#adding-covariates"><span class="header-section-number">12.16</span> Adding Covariates</a></li>
-  <li><a href="#adding-covariates-1" id="toc-adding-covariates-1" class="nav-link" data-scroll-target="#adding-covariates-1"><span class="header-section-number">12.17</span> Adding Covariates</a></li>
-  <li><a href="#did-in-practice---multiple-time-periods" id="toc-did-in-practice---multiple-time-periods" class="nav-link" data-scroll-target="#did-in-practice---multiple-time-periods"><span class="header-section-number">12.18</span> DiD in Practice - Multiple Time Periods</a></li>
-  <li><a href="#card-krueger-1994" id="toc-card-krueger-1994" class="nav-link" data-scroll-target="#card-krueger-1994"><span class="header-section-number">12.19</span> Card &amp; Krueger (1994)</a></li>
-  <li><a href="#card-krueger-1994-1" id="toc-card-krueger-1994-1" class="nav-link" data-scroll-target="#card-krueger-1994-1"><span class="header-section-number">12.20</span> Card &amp; Krueger (1994)</a></li>
-  <li><a href="#card-krueger-1994-2" id="toc-card-krueger-1994-2" class="nav-link" data-scroll-target="#card-krueger-1994-2"><span class="header-section-number">12.21</span> Card &amp; Krueger (1994)</a></li>
-  <li><a href="#legislative-change" id="toc-legislative-change" class="nav-link" data-scroll-target="#legislative-change"><span class="header-section-number">12.22</span> Legislative Change</a></li>
-  <li><a href="#research-design" id="toc-research-design" class="nav-link" data-scroll-target="#research-design"><span class="header-section-number">12.23</span> Research Design</a></li>
-  <li><a href="#card-krueger-1994-3" id="toc-card-krueger-1994-3" class="nav-link" data-scroll-target="#card-krueger-1994-3"><span class="header-section-number">12.24</span> Card &amp; Krueger (1994)</a></li>
+  <li><a href="#multi-group-2-period" id="toc-multi-group-2-period" class="nav-link" data-scroll-target="#multi-group-2-period"><span class="header-section-number">11.10.1</span> Multi-group-2-period</a></li>
   </ul></li>
+  <li><a href="#group-assignment" id="toc-group-assignment" class="nav-link" data-scroll-target="#group-assignment"><span class="header-section-number">11.11</span> Group Assignment</a></li>
+  <li><a href="#group-fixed-effects" id="toc-group-fixed-effects" class="nav-link" data-scroll-target="#group-fixed-effects"><span class="header-section-number">11.12</span> Group Fixed Effects</a></li>
+  <li><a href="#example-uk-policy" id="toc-example-uk-policy" class="nav-link" data-scroll-target="#example-uk-policy"><span class="header-section-number">11.13</span> Example: UK Policy</a></li>
+  <li><a href="#unit-fixed-effects" id="toc-unit-fixed-effects" class="nav-link" data-scroll-target="#unit-fixed-effects"><span class="header-section-number">11.14</span> Unit Fixed Effects</a></li>
+  <li><a href="#adding-covariates" id="toc-adding-covariates" class="nav-link" data-scroll-target="#adding-covariates"><span class="header-section-number">11.15</span> Adding Covariates</a></li>
+  <li><a href="#did-in-practice---multiple-time-periods" id="toc-did-in-practice---multiple-time-periods" class="nav-link" data-scroll-target="#did-in-practice---multiple-time-periods"><span class="header-section-number">11.16</span> DiD in Practice - Multiple Time Periods</a></li>
+  <li><a href="#card-krueger-1994" id="toc-card-krueger-1994" class="nav-link" data-scroll-target="#card-krueger-1994"><span class="header-section-number">11.17</span> Card &amp; Krueger (1994)</a>
+  <ul class="collapse">
+  <li><a href="#pre-1990s-literature" id="toc-pre-1990s-literature" class="nav-link" data-scroll-target="#pre-1990s-literature"><span class="header-section-number">11.17.1</span> Pre-1990’s Literature</a></li>
+  </ul></li>
+  <li><a href="#legislative-change" id="toc-legislative-change" class="nav-link" data-scroll-target="#legislative-change"><span class="header-section-number">11.18</span> Legislative Change</a></li>
+  <li><a href="#research-design" id="toc-research-design" class="nav-link" data-scroll-target="#research-design"><span class="header-section-number">11.19</span> Research Design</a></li>
   </ul>
 </nav>
     </div>
@@ -237,34 +234,14 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">EC338: Microeconometrics</span></h1>
-<p class="subtitle lead">Difference-in-Differences - Part 1</p>
+<h1 class="title"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Difference-in-Differences - Part 1</span></h1>
 </div>
 
 
-<div class="quarto-title-meta-author">
-  <div class="quarto-title-meta-heading">Author</div>
-  <div class="quarto-title-meta-heading">Affiliation</div>
-  
-    <div class="quarto-title-meta-contents">
-    <p class="author">Neil Lloyd </p>
-  </div>
-    <div class="quarto-title-meta-contents">
-        <p class="affiliation">
-            Department of Economics, University of Warwick
-          </p>
-      </div>
-    </div>
 
 <div class="quarto-title-meta">
 
-      
-    <div>
-    <div class="quarto-title-meta-heading">Published</div>
-    <div class="quarto-title-meta-contents">
-      <p class="date">Invalid Date</p>
-    </div>
-  </div>
+    
   
     
   </div>
@@ -272,27 +249,16 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<section id="difference-in-differences---part-1" class="level1" data-number="12">
-<h1 data-number="12"><span class="header-section-number">12</span> Difference-in-Differences - Part 1</h1>
 <p>Recall Lecture 1.2 <em>Causal Inference</em>,</p>
-<div class="callout callout-style-default callout-note no-icon callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-(Imbens and Rubin, 2015, p.&nbsp;6)
-</div>
-</div>
-<div class="callout-body-container callout-body">
+<section id="imbens-and-rubin-2015-p.-6" class="level2" data-number="11.1">
+<h2 data-number="11.1" class="anchored" data-anchor-id="imbens-and-rubin-2015-p.-6"><span class="header-section-number">11.1</span> (Imbens and Rubin, 2015, p.&nbsp;6)</h2>
 <ol type="1">
 <li>“First, the definition of the causal effect depends on the potential outcomes, but it does not depend on which outcome is actually observed.”</li>
 <li>“Second, the causal effect is the comparison of potential outcomes, for the same unit, at the same moment in time post-treatment. In particular, <strong>the causal effect is not defined in terms of comparisons of outcomes at different times.</strong><a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>”</li>
 </ol>
-</div>
-</div>
-<section id="set-up-2-group-2-period" class="level2" data-number="12.1">
-<h2 data-number="12.1" class="anchored" data-anchor-id="set-up-2-group-2-period"><span class="header-section-number">12.1</span> Set-up: 2-group-2-period</h2>
+</section>
+<section id="set-up-2-group-2-period" class="level2" data-number="11.2">
+<h2 data-number="11.2" class="anchored" data-anchor-id="set-up-2-group-2-period"><span class="header-section-number">11.2</span> Set-up: 2-group-2-period</h2>
 <p>The simple 2-group-2-period difference-in-differences set-up has the following characteristics,</p>
 <ul>
 <li>Two periods of data: either panel (longitudinal) or repeated cross-section</li>
@@ -300,8 +266,6 @@ ul.task-list li input[type="checkbox"] {
 <li>Treatment is absorbing: ‘always-on’<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a></li>
 <li>Typically, the treatment takes place in the second period.</li>
 </ul>
-<section id="set-up" class="level3" data-number="12.1.1">
-<h3 data-number="12.1.1" class="anchored" data-anchor-id="set-up"><span class="header-section-number">12.1.1</span> Set-up</h3>
 <p>Assuming additive treatment effects,</p>
 <p><span class="math display">\[
 Y_{it} = \begin{cases}
@@ -329,9 +293,8 @@ Y_{it}(1)-Y_{it}(0) \lesseqqgtr Y_{it'}(1)-Y_{it'}(0)
 </div>
 </div>
 </section>
-</section>
-<section id="exclusion-restrictions" class="level2" data-number="12.2">
-<h2 data-number="12.2" class="anchored" data-anchor-id="exclusion-restrictions"><span class="header-section-number">12.2</span> Exclusion Restrictions</h2>
+<section id="exclusion-restrictions" class="level2" data-number="11.3">
+<h2 data-number="11.3" class="anchored" data-anchor-id="exclusion-restrictions"><span class="header-section-number">11.3</span> Exclusion Restrictions</h2>
 <p>The above set-up implies the following exclusion restrictions,<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a></p>
 <div class="callout callout-style-default callout-note no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -379,8 +342,8 @@ Exclusion restriction: No switching
 </div>
 </div>
 </section>
-<section id="dynamic-confounding-factors" class="level2" data-number="12.3">
-<h2 data-number="12.3" class="anchored" data-anchor-id="dynamic-confounding-factors"><span class="header-section-number">12.3</span> Dynamic Confounding Factors</h2>
+<section id="dynamic-confounding-factors" class="level2" data-number="11.4">
+<h2 data-number="11.4" class="anchored" data-anchor-id="dynamic-confounding-factors"><span class="header-section-number">11.4</span> Dynamic Confounding Factors</h2>
 <p>Let us consider the first (dynamic) difference with just <strong>two periods of data</strong>,</p>
 <p><span class="math display">\[
 \begin{aligned}
@@ -439,8 +402,8 @@ Parallel Trends Assumption (General version)
 \]</span></p>
 <p>where the two penultimate lines cancel one another under parallel trends. Hence, the name <strong>difference-in-differences</strong>.</p>
 </section>
-<section id="mapping-to-linear-model" class="level2" data-number="12.4">
-<h2 data-number="12.4" class="anchored" data-anchor-id="mapping-to-linear-model"><span class="header-section-number">12.4</span> Mapping to Linear Model</h2>
+<section id="mapping-to-linear-model" class="level2" data-number="11.5">
+<h2 data-number="11.5" class="anchored" data-anchor-id="mapping-to-linear-model"><span class="header-section-number">11.5</span> Mapping to Linear Model</h2>
 <p>Let’s consider the CEF of ( <span class="math inline">\(Y_{it}^{obs}\)</span> ),</p>
 <p><span class="math display">\[
 E[Y_{it}|D_i,T_t]
@@ -530,14 +493,21 @@ E[Y_{it}(0)|D_i,T_t] = \alpha + \psi D_i + \delta T_t
 \underbrace{\textcolor{red}{E[Y_{it}(0)|D_i=1,T_t=1]}}_{\alpha + \psi + \delta} - \underbrace{E[Y_{it}(0)|D_i=1,T_t=0]}_{\alpha + \psi} = \delta
 \]</span></p>
 </section>
-<section id="graphical-example" class="level2" data-number="12.5">
-<h2 data-number="12.5" class="anchored" data-anchor-id="graphical-example"><span class="header-section-number">12.5</span> Graphical Example</h2>
-<div style="border: 2px solid black; padding: 10px;">
-<pre><code>&lt;img src="Images/did_equ1.pdf" alt="Graphical Example 1" style="width: 100%;"&gt;</code></pre>
+<section id="graphical-example" class="level2" data-number="11.6">
+<h2 data-number="11.6" class="anchored" data-anchor-id="graphical-example"><span class="header-section-number">11.6</span> Graphical Example</h2>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-graph1" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="paralleltrends_files/figure-html/fig-graph1-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption class="figure-caption">Figure&nbsp;11.1: Difference-in-Differences Plot 1</figcaption>
+</figure>
+</div>
+</div>
 </div>
 </section>
-<section id="did-and-cia" class="level2" data-number="12.6">
-<h2 data-number="12.6" class="anchored" data-anchor-id="did-and-cia"><span class="header-section-number">12.6</span> DiD and CIA</h2>
+<section id="did-and-cia" class="level2" data-number="11.7">
+<h2 data-number="11.7" class="anchored" data-anchor-id="did-and-cia"><span class="header-section-number">11.7</span> DiD and CIA</h2>
 <p>Do we need the CIA/Unconfoundedness assumption?<br>
 <strong>NO</strong>, Why not?</p>
 <ul>
@@ -549,8 +519,8 @@ E[Y_i(0)|D_i=1,T_i=0] - E[Y_i(0)|D_i=0,T_i=0] = \psi
 <li><p>Key assumption: selection doesn’t change over time; i.e., <em>parallel/common trends</em>.</p></li>
 </ul>
 </section>
-<section id="selection" class="level2" data-number="12.7">
-<h2 data-number="12.7" class="anchored" data-anchor-id="selection"><span class="header-section-number">12.7</span> Selection</h2>
+<section id="selection" class="level2" data-number="11.8">
+<h2 data-number="11.8" class="anchored" data-anchor-id="selection"><span class="header-section-number">11.8</span> Selection</h2>
 <p>Let us consider the first (cross-sectional) difference,</p>
 <p><span class="math display">\[
 \begin{aligned}
@@ -565,9 +535,6 @@ E[Y_i(0)|D_i=1,T_i=0] - E[Y_i(0)|D_i=0,T_i=0] = \psi
 E[Y_{it}(0)|D_i=1,T_t=0] - E[Y_{it}(0)|D_i=0,T_t=0]
 \]</span></p>
 <p>from the first period.</p>
-</section>
-<section id="selection-1" class="level2" data-number="12.8">
-<h2 data-number="12.8" class="anchored" data-anchor-id="selection-1"><span class="header-section-number">12.8</span> Selection</h2>
 <p>With the parallel trends assumption,</p>
 <p>Selection is given by</p>
 <p><span class="math display">\[
@@ -582,8 +549,8 @@ E[Y_{it}(0)|D_i=1,T_t=0] - E[Y_{it}(0)|D_i=0,T_t=0]
 <li>Selection term is identified in pre-period.<a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a></li>
 </ul>
 </section>
-<section id="difference-in-differences" class="level2" data-number="12.9">
-<h2 data-number="12.9" class="anchored" data-anchor-id="difference-in-differences"><span class="header-section-number">12.9</span> Difference-in-differences</h2>
+<section id="difference-in-differences" class="level2" data-number="11.9">
+<h2 data-number="11.9" class="anchored" data-anchor-id="difference-in-differences"><span class="header-section-number">11.9</span> Difference-in-differences</h2>
 <p>Again we can identify the ATT as a <em>difference-in-differences</em>,</p>
 <p><span class="math display">\[
 \begin{aligned}
@@ -601,10 +568,10 @@ E[Y_{it}(0)|D_i=1,T_t=0] - E[Y_{it}(0)|D_i=0,T_t=0]
 <li>We do not need unconfoundedness to rule out selection.</li>
 </ul>
 </section>
-<section id="did-in-practice" class="level2" data-number="12.10">
-<h2 data-number="12.10" class="anchored" data-anchor-id="did-in-practice"><span class="header-section-number">12.10</span> DiD in Practice</h2>
-<section id="multi-group-2-period" class="level3" data-number="12.10.1">
-<h3 data-number="12.10.1" class="anchored" data-anchor-id="multi-group-2-period"><span class="header-section-number">12.10.1</span> Multi-group-2-period</h3>
+<section id="did-in-practice" class="level2" data-number="11.10">
+<h2 data-number="11.10" class="anchored" data-anchor-id="did-in-practice"><span class="header-section-number">11.10</span> DiD in Practice</h2>
+<section id="multi-group-2-period" class="level3" data-number="11.10.1">
+<h3 data-number="11.10.1" class="anchored" data-anchor-id="multi-group-2-period"><span class="header-section-number">11.10.1</span> Multi-group-2-period</h3>
 <p><strong>In a ‘natural’ experiment setting</strong>, treatment is almost always assigned at a group-level setting: geographical, demographic, etc.</p>
 <p>Let ( <span class="math inline">\(Y_{itc}\)</span> ) be the outcome of unit ( <span class="math inline">\(i\)</span> ) in period ( <span class="math inline">\(t\)</span>), member of assignment-group ( <span class="math inline">\(c(i)\)</span> ),</p>
 <p><span class="math display">\[
@@ -621,8 +588,8 @@ D_i = D_{c(i)} = \mathbf{1}\{c(i) \leq c_0\}
 \]</span></p>
 </section>
 </section>
-<section id="group-assignment" class="level2" data-number="12.11">
-<h2 data-number="12.11" class="anchored" data-anchor-id="group-assignment"><span class="header-section-number">12.11</span> Group Assignment</h2>
+<section id="group-assignment" class="level2" data-number="11.11">
+<h2 data-number="11.11" class="anchored" data-anchor-id="group-assignment"><span class="header-section-number">11.11</span> Group Assignment</h2>
 <p>The relevant estimating equation is then,</p>
 <p><span class="math display">\[
 Y^{obs}_{itc} = \alpha + \psi D_{c} + \delta T_t + \beta D_{c} \cdot T_t + \varepsilon_{itc}
@@ -631,8 +598,8 @@ Y^{obs}_{itc} = \alpha + \psi D_{c} + \delta T_t + \beta D_{c} \cdot T_t + \vare
 <li>A model that can be estimated using repeated cross-sections or panel/longitudinal data.<a href="#fn7" class="footnote-ref" id="fnref7" role="doc-noteref"><sup>7</sup></a></li>
 </ul>
 </section>
-<section id="group-fixed-effects" class="level2" data-number="12.12">
-<h2 data-number="12.12" class="anchored" data-anchor-id="group-fixed-effects"><span class="header-section-number">12.12</span> Group Fixed Effects</h2>
+<section id="group-fixed-effects" class="level2" data-number="11.12">
+<h2 data-number="11.12" class="anchored" data-anchor-id="group-fixed-effects"><span class="header-section-number">11.12</span> Group Fixed Effects</h2>
 <p>Fixed effects notation is used extensively in Microeconometrics.</p>
 <p>Given a set of assignment-groups ( <span class="math inline">\(c = 1, 2, 3, \ldots, C\)</span>), assignment-group FE’s can be written as,</p>
 <p><span class="math display">\[
@@ -649,9 +616,6 @@ Y^{obs}_{itc} = \alpha + \psi D_{c} + \delta T_t + \beta D_{c} \cdot T_t + \vare
 E[Y_{it}(0)|D_c,T_t] = \psi_c + \delta T_t
 \]</span></p>
 </div>
-</section>
-<section id="group-fixed-effects-1" class="level2" data-number="12.13">
-<h2 data-number="12.13" class="anchored" data-anchor-id="group-fixed-effects-1"><span class="header-section-number">12.13</span> Group Fixed Effects</h2>
 <p>Consider the two estimating equations,</p>
 <p><span class="math display">\[
 Y^{obs}_{itc} = \alpha + \psi D_c + \delta T_t + \beta_1 D_c \cdot T_t + \varepsilon_{itc}
@@ -667,8 +631,8 @@ Y^{obs}_{itc} = \psi_c + \delta T_t + \beta_2 D_c \cdot T_t + \epsilon_{itc}
 </ul>
 <p>With group FE’s we <em>typically</em> explain more of the variation in ( Y(0) ).</p>
 </section>
-<section id="example-uk-policy" class="level2" data-number="12.14">
-<h2 data-number="12.14" class="anchored" data-anchor-id="example-uk-policy"><span class="header-section-number">12.14</span> Example: UK Policy</h2>
+<section id="example-uk-policy" class="level2" data-number="11.13">
+<h2 data-number="11.13" class="anchored" data-anchor-id="example-uk-policy"><span class="header-section-number">11.13</span> Example: UK Policy</h2>
 <p>Suppose Scotland and Wales introduce a policy to restrict access to fast food in year ( t_0 ) and you have individual-level measures of BMI from across the UK.</p>
 <ul>
 <li><p>( c(i) )</p></li>
@@ -683,8 +647,8 @@ Y^{obs}_{itc} = \underbrace{\sum_{j=1}^{4} \psi_j \mathbf{1}\{c = j\}}_{\psi_c} 
 \]</span></p></li>
 </ul>
 </section>
-<section id="unit-fixed-effects" class="level2" data-number="12.15">
-<h2 data-number="12.15" class="anchored" data-anchor-id="unit-fixed-effects"><span class="header-section-number">12.15</span> Unit Fixed Effects</h2>
+<section id="unit-fixed-effects" class="level2" data-number="11.14">
+<h2 data-number="11.14" class="anchored" data-anchor-id="unit-fixed-effects"><span class="header-section-number">11.14</span> Unit Fixed Effects</h2>
 <p>Suppose, you have <strong>panel/longitudinal data</strong>, then the specification,</p>
 <p><span class="math display">\[
 Y^{obs}_{itc} = \alpha_i + \delta T_t + \beta_3 D_c\cdot T_t + \upsilon_{itc}
@@ -698,8 +662,8 @@ Y^{obs}_{itc} = \alpha_i + \delta T_t + \beta_3 D_c\cdot T_t + \upsilon_{itc}
 <li>Higher dimensions of FEs <em>tend to</em> yield lower variance estimators.</li>
 </ul>
 </section>
-<section id="adding-covariates" class="level2" data-number="12.16">
-<h2 data-number="12.16" class="anchored" data-anchor-id="adding-covariates"><span class="header-section-number">12.16</span> Adding Covariates</h2>
+<section id="adding-covariates" class="level2" data-number="11.15">
+<h2 data-number="11.15" class="anchored" data-anchor-id="adding-covariates"><span class="header-section-number">11.15</span> Adding Covariates</h2>
 <p>There are two reasons to add <strong>GOOD</strong> covariates to the model:</p>
 <ol type="1">
 <li>Improve the precision of estimates and increase power.</li>
@@ -717,9 +681,6 @@ Y^{obs}_{itc} = \alpha_i + \delta T_t + \beta_3 D_c\cdot T_t + \upsilon_{itc}
 <p><span class="math display">\[
 E[Y_{it}(0)|D_i,T_t,X_{it}] = \alpha + \psi D_i + \delta T_t + X_{it}'\gamma
 \]</span></p>
-</section>
-<section id="adding-covariates-1" class="level2" data-number="12.17">
-<h2 data-number="12.17" class="anchored" data-anchor-id="adding-covariates-1"><span class="header-section-number">12.17</span> Adding Covariates</h2>
 <ul>
 <li>A <em>weaker</em> assumption.</li>
 <li>In a balanced panel, time-invariant differences across groups are captured by treatment-group dummy (or assignment-group/unit FEs).</li>
@@ -731,8 +692,8 @@ E[Y_{it}(0)|D_i,T_t,X_{it}] = \alpha + \psi D_i + \delta T_t + X_{it}'\gamma
 <li>Argument for matching on covariates in pre-period. For example, PSM-DID.</li>
 </ul>
 </section>
-<section id="did-in-practice---multiple-time-periods" class="level2" data-number="12.18">
-<h2 data-number="12.18" class="anchored" data-anchor-id="did-in-practice---multiple-time-periods"><span class="header-section-number">12.18</span> DiD in Practice - Multiple Time Periods</h2>
+<section id="did-in-practice---multiple-time-periods" class="level2" data-number="11.16">
+<h2 data-number="11.16" class="anchored" data-anchor-id="did-in-practice---multiple-time-periods"><span class="header-section-number">11.16</span> DiD in Practice - Multiple Time Periods</h2>
 <p>Suppose you had more than 2 periods of data, you might then choose to add time-fixed effects,</p>
 <p><span class="math display">\[
 Y^{obs}_{itc} = \psi_c + \delta_t + \beta_3 D_c\cdot T_t + \upsilon_{itc}
@@ -743,20 +704,17 @@ Y^{obs}_{itc} = \psi_c + \delta_t + \beta_3 D_c\cdot T_t + \upsilon_{itc}
 </ul>
 <p><strong>Next lecture.</strong></p>
 </section>
-<section id="card-krueger-1994" class="level2" data-number="12.19">
-<h2 data-number="12.19" class="anchored" data-anchor-id="card-krueger-1994"><span class="header-section-number">12.19</span> Card &amp; Krueger (1994)</h2>
+<section id="card-krueger-1994" class="level2" data-number="11.17">
+<h2 data-number="11.17" class="anchored" data-anchor-id="card-krueger-1994"><span class="header-section-number">11.17</span> Card &amp; Krueger (1994)</h2>
 <p>This paper<a href="#fn9" class="footnote-ref" id="fnref9" role="doc-noteref"><sup>9</sup></a>,</p>
 <ul>
-<li>arguably, established difference-in-difference as the central tool in Applied Microeconomics research;</li>
-<li>turned the literature on the minimum wage upside down;</li>
-<li>won David Card the Nobel Prize in Economics;</li>
-<li>and started the closest thing to a fight in academic Economics.<a href="#fn10" class="footnote-ref" id="fnref10" role="doc-noteref"><sup>10</sup></a></li>
+<li><p>arguably, established difference-in-difference as the central tool in Applied Microeconomics research;</p></li>
+<li><p>turned the literature on the minimum wage upside down;</p></li>
+<li><p>won David Card the Nobel Prize in Economics;</p></li>
+<li><p>and started the closest thing to a fight in academic Economics.<a href="#fn10" class="footnote-ref" id="fnref10" role="doc-noteref"><sup>10</sup></a></p></li>
 </ul>
-</section>
-<section id="card-krueger-1994-1" class="level2" data-number="12.20">
-<h2 data-number="12.20" class="anchored" data-anchor-id="card-krueger-1994-1"><span class="header-section-number">12.20</span> Card &amp; Krueger (1994)</h2>
-<section id="pre-1990s-literature" class="level3" data-number="12.20.1">
-<h3 data-number="12.20.1" class="anchored" data-anchor-id="pre-1990s-literature"><span class="header-section-number">12.20.1</span> Pre-1990’s Literature</h3>
+<section id="pre-1990s-literature" class="level3" data-number="11.17.1">
+<h3 data-number="11.17.1" class="anchored" data-anchor-id="pre-1990s-literature"><span class="header-section-number">11.17.1</span> Pre-1990’s Literature</h3>
 <ul>
 <li>Most of the literature supported the idea that higher minimum wages reduce employment.</li>
 <li>Wellington (1991) &amp; Brown et al.&nbsp;(1983): A 10% increase in minimum wage reduces teen employment by 1%.</li>
@@ -765,10 +723,6 @@ Y^{obs}_{itc} = \psi_c + \delta_t + \beta_3 D_c\cdot T_t + \upsilon_{itc}
 <blockquote class="blockquote">
 <p>“Isolating the impacts of labor market institutions is inherently difficult… Identification issues essentially result from the endogeneity of labor market institutions and the interactions between them… makes it difficult to attribute variations in outcomes to the institutions themselves, rather than other features of the societies in which they exist.” - Baetcherman (2012)</p>
 </blockquote>
-</section>
-</section>
-<section id="card-krueger-1994-2" class="level2" data-number="12.21">
-<h2 data-number="12.21" class="anchored" data-anchor-id="card-krueger-1994-2"><span class="header-section-number">12.21</span> Card &amp; Krueger (1994)</h2>
 <p><strong>Card &amp; Krueger (AER, 1994)</strong> is a seminal paper in this literature<a href="#fn11" class="footnote-ref" id="fnref11" role="doc-noteref"><sup>11</sup></a>,</p>
 <ul>
 <li>Increase in New Jersey minimum wage from $4.25 to $5.05, April 1992.</li>
@@ -778,10 +732,24 @@ Y^{obs}_{itc} = \psi_c + \delta_t + \beta_3 D_c\cdot T_t + \upsilon_{itc}
 </ul>
 <p>This paper highlights the fact that you can make strong conclusions from what is effectively a very simple research design.</p>
 <p>Include graph for {Card &amp; Krueger (1994)}</p>
-<p>Include more graphs Card &amp; Krueger (1994)</p>
+<p>NOTE: We could generate the same graph you copied from CK paper by using R and it looks more neat. Please find both and choose which one you like the most:<br>
+</p>
+<div class="cell">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="paralleltrends_files/figure-html/Replicated Graph-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption class="figure-caption">Replicating CK</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Note: the graph is not quite right but I will fix it<br>
+</p>
 </section>
-<section id="legislative-change" class="level2" data-number="12.22">
-<h2 data-number="12.22" class="anchored" data-anchor-id="legislative-change"><span class="header-section-number">12.22</span> Legislative Change</h2>
+</section>
+<section id="legislative-change" class="level2" data-number="11.18">
+<h2 data-number="11.18" class="anchored" data-anchor-id="legislative-change"><span class="header-section-number">11.18</span> Legislative Change</h2>
 <p>This minimum wage change <strong>was not unexpected</strong>:</p>
 <ul>
 <li>Federal minimum wage is the floor to all state level minimum wages.</li>
@@ -792,9 +760,9 @@ Y^{obs}_{itc} = \psi_c + \delta_t + \beta_3 D_c\cdot T_t + \upsilon_{itc}
 </ul>
 <p>This last-minute appeal and close election do create some uncertainty.</p>
 </section>
-<section id="research-design" class="level2" data-number="12.23">
-<h2 data-number="12.23" class="anchored" data-anchor-id="research-design"><span class="header-section-number">12.23</span> Research Design</h2>
-<p>CK (1994) implement a basic difference-in-difference research design</p>
+<section id="research-design" class="level2" data-number="11.19">
+<h2 data-number="11.19" class="anchored" data-anchor-id="research-design"><span class="header-section-number">11.19</span> Research Design</h2>
+<p>Card &amp; Krueger (1994) implement a basic difference-in-difference research design</p>
 <p><span class="math display">\[
 \tau_{ATT} = \big(E[Y_{it}|T_t=1,D_i=1] - E[Y_{it}|T_t=0,D_i=1]\big) - \big(E[Y_{it}|T_t=1,D_i=0] - E[Y_{it}|T_t=0,D_i=0]\big)
 \]</span></p>
@@ -809,9 +777,6 @@ D_i =
 <p>Include more graphs here<br>
 <br>
 Card &amp; Krueger (1994)}</p>
-</section>
-<section id="card-krueger-1994-3" class="level2" data-number="12.24">
-<h2 data-number="12.24" class="anchored" data-anchor-id="card-krueger-1994-3"><span class="header-section-number">12.24</span> Card &amp; Krueger (1994)</h2>
 <p>Conclusion,</p>
 <ul>
 <li>No evidence of a negative effect, as competitive models would predict.</li>
@@ -822,7 +787,6 @@ Card &amp; Krueger (1994)}</p>
 </ul>
 
 
-</section>
 </section>
 <section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
 <hr>
