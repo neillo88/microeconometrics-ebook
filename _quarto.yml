@@ -10,17 +10,24 @@ book:
     - index.qmd
     - intro.qmd
     - cef.qmd
-    - regression.qmd 
-    - instruments.qmd
-    - panel.qmd
+    - part: "Parametric Models"
+      chapters:
+        - regression.qmd 
+        - instruments.qmd
+        - panel.qmd
     - causality.qmd
-    - regular.qmd
-    - irregular.qmd
-    - unconfoundedness.qmd
+    - part: "Controlled Experiments"
+      chapters:
+        - regular.qmd
+        - irregular.qmd
+        - unconfoundedness.qmd
     - observational.qmd
-    - paralleltrends.qmd
-    - discontinuities.qmd
+    - part: "Natural Experiments"
+      chapters:
+        - paralleltrends.qmd
+        - discontinuities.qmd
     - discussion.qmd
+  appendices:
     - references.qmd
     
 
