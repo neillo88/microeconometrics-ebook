@@ -16,7 +16,6 @@ book:
     - causality.qmd
     - regular.qmd
     - irregular.qmd
-    - stratified.qmd
     - unconfoundedness.qmd
     - observational.qmd
     - paralleltrends.qmd
