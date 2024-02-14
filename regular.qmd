@@ -194,7 +194,7 @@ Recall, \par
 -   Randomization **does not** allow us to learn about $f_{Y(1),Y(0)}$ or $f_{Y(1)-Y(0)}$ 
 
 Example from Banerjee *et al.* (2015, p. 38) [^2]
-![](images/Banerjee_p38.png) 
+![](images/Banerjee_p38.png)
 
 [^2]:Banerjee, A., Duflo, E., Glennerster, R. & Kinnan, C. 2015, "The Miracle of Microfinance? Evidence from a Randomized Evaluation", American economic journal. Applied economics, vol. 7, no. 1, pp. 22-53.
 ### Randomization in practice
@@ -391,27 +391,38 @@ $$
 
 
 #### Notes on sample variance (in R)
-
 ```{r}
-y0 <- c(1,3,2,4)
-y1 <- c(3,1,3,3)
-tau <- y1-y0
-St <- c(sd(y1)^2,sd(y0)^2,sd(tau)^2)
-print(paste("Finite Sample Variance Tau-hat:", St[1]/2+St[2]/2-St[3]/4))
+library(stargazer)
 ```
 
-Code out all the possible realizations of W (unfinished)
+```{r}
+data1 <-data.frame(y0 = c(1,3,2,4),
+y1 = c(3,1,3,3)
+)
+data1$tau <-  data1$y1-data1$y0
+data1$St <- c(sd(data1$y1)^2,sd(data1$y0)^2,sd(data1$tau)^2,NA)
+print(paste("Finite Sample Variance Tau-hat:", data1$St[1]/2+data1$St[2]/2-data1$St[3]/4))
+```
+
+Code out all the possible realizations of W
 
 ```{r}
-#m = 1
-#j = 0
-#for (i in 1:3){
-#  j = i + 1
-#  while (j<=4){
-#    names <- paste0("w", 1:4)
-#     <- ifelse(nrow(i)|nrow(j),1,0)
-#    m = m + 1
-#    j = j + 1
-#  }
-#}
+m <- 1
+for (i in 1:3){
+  j <- i + 1
+  while (j <= 4) {
+    data1[paste0("w", m)] <- as.numeric((1:nrow(data1) == i) | (1:nrow(data1) == j))
+    m <- m + 1
+    j <- j + 1
+  }
+}
+
+tauhat <- matrix(NA, nrow = 6, ncol = 1)
+
+for (i in 1:6) {
+  data1[paste0("yobs", i)] <- data1$y1 * data1[paste0("w", i)] + data1$y0 * (1 - data1[paste0("w", i)])
+  model <- lm(paste0("yobs", i, " ~ ", "w", i), data = data1)
+  tauhat[i, 1] <- coef(model)[paste0("w", i)]
+}
+print(paste0("Finite Sample Variance Tau-hat is ", sd(tauhat)^2*5/6))
 ```
