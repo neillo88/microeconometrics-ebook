@@ -1,3 +1,141 @@
 ---
 title: "StaggeredDiD"
 ---
+
+# Dynamic Treatment Effects
+
+## Set-up
+
+Today's discussion will concern,
+
+::: {.alert .alert-danger}
+Once treatment is applied it remains fixed.
+:::
+
+-   If treatment is temporary, the model will capture long-term effects.
+
+## Dynamic TE's
+
+Suppose that the treatment effect is indeed dynamic:
+
+::: {.callout-note icon="false"}
+For all ( t=0,1,2,...,T )
+
+$$
+Y_{it}(1)-Y_{it}(0) = \tau_{it}
+$$
+:::
+
+It helps to normalize time to **event-time**,
+
+$$
+s=t-S_{i}
+$$
+
+where ( S_i ) is the time period in which unit ( i ) first receives the treatment.
+
+-   ( S_i ) could be determined at the assignment-group level,
+
+$$
+S_i=S_c
+$$
+
+## Dynamic TE's (Continued)
+
+Given time periods ( t=0,1,...T ), ( s=-T,..,-1,0,1,...,T ). The dynamic treatment effect is specified as,
+
+::: {.callout-note icon="false"}
+$$
+Y_{its}(1)-Y_{its}(0) = \tau_{is}
+$$
+:::
+
+-   The relevant unit of time is event-time, not calendar time.[^staggereddid-1]
+-   In a 2-group-multiple-period setting ( s ) does not vary independently of ( t ) for the treated units.
+-   This set-up becomes more useful when describing multi-cohort settings.
+
+[^staggereddid-1]: This rules out dynamic TEs which change over (calendar) time.
+
+## Dynamic TE's
+
+::: {.callout-note icon="false"}
+**Treatment Cohort**\
+A group of individuals treated at the same time, ( S_i ).
+:::
+
+-   In a staggered-DiD model or event-study, there are multiple cohorts.
+-   For *never treated* groups, $$
+    S_i = \infty
+    $$
+-   A never treated and not-yet/future treated group are NOT the same.
+
+## 2-group-2-period
+
+Recall from lecture 4.1,
+
+$$
+Y^{obs}_{it} = \alpha + \psi D_i + \delta T_t + \beta D_i \cdot T_t + \varepsilon_{it}
+$$
+
+Using this new notation, we can rewrite this equation as,
+
+$$
+Y^{obs}_{it} = \psi D_i + \delta_t + \beta \mathbf{1}\{s \geq 0\} + \varepsilon_{it}
+$$
+
+-   Time FEs are the same as a post-treatment dummy with 2 periods.
+-   For the treated group, ( S_i = t_0 ).
+-   For the control group, ( S_i = \infty ).
+-   ( D_i \cdot T_t = \mathbf{1}{t \geq S_i} = \mathbf{1}{s \geq 0} ); which implies, $$
+    \Rightarrow \mathbf{1}\{s = t - \infty \geq 0\} = 0 \quad \text{**always.**}
+    $$
+
+## Multi-group-2-period
+
+Recall from lecture 4.1,
+
+$$
+Y^{obs}_{itc} = \psi_c + \delta T_t + \beta D_c \cdot T_t + \varepsilon_{itc}
+$$
+
+Using this new notation, we can rewrite this equation as,
+
+$$
+Y^{obs}_{itc} = \psi_c + \delta_t + \beta \mathbf{1}\{s \geq 0\} + \varepsilon_{itc}
+$$
+
+-   For the treated groups (( c \leq c_0 )), ( S_c = t_0 ).
+-   For the control groups (( c \> c_0 )), ( S_c = \infty ).
+-   ( D_c \cdot T_t = \mathbf{1}{t \geq S_c} = \mathbf{1}{s \geq 0} )
+-   In both these applications, there is a one-to-one mapping from event to calendar time.
+
+# Multi-Period DiD
+
+## Multi-Period DiD
+
+We can define a more flexible version of the parallel trends,[^staggereddid-2]
+
+[^staggereddid-2]: For example, see discussion on Eissa & Liebman (1996).
+
+::: {.callout-note icon="false"}
+**Parallel Trends Assumption (Parametric version)**\
+$$
+E[Y_{it}(0)|D_i, t] = \psi D_i + \delta_t
+$$
+:::
+
+or,
+
+::: {.callout-note icon="false"}
+**Parallel Trends Assumption (Parametric version)**\
+$$
+E[Y_{itc}(0)|c, t] = \psi_c + \delta_t
+$$ with group FEs.
+:::
+
+::: {.callout-note icon="false"}
+**Parallel Trends Assumption (Parametric version)**\
+$$
+E[Y_{it}(0)|D_i, t] = \alpha_i + \delta_t
+$$ with unit FEs.
+:::
