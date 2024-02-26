@@ -11,12 +11,16 @@ book:
     - intro.qmd
     - cef.qmd
     - regression.qmd 
-    - instruments.qmd
-    - panel.qmd
-    - causality.qmd
-    - regular.qmd
-    - irregular.qmd
-    - unconfoundedness.qmd
+    - part: "IV"
+        chapters:
+        - instruments.qmd
+        - panel.qmd
+        - causality.qmd
+    - part: "Experimental Design"
+        chapters:
+        - regular.qmd
+        - irregular.qmd
+        - unconfoundedness.qmd
     - observational.qmd
     - paralleltrends.qmd
     - discontinuities.qmd
