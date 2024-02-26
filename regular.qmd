@@ -194,9 +194,10 @@ Recall, \par
 -   Randomization **does not** allow us to learn about $f_{Y(1),Y(0)}$ or $f_{Y(1)-Y(0)}$ 
 
 Example from Banerjee *et al.* (2015, p. 38) [^2]
-![](images/Banerjee_p38.png)
+![](Images/Banerjee_p38.png)
 
 [^2]:Banerjee, A., Duflo, E., Glennerster, R. & Kinnan, C. 2015, "The Miracle of Microfinance? Evidence from a Randomized Evaluation", American economic journal. Applied economics, vol. 7, no. 1, pp. 22-53.
+
 ### Randomization in practice
 
 In Applied Economics, policy evaluations that embrace randomization are commonly referred to as **Randomized Control Trials (RCTs)**. \par
@@ -330,6 +331,30 @@ Is an **unbiased** estimator for $\tau^{fs}_{ATE}$.
 
 <div style="text-align: center;">PROOF [ON BOARD]</div>
 
+::: {.callout-important collapse="true" icon="false"}
+## Proofs
+$$
+\begin{aligned}
+\hat{\tau} = &\bar{Y}^{obs}_t-\bar{Y}^{obs}_c \\
+=&\frac{1}{N_t}\sum_{i:w_i=1}y_i-\frac{1}{N_c}\sum_{i:w_0=1}y_i \\
+=&\frac{1}{N_t}\sum_{i=1}w_iy_i-\frac{1}{N_c}\sum_{i=0}(1-w_i)y_i \\
+=&\frac{1}{N}[\sum_{i=1}^{N}\frac{w_iy_i}{N_t/N}-\sum_{i=0}^{N}\frac{(1-w_i)y_i}{N_c/N}]
+\end{aligned}
+$$
+Neyman Test statisitc -> $\mathbf{E}_w[\hat{\tau}|y(1),y(0)]=\tau_{ATE}^{fs}$
+
+where $\mathbf[E]_w$ means taking expectation with respect to $w$
+
+$$
+\begin{aligned}
+\mathbf{E}_w[\hat{\tau}|y(1),y(0)] = &\frac{1}{N}[\sum_{i=1}^{N}\frac{\mathbf{E}_w[w_i]y_i}{N_t/N}-\sum_{i=0}^{N}\frac{\mathbf{E}_w[1-w_i]y_i}{N_c/N}] \\
+ where &\space \mathbf{E}_w[w_i]=\frac{N_t}{N} \space\space\space\space\space \mathbf{E}_w[1-w_i]=\frac{N_c}{N} \\
+=&\frac{1}{N}[\sum_{i=1}^{N}\frac{(N_t/N)y_i}{N_t/N}-\sum_{i=0}^{N}\frac{(N_c/N)y_i}{N_c/N}] \\
+=&\frac{1}{N}\sum_{i=1}^{N}(y_i(1)-y_i(0))
+\end{aligned}
+$$
+:::
+
 ### Sampling Variance of Neyman estimator
 
 Remember, with a fixed sample, the source of variation is $W$.
@@ -388,6 +413,165 @@ $$
 		s^2_t = \frac{1}{N_t-1}\sum_{i:W_i=1}^N (Y_i^{obs}-\bar{Y}^{obs}_t)^2
 $$	
 ** Note, this is different to the T-test variance
+
+
+
+
+
+
+### Sampling Variance of Neyman estimator: An improvement
+
+However, we can improve on this estimator for small samples. If we assume that $Y_i(1)-Y_i(0)$ is a constant, then
+$$
+S^2 = S^2_c=S^2_t
+$$
+
+::: {.callout-important icon="false"}
+## Constant variance estimator
+If the treatment effect is constant, then a more precise, unbiased estimator for the sampling variance is,
+$$
+			\hat{V}^{const} = s^2\cdot\left(\frac{1}{N_c}+\frac{1}{N_t}\right)
+$$
+:::
+	where, 
+$$
+		s^2 = \frac{1}{N-2}\cdot\left(s^2_c\cdot(N_c-1)+s^2_t\cdot(N_t-1)\right)
+$$
+	** These equations should be fairly familiar.
+
+
+
+### Neyman hypothesis test
+To conduct inference we need to know the distribution of the test-statistic, not just the variance.
+
+Potential approaches:
+
+1.    Use a normal approximation of the randomization distribution of $\hat{\tau}$
+2.    Approximate distribution of $\hat{V}$ by chi-squared and use t-distribution. 
+$$
+			t = \frac{\hat{\tau}}{\sqrt{\hat{V}}}
+$$
+	
+	Confidence intervals,
+$$
+	CI^{0.95}(\tau^{fs}_{ATE}) \approxeq \left[\hat{\tau}+z_{0.025}\cdot\sqrt{\hat{V}},\hat{\tau}+z_{0.975}\cdot\sqrt{\hat{V}}\right]
+$$	
+	or 
+$$
+		CI^{0.95}(\tau^{fs}_{ATE}) \approxeq \left[\hat{\tau}+t_{N-2,0.025}\cdot\sqrt{\hat{V}},\hat{\tau}+t_{N-2,0.975}\cdot\sqrt{\hat{V}}\right]
+$$
+
+
+
+### Fisher vs Neyman
+Remember the differences in the null hypotheses:\par
+-   Fisher [**exact**]: $H_0: Y_i(1)=Y_i(0) \quad\forall i=1,...,N$
+-   Neyman: $H'_0: \frac{1}{N}\sum_{i=1}^{N}(Y_i(1)-Y_i(0))=0$
+
+From Imbens and Wooldridge (2009, p.23)[^3],
+
+[^3]: Imbens, G.W. & Wooldridge, J.M. 2009, "Recent Developments in the Econometrics of Program Evaluation", Journal of economic literature, vol. 47, no. 1, pp. 5-86.
+
+![](Images/table1_imbenswooldridge2009.png)
+	
+### Neyman: Super-population equivalent
+Suppose we think of the sample N as a \textbf{random} draw from a potentially infinite super-population,
+		
+::: {.callout-important icon="false"}
+## Result
+$$
+				E[\hat{\tau}] = E[\tau^{fs}_{ATE}] = \tau_{ATE}
+$$
+$$
+				V(\hat{\tau}) = E\left[(\bar{Y}^{obs}_t-\bar{Y}^{obs}_c-E[\bar{Y}^{obs}_t-\bar{Y}^{obs}_c])^2\right]= \frac{\sigma^2_c}{N_c}+\frac{\sigma^2_t}{N_t}
+$$
+		Proof will be provided on Moodle.
+:::
+-   $\hat{V}^{neyman}$ is an unbiased estimator for $V$, **even with heterogeneous TE's**.
+-   $\hat{V}^{neyman}$ is a better default choice.
+
+		
+
+<div style="text-align: center;">VARIANCE PROOF ON MOODLE </div>
+
+
+## Balance tests
+
+### Testing for balance in covariates
+		
+All Randomized Control Trials should provide some variant of a balance table: a table comparing the means of pre-treatment covariates in each of the treatment groups. 
+
+For example,  (Oreopoulus, 2011, p.158)[^4]
+
+[^4]: Oreopoulos, P. 2011, "Why Do Skilled Immigrants Struggle in the Labor Market? A Field Experiment with Thirteen Thousand Resumes", American economic journal. Economic policy, vol. 3, no. 4, pp. 148-171.
+
+![](Images/Oreopoulus_Balance_1.png)
+	
+
+
+These tests are typically based on the ANOVA (<span style ="color : blue">AN</span>alysis <span style = "color: blue">O</span>f <span style ="color : blue">VA</span>riance) test.[^5]
+
+[^5]: Common Alternatives include Multivariate ANOVA (MANOVA) and Analysis of Covariance (ANCOVA)
+
+-   Decomposes TSS into,[^6]
+
+[^6]: Check your EC124 notes on this.
+
+$$
+				TSS = \sum_{k=1}^{K}\sum_{i=1}^{N(k)}(X_{ik}-\bar{X})^2 = \underbrace{\sum_{k=1}^{K}\sum_{i=1}^{N(k)}(X_{ik}-\bar{X}_k)^2}_\text{residual/within}+\underbrace{\sum_{k=1}^{K}N(k)(\bar{X}_k-\bar{X})^2}_\text{explained/between}
+$$
+
+-   The F-statistic, 
+$$
+				F-stat =\frac{ESS/(K-1)}{RSS/(N-K)} = \frac{\text{explained/between variance}}{\text{residual/within variance}}
+$$
+
+
+
+This is to estimating the linear regression model, 
+	
+$$
+			X_i = \beta_0 + \beta_1D_{i1}+...+ \beta_KD_{i,K-1}+\varepsilon_i
+$$
+		
+where the dummy variables indicate $K-1$ groups. Test the joint linear hypothesis,
+$$
+			H_0: \beta_1 = ... = \beta_{K-1} = 0
+$$
+		
+against, 
+$$
+			H_1: \text{at least one }\beta_j\neq0\qquad j=1,...,K-1
+$$
+		
+-   Note, you should be wary of testing each $\beta$ coefficient separately. **Why?**
+		
+For example, Dupas and Robinson (2013, p.1150)[^7]
+
+[^7]: Dupas, P. & Robinson, J. 2013, "Why Don't the Poor Save More? Evidence from Health Savings Experiments", The American economic review, vol. 103, no. 4, pp. 1138-1171.
+
+![](Images/Dupas_Baseline_1.png)
+
+It is important to remember, \par
+-   Balance tests provide support for unconfoundedness (i.e. randomization has worked)
+-   We can test for differences in observables.
+-   We cannot rule out selection on unobservables. 
+-   Partially rely on sufficiently large sample size. 
+
+### Next-up
+-   Evaluating RCT's with Linear Regression and (one of) Angus Deaton's critiques
+-   Covariates, Efficiency, and Power		
+-   Good and Bad Controls
+-   Intent to Treat and some examples
+
+
+	
+
+
+
+
+
+
 
 
 #### Notes on sample variance (in R)
