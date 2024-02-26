@@ -1,9 +1,9 @@
 # Introduction
 
-This is a book created from markdown and executable code.
-
-See @knuth84 for additional discussion of literate programming.
-
 ```{r}
-1 + 1
+#| echo: false
+
+library(latex2exp)
+library(ggplot2)
+library(dplyr)
 ```

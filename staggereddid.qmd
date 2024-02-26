@@ -1,0 +1,431 @@
+---
+title: "Event-Studies or Staggered DiD"
+---
+
+Suppose, you observe multiple treatment *cohorts* and a never-treated control.
+
+-   For example, $S_i = \{3,4,5,\infty\}$ for $t=\{0,1,2,3,4,5,6\}$
+-   Common with staggered treatment: e.g., staggered adoption of a policy across countries/states.
+-   Dynamics remain the same as event-time normalizes time across cohorts.
+-   Imbalance in event-time across cohorts.
+
+For example, Right To Work laws in the US:
+
+![Right To Work Laws Map](map_rtw_v2.png){width="30%"}
+
+It is standard to estimate,
+
+$$
+Y_{itc} = \psi_c + \delta_t + \sum_{j\neq-1}\beta_j 1\{s=j\} + \varepsilon_{itc}
+$$
+
+where $s=t-S_c$. Here we use $\psi_c$ to denote cohort FEs.[^staggereddid-1]
+
+[^staggereddid-1]: This one comes from Abraham and Sun (2018, p.12).
+
+Or with panel data,
+
+$$
+Y_{itc} = \alpha_i + \delta_t + \sum_{j\neq-1}\beta_j 1\{s=j\} + \varepsilon_{itc}
+$$
+
+where $\alpha_i$ are unit FEs.
+
+Consider a cohort $c_1$ treated in period $S_{c_1} = t_1$ and **never-treated** group $c_0$
+
+$$
+\begin{align*}
+\beta_j=&\left[E[Y_{its}|c=c_1,t = t_1 + j] - E[Y_{it}|c=c_0,t = t_1+j]\right] \\
+&-\left[E[Y_{it}|c=c_1,t = t_1 - 1] - E[Y_{it}|c=c_0,t = t_1 -1]\right]
+\end{align*}
+$$
+
+There is another cohort $c_2$ treated in period $S_{c_1} = t_2$ and never-treated group $c_0$
+
+$$
+\begin{align*}
+\beta_j=&\left[E[Y_{its}|c=c_2,t = t_2 + j] - E[Y_{it}|c=c_0,t = t_2+j]\right] \\
+&-\left[E[Y_{it}|c=c_2,t = t_2 - 1] - E[Y_{it}|c=c_0,t = t_2 -1]\right]
+\end{align*}
+$$
+
+-   According to the linear model we have specified, these DiDs are the same.
+-   It turns out, $\beta_j$ from the linear model weights the cohort-specific ATTs.
+-   But the weights can be problematic (more on this next week).
+
+A nice thing about event-studies is that you do **need** a never-treated control group.
+
+-   For example, $S_i = \{3,4,5\}$ for $t=\{0,1,2,3,4,5,6\}$
+-   Under the parallel trends assumption (plus no pre-emptive behaviour), future-treated cohorts can be used to trace out the counterfactual for earlier treated cohorts.
+-   However, without a never-treated control, the model *fully dynamic* is **under identified**[^staggereddid-2].
+
+[^staggereddid-2]: This one comes from Abraham and Sun (2018, p.12).
+
+# Example: Kleven et al. (2019)
+
+::: center
+**Kleven et al. (2019)**
+:::
+
+## Context
+
+A number of studies have shown that over the past 4 decades,[^staggereddid-3]
+
+[^staggereddid-3]: This result also comes from Abraham and Sun (2018, p.14).
+
+-   Steady increase in female labour force participation
+-   Steady convergence in female earnings and decline in gender-wage gap
+-   A large share of which is explained by steady convergence of education and experience profiles of men and women.
+-   Both of these have plateaued over the last 2 decades
+-   The "parent penalty" remains as the "final chapter" (Goldin, 2014)
+
+Kleven, Landais & Søgaard (2019)'s "Children and Gender Inequality: Evidence from Denmark"
+
+-   Uses a large administrative panel dataset
+-   Estimate an event-study design of the birth of a first child
+-   Demonstrates a large (\~20%) and persistent cost to parent penalties.
+-   The magnitude of the penalty is persistent across generations and informed by the gender identities an individual is exposed to as a child.
+-   The results are visually very appealing, if not shocking.[^staggereddid-4]
+
+[^staggereddid-4]: Requires installation of `drdid`.
+
+The authors estimate a simple event-study model,
+
+$$
+Y^g_{ist} = \sum_{j\neq-1}\alpha^g_j\cdot1\{j=t\}+\sum_{k}\beta^g_k\cdot1\{k=age_{is}\}+\sum_y\gamma^g_y\cdot1\{y=s\}+\nu^g_{ist}
+$$
+
+-   Kleven et al. use $t$ to denote event-time and $s$ calendar year.
+-   Event-time is defined as number of years since birth of first child.
+-   The sample includes only women who eventually have a child
+
+Note, there are no individual (or cohort) FEs in the estimating equation,
+
+$$
+Y^g_{ist} = \sum_{j\neq-1}\alpha^g_j\cdot1\{j=t\}+\sum_{k}\beta^g_k\cdot1\{k=age_{is}\}+\sum_y\gamma^g_y\cdot1\{y=s\}+\nu^g_{ist}
+$$
+
+-   Including individual FEs will lead to under identification problem
+-   There are then two options:
+    1.  Include never-treated control. But women who never have children are likely different and face different earnings profile.
+    2.  Exclude pre-treatment event-times. But childbirth is not-random and we want to check from pre-emptive behaviour.
+
+What is the source of identifying variation in this equation?
+
+-   Differences across childbirth cohorts (year of first-birth of child):
+    1.  Women of the same birth cohorts (year of own birth) who have their first child at a different age.
+    2.  Women of different birth cohorts who give birth at the same age.
+    3.  Without individual FE, there is no first-difference "within" the same individual.
+
+Moreover, for each event-time the above comparisons are made across childbirth cohorts that are spaced further and further apart.
+
+-   For $t=1,2,3$ this may seem reasonable.
+-   But for $t=10,11,12$ do we expect the parallel trends assumption to hold (conditional on age)?
+
+Recall, the model is identified under the assumption that,
+
+$$
+E[Y^g_{ist}(0)|s,age_{its}] = \sum_{k}\beta^g_k\cdot1\{k=age_{is}\}+\sum_y\gamma^g_y\cdot1\{y=s\}
+$$
+
+Thus,
+
+-   the age profile must be constant over time
+-   and different childbirth cohorts must experience similar aggregate shocks to the outcome. For one, this means that changes in family policy cannot differentially affect different treatment cohorts.
+-   In light of Abraham & Sun (2021), this paper must essentially assume that the ATT(t) is homogenous **across cohorts**.
+
+In practice the authors don't just look at the raw coefficients, but instead normalize them by the expected value of the outcome under the counterfactual of no treatment.[^staggereddid-5]
+
+[^staggereddid-5]: This value is predicted by the model by setting all the $\alpha$ coefficients to 0.
+
+$$
+P^g_t = \frac{\hat{\alpha}^g_t}{E[\tilde{Y}^g_{ist}|t]}
+$$
+
+This they call the **parent penalty**: the relative change in the outcome because of the event of childbirth.
+
+Do not forget to write kleven_fig1a here.
+
+Do not forget to write kleven_fig1b here.
+
+For women who remain in employment, there is a sorting into more "family friendly" firms.
+
+Do not forget to write kleven_fig2a here.
+
+Do not forget to write kleven_fig2b here.
+
+After an additional decomposition process, Kleven et al. (2019) conclude,
+
+-   That the parent penalty explains the remainder of the gender earnings/wage gap.
+-   It's highly persistent, even in advanced economies with extensive policy support.
+-   In a separate working paper (see Moodle) the authors demonstrate how the penalty compares across different countries. Argue that it is highly correlated with cultural norms.
+
+::: center
+Do we think of these estimates as causal?
+:::
+
+-   You could make the case that the linear regression model provides an unbiased estimate of the change in labour market outcomes, given the absence of pre-emptive behaviour, discontinuous change at the threshold. However, the identifying variation (event of childbirth) is still endogenous.
+
+# Kleven et al. (2019b)
+
+From Kleven, Landais, Posch, Steinhauser, Zweimüller (2019)
+
+Do not forget to write kleven_figA1 here.
+
+From Kleven, Landais, Posch, Steinhauser, Zweimüller (2019)
+
+Do not forget to write kleven_figA2 here.
+
+From Kleven, Landais, Posch, Steinhauser, Zweimüller (2019)
+
+Do not forget to write kleven_figA3 here.
+
+# \`Things fall apart' for DiD
+
+::: center
+**\`Things fall apart' for DiD**
+:::
+
+## Difference-in-Difference Revisited
+
+::: center
+**Difference-in-Difference Revisited**
+:::
+
+In a simple 2-group-2-period model,
+
+$$
+\beta = \tau_{ATT}
+$$
+
+under the CEF (parallel trends) assumption.[^staggereddid-6]
+
+[^staggereddid-6]: This one comes from Abraham and Sun (2018, p.12).
+
+## Multi-period
+
+In a 2-group-multi-period model, you have the option of specifying a static specification,
+
+$$
+Y_{it} = \alpha_i + \delta_t + \beta \mathbf{1}\{s\geq 0\} + \varepsilon_{it}
+$$
+
+or a dynamic specification,
+
+$$
+Y_{it} = \alpha_i + \delta_t + \sum_{j\neq-1}\beta_j \mathbf{1}\{s=j\} + \varepsilon_{it}
+$$
+
+In the dynamic model, each $\beta_s$ corresponds to a simple 2-group-2-period DiD and identifies an event-time specific ATT.
+
+$$
+\beta_s = \tau_{ATT}(s)
+$$
+
+**Assuming no anticipation in the base period** ($\tau_{ATT}(-1)=0$).
+
+With the **static specification**,
+
+-   Without anticipatory behaviour,
+
+$$
+\beta = \sum_{s\geq 0}\omega_s \tau_{ATT}(s)
+$$
+
+-   With anticipatory behaviour,
+
+$$
+\beta = \sum_{s\geq 0}\omega_s \tau_{ATT}(s) + \sum_{s< 0}\omega_s \tau_{ATT}(s)
+$$
+
+where $\sum_{s\geq 0}\omega_s = 1$ and $\sum_{s< 0}\omega_s = 0$.
+
+**It is better to estimate the dynamic specification,** assuming we cannot rule out anticipatory behaviour for some pre-periods. And normalize to an earlier period without anticipatory behaviour.
+
+## Event-studies Revisited
+
+::: center
+**Event-studies Revisited**
+:::
+
+Here, I paraphrase from Abraham and Sun (2018), who define $\tau_{ATT}(c,s)$: the cohort-specific ATT of cohort $c$ in event-time $s$.[^staggereddid-7]
+
+[^staggereddid-7]: This result also comes from Abraham and Sun (2018, p.14).
+
+::: {#def-cohort-specific-att .block}
+**Def. Cohort-specific ATT**
+
+Suppose cohort $c$ is treated in period $c$,
+
+$$
+\tau_{ATT}(c,s) = E[Y_{i,c+s}(c)-Y_{i,c+s}(\infty)|S_i=c]
+$$
+
+where the notation $Y(c)$ denotes the potential outcome for treatment **from** period $c$ and $Y(\infty)$ denotes a counterfactual where the cohort is never treated.
+:::
+
+In this framework,
+
+::: {#stationary-treatment-effects .alertblock}
+**Stationary Treatment Effects**
+
+$$
+\tau_{ATT}(c,s) = \tau_{ATT}(c,s')\quad \forall\quad s,s'\geq0
+$$
+:::
+
+::: {#cross-cohort-homogeneity .alertblock}
+**Cross-cohort Homogeneity**
+
+$$
+\tau_{ATT}(c,s) = \tau_{ATT}(s)\quad \forall\quad s
+$$
+:::
+
+::: {#no-anticipatory-pre-emptive-behaviour .alertblock}
+**No anticipatory/pre-emptive behaviour**
+
+$$
+Y_{i,t}(c) = Y_{i,t}(\infty)\quad \forall\quad t<c
+$$
+:::
+
+## Event-studies
+
+A key result in Abraham and Sun (2018) concerns static specifications of event-studies (staggered DiD),
+
+$$
+Y_{its} = \alpha_i + \delta_t + \beta \mathbf{1}\{s\geq 0\} + \varepsilon_{its}
+$$
+
+With parallel trends assumption and no anticipatory behaviour,
+
+$$
+\beta = \sum_{c=0}^T\sum_{s= 0}^{T-c}\omega_{c,s} \tau_{ATT}(c,s)
+$$
+
+where
+
+-   the weights downweight the long-run treatment effects for \`earlier' cohorts (small $c$)
+-   if all units are eventually treated some weights will necessarily be negative.
+-   If CATTs are homogenous and static, then they are given by $\beta$, as the weights sum to 1.
+
+## Weights
+
+There are a variety of decompositions of these weights in the literature.[^staggereddid-8] In the static specification, the weight, $\omega_{c,s}$, is *characterized* by the residual in the regression,
+
+[^staggereddid-8]: This one comes from Abraham and Sun (2018, p.12).
+
+$$
+\mathbf{1}\{s\geq 0\} = \psi_i + \gamma_t + \xi_{it}
+$$
+
+-   This is a linear probability model
+-   For cohorts treated **earlier** in the panel, the predicted probability (given by the two-way FE model) may be $>1$; especially, if all cohorts are treated at the end of the panel. Thus, the residual may be negative.
+-   This down-weights the LR TEs of the policy, as these are captured by earlier treated cohorts.
+
+## Event-studies
+
+Two more results in Abraham and Sun (2018) concern dynamic specifications of event-studies,
+
+With parallel trends assumption **alone**,
+
+$$
+\beta_s = \sum_{0\leq c \leq T-s}\omega_{c,s} \tau_{ATT}(c,s) + \sum_{s'\neq s}\sum_{0\leq c \leq T-s'}\omega_{c,s'} \tau_{ATT}(c,s')
+$$
+
+where
+
+-   the weights on $\tau_{ATT}(c,s)$ sum to 1.
+-   the weights on $\tau_{ATT}(c,s')$ sum to 0 for *each* $s'\neq s$.
+-   the event-time specific coefficient averages across cohorts and **all** event-time periods.
+-   If the CATT is homogeneous (across cohorts), then $\beta_s = \tau_{ATT}(s)$, as the weights sum to 1 and 0.
+
+If, in addition to parallel trends, we assume no anticipatory behaviour (i.e. $\tau_{ATT}(c,s)=0\;\forall\;s<0$), the pre-treatment coefficients,
+
+$$
+\beta_s = \sum_{s'\geq 0}\sum_{0\leq c \leq T-s'}\omega_{c,s'} \tau_{ATT}(c,s') \qquad\qquad \text{for }s<0
+$$
+
+where
+
+-   the weights on $\tau_{ATT}(c,s')$ sum to 0 for *each* $s'\geq 0$.
+
+Pre-treatment *leads* are non-zero, even under parallels trends and no anticipatory behaviour, **if there is cross-cohort heterogeneity**.
+
+## Weights
+
+In the dynamic specification the weight, $\omega_{c,j}$, is given by the population regression coefficient on $\mathbf{1}\{s=j\}$ in the regression,[^staggereddid-9]
+
+[^staggereddid-9]: This result also comes from Abraham and Sun (2018, p.14).
+
+$$
+\mathbf{1}\{S_i=c\}\cdot\mathbf{1}\{s=j\} = \psi_i + \gamma_t + \sum_{k\neq-1}\beta_k \mathbf{1}\{s=k\} + \xi_{it}
+$$
+
+-   This is another linear probability model
+-   Again the weights need not be non-negative.
+
+## Interaction-weighted estimator
+
+The solution proposed by Abraham and Sun is fairly intuitive: specify the model to allow for cohort-specific treatment effects,
+
+$$
+Y_{its} = \alpha_i + \delta_t + \sum_{c=1}^{T-1}\sum_{j=1-c}^{T-1-c}\beta_{c,j} 1\{s=j\}\cdot\mathbf{1}\{S_i=c\} + \varepsilon_{its}
+$$
+
+-   An interaction between event-time dummies a cohort-dummy.
+-   They apply simple sample-share weights to then compute,
+
+$$
+\hat{\beta}_s^{IW} = \sum_{c=0}^{T-c-s}w_{c,s} \hat{\beta}_{c,s}
+$$
+
+where
+
+$$
+w_{c,s} = N_{c,s}/N_{s}
+$$
+
+**\[Topic of Seminar 3.\]**
+
+## Other papers on this topic
+
+This is now a large and growing literature,
+
+-   Borusyak & Jaravel (2017)
+-   Goodman-Bacon (2018)
+-   Athey & Imbens (2018 WP,2021)
+-   Callaway & Sant'Anna (2018 WP,2020)
+    -   STATA package `csdid` (Rios-Avila, Callaway, and Sant'Anna, 2021)[^staggereddid-10]
+-   Abraham & Sun (2018 WP, 2020)
+    -   see STATA package `eventstudyweights` (Sun, 2020)
+-   de Chaisemartin & D'Haultfœuille (2018, 2020)
+-   Imai & Kim (2017, 2020)
+-   Goldsmith-Pinkham, Hull & Kolesár (2022)
+
+[^staggereddid-10]: Requires installation of `drdid`.
+
+## Abraham & Sun vs Callaway & Sant'Anna
+
+Here is my interpretation of these two different solutions to the problem:
+
+-   A&S's solution builds on the fact that the estimating equation does not `map` to the causal model.
+    -   $\Rightarrow$ adapt the estimating equation to allow for different ATT by cohort.
+    -   $\Rightarrow$ still estimated by OLS.
+-   C&S on the fact that the ATT is a weighted average of CATT.
+    -   $\Rightarrow$ propose weighted estimators for ATT.
+    -   $\Rightarrow$ need not be estimated by OLS.
+
+## Recap
+
+::: alertblock
+**Take-home**
+
+With two-way FEs, any linear regression model that deviates from a 2-group-2-(same)-period comparison may have a weighting problem.
+:::
+
+-   Difference-in-differences:
+    -   2-group-2-(same)-period models are fine.
+    -   In multi-period models, estimate a dynamic specification: reverts back to 2-group-2-period.
+    -   With multiple cohorts, you need to think about CATT. If you expect the ATT to vary by cohort, estimate an interacted model. (Or see other estimators from Callaway & Sant'Anna (2018))

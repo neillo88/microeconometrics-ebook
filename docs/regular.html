@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.450">
+<meta name="generator" content="quarto-1.3.433">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -54,26 +54,7 @@ div.sourceCode
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-/* CSS for citations */
-div.csl-bib-body { }
-div.csl-entry {
-  clear: both;
-}
-.hanging-indent div.csl-entry {
-  margin-left:2em;
-  text-indent:-2em;
-}
-div.csl-left-margin {
-  min-width:2em;
-  float:left;
-}
-div.csl-right-inline {
-  margin-left:2em;
-  padding-left:1em;
-}
-div.csl-indent {
-  margin-left: 2em;
-}</style>
+</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -115,6 +96,8 @@ div.csl-indent {
   }
 }</script>
 
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 </head>
 
@@ -221,7 +204,7 @@ div.csl-indent {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./paralleltrends.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Parallel Trends</span></span></a>
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">EC338: Microeconometrics</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -248,7 +231,35 @@ div.csl-indent {
 <div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#key-definitions" id="toc-key-definitions" class="nav-link active" data-scroll-target="#key-definitions"><span class="header-section-number">7.1</span> Key Definitions</a>
+  <ul class="collapse">
+  <li><a href="#classical-randomized-experiment" id="toc-classical-randomized-experiment" class="nav-link" data-scroll-target="#classical-randomized-experiment"><span class="header-section-number">7.1.1</span> Classical Randomized Experiment</a></li>
+  <li><a href="#unconfoundedness" id="toc-unconfoundedness" class="nav-link" data-scroll-target="#unconfoundedness"><span class="header-section-number">7.1.2</span> Unconfoundedness</a></li>
+  <li><a href="#completely-randomized-experiment" id="toc-completely-randomized-experiment" class="nav-link" data-scroll-target="#completely-randomized-experiment"><span class="header-section-number">7.1.3</span> Completely Randomized Experiment</a></li>
+  <li><a href="#propensity-score" id="toc-propensity-score" class="nav-link" data-scroll-target="#propensity-score"><span class="header-section-number">7.1.4</span> Propensity Score</a></li>
+  <li><a href="#stratified-randomized-experiment" id="toc-stratified-randomized-experiment" class="nav-link" data-scroll-target="#stratified-randomized-experiment"><span class="header-section-number">7.1.5</span> Stratified Randomized Experiment</a></li>
+  <li><a href="#unconfoundedness-1" id="toc-unconfoundedness-1" class="nav-link" data-scroll-target="#unconfoundedness-1"><span class="header-section-number">7.1.6</span> Unconfoundedness</a></li>
+  </ul></li>
+  <li><a href="#why-randomize" id="toc-why-randomize" class="nav-link" data-scroll-target="#why-randomize"><span class="header-section-number">7.2</span> Why randomize?</a>
+  <ul class="collapse">
+  <li><a href="#selection" id="toc-selection" class="nav-link" data-scroll-target="#selection"><span class="header-section-number">7.2.1</span> Selection</a></li>
+  <li><a href="#why-randomize-1" id="toc-why-randomize-1" class="nav-link" data-scroll-target="#why-randomize-1"><span class="header-section-number">7.2.2</span> Why randomize?</a></li>
+  <li><a href="#limits-of-randomization" id="toc-limits-of-randomization" class="nav-link" data-scroll-target="#limits-of-randomization"><span class="header-section-number">7.2.3</span> Limits of randomization</a></li>
+  </ul></li>
+  <li><a href="#hypothesis-testing-fisher-vs-neyman" id="toc-hypothesis-testing-fisher-vs-neyman" class="nav-link" data-scroll-target="#hypothesis-testing-fisher-vs-neyman"><span class="header-section-number">7.3</span> Hypothesis Testing: Fisher vs Neyman</a>
+  <ul class="collapse">
+  <li><a href="#the-relevant-hypothesis-for-finite-sample" id="toc-the-relevant-hypothesis-for-finite-sample" class="nav-link" data-scroll-target="#the-relevant-hypothesis-for-finite-sample"><span class="header-section-number">7.3.1</span> The Relevant Hypothesis for Finite Sample</a></li>
+  <li><a href="#fishers-exact-p-values" id="toc-fishers-exact-p-values" class="nav-link" data-scroll-target="#fishers-exact-p-values"><span class="header-section-number">7.3.2</span> Fisher’s exact p-values</a></li>
+  <li><a href="#fisher-how-does-this-work" id="toc-fisher-how-does-this-work" class="nav-link" data-scroll-target="#fisher-how-does-this-work"><span class="header-section-number">7.3.3</span> Fisher: How does this work?</a></li>
+  <li><a href="#neymans-ate-test" id="toc-neymans-ate-test" class="nav-link" data-scroll-target="#neymans-ate-test"><span class="header-section-number">7.3.4</span> Neyman’s ATE test</a></li>
+  <li><a href="#sampling-variance-of-neyman-estimator" id="toc-sampling-variance-of-neyman-estimator" class="nav-link" data-scroll-target="#sampling-variance-of-neyman-estimator"><span class="header-section-number">7.3.5</span> Sampling Variance of Neyman estimator</a></li>
+  </ul></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -270,21 +281,645 @@ div.csl-indent {
 
 </header>
 
-<p>This is a book created from markdown and executable code.</p>
-<p>See <span class="citation" data-cites="knuth84">Knuth (<a href="references.html#ref-knuth84" role="doc-biblioref">1984</a>)</span> for additional discussion of literate programming.</p>
+<section id="key-definitions" class="level2" data-number="7.1">
+<h2 data-number="7.1" class="anchored" data-anchor-id="key-definitions"><span class="header-section-number">7.1</span> Key Definitions</h2>
+<section id="classical-randomized-experiment" class="level3" data-number="7.1.1">
+<h3 data-number="7.1.1" class="anchored" data-anchor-id="classical-randomized-experiment"><span class="header-section-number">7.1.1</span> Classical Randomized Experiment</h3>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Def. Classical Randomized Experiment
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>A randomized experiment that is both,</p>
+<ol type="1">
+<li><p>individualistic</p></li>
+<li><p>unconfounded<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p></li>
+</ol>
+</div>
+</div>
+<ul>
+<li>individualistic: probability of selection depends on the characteristics of the individual, <strong>alone</strong></li>
+<li>unconfounded: treatment is independent on potential outcomes, conditional on characteristics.</li>
+</ul>
+</section>
+<section id="unconfoundedness" class="level3" data-number="7.1.2">
+<h3 data-number="7.1.2" class="anchored" data-anchor-id="unconfoundedness"><span class="header-section-number">7.1.2</span> Unconfoundedness</h3>
+<p>Let <span class="math inline">\(W\)</span> be a <span class="math inline">\(N × 1\)</span> vector denoting the treatment assignment of each individual in the sample.</p>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Def. Unconfounded Assignment (Version 1)
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><span class="math display">\[
+\mathbf{Pr}(W|X,Y(0),Y(1))=\mathbf{Pr}(W|X, Y'(0),Y'(1))
+\]</span> for all <span class="math inline">\(W\)</span> , <span class="math inline">\(X\)</span> (<span class="math inline">\(N\times k\)</span> matrix of <span class="math inline">\(k\)</span>-covariates), Y(0), Y(1), Y’(0), and Y’(1).</p>
+</div>
+</div>
+<ul>
+<li>Assignment is independent of potential outcomes.</li>
+<li>This statement is equivalent to, <span class="math display">\[
+  \mathbf{Pr}(W|X, Y'(0),Y'(1))=\mathbf{Pr}(W|X,Y(0),Y(1))
+  \]</span></li>
+</ul>
+</section>
+<section id="completely-randomized-experiment" class="level3" data-number="7.1.3">
+<h3 data-number="7.1.3" class="anchored" data-anchor-id="completely-randomized-experiment"><span class="header-section-number">7.1.3</span> Completely Randomized Experiment</h3>
+<p>A fixed, pre-determined number of subjects is assigned to receive the treatment.</p>
+<p><span class="math display">\[
+\mathbf{Pr}(W|X,Y(0),Y(1))=
+\begin{cases}
+(\frac{N!}{N_t!(N-N_t)!})^{-1} &amp; \text{if} \space\space \Sigma^N_{i=1} W_i = N_t\\
+0 &amp; \text{otherwise}
+\end{cases}
+\]</span></p>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Def. Completely Randomized Experiment
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>A classical randomized experiment in which the number of units assigned to treatment is fixed according to,</p>
+<p><span class="math display">\[
+1 \leq N_t \leq N - 1
+\]</span></p>
+</div>
+</div>
+</section>
+<section id="propensity-score" class="level3" data-number="7.1.4">
+<h3 data-number="7.1.4" class="anchored" data-anchor-id="propensity-score"><span class="header-section-number">7.1.4</span> Propensity Score</h3>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Def. Finite Population Propensity Score
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The propensity score at <span class="math inline">\(x\)</span> is the average unit assignment probability for units with <span class="math inline">\(X_i = x\)</span> <span class="math display">\[
+e(x)=\frac{1}{N(x)} \sum_{i=1} p_i(X,Y(0),Y(1))
+\]</span></p>
+</div>
+</div>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Def. Unit Assignment Probability
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The probability that unit <span class="math inline">\(i\)</span> is assigned to treatment, <span class="math display">\[
+p_i(X,Y(0),Y(1)) = \sum_{W:W_i=1}\mathbf{Pr}(W|X,Y(0),Y(1))
+\]</span></p>
+</div>
+</div>
+<p>In a completely randomized experiment, <span class="math display">\[
+e(X_i)=\frac{N_t}{N}
+\]</span> i.e.&nbsp;equal for all units and independent of <span class="math inline">\(X_i\)</span></p>
+</section>
+<section id="stratified-randomized-experiment" class="level3" data-number="7.1.5">
+<h3 data-number="7.1.5" class="anchored" data-anchor-id="stratified-randomized-experiment"><span class="header-section-number">7.1.5</span> Stratified Randomized Experiment</h3>
+<p>Stratification involves the dividing of the population into <strong>blocks</strong> or <strong>strata</strong> (<span class="math inline">\(B_i \in \{1,...,J\}\)</span>), based on <em>pre-treatment</em>, observable characteristics <span class="math inline">\(X_i\)</span>: <span class="math inline">\(B_i = B_i(X_i)\)</span></p>
+<ul>
+<li>Completely randomized experiment within each block and assignment is independent across blocks.</li>
+</ul>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Def. Stratified Randomized Experiment
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>A stratified randomized experiment with <span class="math inline">\(J\)</span> blocks satisfying, <span class="math display">\[
+\mathbf{Pr}(W|X,Y(0),Y(1))=
+\begin{cases}
+\prod^J_{j=1} (\frac{N(j)!}{N(j)_t!(N(j)-N(j)_t)!})^{-1} &amp; \text{if} \quad \sum^N_{i:B_i=j} W_i=N(j)_t \\
+                    0 &amp;\text{otherwise}
+\end{cases}
+\]</span> and $N(j)_c is preset such that, <span class="math display">\[
+0 &lt; N(j)_t &lt;N(j) \quad \text{for} \space j = 1,...,J
+\]</span></p>
+</div>
+</div>
+</section>
+<section id="unconfoundedness-1" class="level3" data-number="7.1.6">
+<h3 data-number="7.1.6" class="anchored" data-anchor-id="unconfoundedness-1"><span class="header-section-number">7.1.6</span> Unconfoundedness</h3>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Def. Independent Assignment
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><span class="math display">\[Y(1),Y(0)\perp W\]</span></p>
+</div>
+</div>
+<ul>
+<li>Randomization is the <strong>assignment mechanism</strong> that gives you independence.</li>
+<li>If you stratify based on characteristics X we might generalize the notion of independence to <em>unconfoundedness</em></li>
+</ul>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Def. Unconfounded Assignmet (Version 2)
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><span class="math display">\[
+Y(1),Y(0) \perp W|X
+\]</span></p>
+</div>
+</div>
+<p>This matches Angrist and Pischke’s definition of the Conditional Independence Assumption (MM and MHE; week 3)</p>
+</section>
+</section>
+<section id="why-randomize" class="level2" data-number="7.2">
+<h2 data-number="7.2" class="anchored" data-anchor-id="why-randomize"><span class="header-section-number">7.2</span> Why randomize?</h2>
+<section id="selection" class="level3" data-number="7.2.1">
+<h3 data-number="7.2.1" class="anchored" data-anchor-id="selection"><span class="header-section-number">7.2.1</span> Selection</h3>
+<p>The difference between means gives us, <span class="math display">\[
+\begin{aligned}
+E[Y_i|W_i=1] - E[Y_i|W_i=0]\\
+=E[Y_i(1)|W_i=1]- E[Y_i(0)|W_i=0] \\
+=\underbrace{E[Y_i(1)|W_i=1]-E[Y_i(0)|W_i=1]}_{\tau_{ATT}=E[Y_i(1)-Y_i(0)|W_i=1]} &amp; + \underbrace{E[Y_i(0)|W_i=1]- E[Y_i(0)|W_i=0]}_{\text{Selection}}
+\end{aligned}
+\]</span> What is the source of selection bias?</p>
+<ul>
+<li>Individuals may select into treatment.
+<ul>
+<li>e.g.&nbsp;job training for unemployed workers.</li>
+<li>e.g.&nbsp;maternity leave.</li>
+</ul></li>
+<li>Treatment may be assigned according to a predefined grouping.
+<ul>
+<li>e.g.&nbsp;minimum wage set at the state level.</li>
+<li>e.g.&nbsp;means tested public policy.</li>
+</ul></li>
+</ul>
+</section>
+<section id="why-randomize-1" class="level3" data-number="7.2.2">
+<h3 data-number="7.2.2" class="anchored" data-anchor-id="why-randomize-1"><span class="header-section-number">7.2.2</span> Why randomize?</h3>
+<p>Unconfoundedness gives us <span class="math display">\[
+E\left[Y_i(0)|W_i=1\right]=E\left[Y_i(0)|W_i=0\right]=E\left[Y_i(0)\right]
+\]</span> implying no selection <strong>in expectation</strong></p>
+<p><span class="math display">\[
+\underbrace{E\left[Y_i(0)|W_i=1\right]-E\left[Y_i(0)|W_i=0\right]}_\text{Selection}=0
+\]</span> The observed difference the ATT. <span class="math display">\[\begin{equation*}       
+        E\left[Y_i|W_i=1\right]-E\left[Y_i|W_i=0\right]=\tau_{att}
+    \end{equation*}\]</span> and <span class="math display">\[\begin{equation*}
+        \tau_{ATT}=\tau_{ATU}=\tau_{ATE}
+    \end{equation*}\]</span> Randomization makes the comparison of two samples <em>ceteris paribus</em> <strong>in expectation</strong>.</p>
+</section>
+<section id="limits-of-randomization" class="level3" data-number="7.2.3">
+<h3 data-number="7.2.3" class="anchored" data-anchor-id="limits-of-randomization"><span class="header-section-number">7.2.3</span> Limits of randomization</h3>
+Recall,
+<ul>
+<li>Randomization allows us to learn about <span class="math inline">\(f_{Y(1)}\)</span> and <span class="math inline">\(f_{Y(0)}\)</span></li>
+<li>Randomization <strong>does not</strong> allow us to learn about <span class="math inline">\(f_{Y(1),Y(0)}\)</span> or <span class="math inline">\(f_{Y(1)-Y(0)}\)</span></li>
+</ul>
+<p>Example from Banerjee <em>et al.</em> (2015, p.&nbsp;38) <a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> <img src="images/Banerjee_p38.png" class="img-fluid"></p>
+In Applied Economics, policy evaluations that embrace randomization are commonly referred to as <strong>Randomized Control Trials (RCTs)</strong>.
+<ul>
+<li>These are typically the gold standard.</li>
+<li>Unfortunately, randomization is not always feasible, it can be unethical, and RCTs are generally very expensive.
+<ul>
+<li>Rely on the design and implementation of policies to exploit other research designs: difference-in-differences, regression discontinuity designs.</li>
+</ul></li>
+<li>Useful lens through which to approach a research question?
+<ul>
+<li>For example, what is the impact of attending an Ivy-league school?</li>
+<li>The ideal experiment: randomize university allocation across all applicants.</li>
+<li>How far is another research design from this ideal?</li>
+</ul></li>
+</ul>
+</section>
+</section>
+<section id="hypothesis-testing-fisher-vs-neyman" class="level2" data-number="7.3">
+<h2 data-number="7.3" class="anchored" data-anchor-id="hypothesis-testing-fisher-vs-neyman"><span class="header-section-number">7.3</span> Hypothesis Testing: Fisher vs Neyman</h2>
+<section id="the-relevant-hypothesis-for-finite-sample" class="level3" data-number="7.3.1">
+<h3 data-number="7.3.1" class="anchored" data-anchor-id="the-relevant-hypothesis-for-finite-sample"><span class="header-section-number">7.3.1</span> The Relevant Hypothesis for Finite Sample</h3>
+<p>When evaluating <strong>finite samples</strong>, there are two potential null hypothesis: 1. Fisher’s sharp null hypothesis: <span class="math display">\[
+            \begin{align*}
+                &amp;H_0: Y_i(1)=Y_i(0) \quad\forall i=1,...,N \\
+                \text{against }&amp;H_1:\;\exists\;i\; \text{s.t.}\;Y_i(1)\neq Y_i(0)
+            \end{align*}
+            \]</span> 2. Neyman’s (finite sample) average treatment effect (ATE) hypothesis: <span class="math display">\[
+            \begin{align*}
+                &amp;H'_0: \frac{1}{N}\sum_{i=1}^{N}(Y_i(1)-Y_i(0))=0 \\
+                \text{against }&amp;H'_1:\frac{1}{N}\sum_{i=1}^{N}(Y_i(1)-Y_i(0))\neq0
+        \end{align*}
+          \]</span></p>
+</section>
+<section id="fishers-exact-p-values" class="level3" data-number="7.3.2">
+<h3 data-number="7.3.2" class="anchored" data-anchor-id="fishers-exact-p-values"><span class="header-section-number">7.3.2</span> Fisher’s exact p-values</h3>
+<p>Consider the test statistic, <span class="math display">\[
+T(W,Y^{obs}) = \bar{Y}^{obs}_t-\bar{Y}^{obs}_c
+\]</span></p>
+Since we know the assignment mechanism under randomization, we can consider other realizations of W, <span class="math display">\[
+            T(\tilde{W},Y^{obs})
+        \]</span> <strong>under the null hypothesis.</strong>
+<ul>
+<li><strong>Why?</strong> Under <span class="math inline">\(H_0\)</span>, <span class="math inline">\(Y^{obs}=Y(1)=Y(0)\)</span></li>
+<li>Just need to consider other allocations of <span class="math inline">\(W\)</span></li>
+<li>In fact, we can calculate the distribution of <span class="math inline">\(T\)</span> under the null.</li>
+<li>Can calculate p-value</li>
+<li>Works for many test-statistics, including rank</li>
+</ul>
+<p>Suppose we observe the data on outcomes <span class="math inline">\(Y^{obs}\)</span> and treatment status <span class="math inline">\(W\)</span>,</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th>Y^{obs}</th>
+<th>W</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>3</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td>6</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td>9</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td>5</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="fisher-how-does-this-work" class="level3" data-number="7.3.3">
+<h3 data-number="7.3.3" class="anchored" data-anchor-id="fisher-how-does-this-work"><span class="header-section-number">7.3.3</span> Fisher: How does this work?</h3>
+<p>Depending on treatment status, we either observe <span class="math inline">\(Y_i(0)\)</span> or <span class="math inline">\(Y_i(1)\)</span>,</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th><span class="math inline">\(Y^{obs}\)</span></th>
+<th><span class="math inline">\(W\)</span></th>
+<th><span class="math inline">\(Y(0)\)</span></th>
+<th><span class="math inline">\(Y(1)\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>3</td>
+<td>1</td>
+<td>-</td>
+<td>3</td>
+</tr>
+<tr class="even">
+<td>6</td>
+<td>0</td>
+<td>6</td>
+<td>-</td>
+</tr>
+<tr class="odd">
+<td>9</td>
+<td>1</td>
+<td>-</td>
+<td>9</td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td>1</td>
+<td>-</td>
+<td>4</td>
+</tr>
+<tr class="odd">
+<td>5</td>
+<td>0</td>
+<td>5</td>
+<td>-</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>0</td>
+<td>2</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>With this data we can compute any test-static <span class="math inline">\(T(W,Y^{obs})\)</span>. For example, the standard t-statistic (assuming unequal variances),</p>
+<p><span class="math display">\[
+T(W,Y^{obs}) = \frac{\hat{\tau}}{\hat{se}(\hat{\tau})} = \frac{\bar{Y}^{obs}_t-\bar{Y}^{obs}_c}{\sqrt{\frac{S^2_c}{N_c}+\frac{S^2_t}{N_t}}}
+\]</span> Since the null hypothesis - <span class="math inline">\(H_0: Y_i(0)=Y_i(1) \quad\forall\; i=1,...,N\)</span> - <strong>is sharp</strong>, we know,</p>
+<table class="table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th><span class="math inline">\(Y^{obs}\)</span></th>
+<th><span class="math inline">\(W\)</span></th>
+<th><span class="math inline">\(Y(0)\)</span></th>
+<th><span class="math inline">\(Y(1)\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>3</td>
+<td>1</td>
+<td><span style="color: red">3</span></td>
+<td>3</td>
+</tr>
+<tr class="even">
+<td>6</td>
+<td>0</td>
+<td>6</td>
+<td><span style="color: red">6</span></td>
+</tr>
+<tr class="odd">
+<td>9</td>
+<td>1</td>
+<td><span style="color: red">9</span></td>
+<td>9</td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td>1</td>
+<td><span style="color: red">4</span></td>
+<td>4</td>
+</tr>
+<tr class="odd">
+<td>5</td>
+<td>0</td>
+<td>5</td>
+<td><span style="color: red">5</span></td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>0</td>
+<td>2</td>
+<td><span style="color: red">2</span></td>
+</tr>
+</tbody>
+</table>
+<p><strong>under the null</strong>.</p>
+<p>We can therefore construct other realizations of the treatment allocation: <span class="math inline">\(W'\)</span>.</p>
+<table class="table">
+<colgroup>
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+</colgroup>
+<thead>
+<tr class="header">
+<th><span class="math inline">\(Y^{obs}\)</span></th>
+<th><span class="math inline">\(W\)</span></th>
+<th><span class="math inline">\(Y(0)\)</span></th>
+<th><span class="math inline">\(Y(1)\)</span></th>
+<th><span style="color: blue"><span class="math inline">\(W'\)</span></span></th>
+<th><span style="color: blue"><span class="math inline">\(Y^{obs'}\)</span></span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>3</td>
+<td>1</td>
+<td><span style="color: red">3</span></td>
+<td>3</td>
+<td><span style="color: blue">0</span></td>
+<td><span style="color: blue">3</span></td>
+</tr>
+<tr class="even">
+<td>6</td>
+<td>0</td>
+<td>6</td>
+<td><span style="color: red">6</span></td>
+<td><span style="color: blue">1</span></td>
+<td><span style="color: blue">6</span></td>
+</tr>
+<tr class="odd">
+<td>9</td>
+<td>1</td>
+<td><span style="color: red">9</span></td>
+<td>9</td>
+<td><span style="color: blue">1</span></td>
+<td><span style="color: blue">9</span></td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td>1</td>
+<td><span style="color: red">4</span></td>
+<td>4</td>
+<td><span style="color: blue">0</span></td>
+<td><span style="color: blue">4</span></td>
+</tr>
+<tr class="odd">
+<td>5</td>
+<td>0</td>
+<td>5</td>
+<td><span style="color: red">5</span></td>
+<td><span style="color: blue">0</span></td>
+<td><span style="color: blue">5</span></td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>0</td>
+<td>2</td>
+<td><span style="color: red">2</span></td>
+<td><span style="color: blue">1</span></td>
+<td><span style="color: blue">2</span></td>
+</tr>
+</tbody>
+</table>
+<p><span class="math display">\[
+T(W',Y(1),Y(0))
+\]</span> Compute for <strong>all</strong> possible realizations of <span class="math inline">\(W\)</span>, get the exact distribution of the test static <strong>under the sharp null hypothesis</strong>.</p>
+</section>
+<section id="neymans-ate-test" class="level3" data-number="7.3.4">
+<h3 data-number="7.3.4" class="anchored" data-anchor-id="neymans-ate-test"><span class="header-section-number">7.3.4</span> Neyman’s ATE test</h3>
+Neyman’s null hypothesis is,
+<p><span class="math display">\[
+H_0:\;\tau^{fs}_{ATE} = 0 \qquad\text{against}\qquad H_0:\;\tau^{fs}_{ATE} \neq 0
+\]</span></p>
+<p>We can express,</p>
+<p><span class="math display">\[
+        \tau^{fs}_{ATE} = \frac{1}{N}\sum_{i=1}^{N}(Y_i(1)-Y_i(0))=\bar{Y}(1)-\bar{Y}(0)
+\]</span></p>
+<pre><code>Then, </code></pre>
+<p><span class="math display">\[
+        \hat{\tau} = \bar{Y}^{obs}_t-\bar{Y}^{obs}_c
+\]</span></p>
+<p>Is an <strong>unbiased</strong> estimator for <span class="math inline">\(\tau^{fs}_{ATE}\)</span>.</p>
+<div style="text-align: center;">
+PROOF [ON BOARD]
+</div>
+</section>
+<section id="sampling-variance-of-neyman-estimator" class="level3" data-number="7.3.5">
+<h3 data-number="7.3.5" class="anchored" data-anchor-id="sampling-variance-of-neyman-estimator"><span class="header-section-number">7.3.5</span> Sampling Variance of Neyman estimator</h3>
+<p>Remember, with a fixed sample, the source of variation is <span class="math inline">\(W\)</span>.</p>
+<ul>
+<li><span class="math inline">\(E_W[W_i]=E_W[W_i^2] = \frac{N_t}{N}\)</span></li>
+<li><span class="math inline">\(Var_W(W_i) = \frac{N_t}{N}\cdot(1-\frac{N_t}{N})\)</span></li>
+</ul>
+<p>But we also need to consider the correlation between <span class="math inline">\(W_i\)</span> and <span class="math inline">\(W_{i'}\)</span>:</p>
+<ul>
+<li><span class="math inline">\(E_W[W_iW_{i'}]=Pr_W(W_i=1)\cdot Pr(W_i=1|W_i=1) = \frac{N_t}{N}\cdot\frac{N_t-1}{N-1}\)</span> for <span class="math inline">\(i\neq i'\)</span></li>
+</ul>
+<div class="callout callout-style-default callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Finite sampling variance of <span class="math inline">\(\hat{\tau}\)</span>
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><span class="math display">\[
+                V^{fs}(\hat{\tau}) = \frac{S^2_c}{N_c}+\frac{S^2_t}{N_t}-\frac{S^2_{ct}}{N}
+\]</span></p>
+</div>
+</div>
+<ul>
+<li>The proof is a little involved!</li>
+</ul>
+<p><span class="math display">\[
+        S^2_c = \frac{1}{N-1}\sum_{i=1}^N (Y_i(0)-\bar{Y}(0))^2
+\]</span></p>
+<p><span class="math display">\[
+    S^2_t = \frac{1}{N-1}\sum_{i=1}^N (Y_i(1)-\bar{Y}(1))^2
+\]</span> **Note, the variance of <span class="math inline">\(Y(1)\)</span> and <span class="math inline">\(Y(0)\)</span> need not be the same. And, <span class="math display">\[
+        \begin{align*}
+        S^2_{ct} &amp;= \frac{1}{N-1}\sum_{i=1}^N (Y_i(1)-Y_i(0)-(\bar{Y}(1)-\bar{Y}(0)))^2 \\
+        &amp;=\frac{1}{N-1}\sum_{i=1}^N (Y_i(1)-Y_i(0)-\tau^{fs}_{ATE})^2
+        \end{align*}
+\]</span></p>
+<ul>
+<li><p>Third term captures the sample variation in the unit-level TE.</p></li>
+<li><p>If TE are constant (i.e.&nbsp;<em>homogenous</em>), then equals 0.</p>
+<p>We have no way of estimating the <span class="math inline">\(S^2_{ct}\)</span> since it requires observation of both <span class="math inline">\(Y_i(1)\)</span> and <span class="math inline">\(Y_i(0)\)</span> for the same unit.</p></li>
+</ul>
+<div class="callout callout-style-default callout-important no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Theorem: Neyman’s variance estimator
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>If the treatment effect is constant, then an unbiased estimator for the sampling variance is, <span class="math display">\[
+        \hat{V}^{neyman} = \frac{s^2_c}{N_c}+\frac{s^2_t}{N_t}
+\]</span></p>
+</div>
+</div>
+<p>where, <span class="math display">\[
+        s^2_c = \frac{1}{N_c-1}\sum_{i:W_i=0}^N (Y_i^{obs}-\bar{Y}^{obs}_c)^2
+\]</span> <span class="math display">\[
+        s^2_t = \frac{1}{N_t-1}\sum_{i:W_i=1}^N (Y_i^{obs}-\bar{Y}^{obs}_t)^2
+\]</span><br>
+** Note, this is different to the T-test variance</p>
+<section id="notes-on-sample-variance-in-r" class="level4" data-number="7.3.5.1">
+<h4 data-number="7.3.5.1" class="anchored" data-anchor-id="notes-on-sample-variance-in-r"><span class="header-section-number">7.3.5.1</span> Notes on sample variance (in R)</h4>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">+</span> <span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stargazer)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Please cite as: </code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code> Hlavac, Marek (2022). stargazer: Well-Formatted Regression and Summary Statistics Tables.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code> R package version 5.2.3. https://CRAN.R-project.org/package=stargazer </code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>data1 <span class="ot">&lt;-</span><span class="fu">data.frame</span>(<span class="at">y0 =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">2</span>,<span class="dv">4</span>),</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="at">y1 =</span> <span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">3</span>)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>data1<span class="sc">$</span>tau <span class="ot">&lt;-</span>  data1<span class="sc">$</span>y1<span class="sc">-</span>data1<span class="sc">$</span>y0</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>data1<span class="sc">$</span>St <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">sd</span>(data1<span class="sc">$</span>y1)<span class="sc">^</span><span class="dv">2</span>,<span class="fu">sd</span>(data1<span class="sc">$</span>y0)<span class="sc">^</span><span class="dv">2</span>,<span class="fu">sd</span>(data1<span class="sc">$</span>tau)<span class="sc">^</span><span class="dv">2</span>,<span class="cn">NA</span>)</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">"Finite Sample Variance Tau-hat:"</span>, data1<span class="sc">$</span>St[<span class="dv">1</span>]<span class="sc">/</span><span class="dv">2</span><span class="sc">+</span>data1<span class="sc">$</span>St[<span class="dv">2</span>]<span class="sc">/</span><span class="dv">2</span><span class="sc">-</span>data1<span class="sc">$</span>St[<span class="dv">3</span>]<span class="sc">/</span><span class="dv">4</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 2</code></pre>
+<pre><code>[1] "Finite Sample Variance Tau-hat: 0.5"</code></pre>
+</div>
+</div>
+<p>Code out all the possible realizations of W</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>){</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  j <span class="ot">&lt;-</span> i <span class="sc">+</span> <span class="dv">1</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="cf">while</span> (j <span class="sc">&lt;=</span> <span class="dv">4</span>) {</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    data1[<span class="fu">paste0</span>(<span class="st">"w"</span>, m)] <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>((<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(data1) <span class="sc">==</span> i) <span class="sc">|</span> (<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(data1) <span class="sc">==</span> j))</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    m <span class="ot">&lt;-</span> m <span class="sc">+</span> <span class="dv">1</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>    j <span class="ot">&lt;-</span> j <span class="sc">+</span> <span class="dv">1</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>tauhat <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="cn">NA</span>, <span class="at">nrow =</span> <span class="dv">6</span>, <span class="at">ncol =</span> <span class="dv">1</span>)</span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>) {</span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>  data1[<span class="fu">paste0</span>(<span class="st">"yobs"</span>, i)] <span class="ot">&lt;-</span> data1<span class="sc">$</span>y1 <span class="sc">*</span> data1[<span class="fu">paste0</span>(<span class="st">"w"</span>, i)] <span class="sc">+</span> data1<span class="sc">$</span>y0 <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> data1[<span class="fu">paste0</span>(<span class="st">"w"</span>, i)])</span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>  model <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="fu">paste0</span>(<span class="st">"yobs"</span>, i, <span class="st">" ~ "</span>, <span class="st">"w"</span>, i), <span class="at">data =</span> data1)</span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>  tauhat[i, <span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="fu">coef</span>(model)[<span class="fu">paste0</span>(<span class="st">"w"</span>, i)]</span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste0</span>(<span class="st">"Finite Sample Variance Tau-hat is "</span>, <span class="fu">sd</span>(tauhat)<span class="sc">^</span><span class="dv">2</span><span class="sc">*</span><span class="dv">5</span><span class="sc">/</span><span class="dv">6</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Finite Sample Variance Tau-hat is 0.5"</code></pre>
 </div>
 </div>
 
 
-<div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
-<div id="ref-knuth84" class="csl-entry" role="listitem">
-Knuth, Donald E. 1984. <span>“Literate Programming.”</span> <em>Comput. J.</em> 27 (2): 97–111. <a href="https://doi.org/10.1093/comjnl/27.2.97">https://doi.org/10.1093/comjnl/27.2.97</a>.
-</div>
-</div>
+</section>
+</section>
+</section>
+<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn1"><p>First used in Rubin, D.B. (1990) ‘Formal Mode of Statistical Inference for Causal Effects’ Journal of Statistical Planning and Inference, 25(3), pp.&nbsp;279-292<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>Banerjee, A., Duflo, E., Glennerster, R. &amp; Kinnan, C. 2015, “The Miracle of Microfinance? Evidence from a Randomized Evaluation”, American economic journal. Applied economics, vol.&nbsp;7, no. 1, pp.&nbsp;22-53. ### Randomization in practice<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
