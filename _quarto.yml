@@ -12,12 +12,12 @@ book:
     - cef.qmd
     - regression.qmd 
     - part: "IV"
-        chapters:
+      chapters:
         - instruments.qmd
         - panel.qmd
         - causality.qmd
     - part: "Experimental Design"
-        chapters:
+      chapters:
         - regular.qmd
         - irregular.qmd
         - unconfoundedness.qmd
