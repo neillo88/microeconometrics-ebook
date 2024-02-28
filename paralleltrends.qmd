@@ -1,4 +1,4 @@
-# Difference-in-Differences - Part 1
+# Difference-in-Differences - Static
 
 Recall Lecture 1.2 *Causal Inference*,
 
@@ -291,6 +291,54 @@ p <- ggplot(data %>% filter(D == 0), aes(x = T, y = Y)) +
 print(p)
 ```
 
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+#| label: fig-graph2
+#| fig-cap: "Difference-in-Differences Plot 2"
+
+
+data1 <- data %>%
+  mutate(label = case_when(
+    D == 0 & T == 0 ~ "alpha",
+    D == 1 & T == 0 ~ "alpha + psi",
+    D == 0 & T == 1 ~ "alpha + delta",
+    D == 1 & T == 1 ~ "alpha + psi + delta",
+    TRUE ~ ""  
+  ))
+
+p1 <- ggplot(data1, aes(x = T, y = Y)) +
+  geom_line(data = data[data$D == 0,], color = "blue") + 
+  geom_point(aes(color = factor(D), shape = factor(D)), size = 3) +
+  geom_text(aes(label = label), parse = TRUE, nudge_y = 0.02, hjust = 0, check_overlap = TRUE) +
+  scale_color_manual(values = c("blue", "black"), labels = c("Control", "Treated")) +
+  scale_shape_manual(values = c(16, 17), labels = c("Control", "Treated")) +
+  labs(x = "T", y = "E[Y|D,T]") +
+  theme_minimal() +
+  theme(
+    legend.position = "bottom",
+    legend.title = element_blank(),
+    axis.text.x = element_text(color = "black"),
+    axis.text.y = element_text(color = "black"),
+    axis.ticks = element_line(color = "black"),
+    axis.line = element_line(color = "black"),
+    panel.background = element_rect(fill = "white", colour = "black"),
+    panel.grid.major = element_blank(), 
+    panel.grid.minor = element_blank(), 
+    plot.title = element_blank()
+  ) +
+  scale_x_continuous(limits = c(-0.5, 1.5), breaks = 0:1, labels = c("0", "1")) +
+  scale_y_continuous(limits = c(0.4, 0.7), breaks = seq(0.4, 0.7, by = 0.1)) +
+  annotate("segment", x = 0, xend = 0, y = 0.54, yend = 0.6, colour = "black", 
+           arrow = arrow(type = "closed", length = unit(0.2,"inches"))) +
+  annotate("text", x = 0.05, y = 0.57, label = "psi", parse = TRUE) +
+  guides(color = guide_legend(override.aes = list(shape = c(16, 17)))) 
+
+
+print(p1)
+```
+
 ## DiD and CIA
 
 Do we need the CIA/Unconfoundedness assumption?\
@@ -371,7 +419,7 @@ $$
 
 **In a 'natural' experiment setting**, treatment is almost always assigned at a group-level setting: geographical, demographic, etc.
 
-Let ( $Y_{itc}$ ) be the outcome of unit ( $i$ ) in period ( $t$), member of assignment-group ( $c(i)$ ),
+Let ($Y_{itc}$) be the outcome of unit ($i$) in period ( $t$), member of assignment-group ($c(i)$),
 
 $$
 c(i) \in \{1, \ldots, c_0, c_0 + 1, \ldots, C\}
@@ -380,7 +428,7 @@ $$
 where groups are:
 
 -   Treated: ( $1$, $\ldots, c_0$ ) (no. treated groups = ( $c_0$ ))
--   Control: ( $c_0 + 1$, \ldots, C ) (no. control groups $=$ ( $C - c_0$ ))
+-   Control: ( $c_0 + 1, \ldots, C$ ) (no. control groups $=$ ( $C - c_0$ ))
 
 Thus,
 
@@ -444,11 +492,9 @@ With group FE's we *typically* explain more of the variation in ( Y(0) ).
 
 ## Example: UK Policy
 
-Suppose Scotland and Wales introduce a policy to restrict access to fast food in year ( t_0 ) and you have individual-level measures of BMI from across the UK.
+Suppose Scotland and Wales introduce a policy to restrict access to fast food in year ($t_0$) and you have individual-level measures of BMI from across the UK.
 
--   ( c(i) \in {1; \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\text{\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\`\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\`Scotland''}, 2; \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\text{\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\`\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\`Wales''}, 3; \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\text{\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\`\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\`England''}, 4; \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\text{\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\`\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\`Northern Ireland''} } )
-
--   ( D_c = \mathbf{1}{c \leq 2} )
+-   (\$D_c = \mathbf{1}{c \leq 2}\$)
 
 -   Estimating equations,
 
@@ -728,7 +774,7 @@ ggarrange(hist.feb, hist.nov, ncol = 2,
           common.legend = TRUE, legend = "bottom")
 ```
 
-Note: the graph is not quite right but I will fix it \
+Note: the graph is not quite right but I will fix it\
 
 ## Legislative Change
 
@@ -771,3 +817,377 @@ Conclusion,
 -   Card & Krueger (1994) don't show pre-trends to help persuade you that the parallel trends assumption is likely to hold.
 -   After this paper comes the rebuttal by Neumark & Wascher (2000, AER), followed immediately by a response from Card & Krueger (2000, AER).
 -   This is just round 1 of what is a multi-round debate. The discussion has now shifted away from state-level minimum wages to the study of city-specific policies.
+
+# Dynamic Treatment Effects
+
+## Set-up
+
+Today's discussion will concern,
+
+::: {.alert .alert-danger}
+Once treatment is applied it remains fixed.
+:::
+
+-   If treatment is temporary, the model will capture long-term effects.
+
+## Dynamic TE's
+
+Suppose that the treatment effect is indeed dynamic:
+
+::: {.callout-note icon="false"}
+For all ( $t=0,1,2,...,T$)
+
+$$
+Y_{it}(1)-Y_{it}(0) = \tau_{it}
+$$
+:::
+
+It helps to normalize time to **event-time**,
+
+$$
+s=t-S_{i}
+$$
+
+where ($S_i$) is the time period in which unit ($i$) first receives the treatment.
+
+-   ($S_i$) could be determined at the assignment-group level,
+
+$$
+S_i=S_c
+$$
+
+Given time periods ($t=0,1,...T$), ( $s=-T,..,-1,0,1,...,T$). The dynamic treatment effect is specified as,
+
+::: {.callout-note icon="false"}
+$$
+Y_{its}(1)-Y_{its}(0) = \tau_{is}
+$$
+:::
+
+-   The relevant unit of time is event-time, not calendar time.[^paralleltrends-12]
+-   In a 2-group-multiple-period setting ( $s$ ) does not vary independently of ( $t$ ) for the treated units.
+-   This set-up becomes more useful when describing multi-cohort settings.
+
+[^paralleltrends-12]: This rules out dynamic TEs which change over (calendar) time.
+
+## Dynamic TE's
+
+::: {.callout-note icon="false"}
+**Treatment Cohort**\
+A group of individuals treated at the same time, ( \$S_i\$).
+:::
+
+-   In a staggered-DiD model or event-study, there are multiple cohorts.
+-   For *never treated* groups, $$
+    S_i = \infty
+    $$
+-   A never treated and not-yet/future treated group are NOT the same.
+
+## 2-group-2-period
+
+Recall from lecture 4.1,
+
+$$
+Y^{obs}_{it} = \alpha + \psi D_i + \delta T_t + \beta D_i \cdot T_t + \varepsilon_{it}
+$$
+
+Using this new notation, we can rewrite this equation as,
+
+$$
+Y^{obs}_{it} = \psi D_i + \delta_t + \beta \mathbf{1}\{s \geq 0\} + \varepsilon_{it}
+$$
+
+-   Time FEs are the same as a post-treatment dummy with 2 periods.
+-   For the treated group, ( $S_i = t_0$ ).
+-   For the control group, ( \$S_i = \infty \$ ).
+-   ( $D_i \cdot T_t = \mathbf{1}{t \geq S_i} = \mathbf{1}{s \geq 0}$); which implies, $$
+    \Rightarrow \mathbf{1}\{s = t - \infty \geq 0\} = 0 \quad \text{**always.**}
+    $$
+
+## Multi-group-2-period
+
+Recall from lecture 4.1,
+
+$$
+Y^{obs}_{itc} = \psi_c + \delta T_t + \beta D_c \cdot T_t + \varepsilon_{itc}
+$$
+
+Using this new notation, we can rewrite this equation as,
+
+$$
+Y^{obs}_{itc} = \psi_c + \delta_t + \beta \mathbf{1}\{s \geq 0\} + \varepsilon_{itc}
+$$
+
+-   For the treated groups (( $c \leq c_0$ )), ( $S_c = t_0$ ).
+-   For the control groups (( $c > c_0$)), ( \$S_c = \infty\$ ).
+-   ( $D_c \cdot T_t = \mathbf{1}{t \geq S_c} = \mathbf{1}{s \geq 0}$ )
+-   In both these applications, there is a one-to-one mapping from event to calendar time.
+
+# Multi-Period DiD
+
+We can define a more flexible version of the parallel trends,[^paralleltrends-13]
+
+[^paralleltrends-13]: For example, see discussion on Eissa & Liebman (1996).
+
+::: {.callout-note icon="false"}
+**Parallel Trends Assumption (Parametric version)**\
+$$
+E[Y_{it}(0)|D_i, t] = \psi D_i + \delta_t
+$$
+:::
+
+or,
+
+::: {.callout-note icon="false"}
+**Parallel Trends Assumption (Parametric version)**\
+$$
+E[Y_{itc}(0)|c, t] = \psi_c + \delta_t
+$$ with group FEs.
+:::
+
+::: {.callout-note icon="false"}
+**Parallel Trends Assumption (Parametric version)**\
+$$
+E[Y_{it}(0)|D_i, t] = \alpha_i + \delta_t
+$$ with unit FEs.
+:::
+
+## Multi-Period DiD
+
+However, if we specify the model as,
+
+$$
+Y^{obs}_{it} = \psi D_i + \delta_t + \beta \mathbf{1}\{s \geq 0\} + \upsilon_{it}
+$$
+
+where ($\beta$) captures the ATT in all post-treatment periods, then we have proposed a linear regression model that best characterizes,
+
+::: {.callout-note icon="false"}
+**Static Treatment Effects**
+
+$$
+Y_{it}(1) - Y_{it}(0) = \tau_{i}
+$$
+:::
+
+$$
+\tau_{ATT}(s) = E[Y_{it}(1) - Y_{it}(0)|D_i = 1, t = S_i + s] = \tau_{ATT} \quad \forall \; s \geq 0
+$$
+
+## Dynamic DiD
+
+If TEs are dynamic, it is better to estimate either,
+
+1.  Semi-dynamic model,
+
+$$
+Y^{obs}_{it} = \psi D_i + \delta_t + \sum_{j \geq 0} \beta_j \mathbf{1}\{s = j\} + \upsilon_{it}
+$$
+
+2.  Dynamic model,
+
+$$
+Y^{obs}_{it} = \psi D_i + \delta_t + \sum_{j \neq -1} \beta_j \mathbf{1}\{s = j\} + \upsilon_{it}
+$$
+
+-   In applied settings, you should always specify such a model with time FEs, and not a single post-treatment dummy. Failure to do so will typically lead to a false counterfactual.[^paralleltrends-14]
+-   You have to normalize 1 period. It does not have to be ( s = -1 ), but should be a pre-period.
+
+[^paralleltrends-14]: Can you demonstrate this?
+
+## Dynamic DiD (Continued)
+
+Consider the dynamic specification,
+
+$$
+Y^{obs}_{it} = \psi D_i + \delta_t + \sum_{j \neq -1} \beta_j \mathbf{1}\{s = j\} + \upsilon_{it}
+$$
+
+-   We must exclude at least one of the event-time dummies. Standard to exclude pre-treatment period.
+
+**QUESTION:** Assuming parallel trends and all necessary exclusion restrictions, how would we define ( $\beta_2$ )?
+
+::: {style="text-align: center"}
+\[ON BOARD\]
+:::
+
+## Dynamic DiD (Exclusion Restrictions)
+
+Notice: - Linear model can identify treatment effects up to a normalized period. - We must assume,
+
+::: {.callout-note icon="false"}
+**Exclusion restriction: No pre-emptive behaviour**
+
+$$
+E[Y_{it}|D_i = 1, t = t_0 + j] = E[Y_{it}(0)|D_i = 1, t = t_0 + j]
+$$
+
+for **some** ($j \< 0$).
+:::
+
+-   Pre-emptive behaviour biases both pre-treatment **and post-treatment** TE estimates.
+
+## Test parallel trends
+
+**Assuming no pre-emptive behaviour**, the test,
+
+$$
+H_0: \beta_s = 0 \quad \forall \quad s < 0
+$$
+
+is a valid test for parallel trends **in the pre-treatment period**.
+
+$$
+\begin{aligned}
+\beta_s = & \left[\underbrace{E[Y_{it}|D_i = 1, t = t_0 + s] - E[Y_{it}|D_i = 1, t = t_0 - 1]}_{\text{Pre-trend of treated.}}\right] \\
+& - \left[\underbrace{\textcolor{blue}{E[Y_{it}|D_i = 0, t = t_0 + s] - E[Y_{it}|D_i = 0, t = t_0 - 1]}}_{\text{Pre-trend of control.}}\right]
+\end{aligned}
+$$
+
+for ($s \< 0$) and ($s \neq -1$).[^paralleltrends-15]
+
+[^paralleltrends-15]: Here, ($s=-1$) is the normalized period.
+
+## Dynamic DiD (Visualization)
+
+The problem can be how to distinguish between, - a failure of parallel trends, - and pre-emptive behaviour.
+
+::: {style="text-align: center"}
+\[Alternative DID Plot\]
+:::
+
+## Dynamic DiD (Renormalization)
+
+If there appears to be pre-emptive behaviour - and a reason for its presence - you can always renormalize the excluded base period.
+
+Here goes the other figure (I do not have it yet)
+
+include another graph here
+
+## Next-up
+
+-   'Things Fall Apart' - The problems with dynamic/staggered DiD and two-way FEs
+-   What to do.
+-   Generalized two-way FEs models
+-   Synthetic Control
+
+## Example: Eissa & Liebman (1996)
+
+### 
+
+::: center
+**Example: Eissa & Liebman (1996)**
+:::
+
+## Set-up: EITC
+
+Countries create tax credits for a number of reasons, these are typically after tax reimbursements based eligibility in certain criteria. Many are simply used to transfer income to a targeted population, and do not (intentionally) induce any behavioural response.
+
+-   However, the **Earned** Income Tax Credit (EITC) is a uniquely targeted public policy that aims to both assist poorer, more vulnerable households while also incentivizing labour force participation (Holz & Scholz, 2003).
+
+The EITC aims to solve the following problem:
+
+::: {.callout-note icon="false"}
+How do you redistribute money to poorer households without inducing a negative income effect? And can you design a policy that actually increases labour force participation while redistributing income.
+:::
+
+The tax credit increases in value with your earned income up to a threshold...
+
+![The tax credit is 40% of earned income for the first \$14570 (2019 parameters based on single earner with 2 children)](eitc1)
+
+... at which point it is flat up to a second threshold...
+
+![The maximum is \$5828 (2019 parameters based on single earner with 2 children)](eitc2)
+
+...and then is phased out.
+
+![The phase out rate is 21.06% which ends at \$46703 (2019 parameters based on single earner with 2 children)](eitc3)
+
+1.  PHASE IN: acts as a subsidy to work: incentive to earn more
+2.  PLATEAU: no subsidy, and hence no additional incentive to work more
+3.  PHASE OUT: effectively a tax on every additional dollar earned: disincentive to earn more
+
+::: {.callout-note icon="false"}
+"The EITC creates a complicated and ambiguous set of labor supply incentives. Standard labor supply theory does indeed predict that the EITC will encourage labor force participation. This occurs because the EITC is available only to taxpayers with earned income. But theory also predicts that the credit reduces the number of hours worked by most eligible taxpayers already in the labor force." (Eissa & Liebman, 1996)
+:::
+
+Therefore, the EITC should have a differential impact on hours worked versus participation depending on an individual's income level.
+
+## Eissa & Liebman (1996)
+
+One of the seminal papers on this topic is Eissa & Liebman (QJE, 1996) "Labor responses to the earned income tax credit".
+
+-   The Tax Reform Act of 1986 made the EITC more generous.
+
+-   Exploit the fact that the EITC structure differentially treats single women w/w/o children.[^paralleltrends-16]
+
+-   Simple difference-in-difference research design: single women with (without) children are the treated (control) group.
+
+-   Single mothers were the largest recipients of EITC (48%).
+
+-   Estimate that the expansion increased labour supply of women with children by 2.8% over that of single women without children.
+
+-   <div>
+
+    ## 
+
+    </div>
+
+[^paralleltrends-16]: Only after 1994 did the EITC become available to low-income workers without children.
+
+The policy variation introduced by the reform is depicted below.
+
+![Policy Variation](eissaliebman_figure4.png){width="40%"}
+
+And here is the author's description of this graph.
+
+![Author's Description](eissaliebman_figure4description.png){width="40%"}
+
+The authors estimate two specifications:
+
+-   A difference-in-difference specification within a probit model, as labour force is a discrete choice[^paralleltrends-17].
+
+    $$P(lfp_{it}=1) = \Phi\left(\alpha + \beta Z_{it}+\gamma_0kids_i + \gamma_1post86_t+\gamma_2(kids\times post86)_{it}\right)$$
+
+-   A standard linear specification
+
+    $$Annual\;Hours_{it} = \alpha + \beta Z_{it}+\gamma_0kids_i + \gamma_1post86_t+\gamma_2(kids\times post86)_{it}$$
+
+-   Sample of unmarried women (aged 16-44), March CPS survey. Pre-period = 1985-1987 and post=1989-1991. Data includes tax records from the previous year.
+
+[^paralleltrends-17]: Note, authors tend to avoid this approach now and simply estimate a linear probability model. More on this in Weeks 9 & 10.
+
+Regarding participation, the results are unambiguously positive, as no one receives less of an incentive to work.
+
+![Participation Results 1](eissa_tab3_1.png){width="50%"} ![Participation Results 2](eissa_tab3_2.png){width="50%"}
+
+While the impact of the EITC expansion on participation should be unambiguously positive, because no-one receives less of an incentive to work, the impact on hours worked is more ambiguous.
+
+![Hours Worked Impact 1](eissa_tab5_1.png){width="50%"} ![Hours Worked Impact 2](eissa_tab5_2.png){width="50%"}
+
+-   Eissa & Liebman find no evidence of an hours effect, which could be the result of tax complexity: workers don't really understand how the EITC works, and don't know if they will receive the credit.
+
+::: {.callout-note icon="false"}
+### Meyer & Rosenbaum (2001)
+
+-   Similar research design using single mothers with and without children.
+-   Evaluate a more complex `bundle` of policy changes over a longer period of time (1984-1996) including the EITC.
+-   Find evidence that the EITC and other tax changes accounted for 60% of the increase in female employment.
+-   Changes in Medicaid, training, and childcare programs played a smaller role.
+:::
+
+## Other studies
+
+::: {.callout-note icon="false"}
+### Eissa & Hoynes (JPub, 2004)
+
+-   Examines the labour supply responses of married couples.
+-   Find evidence that expansion of EITC from 1984-1996 reduced the labour supply of married couples: decline in female labour supply was larger than any increase in male labour supply.
+-   Conclude that EITC was subsidizing married women to stay at home.
+-   See also Eissa & Hoynes (2006) "Behavioural responses to taxes: Lessons from the EITC and Labor Supply".
+:::
+
+See also Dahl & Lochner (2012) for a study that evaluates the impact on child outcomes. This study employs an IV research design.
+
+\
+\

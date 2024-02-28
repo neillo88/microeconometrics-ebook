@@ -905,28 +905,52 @@ Theorem: Neyman’s variance estimator
 <section id="notes-on-sample-variance-in-r" class="level4" data-number="7.3.5.1">
 <h4 data-number="7.3.5.1" class="anchored" data-anchor-id="notes-on-sample-variance-in-r"><span class="header-section-number">7.3.5.1</span> Notes on sample variance (in R)</h4>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>y0 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">2</span>,<span class="dv">4</span>)</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>y1 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">3</span>)</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>tau <span class="ot">&lt;-</span> y1<span class="sc">-</span>y0</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>St <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">sd</span>(y1)<span class="sc">^</span><span class="dv">2</span>,<span class="fu">sd</span>(y0)<span class="sc">^</span><span class="dv">2</span>,<span class="fu">sd</span>(tau)<span class="sc">^</span><span class="dv">2</span>)</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">"Finite Sample Variance Tau-hat:"</span>, St[<span class="dv">1</span>]<span class="sc">/</span><span class="dv">2</span><span class="sc">+</span>St[<span class="dv">2</span>]<span class="sc">/</span><span class="dv">2</span><span class="sc">-</span>St[<span class="dv">3</span>]<span class="sc">/</span><span class="dv">4</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stargazer)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Please cite as: </code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code> Hlavac, Marek (2022). stargazer: Well-Formatted Regression and Summary Statistics Tables.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code> R package version 5.2.3. https://CRAN.R-project.org/package=stargazer </code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>data1 <span class="ot">&lt;-</span><span class="fu">data.frame</span>(<span class="at">y0 =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">2</span>,<span class="dv">4</span>),</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="at">y1 =</span> <span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">3</span>)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>data1<span class="sc">$</span>tau <span class="ot">&lt;-</span>  data1<span class="sc">$</span>y1<span class="sc">-</span>data1<span class="sc">$</span>y0</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>data1<span class="sc">$</span>St <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">sd</span>(data1<span class="sc">$</span>y1)<span class="sc">^</span><span class="dv">2</span>,<span class="fu">sd</span>(data1<span class="sc">$</span>y0)<span class="sc">^</span><span class="dv">2</span>,<span class="fu">sd</span>(data1<span class="sc">$</span>tau)<span class="sc">^</span><span class="dv">2</span>,<span class="cn">NA</span>)</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">"Finite Sample Variance Tau-hat:"</span>, data1<span class="sc">$</span>St[<span class="dv">1</span>]<span class="sc">/</span><span class="dv">2</span><span class="sc">+</span>data1<span class="sc">$</span>St[<span class="dv">2</span>]<span class="sc">/</span><span class="dv">2</span><span class="sc">-</span>data1<span class="sc">$</span>St[<span class="dv">3</span>]<span class="sc">/</span><span class="dv">4</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "Finite Sample Variance Tau-hat: 0.5"</code></pre>
 </div>
 </div>
-<p>Code out all the possible realizations of W (unfinished)</p>
+<p>Code out all the possible realizations of W</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">#m = 1</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co">#j = 0</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co">#for (i in 1:3){</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co">#  j = i + 1</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co">#  while (j&lt;=4){</span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="co">#    names &lt;- paste0("w", 1:4)</span></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="co">#     &lt;- ifelse(nrow(i)|nrow(j),1,0)</span></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="co">#    m = m + 1</span></span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="co">#    j = j + 1</span></span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="co">#  }</span></span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="co">#}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>){</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  j <span class="ot">&lt;-</span> i <span class="sc">+</span> <span class="dv">1</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="cf">while</span> (j <span class="sc">&lt;=</span> <span class="dv">4</span>) {</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    data1[<span class="fu">paste0</span>(<span class="st">"w"</span>, m)] <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>((<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(data1) <span class="sc">==</span> i) <span class="sc">|</span> (<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(data1) <span class="sc">==</span> j))</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    m <span class="ot">&lt;-</span> m <span class="sc">+</span> <span class="dv">1</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>    j <span class="ot">&lt;-</span> j <span class="sc">+</span> <span class="dv">1</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>tauhat <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="cn">NA</span>, <span class="at">nrow =</span> <span class="dv">6</span>, <span class="at">ncol =</span> <span class="dv">1</span>)</span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>) {</span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>  data1[<span class="fu">paste0</span>(<span class="st">"yobs"</span>, i)] <span class="ot">&lt;-</span> data1<span class="sc">$</span>y1 <span class="sc">*</span> data1[<span class="fu">paste0</span>(<span class="st">"w"</span>, i)] <span class="sc">+</span> data1<span class="sc">$</span>y0 <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> data1[<span class="fu">paste0</span>(<span class="st">"w"</span>, i)])</span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>  model <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="fu">paste0</span>(<span class="st">"yobs"</span>, i, <span class="st">" ~ "</span>, <span class="st">"w"</span>, i), <span class="at">data =</span> data1)</span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>  tauhat[i, <span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="fu">coef</span>(model)[<span class="fu">paste0</span>(<span class="st">"w"</span>, i)]</span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste0</span>(<span class="st">"Finite Sample Variance Tau-hat is "</span>, <span class="fu">sd</span>(tauhat)<span class="sc">^</span><span class="dv">2</span><span class="sc">*</span><span class="dv">5</span><span class="sc">/</span><span class="dv">6</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Finite Sample Variance Tau-hat is 0.5"</code></pre>
+</div>
 </div>
 
 
