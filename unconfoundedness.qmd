@@ -1,9 +1,36 @@
-# Experiments: Stratification
+# Stratified Experiments
 
-This is a book created from markdown and executable code.
+The discussion of simple randomized experiments ignores the possibility that assignment into treatment depends on an set of covariates $X_i$. In this chapter we discuss experimental designs where the probability of treatment is stratified on characteristics of unit.  
 
-See @knuth84 for additional discussion of literate programming.
+Stratification is used to support the within-group analysis of experiments and can have significant benefits for the statistical power of the causal effects estimator. Stratified experiments will also form the basis of the way in which researchers think about casual inference using (cross-sectional) observational data where selection into treatment is not controlled (see Chapter _).
 
-```{r}
-1 + 1
-```
+### Stratified Randomized Experiment
+
+Stratification involves the dividing of the population into a finite number of **blocks** or **strata** ($B_i \in \{1,...,J\}$), based on *pre-treatment*, observable characteristics $X_i$,
+
+$$
+B_i = B_i(X_i)
+$$ 
+
+Within each block, assignment into treatment is both probabilistic and individual, but differs by $X_i$. Thus, there is a completely randomized experiment within each block and assignment is independent across blocks.
+
+Adapting our original definition of a completely randomized experiment (from Chapter _) to this setting, we get that the probability of observing any assignment vector $W_i$ conditional on potential outcomes and a vecotr of $X_i$-covariates is given by, 
+
+$$
+\mathbf{Pr}(W|X,Y(0),Y(1))=
+\begin{cases}
+\prod^J_{j=1} (\frac{N(j)!}{N(j)_t!(N(j)-N(j)_t)!})^{-1} & \text{if} \quad \sum^N_{i:B_i=j} W_i=N(j)_t \\
+                    0 &\text{otherwise}
+\end{cases}
+$$ 
+and \$N(j)\_c is preset such that, 
+
+$$
+0 < N(j)_t <N(j) \quad \text{for} \space j = 1,...,J
+$$
+
+Note, if N(j)
+### Def. Stratified Randomized Experiment
+
+
+
