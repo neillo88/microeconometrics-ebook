@@ -25,6 +25,7 @@ book:
     - paralleltrends.qmd
     - discontinuities.qmd
     - discussion.qmd
+  appendeces:
     - references.qmd
     
 
