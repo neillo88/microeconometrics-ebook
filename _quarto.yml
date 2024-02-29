@@ -25,6 +25,8 @@ book:
     - part: "Natural Experiments"
       chapters:
         - paralleltrends.qmd
+        - staggereddid.qmd
+        - synthetic.qmd
         - discontinuities.qmd
     - discussion.qmd
   appendices:

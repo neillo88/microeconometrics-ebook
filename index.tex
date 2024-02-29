@@ -1,0 +1,4082 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+\PassOptionsToPackage{dvipsnames,svgnames,x11names}{xcolor}
+%
+\documentclass[
+  letterpaper,
+  DIV=11,
+  numbers=noendperiod]{scrreprt}
+
+\usepackage{amsmath,amssymb}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else  
+    % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\setcounter{secnumdepth}{5}
+% Make \paragraph and \subparagraph free-standing
+\ifx\paragraph\undefined\else
+  \let\oldparagraph\paragraph
+  \renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+  \let\oldsubparagraph\subparagraph
+  \renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{241,243,245}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.40,0.45,0.13}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\BuiltInTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{\textit{#1}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{\textit{#1}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\ExtensionTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.28,0.35,0.67}{#1}}
+\newcommand{\ImportTok}[1]{\textcolor[rgb]{0.00,0.46,0.62}{#1}}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\NormalTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\RegionMarkerTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.07,0.07,0.07}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{\textit{#1}}}
+
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\newlength{\cslhangindent}
+\setlength{\cslhangindent}{1.5em}
+\newlength{\csllabelwidth}
+\setlength{\csllabelwidth}{3em}
+\newlength{\cslentryspacingunit} % times entry-spacing
+\setlength{\cslentryspacingunit}{\parskip}
+\newenvironment{CSLReferences}[2] % #1 hanging-ident, #2 entry spacing
+ {% don't indent paragraphs
+  \setlength{\parindent}{0pt}
+  % turn on hanging indent if param 1 is 1
+  \ifodd #1
+  \let\oldpar\par
+  \def\par{\hangindent=\cslhangindent\oldpar}
+  \fi
+  % set entry spacing
+  \setlength{\parskip}{#2\cslentryspacingunit}
+ }%
+ {}
+\usepackage{calc}
+\newcommand{\CSLBlock}[1]{#1\hfill\break}
+\newcommand{\CSLLeftMargin}[1]{\parbox[t]{\csllabelwidth}{#1}}
+\newcommand{\CSLRightInline}[1]{\parbox[t]{\linewidth - \csllabelwidth}{#1}\break}
+\newcommand{\CSLIndent}[1]{\hspace{\cslhangindent}#1}
+
+\KOMAoption{captions}{tableheading}
+\makeatletter
+\@ifpackageloaded{tcolorbox}{}{\usepackage[skins,breakable]{tcolorbox}}
+\@ifpackageloaded{fontawesome5}{}{\usepackage{fontawesome5}}
+\definecolor{quarto-callout-color}{HTML}{909090}
+\definecolor{quarto-callout-note-color}{HTML}{0758E5}
+\definecolor{quarto-callout-important-color}{HTML}{CC1914}
+\definecolor{quarto-callout-warning-color}{HTML}{EB9113}
+\definecolor{quarto-callout-tip-color}{HTML}{00A047}
+\definecolor{quarto-callout-caution-color}{HTML}{FC5300}
+\definecolor{quarto-callout-color-frame}{HTML}{acacac}
+\definecolor{quarto-callout-note-color-frame}{HTML}{4582ec}
+\definecolor{quarto-callout-important-color-frame}{HTML}{d9534f}
+\definecolor{quarto-callout-warning-color-frame}{HTML}{f0ad4e}
+\definecolor{quarto-callout-tip-color-frame}{HTML}{02b875}
+\definecolor{quarto-callout-caution-color-frame}{HTML}{fd7e14}
+\makeatother
+\makeatletter
+\makeatother
+\makeatletter
+\@ifpackageloaded{bookmark}{}{\usepackage{bookmark}}
+\makeatother
+\makeatletter
+\@ifpackageloaded{caption}{}{\usepackage{caption}}
+\AtBeginDocument{%
+\ifdefined\contentsname
+  \renewcommand*\contentsname{Table of contents}
+\else
+  \newcommand\contentsname{Table of contents}
+\fi
+\ifdefined\listfigurename
+  \renewcommand*\listfigurename{List of Figures}
+\else
+  \newcommand\listfigurename{List of Figures}
+\fi
+\ifdefined\listtablename
+  \renewcommand*\listtablename{List of Tables}
+\else
+  \newcommand\listtablename{List of Tables}
+\fi
+\ifdefined\figurename
+  \renewcommand*\figurename{Figure}
+\else
+  \newcommand\figurename{Figure}
+\fi
+\ifdefined\tablename
+  \renewcommand*\tablename{Table}
+\else
+  \newcommand\tablename{Table}
+\fi
+}
+\@ifpackageloaded{float}{}{\usepackage{float}}
+\floatstyle{ruled}
+\@ifundefined{c@chapter}{\newfloat{codelisting}{h}{lop}}{\newfloat{codelisting}{h}{lop}[chapter]}
+\floatname{codelisting}{Listing}
+\newcommand*\listoflistings{\listof{codelisting}{List of Listings}}
+\usepackage{amsthm}
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[chapter]
+\theoremstyle{remark}
+\AtBeginDocument{\renewcommand*{\proofname}{Proof}}
+\newtheorem*{remark}{Remark}
+\newtheorem*{solution}{Solution}
+\makeatother
+\makeatletter
+\@ifpackageloaded{caption}{}{\usepackage{caption}}
+\@ifpackageloaded{subcaption}{}{\usepackage{subcaption}}
+\makeatother
+\makeatletter
+\@ifpackageloaded{tcolorbox}{}{\usepackage[skins,breakable]{tcolorbox}}
+\makeatother
+\makeatletter
+\@ifundefined{shadecolor}{\definecolor{shadecolor}{rgb}{.97, .97, .97}}
+\makeatother
+\makeatletter
+\makeatother
+\makeatletter
+\makeatother
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same} % disable monospaced font for URLs
+\hypersetup{
+  pdftitle={Microeconometrics},
+  pdfauthor={Neil Lloyd},
+  colorlinks=true,
+  linkcolor={blue},
+  filecolor={Maroon},
+  citecolor={Blue},
+  urlcolor={Blue},
+  pdfcreator={LaTeX via pandoc}}
+
+\title{Microeconometrics}
+\author{Neil Lloyd}
+\date{2024-01-02}
+
+\begin{document}
+\maketitle
+\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[breakable, enhanced, interior hidden, borderline west={3pt}{0pt}{shadecolor}, sharp corners, boxrule=0pt, frame hidden]}{\end{tcolorbox}}\fi
+
+\renewcommand*\contentsname{Table of contents}
+{
+\hypersetup{linkcolor=}
+\setcounter{tocdepth}{2}
+\tableofcontents
+}
+\bookmarksetup{startatroot}
+
+\hypertarget{preface}{%
+\chapter*{Preface}\label{preface}}
+\addcontentsline{toc}{chapter}{Preface}
+
+\markboth{Preface}{Preface}
+
+This is a Quarto book.
+
+To learn more about Quarto books visit
+\url{https://quarto.org/docs/books}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DecValTok{1} \SpecialCharTok{+} \DecValTok{1}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] 2
+\end{verbatim}
+
+\bookmarksetup{startatroot}
+
+\hypertarget{introduction}{%
+\chapter{Introduction}\label{introduction}}
+
+\begin{verbatim}
+Warning: package 'latex2exp' was built under R version 4.1.3
+\end{verbatim}
+
+\begin{verbatim}
+
+Attaching package: 'dplyr'
+\end{verbatim}
+
+\begin{verbatim}
+The following objects are masked from 'package:stats':
+
+    filter, lag
+\end{verbatim}
+
+\begin{verbatim}
+The following objects are masked from 'package:base':
+
+    intersect, setdiff, setequal, union
+\end{verbatim}
+
+\begin{verbatim}
+Warning: package 'stargazer' was built under R version 4.1.2
+\end{verbatim}
+
+\begin{verbatim}
+
+Please cite as: 
+\end{verbatim}
+
+\begin{verbatim}
+ Hlavac, Marek (2022). stargazer: Well-Formatted Regression and Summary Statistics Tables.
+\end{verbatim}
+
+\begin{verbatim}
+ R package version 5.2.3. https://CRAN.R-project.org/package=stargazer 
+\end{verbatim}
+
+\bookmarksetup{startatroot}
+
+\hypertarget{conditional-expectations}{%
+\chapter{Conditional Expectations}\label{conditional-expectations}}
+
+This is a book created from markdown and executable code.
+
+See Knuth (1984) for additional discussion of literate programming.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DecValTok{1} \SpecialCharTok{+} \DecValTok{1}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] 2
+\end{verbatim}
+
+\part{Parametric Models}
+
+\hypertarget{linear-regression}{%
+\chapter{Linear Regression}\label{linear-regression}}
+
+This is a book created from markdown and executable code.
+
+See Knuth (1984) for additional discussion of literate programming.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DecValTok{1} \SpecialCharTok{+} \DecValTok{1}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] 2
+\end{verbatim}
+
+\hypertarget{instrumental-variables}{%
+\chapter{Instrumental Variables}\label{instrumental-variables}}
+
+This is a book created from markdown and executable code.
+
+See Knuth (1984) for additional discussion of literate programming.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DecValTok{1} \SpecialCharTok{+} \DecValTok{1}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] 2
+\end{verbatim}
+
+\hypertarget{panel-data-models}{%
+\chapter{Panel Data Models}\label{panel-data-models}}
+
+This is a book created from markdown and executable code.
+
+See Knuth (1984) for additional discussion of literate programming.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DecValTok{1} \SpecialCharTok{+} \DecValTok{1}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] 2
+\end{verbatim}
+
+\bookmarksetup{startatroot}
+
+\hypertarget{causality}{%
+\chapter{Causality}\label{causality}}
+
+This is a book created from markdown and executable code.
+
+See Knuth (1984) for additional discussion of literate programming.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DecValTok{1} \SpecialCharTok{+} \DecValTok{1}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] 2
+\end{verbatim}
+
+\part{Controlled Experiments}
+
+\hypertarget{experiments-regular-assignment}{%
+\chapter{Experiments: Regular
+Assignment}\label{experiments-regular-assignment}}
+
+\hypertarget{key-definitions}{%
+\section{Key Definitions}\label{key-definitions}}
+
+\hypertarget{classical-randomized-experiment}{%
+\subsection{Classical Randomized
+Experiment}\label{classical-randomized-experiment}}
+
+\begin{tcolorbox}[enhanced jigsaw, breakable, colframe=quarto-callout-note-color-frame, toptitle=1mm, toprule=.15mm, opacitybacktitle=0.6, opacityback=0, rightrule=.15mm, titlerule=0mm, colback=white, bottomtitle=1mm, title={Def. Classical Randomized Experiment}, arc=.35mm, coltitle=black, colbacktitle=quarto-callout-note-color!10!white, leftrule=.75mm, bottomrule=.15mm, left=2mm]
+
+A randomized experiment that is both,
+
+\par
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  individualistic
+
+  \par
+\item
+  unconfounded\footnotemark{}
+\end{enumerate}
+
+\end{tcolorbox}
+
+\footnotetext{First used in Rubin, D.B. (1990) `Formal Mode of
+Statistical Inference for Causal Effects' Journal of Statistical
+Planning and Inference, 25(3), pp.~279-292}
+
+\begin{itemize}
+\tightlist
+\item
+  individualistic: probability of selection depends on the
+  characteristics of the individual, \textbf{alone}
+\item
+  unconfounded: treatment is independent on potential outcomes,
+  conditional on characteristics.
+\end{itemize}
+
+\hypertarget{unconfoundedness}{%
+\subsection{Unconfoundedness}\label{unconfoundedness}}
+
+Let \(W\) be a \(N × 1\) vector denoting the treatment assignment of
+each individual in the sample.
+
+\begin{tcolorbox}[enhanced jigsaw, breakable, colframe=quarto-callout-note-color-frame, toptitle=1mm, toprule=.15mm, opacitybacktitle=0.6, opacityback=0, rightrule=.15mm, titlerule=0mm, colback=white, bottomtitle=1mm, title={Def. Unconfounded Assignment (Version 1)}, arc=.35mm, coltitle=black, colbacktitle=quarto-callout-note-color!10!white, leftrule=.75mm, bottomrule=.15mm, left=2mm]
+
+\[
+\mathbf{Pr}(W|X,Y(0),Y(1))=\mathbf{Pr}(W|X, Y'(0),Y'(1))
+\] for all \(W\) , \(X\) (\(N\times k\) matrix of \(k\)-covariates),
+Y(0), Y(1), Y'(0), and Y'(1).
+
+\end{tcolorbox}
+
+\begin{itemize}
+\tightlist
+\item
+  Assignment is independent of potential outcomes.
+\item
+  This statement is equivalent to, \[
+    \mathbf{Pr}(W|X, Y'(0),Y'(1))=\mathbf{Pr}(W|X,Y(0),Y(1))
+    \]
+\end{itemize}
+
+\hypertarget{completely-randomized-experiment}{%
+\subsection{Completely Randomized
+Experiment}\label{completely-randomized-experiment}}
+
+A fixed, pre-determined number of subjects is assigned to receive the
+treatment.
+
+\[
+\mathbf{Pr}(W|X,Y(0),Y(1))=
+\begin{cases}
+(\frac{N!}{N_t!(N-N_t)!})^{-1} & \text{if} \space\space \Sigma^N_{i=1} W_i = N_t\\
+0 & \text{otherwise}
+\end{cases}
+\]
+
+\begin{tcolorbox}[enhanced jigsaw, breakable, colframe=quarto-callout-note-color-frame, toptitle=1mm, toprule=.15mm, opacitybacktitle=0.6, opacityback=0, rightrule=.15mm, titlerule=0mm, colback=white, bottomtitle=1mm, title={Def. Completely Randomized Experiment}, arc=.35mm, coltitle=black, colbacktitle=quarto-callout-note-color!10!white, leftrule=.75mm, bottomrule=.15mm, left=2mm]
+
+A classical randomized experiment in which the number of units assigned
+to treatment is fixed according to,
+
+\[
+1 \leq N_t \leq N - 1
+\]
+
+\end{tcolorbox}
+
+\hypertarget{propensity-score}{%
+\subsection{Propensity Score}\label{propensity-score}}
+
+\begin{tcolorbox}[enhanced jigsaw, breakable, colframe=quarto-callout-note-color-frame, toptitle=1mm, toprule=.15mm, opacitybacktitle=0.6, opacityback=0, rightrule=.15mm, titlerule=0mm, colback=white, bottomtitle=1mm, title={Def. Finite Population Propensity Score}, arc=.35mm, coltitle=black, colbacktitle=quarto-callout-note-color!10!white, leftrule=.75mm, bottomrule=.15mm, left=2mm]
+
+The propensity score at \(x\) is the average unit assignment probability
+for units with \(X_i = x\) \[
+e(x)=\frac{1}{N(x)} \sum_{i=1} p_i(X,Y(0),Y(1))
+\]
+
+\end{tcolorbox}
+
+\begin{tcolorbox}[enhanced jigsaw, breakable, colframe=quarto-callout-note-color-frame, toptitle=1mm, toprule=.15mm, opacitybacktitle=0.6, opacityback=0, rightrule=.15mm, titlerule=0mm, colback=white, bottomtitle=1mm, title={Def. Unit Assignment Probability}, arc=.35mm, coltitle=black, colbacktitle=quarto-callout-note-color!10!white, leftrule=.75mm, bottomrule=.15mm, left=2mm]
+
+The probability that unit \(i\) is assigned to treatment, \[
+p_i(X,Y(0),Y(1)) = \sum_{W:W_i=1}\mathbf{Pr}(W|X,Y(0),Y(1))
+\]
+
+\end{tcolorbox}
+
+In a completely randomized experiment, \[
+e(X_i)=\frac{N_t}{N}
+\] i.e.~equal for all units and independent of \(X_i\)
+
+\hypertarget{stratified-randomized-experiment}{%
+\subsection{Stratified Randomized
+Experiment}\label{stratified-randomized-experiment}}
+
+Stratification involves the dividing of the population into
+\textbf{blocks} or \textbf{strata} (\(B_i \in \{1,...,J\}\)), based on
+\emph{pre-treatment}, observable characteristics \(X_i\):
+\(B_i = B_i(X_i)\)
+
+\par
+
+\begin{itemize}
+\tightlist
+\item
+  Completely randomized experiment within each block and assignment is
+  independent across blocks.
+\end{itemize}
+
+\begin{tcolorbox}[enhanced jigsaw, breakable, colframe=quarto-callout-note-color-frame, toptitle=1mm, toprule=.15mm, opacitybacktitle=0.6, opacityback=0, rightrule=.15mm, titlerule=0mm, colback=white, bottomtitle=1mm, title={Def. Stratified Randomized Experiment}, arc=.35mm, coltitle=black, colbacktitle=quarto-callout-note-color!10!white, leftrule=.75mm, bottomrule=.15mm, left=2mm]
+
+A stratified randomized experiment with \(J\) blocks satisfying, \[
+\mathbf{Pr}(W|X,Y(0),Y(1))=
+\begin{cases}
+\prod^J_{j=1} (\frac{N(j)!}{N(j)_t!(N(j)-N(j)_t)!})^{-1} & \text{if} \quad \sum^N_{i:B_i=j} W_i=N(j)_t \\
+                    0 &\text{otherwise}
+\end{cases}
+\] and \$N(j)\_c is preset such that, \[
+0 < N(j)_t <N(j) \quad \text{for} \space j = 1,...,J
+\]
+
+\end{tcolorbox}
+
+\hypertarget{unconfoundedness-1}{%
+\subsection{Unconfoundedness}\label{unconfoundedness-1}}
+
+\begin{tcolorbox}[enhanced jigsaw, breakable, colframe=quarto-callout-note-color-frame, toptitle=1mm, toprule=.15mm, opacitybacktitle=0.6, opacityback=0, rightrule=.15mm, titlerule=0mm, colback=white, bottomtitle=1mm, title={Def. Independent Assignment}, arc=.35mm, coltitle=black, colbacktitle=quarto-callout-note-color!10!white, leftrule=.75mm, bottomrule=.15mm, left=2mm]
+
+\[Y(1),Y(0)\perp W\]
+
+\end{tcolorbox}
+
+\begin{itemize}
+\tightlist
+\item
+  Randomization is the \textbf{assignment mechanism} that gives you
+  independence.
+\item
+  If you stratify based on characteristics X we might generalize the
+  notion of independence to \emph{unconfoundedness}
+\end{itemize}
+
+\begin{tcolorbox}[enhanced jigsaw, breakable, colframe=quarto-callout-note-color-frame, toptitle=1mm, toprule=.15mm, opacitybacktitle=0.6, opacityback=0, rightrule=.15mm, titlerule=0mm, colback=white, bottomtitle=1mm, title={Def. Unconfounded Assignmet (Version 2)}, arc=.35mm, coltitle=black, colbacktitle=quarto-callout-note-color!10!white, leftrule=.75mm, bottomrule=.15mm, left=2mm]
+
+\[
+Y(1),Y(0) \perp W|X
+\]
+
+\end{tcolorbox}
+
+This matches Angrist and Pischke's definition of the Conditional
+Independence Assumption (MM and MHE; week 3)
+
+\hypertarget{why-randomize}{%
+\section{Why randomize?}\label{why-randomize}}
+
+\hypertarget{selection}{%
+\subsection{Selection}\label{selection}}
+
+The difference between means gives us, \[
+\begin{aligned}
+E[Y_i|W_i=1] - E[Y_i|W_i=0]\\
+=E[Y_i(1)|W_i=1]- E[Y_i(0)|W_i=0] \\
+=\underbrace{E[Y_i(1)|W_i=1]-E[Y_i(0)|W_i=1]}_{\tau_{ATT}=E[Y_i(1)-Y_i(0)|W_i=1]} & + \underbrace{E[Y_i(0)|W_i=1]- E[Y_i(0)|W_i=0]}_{\text{Selection}}
+\end{aligned}
+\] What is the source of selection bias?
+
+\par
+
+\begin{itemize}
+\tightlist
+\item
+  Individuals may select into treatment.
+
+  \begin{itemize}
+  \tightlist
+  \item
+    e.g.~job training for unemployed workers.
+  \item
+    e.g.~maternity leave.
+  \end{itemize}
+\item
+  Treatment may be assigned according to a predefined grouping.
+
+  \begin{itemize}
+  \tightlist
+  \item
+    e.g.~minimum wage set at the state level.
+  \item
+    e.g.~means tested public policy.
+  \end{itemize}
+\end{itemize}
+
+\hypertarget{why-randomize-1}{%
+\subsection{Why randomize?}\label{why-randomize-1}}
+
+Unconfoundedness gives us \[
+E\left[Y_i(0)|W_i=1\right]=E\left[Y_i(0)|W_i=0\right]=E\left[Y_i(0)\right]
+\] implying no selection \textbf{in expectation}
+
+\[
+\underbrace{E\left[Y_i(0)|W_i=1\right]-E\left[Y_i(0)|W_i=0\right]}_\text{Selection}=0 
+\] The observed difference \textbf{identifies} the ATT.
+\begin{equation*}       
+        E\left[Y_i|W_i=1\right]-E\left[Y_i|W_i=0\right]=\tau_{att} 
+    \end{equation*} and \begin{equation*}
+        \tau_{ATT}=\tau_{ATU}=\tau_{ATE}
+    \end{equation*} Randomization makes the comparison of two samples
+\emph{ceteris paribus} \textbf{in expectation}.
+
+\hypertarget{limits-of-randomization}{%
+\subsection{Limits of randomization}\label{limits-of-randomization}}
+
+Recall,
+
+\par
+
+\begin{itemize}
+\tightlist
+\item
+  Randomization allows us to learn about \(f_{Y(1)}\) and \(f_{Y(0)}\)
+\item
+  Randomization \textbf{does not} allow us to learn about
+  \(f_{Y(1),Y(0)}\) or \(f_{Y(1)-Y(0)}\)
+\end{itemize}
+
+Example from Banerjee \emph{et al.} (2015, p.~38) \footnote{Banerjee,
+  A., Duflo, E., Glennerster, R. \& Kinnan, C. 2015, ``The Miracle of
+  Microfinance? Evidence from a Randomized Evaluation'', American
+  economic journal. Applied economics, vol.~7, no. 1, pp.~22-53.}
+\includegraphics{Images/Banerjee_p38.png}
+
+\hypertarget{randomization-in-practice}{%
+\subsection{Randomization in practice}\label{randomization-in-practice}}
+
+In Applied Economics, policy evaluations that embrace randomization are
+commonly referred to as \textbf{Randomized Control Trials (RCTs)}.
+
+\par
+
+\begin{itemize}
+\tightlist
+\item
+  These are typically the gold standard.
+\item
+  Unfortunately, randomization is not always feasible, it can be
+  unethical, and RCTs are generally very expensive.
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Rely on the design and implementation of policies to exploit other
+    research designs: difference-in-differences, regression
+    discontinuity designs.
+  \end{itemize}
+\item
+  Useful lens through which to approach a research question?
+
+  \begin{itemize}
+  \tightlist
+  \item
+    For example, what is the impact of attending an Ivy-league school?
+  \item
+    The ideal experiment: randomize university allocation across all
+    applicants.
+  \item
+    How far is another research design from this ideal?
+  \end{itemize}
+\end{itemize}
+
+\hypertarget{hypothesis-testing-fisher-vs-neyman}{%
+\section{Hypothesis Testing: Fisher vs
+Neyman}\label{hypothesis-testing-fisher-vs-neyman}}
+
+\hypertarget{the-relevant-hypothesis-for-finite-sample}{%
+\subsection{The Relevant Hypothesis for Finite
+Sample}\label{the-relevant-hypothesis-for-finite-sample}}
+
+When evaluating \textbf{finite samples}, there are two potential null
+hypothesis: 1. Fisher's sharp null hypothesis: \[
+            \begin{align*}
+                &H_0: Y_i(1)=Y_i(0) \quad\forall i=1,...,N \\
+                \text{against }&H_1:\;\exists\;i\; \text{s.t.}\;Y_i(1)\neq Y_i(0)
+            \end{align*}
+            \] 2. Neyman's (finite sample) average treatment effect
+(ATE) hypothesis: \[
+            \begin{align*}
+                &H'_0: \frac{1}{N}\sum_{i=1}^{N}(Y_i(1)-Y_i(0))=0 \\
+                \text{against }&H'_1:\frac{1}{N}\sum_{i=1}^{N}(Y_i(1)-Y_i(0))\neq0
+        \end{align*}
+          \]
+
+\hypertarget{fishers-exact-p-values}{%
+\subsection{Fisher's exact p-values}\label{fishers-exact-p-values}}
+
+Consider the test statistic, \[
+T(W,Y^{obs}) = \bar{Y}^{obs}_t-\bar{Y}^{obs}_c
+\]
+
+Since we know the assignment mechanism under randomization, we can
+consider other realizations of W, \[
+            T(\tilde{W},Y^{obs})
+        \] \textbf{under the null hypothesis.}
+
+\par
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Why?} Under \(H_0\), \(Y^{obs}=Y(1)=Y(0)\)
+\item
+  Just need to consider other allocations of \(W\)
+\item
+  In fact, we can calculate the \textit{exact} distribution of \(T\)
+  under the null.
+\item
+  Can calculate \textit{exact} p-value
+\item
+  Works for many test-statistics, including rank
+\end{itemize}
+
+Suppose we observe the data on outcomes \(Y^{obs}\) and treatment status
+\(W\),
+
+\begin{longtable}[]{@{}ll@{}}
+\toprule\noalign{}
+Y\^{}\{obs\} & W \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+3 & 1 \\
+6 & 0 \\
+9 & 1 \\
+4 & 1 \\
+5 & 0 \\
+2 & 0 \\
+\end{longtable}
+
+\hypertarget{fisher-how-does-this-work}{%
+\subsection{Fisher: How does this
+work?}\label{fisher-how-does-this-work}}
+
+Depending on treatment status, we either observe \(Y_i(0)\) or
+\(Y_i(1)\),
+
+\begin{longtable}[]{@{}llll@{}}
+\toprule\noalign{}
+\(Y^{obs}\) & \(W\) & \(Y(0)\) & \(Y(1)\) \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+3 & 1 & - & 3 \\
+6 & 0 & 6 & - \\
+9 & 1 & - & 9 \\
+4 & 1 & - & 4 \\
+5 & 0 & 5 & - \\
+2 & 0 & 2 & \\
+\end{longtable}
+
+With this data we can compute any test-static \(T(W,Y^{obs})\). For
+example, the standard t-statistic (assuming unequal variances),
+
+\[
+T(W,Y^{obs}) = \frac{\hat{\tau}}{\hat{se}(\hat{\tau})} = \frac{\bar{Y}^{obs}_t-\bar{Y}^{obs}_c}{\sqrt{\frac{S^2_c}{N_c}+\frac{S^2_t}{N_t}}}
+\] Since the null hypothesis -
+\(H_0: Y_i(0)=Y_i(1) \quad\forall\; i=1,...,N\) - \textbf{is sharp}, we
+know,
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.2500}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.2500}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.2500}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.2500}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+\(Y^{obs}\)
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+\(W\)
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+\(Y(0)\)
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+\(Y(1)\)
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+3 & 1 & {3} & 3 \\
+6 & 0 & 6 & {6} \\
+9 & 1 & {9} & 9 \\
+4 & 1 & {4} & 4 \\
+5 & 0 & 5 & {5} \\
+2 & 0 & 2 & {2} \\
+\end{longtable}
+
+\textbf{under the null}.
+
+We can therefore construct other realizations of the treatment
+allocation: \(W'\).
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1667}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1667}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1667}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1667}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1667}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1667}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+\(Y^{obs}\)
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+\(W\)
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+\(Y(0)\)
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+\(Y(1)\)
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+{\(W'\)}
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+{\(Y^{obs'}\)}
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+3 & 1 & {3} & 3 & {0} & {3} \\
+6 & 0 & 6 & {6} & {1} & {6} \\
+9 & 1 & {9} & 9 & {1} & {9} \\
+4 & 1 & {4} & 4 & {0} & {4} \\
+5 & 0 & 5 & {5} & {0} & {5} \\
+2 & 0 & 2 & {2} & {1} & {2} \\
+\end{longtable}
+
+\[
+T(W',Y(1),Y(0)) 
+\] Compute for \textbf{all} possible realizations of \(W\), get the
+exact distribution of the test static \textbf{under the sharp null
+hypothesis}.
+
+\hypertarget{neymans-ate-test}{%
+\subsection{Neyman's ATE test}\label{neymans-ate-test}}
+
+Neyman's null hypothesis is,
+
+\par
+
+\[
+H_0:\;\tau^{fs}_{ATE} = 0 \qquad\text{against}\qquad H_0:\;\tau^{fs}_{ATE} \neq 0
+\]
+
+We can express,
+
+\[
+        \tau^{fs}_{ATE} = \frac{1}{N}\sum_{i=1}^{N}(Y_i(1)-Y_i(0))=\bar{Y}(1)-\bar{Y}(0)
+\]
+
+\begin{verbatim}
+Then, 
+\end{verbatim}
+
+\[
+        \hat{\tau} = \bar{Y}^{obs}_t-\bar{Y}^{obs}_c
+\]
+
+Is an \textbf{unbiased} estimator for \(\tau^{fs}_{ATE}\).
+
+PROOF {[}ON BOARD{]}
+
+\begin{tcolorbox}[enhanced jigsaw, breakable, colframe=quarto-callout-important-color-frame, toptitle=1mm, toprule=.15mm, opacitybacktitle=0.6, opacityback=0, rightrule=.15mm, titlerule=0mm, colback=white, bottomtitle=1mm, title={Proofs}, arc=.35mm, coltitle=black, colbacktitle=quarto-callout-important-color!10!white, leftrule=.75mm, bottomrule=.15mm, left=2mm]
+
+\[
+\begin{aligned}
+\hat{\tau} = &\bar{Y}^{obs}_t-\bar{Y}^{obs}_c \\
+=&\frac{1}{N_t}\sum_{i:w_i=1}y_i-\frac{1}{N_c}\sum_{i:w_0=1}y_i \\
+=&\frac{1}{N_t}\sum_{i=1}w_iy_i-\frac{1}{N_c}\sum_{i=0}(1-w_i)y_i \\
+=&\frac{1}{N}[\sum_{i=1}^{N}\frac{w_iy_i}{N_t/N}-\sum_{i=0}^{N}\frac{(1-w_i)y_i}{N_c/N}]
+\end{aligned}
+\] Neyman Test statisitc -\textgreater{}
+\(\mathbf{E}_w[\hat{\tau}|y(1),y(0)]=\tau_{ATE}^{fs}\)
+
+where \(\mathbf[E]_w\) means taking expectation with respect to \(w\)
+
+\[
+\begin{aligned}
+\mathbf{E}_w[\hat{\tau}|y(1),y(0)] = &\frac{1}{N}[\sum_{i=1}^{N}\frac{\mathbf{E}_w[w_i]y_i}{N_t/N}-\sum_{i=0}^{N}\frac{\mathbf{E}_w[1-w_i]y_i}{N_c/N}] \\
+ where &\space \mathbf{E}_w[w_i]=\frac{N_t}{N} \space\space\space\space\space \mathbf{E}_w[1-w_i]=\frac{N_c}{N} \\
+=&\frac{1}{N}[\sum_{i=1}^{N}\frac{(N_t/N)y_i}{N_t/N}-\sum_{i=0}^{N}\frac{(N_c/N)y_i}{N_c/N}] \\
+=&\frac{1}{N}\sum_{i=1}^{N}(y_i(1)-y_i(0))
+\end{aligned}
+\]
+
+\end{tcolorbox}
+
+\hypertarget{sampling-variance-of-neyman-estimator}{%
+\subsection{Sampling Variance of Neyman
+estimator}\label{sampling-variance-of-neyman-estimator}}
+
+Remember, with a fixed sample, the source of variation is \(W\).
+
+\begin{itemize}
+\tightlist
+\item
+  \(E_W[W_i]=E_W[W_i^2] = \frac{N_t}{N}\)
+\item
+  \(Var_W(W_i) = \frac{N_t}{N}\cdot(1-\frac{N_t}{N})\)
+\end{itemize}
+
+But we also need to consider the correlation between \(W_i\) and
+\(W_{i'}\):
+
+\begin{itemize}
+\tightlist
+\item
+  \(E_W[W_iW_{i'}]=Pr_W(W_i=1)\cdot Pr(W_i=1|W_i=1) = \frac{N_t}{N}\cdot\frac{N_t-1}{N-1}\)
+  for \(i\neq i'\)
+\end{itemize}
+
+\begin{tcolorbox}[enhanced jigsaw, breakable, colframe=quarto-callout-tip-color-frame, toptitle=1mm, toprule=.15mm, opacitybacktitle=0.6, opacityback=0, rightrule=.15mm, titlerule=0mm, colback=white, bottomtitle=1mm, title={Finite sampling variance of \(\hat{\tau}\)}, arc=.35mm, coltitle=black, colbacktitle=quarto-callout-tip-color!10!white, leftrule=.75mm, bottomrule=.15mm, left=2mm]
+
+\[
+                V^{fs}(\hat{\tau}) = \frac{S^2_c}{N_c}+\frac{S^2_t}{N_t}-\frac{S^2_{ct}}{N}
+\]
+
+\end{tcolorbox}
+
+\begin{itemize}
+\tightlist
+\item
+  The proof is a little involved!
+\end{itemize}
+
+\[
+        S^2_c = \frac{1}{N-1}\sum_{i=1}^N (Y_i(0)-\bar{Y}(0))^2
+\]
+
+\[
+    S^2_t = \frac{1}{N-1}\sum_{i=1}^N (Y_i(1)-\bar{Y}(1))^2
+\] **Note, the variance of \(Y(1)\) and \(Y(0)\) need not be the same.
+And, \[
+        \begin{align*}
+        S^2_{ct} &= \frac{1}{N-1}\sum_{i=1}^N (Y_i(1)-Y_i(0)-(\bar{Y}(1)-\bar{Y}(0)))^2 \\
+        &=\frac{1}{N-1}\sum_{i=1}^N (Y_i(1)-Y_i(0)-\tau^{fs}_{ATE})^2
+        \end{align*}
+\]
+
+\begin{itemize}
+\item
+  Third term captures the sample variation in the unit-level TE.
+\item
+  If TE are constant (i.e.~\emph{homogenous}), then equals 0.
+
+  We have no way of estimating the \(S^2_{ct}\) since it requires
+  observation of both \(Y_i(1)\) and \(Y_i(0)\) for the same unit.
+\end{itemize}
+
+\begin{tcolorbox}[enhanced jigsaw, breakable, colframe=quarto-callout-important-color-frame, toptitle=1mm, toprule=.15mm, opacitybacktitle=0.6, opacityback=0, rightrule=.15mm, titlerule=0mm, colback=white, bottomtitle=1mm, title={Theorem: Neyman's variance estimator}, arc=.35mm, coltitle=black, colbacktitle=quarto-callout-important-color!10!white, leftrule=.75mm, bottomrule=.15mm, left=2mm]
+
+If the treatment effect is constant, then an unbiased estimator for the
+sampling variance is, \[
+        \hat{V}^{neyman} = \frac{s^2_c}{N_c}+\frac{s^2_t}{N_t}
+\]
+
+\end{tcolorbox}
+
+where, \[
+        s^2_c = \frac{1}{N_c-1}\sum_{i:W_i=0}^N (Y_i^{obs}-\bar{Y}^{obs}_c)^2
+\] \[
+        s^2_t = \frac{1}{N_t-1}\sum_{i:W_i=1}^N (Y_i^{obs}-\bar{Y}^{obs}_t)^2
+\]\\
+** Note, this is different to the T-test variance
+
+\hypertarget{sampling-variance-of-neyman-estimator-an-improvement}{%
+\subsection{Sampling Variance of Neyman estimator: An
+improvement}\label{sampling-variance-of-neyman-estimator-an-improvement}}
+
+However, we can improve on this estimator for small samples. If we
+assume that \(Y_i(1)-Y_i(0)\) is a constant, then \[
+S^2 = S^2_c=S^2_t
+\]
+
+\begin{tcolorbox}[enhanced jigsaw, breakable, colframe=quarto-callout-important-color-frame, toptitle=1mm, toprule=.15mm, opacitybacktitle=0.6, opacityback=0, rightrule=.15mm, titlerule=0mm, colback=white, bottomtitle=1mm, title={Constant variance estimator}, arc=.35mm, coltitle=black, colbacktitle=quarto-callout-important-color!10!white, leftrule=.75mm, bottomrule=.15mm, left=2mm]
+
+If the treatment effect is constant, then a more precise, unbiased
+estimator for the sampling variance is, \[
+            \hat{V}^{const} = s^2\cdot\left(\frac{1}{N_c}+\frac{1}{N_t}\right)
+\]
+
+\end{tcolorbox}
+
+\begin{verbatim}
+where, 
+\end{verbatim}
+
+\[
+        s^2 = \frac{1}{N-2}\cdot\left(s^2_c\cdot(N_c-1)+s^2_t\cdot(N_t-1)\right)
+\] ** These equations should be fairly familiar.
+
+\hypertarget{neyman-hypothesis-test}{%
+\subsection{Neyman hypothesis test}\label{neyman-hypothesis-test}}
+
+To conduct inference we need to know the distribution of the
+test-statistic, not just the variance.
+
+Potential approaches:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Use a normal approximation of the randomization distribution of
+  \(\hat{\tau}\)
+\item
+  Approximate distribution of \(\hat{V}\) by chi-squared and use
+  t-distribution. \[
+        t = \frac{\hat{\tau}}{\sqrt{\hat{V}}}
+  \]
+\end{enumerate}
+
+Confidence intervals, \[
+    CI^{0.95}(\tau^{fs}_{ATE}) \approxeq \left[\hat{\tau}+z_{0.025}\cdot\sqrt{\hat{V}},\hat{\tau}+z_{0.975}\cdot\sqrt{\hat{V}}\right]
+\]\\
+or \[
+        CI^{0.95}(\tau^{fs}_{ATE}) \approxeq \left[\hat{\tau}+t_{N-2,0.025}\cdot\sqrt{\hat{V}},\hat{\tau}+t_{N-2,0.975}\cdot\sqrt{\hat{V}}\right]
+\]
+
+\hypertarget{fisher-vs-neyman}{%
+\subsection{Fisher vs Neyman}\label{fisher-vs-neyman}}
+
+Remember the differences in the null hypotheses:
+
+\par
+
+\begin{itemize}
+\tightlist
+\item
+  Fisher {[}\textbf{exact}{]}:
+  \(H_0: Y_i(1)=Y_i(0) \quad\forall i=1,...,N\)
+\item
+  Neyman: \(H'_0: \frac{1}{N}\sum_{i=1}^{N}(Y_i(1)-Y_i(0))=0\)
+\end{itemize}
+
+From Imbens and Wooldridge (2009, p.23)\footnote{Imbens, G.W. \&
+  Wooldridge, J.M. 2009, ``Recent Developments in the Econometrics of
+  Program Evaluation'', Journal of economic literature, vol.~47, no. 1,
+  pp.~5-86.},
+
+\includegraphics{Images/table1_imbenswooldridge2009.png}
+
+\hypertarget{neyman-super-population-equivalent}{%
+\subsection{Neyman: Super-population
+equivalent}\label{neyman-super-population-equivalent}}
+
+Suppose we think of the sample N as a \textbf{random} draw from a
+potentially infinite super-population,
+
+\begin{tcolorbox}[enhanced jigsaw, breakable, colframe=quarto-callout-important-color-frame, toptitle=1mm, toprule=.15mm, opacitybacktitle=0.6, opacityback=0, rightrule=.15mm, titlerule=0mm, colback=white, bottomtitle=1mm, title={Result}, arc=.35mm, coltitle=black, colbacktitle=quarto-callout-important-color!10!white, leftrule=.75mm, bottomrule=.15mm, left=2mm]
+
+\[
+                E[\hat{\tau}] = E[\tau^{fs}_{ATE}] = \tau_{ATE}
+\] \[
+                V(\hat{\tau}) = E\left[(\bar{Y}^{obs}_t-\bar{Y}^{obs}_c-E[\bar{Y}^{obs}_t-\bar{Y}^{obs}_c])^2\right]= \frac{\sigma^2_c}{N_c}+\frac{\sigma^2_t}{N_t}
+\] Proof will be provided on Moodle.
+
+\end{tcolorbox}
+
+\begin{itemize}
+\tightlist
+\item
+  \(\hat{V}^{neyman}\) is an unbiased estimator for \(V\), \textbf{even
+  with heterogeneous TE's}.
+\item
+  \(\hat{V}^{neyman}\) is a better default choice.
+\end{itemize}
+
+VARIANCE PROOF ON MOODLE
+
+\hypertarget{balance-tests}{%
+\section{Balance tests}\label{balance-tests}}
+
+\hypertarget{testing-for-balance-in-covariates}{%
+\subsection{Testing for balance in
+covariates}\label{testing-for-balance-in-covariates}}
+
+All Randomized Control Trials should provide some variant of a balance
+table: a table comparing the means of pre-treatment covariates in each
+of the treatment groups.
+
+For example, (Oreopoulus, 2011, p.158)\footnote{Oreopoulos, P. 2011,
+  ``Why Do Skilled Immigrants Struggle in the Labor Market? A Field
+  Experiment with Thirteen Thousand Resumes'', American economic
+  journal. Economic policy, vol.~3, no. 4, pp.~148-171.}
+
+\includegraphics{Images/Oreopoulus_Balance_1.png}
+
+These tests are typically based on the ANOVA ({AN}alysis {O}f
+{VA}riance) test.\footnote{Common Alternatives include Multivariate
+  ANOVA (MANOVA) and Analysis of Covariance (ANCOVA)}
+
+\begin{itemize}
+\tightlist
+\item
+  Decomposes TSS into,\footnote{Check your EC124 notes on this.}
+\end{itemize}
+
+\[
+                TSS = \sum_{k=1}^{K}\sum_{i=1}^{N(k)}(X_{ik}-\bar{X})^2 = \underbrace{\sum_{k=1}^{K}\sum_{i=1}^{N(k)}(X_{ik}-\bar{X}_k)^2}_\text{residual/within}+\underbrace{\sum_{k=1}^{K}N(k)(\bar{X}_k-\bar{X})^2}_\text{explained/between}
+\]
+
+\begin{itemize}
+\tightlist
+\item
+  The F-statistic, \[
+              F-stat =\frac{ESS/(K-1)}{RSS/(N-K)} = \frac{\text{explained/between variance}}{\text{residual/within variance}}
+  \]
+\end{itemize}
+
+This is to estimating the linear regression model,
+
+\[
+            X_i = \beta_0 + \beta_1D_{i1}+...+ \beta_KD_{i,K-1}+\varepsilon_i
+\]
+
+where the dummy variables indicate \(K-1\) groups. Test the joint linear
+hypothesis, \[
+            H_0: \beta_1 = ... = \beta_{K-1} = 0
+\]
+
+against, \[
+            H_1: \text{at least one }\beta_j\neq0\qquad j=1,...,K-1
+\]
+
+\begin{itemize}
+\tightlist
+\item
+  Note, you should be wary of testing each \(\beta\) coefficient
+  separately. \textbf{Why?}
+\end{itemize}
+
+For example, Dupas and Robinson (2013, p.1150)\footnote{Dupas, P. \&
+  Robinson, J. 2013, ``Why Don't the Poor Save More? Evidence from
+  Health Savings Experiments'', The American economic review, vol.~103,
+  no. 4, pp.~1138-1171.}
+
+\includegraphics{Images/Dupas_Baseline_1.png}
+
+It is important to remember,
+
+\par
+
+\begin{itemize}
+\tightlist
+\item
+  Balance tests provide support for unconfoundedness (i.e.~randomization
+  has worked)
+\item
+  We can test for differences in observables.
+\item
+  We cannot rule out selection on unobservables.
+\item
+  Partially rely on sufficiently large sample size.
+\end{itemize}
+
+\hypertarget{next-up}{%
+\subsection{Next-up}\label{next-up}}
+
+\begin{itemize}
+\tightlist
+\item
+  Evaluating RCT's with Linear Regression and (one of) Angus Deaton's
+  critiques
+\item
+  Covariates, Efficiency, and Power\\
+\item
+  Good and Bad Controls
+\item
+  Intent to Treat and some examples
+\end{itemize}
+
+\hypertarget{evaluating-rcts-using-a-linear-regression-model}{%
+\section{Evaluating RCTs using a Linear Regression
+Model}\label{evaluating-rcts-using-a-linear-regression-model}}
+
+\hypertarget{linear-regression-model}{%
+\subsection{Linear Regression Model}\label{linear-regression-model}}
+
+Consider the linear regression \emph{model}, \[
+            Y_i = \alpha+\beta W_i + \varepsilon_i
+\] where, intuitively, \(Y_i = Y^{obs}_i\). The OLS estimator for the
+vector of parameters \((\alpha,\beta)\) is defined as, \[
+            (\hat{\alpha}^{OLS},\hat{\beta}^{OLS}) = \underset{a,b}{argmin} \sum_{i=1}^{N}(Y_i-a-b W_i)^2
+\] We know that in the case of a simple linear regression model, \[
+            \hat{\beta}^{OLS} = \frac{\sum_{i=1}^{N}(W_i-\bar{W})(Y_i-\bar{Y})}{\sum_{i=1}^{N}(W_i-\bar{W})^2} = (W'M_\ell W)^{-1}W'M_\ell Y
+\]
+
+the sample analogue of \(\beta = \frac{Cov(W_i,Y_i)}{Var(W_i)}\).
+
+Since \(\bar{W}=\frac{N_t}{N}\), we can show that \footnote{Do ensure
+  that you can show this.}
+
+\[
+            \hat{\beta}^{OLS} = \bar{Y}^{obs}_t-\bar{Y}^{obs}_c = \hat{\tau}
+\]
+
+Which we know is an unbiased estimator for both \(\tau_{ATE}^{fs}\) and
+\(\tau_{ATE}\).
+
+\par
+
+\begin{itemize}
+\tightlist
+\item
+  \(\hat{\beta}^{OLS}\) is an unbiased estimate of the (average) causal
+  effect, assuming unconfoundedness (i.e.~completely random experiment).
+\end{itemize}
+
+We want to create a mapping from potential outcomes to a linear
+regression model. Recall, \[
+            Y^{obs}_i = Y_i(0)+W_i(Y_i(1)-Y_(0))
+\] Let's define\footnote{Here I am avoiding finite sample notation. This
+  is not a big issue as you can always define the expectation as an
+  average in the finite sample.},
+
+\[
+        \begin{align*}
+            \mu &=E[Y_i(0)] \\
+            \tau_{ATE} &= E[Y_i(1)-Y_i(0)]
+        \end{align*}
+\]\\
+We want to show that we can express \(Y^{obs}_i\) as a linear regression
+model, \[
+            Y^{obs}_i=\mu+\tau_{ATE}W_i+\varepsilon_i
+\]
+
+\hypertarget{endogeneity}{%
+\subsection{Endogeneity}\label{endogeneity}}
+
+We write the error term from the linear regression model as function of
+these parameters and the potential outcomes in the following way, \[
+        \begin{align*}
+            \varepsilon_i   &=Y_i(0)- \mu+W_i\cdot(Y_i(1)-Y_i(0)-\tau_{ATE}) \\
+                            &=\begin{cases*}
+                                Y^{obs}_i-\mu \qquad\qquad\quad \text{if}\quad W_i=0 \\
+                                Y^{obs}_i-\mu-\tau_{ATE} \qquad \text{if}\quad W_i=1
+                            \end{cases*} \\
+                            &=\begin{cases*}
+                                Y_i(0)-E[Y_i(0)] \qquad\qquad\qquad\qquad\qquad\qquad\qquad\qquad\quad \text{if}\quad W_i=0 \\
+                                Y_i(0)-E[Y_i(0)]+\underbrace{\left(Y_i(1)-Y_i(0)-E[Y_i(1)-Y_i(0)]\right)}_\text{heterogeneity} \quad \text{if}\quad W_i=1
+                            \end{cases*}                        
+        \end{align*}
+\] Note, for a more straight forward mapping we can assume homogenous
+TEs, \[
+            (Y_i(1)-Y_i(0)) = \tau\qquad \forall i
+\]
+
+\[
+\begin{align}
+            Y_i &= Y_i(0)+W_i\cdot\underbrace{(Y_i(1)-Y_i(0))}_{\tau} \\
+                &=E[Y_i(0)]+\tau W_i+\underbrace{Y_i(0)-E[Y_i(0)]}_{\varepsilon_i} \\
+                &=\mu+\tau W_i + \varepsilon_i
+\end{align}
+\] As an assignment mechanism, randomization gives us unconfoundedness,
+\[
+            (Y_i(1),Y_i(0))\perp W_i
+\] So, then we can consider the conditional expectations of
+\(\varepsilon_i\),
+
+\par
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{\(W_i=0\)} \[
+          \begin{align*}
+              E[\varepsilon_i|W_i=0] &= E[Y_i(0)- \mu + W_i\cdot(Y_i(1)-Y_i(0)-\tau_{ATE})|W_i=0] \\
+              &= E[Y_i(0)- \mu|W_i=0] \\
+              &=E[Y_i(0)|W_i=0]-E[Y_i(0)] = 0
+          \end{align*}
+  \]
+\item
+  \textbf{\(W_i=1\)} \[
+          \begin{align*}
+              E[\varepsilon_i|W_i=1] &= E[Y_i(0)- \mu + W_i\cdot(Y_i(1)-Y_i(0)-\tau_{ATE})|W_i=1] \\
+              &= E[Y_i(1)-\tau_{ATE} - \mu|W_i=1] \\
+              &=E[Y_i(1)|W_i=1]-E[Y_i(0)]-E[Y_i(1)-Y_i(0)] = 0
+          \end{align*}
+  \] Unconfoundedness gives you mean independence.
+\end{itemize}
+
+\hypertarget{inference}{%
+\subsection{Inference}\label{inference}}
+
+Suppose we assume homoskedasticity: \(\sigma_i^2=\sigma^2\)\\
+\[
+        \begin{align*}
+            \hat{\sigma}^2 = \frac{1}{N-2}\sum_{i=1}^N \hat{\varepsilon}_i^2&= \frac{1}{N-2}\sum_{i=1}^N  (Y_i-\hat{\alpha}^{OLS}-\hat{\beta}^{OLS}W_i)^2 \\
+            &=\frac{1}{N-2}\sum_{i=1}^N  \left(Y_i-\bar{Y}-(\bar{Y}^{obs}_t-\bar{Y}^{obs}_c)\cdot(W_i-\bar{W})\right)^2 \\
+            &=\frac{1}{N-2}\left(\sum_{i:W_i=0}^N(Y_i-\bar{Y}^{obs}_c)^2+\sum_{i:W_i=1}^N(Y_i-\bar{Y}^{obs}_t)^2\right) \\
+            &=s^2
+        \end{align*}
+\]
+
+where, \[
+        s^2 = \frac{1}{N-2}\cdot\left(s^2_c\cdot(N_c-1)+s^2_t\cdot(N_t-1)\right)
+\] ** Check to see if you can show this.
+
+\hypertarget{deatons-critique}{%
+\subsection{Deaton's critique}\label{deatons-critique}}
+
+Angus Deaton has made a number of criticisms against the use of RCTs in
+(Development) Economics. One of these is the misuse of linear
+regression:\footnote{Deaton, A. 2010, ``Instruments, Randomization, and
+  Learning about Development'', Journal of economic literature, vol.~48,
+  no. 2, pp.~424-455.}
+
+\begin{tcolorbox}[enhanced jigsaw, breakable, colframe=quarto-callout-tip-color-frame, toptitle=1mm, toprule=.15mm, opacitybacktitle=0.6, opacityback=0, rightrule=.15mm, titlerule=0mm, colback=white, bottomtitle=1mm, title={Deaton (2010, p.442)}, arc=.35mm, coltitle=black, colbacktitle=quarto-callout-tip-color!10!white, leftrule=.75mm, bottomrule=.15mm, left=2mm]
+
+``However, the standard error of \(\beta_1\) from the OLS regression is
+not generally correct. One problem is that the variance among the
+experimentals may be different from the variance among the controls, and
+to assume that the experiment \textit{does not} affect the variance is
+very much against the minimalist spirit of RCTs.''
+
+\end{tcolorbox}
+
+The standard OLS variance estimator for \(\hat{\beta}^{OLS}\) is, \[
+        \hat{V}^{homosk} = \frac{\hat{\sigma}^2}{\sum_{i=1}^{N}(W_i-\bar{W})^2}=s^2\cdot\left(\frac{1}{N_c}+\frac{1}{N_t}\right)=\hat{V}^{const}
+\] If instead you estimate heteroskedastic standard
+errors,\footnote{Some texts scale the heteroskedasticity-robust variance estimator by $N/(N-2)$ (e.g., Stock and Watson, 2020, p.180). With or without the rescaling, you can show that this equality is not exact, given the formulae for $s^2_c$ and $s^2_t$ from lecture 2.1. In this case, you can show that $\hat{V}^{hetero}= \frac{\tilde{s}^2_c}{N_c}+\frac{\tilde{s}^2_t}{N_t}$, where $\tilde{s}^2_c$ and $\tilde{s}^2_t$ are scaled by $N_c$ and $N_t$, respectively. Not by $N_c-1$ and $N_t-1$.}
+\[
+            \hat{V}^{hetero} = \frac{\sum_{i=1}^{N}\hat{\varepsilon}_i^2\cdot(W_i-\bar{W})^2}{\left(\sum_{i=1}^{N}(W_i-\bar{W})^2\right)^2} \approxeq \frac{s^2_c}{N_c}+\frac{s^2_t}{N_t}=\hat{V}^{neyman}
+\]
+
+\begin{tcolorbox}[enhanced jigsaw, breakable, colframe=quarto-callout-tip-color-frame, toptitle=1mm, toprule=.15mm, opacitybacktitle=0.6, opacityback=0, rightrule=.15mm, titlerule=0mm, colback=white, bottomtitle=1mm, title={Deaton (2010, p.442)}, arc=.35mm, coltitle=black, colbacktitle=quarto-callout-tip-color!10!white, leftrule=.75mm, bottomrule=.15mm, left=2mm]
+
+``If the regression \ldots{} is run with the standard heteroskedasticity
+correction to the standard error, the result will be the same as the
+formula for the standard error of the difference between two means, but
+not otherwise except in the special case where there are equal numbers
+of experimental and controls, in which case it turns out that the
+correction makes no difference and the OLS standard error is correct. It
+is not clear in the experimental development literature whether the
+correction is routinely done in practice\ldots{}''
+
+\end{tcolorbox}
+
+\hypertarget{adding-covariates}{%
+\section{Adding covariates}\label{adding-covariates}}
+
+\hypertarget{adding-covariates-1}{%
+\subsection{Adding covariates}\label{adding-covariates-1}}
+
+Let us consider the linear regression model, \[
+            Y_i = \alpha+\beta W_i + X_i'\gamma+\epsilon_i
+\]
+
+where,
+
+\par
+
+\begin{itemize}
+\tightlist
+\item
+  \(W_i\) is assigned according to a completely random experiment
+\item
+  \(X_i\) is a \(k\times 1\) vector of \textbf{pre-treatment} covariates
+\item
+  the linear function \textbf{need not} be correctly specified
+\end{itemize}
+
+Note: we are not interested in the interpretation of the \(\gamma\)'s or
+\(\alpha\).
+
+\begin{tcolorbox}[enhanced jigsaw, breakable, colframe=quarto-callout-important-color-frame, toptitle=1mm, toprule=.15mm, opacitybacktitle=0.6, opacityback=0, rightrule=.15mm, titlerule=0mm, colback=white, bottomtitle=1mm, title={Theorem (Imbens and Rubin, 2015, p.123)}, arc=.35mm, coltitle=black, colbacktitle=quarto-callout-important-color!10!white, leftrule=.75mm, bottomrule=.15mm, left=2mm]
+
+Suppose we conduct a \textbf{completely randomized experiment} in a
+sample drawn at random from an infinite population. Then,
+
+\par
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \(plim\;\hat{\beta}=\tau_{ATE}\)
+\item
+  The asymptotic distribution of \(\hat{\beta}\) is normal.
+\end{enumerate}
+
+\end{tcolorbox}
+
+This is a powerful result!
+
+\par
+
+\begin{itemize}
+\tightlist
+\item
+  We are agnostic about the Conditional Expectation Function:
+  \(E[Y_i|W_i,X_i']\).
+\item
+  And the model need not be correctly specified.
+\end{itemize}
+
+\hypertarget{small-sample-bias}{%
+\subsection{Small sample bias}\label{small-sample-bias}}
+
+Unfortunately, in small samples \(\hat{\beta}^{OLS}\) is a biased
+estimator of \(\tau_{ATE}\).\footnote{Focus on the intuition of the
+  results, not the equation. Taken from Deaton's (2010, p.444)
+  discussion of Freedman (2008). In this equation \(X_i\) is single
+  covariate.}
+
+\begin{itemize}
+\tightlist
+\item
+  The bias is \(\psi/N\) and \(\psi\) is given by, \[
+              \psi = -\lim \frac{1}{N}\sum_{i=1}^N (\tau_i-\tau_{ATE})f(X_i)
+  \]
+\item
+  The source of the bias lies in the correlation between the unit-level
+  treatment effect and the covariates.
+\item
+  Recall, treatment is independent of the covariates.
+\item
+  But, the individual level treatment effect may not be.
+\end{itemize}
+
+\begin{tcolorbox}[enhanced jigsaw, breakable, colframe=quarto-callout-tip-color-frame, toptitle=1mm, toprule=.15mm, opacitybacktitle=0.6, opacityback=0, rightrule=.15mm, titlerule=0mm, colback=white, bottomtitle=1mm, title={In practice}, arc=.35mm, coltitle=black, colbacktitle=quarto-callout-tip-color!10!white, leftrule=.75mm, bottomrule=.15mm, left=2mm]
+
+Include covariates and be wary if the estimated coefficient changes
+substantially.
+
+\end{tcolorbox}
+
+\hypertarget{efficiency-gains}{%
+\subsection{Efficiency gains}\label{efficiency-gains}}
+
+With covariates, the sampling variance of the OLS estimator is reduced.
+Here are the estimators:\footnote{Subject of first seminar.}
+
+\[
+\hat{V}^{hetero} = \frac{1}{N(N-k)}\cdot\frac{\sum_{i=1}^{N}(W_i-\bar{W})^2(Y_i-\hat{\alpha}^{OLS}-\hat{\beta}^{OLS}-X_i'\hat{\gamma}^{OLS})^2}{\left(\bar{W}(1-\bar{W})\right)^2}
+\] or \[
+            \hat{V}^{homosk} = \frac{1}{N(N-k)}\cdot\frac{\sum_{i=1}^{N}(Y_i-\hat{\alpha}^{OLS}-\hat{\beta}^{OLS}-X_i'\hat{\gamma}^{OLS})^2}{\bar{W}(1-\bar{W})}
+\] where \(k\) is the number of parameters estimated (including the
+constant).
+
+\par
+
+\begin{itemize}
+\tightlist
+\item
+  Note, this holds only for \textbf{good covariates}
+\end{itemize}
+
+\hypertarget{good-controls}{%
+\subsection{Good controls}\label{good-controls}}
+
+The question of good and bad controls is \textbf{very}
+important.\footnote{Here I am being more general over the choice of the
+  estimator \(\hat{\tau}\) and I am approximating the distribution of
+  the test-statistic with the standard normal.}
+
+\begin{tcolorbox}[enhanced jigsaw, breakable, colframe=quarto-callout-note-color-frame, toptitle=1mm, toprule=.15mm, opacitybacktitle=0.6, opacityback=0, rightrule=.15mm, titlerule=0mm, colback=white, bottomtitle=1mm, title={Good control}, arc=.35mm, coltitle=black, colbacktitle=quarto-callout-note-color!10!white, leftrule=.75mm, bottomrule=.15mm, left=2mm]
+
+A covariate that is not an outcome of the experiment.
+
+\end{tcolorbox}
+
+\begin{itemize}
+\tightlist
+\item
+  Variables measured at baseline,
+\item
+  or individual characteristics that cannot change with the experiment
+  (e.g.~age).
+\end{itemize}
+
+What about stratification?
+
+\par
+
+\begin{itemize}
+\tightlist
+\item
+  You should include stratifying variables in the model
+\item
+  Stratification improves precision.
+\end{itemize}
+
+\hypertarget{minimizing-variance}{%
+\subsection{Minimizing Variance}\label{minimizing-variance}}
+
+Note, in the variance formulae we have the term in the denominator, \[
+            \sum_{i=1}^N(W_i-\bar{W})^2 = N\bar{W}(1-\bar{W})
+\]
+
+\begin{verbatim}
+    TRY TO SHOW THIS
+\end{verbatim}
+
+Which comes from the sample variance of the treatment variable.
+
+\par
+
+To reduce the variance, we can maximize this function. This yields the
+solution,
+
+\[
+        \bar{W}^*=0.5
+\]
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Equal assignment is efficient.}
+\end{itemize}
+
+\hypertarget{under-powered}{%
+\subsection{Under-powered}\label{under-powered}}
+
+RCTs often face the risk that they are \textbf{under-powered}. :::
+\{.allout-note icon=``false''\} \#\# Power The probability of rejecting
+the null hypothesis (\(H_0: \tau=0\); i.e., of no effect) when it is
+\textbf{false}. \[
+                \theta(\tau_0)=Pr(\text{Reject }H_0|\tau=\tau_0)
+\] :::
+
+Recall, that we reject \(H_0: \tau=0\) when \footnote{Here I am being
+  more general over the choice of the estimator \(\hat{\tau}\) and I am
+  approximating the distribution of the test-statistic with the standard
+  normal.}
+
+\[
+            |S|>z_{1-\alpha/2}\Longleftrightarrow |\hat{\tau}/se(\hat{\tau})|>z_{1-\alpha/2}
+\] Where \(S\) is the test-statistic.
+
+\[
+        \begin{align*}
+            \theta(\tau_0)=&Pr(|\hat{\tau}/se(\hat{\tau})|>z_{1-\alpha/2}|\tau=\tau_0) \\
+            =&Pr(\hat{\tau}/se(\hat{\tau})<z_{\alpha/2}|\tau=\tau_0)+Pr(\hat{\tau}/se(\hat{\tau})>z_{1-\alpha/2}|\tau=\tau_0) \\
+            =&Pr\left(\frac{\hat{\tau}-\tau_0}{se(\hat{\tau})}<z_{\alpha/2}-\frac{\tau_0}{se(\hat{\tau})}|\tau=\tau_0\right)\\
+            &+Pr\left(\frac{\hat{\tau}-\tau_0}{se(\hat{\tau})}>z_{1-\alpha/2}-\frac{\tau_0}{se(\hat{\tau})}|\tau=\tau_0\right) \\
+            =&Pr\left(Z<z_{\alpha/2}-\frac{\tau_0}{se(\hat{\tau})}|\tau=\tau_0\right)+Pr\left(Z>z_{1-\alpha/2}-\frac{\tau_0}{se(\hat{\tau})}|\tau=\tau_0\right)
+        \end{align*}
+\]\\
+Given the shape of the normal distribution, \(\theta(\tau_0)\) is
+increasing in \(\tau_0/se(\hat{\tau})\):
+
+\par
+
+\begin{itemize}
+\tightlist
+\item
+  Power is increasing in the absolute value of \(\tau_0\)
+\item
+  Power decreasing in the \(Var(\hat{\tau})\Rightarrow\) power is
+  \textbf{increasing in N}.
+\end{itemize}
+
+\hypertarget{the-microfinance-miracle-a-case-of-itt}{%
+\section{The Microfinance `Miracle': A Case of
+ITT}\label{the-microfinance-miracle-a-case-of-itt}}
+
+\hypertarget{the-microfinance-miracle}{%
+\subsection{The Microfinance `Miracle'}\label{the-microfinance-miracle}}
+
+`{ The Miracle of Microfinance? Evidence from a Randomized
+Evaluation\footnote{Banerjee, A., Duflo, E., Glennerster, R. \& Kinnan,
+  C. 2015, ``The Miracle of Microfinance? Evidence from a Randomized
+  Evaluation'', American economic journal. Applied economics, vol.~7,
+  no. 1, pp.~22-53.}}'
+
+\par
+
+\begin{itemize}
+\tightlist
+\item
+  Microfinance was seen as a `silver bullet' for fighting poverty, but
+  robust evidence was scarce.
+\item
+  Existing evidence based on self-selected clients - not causal.
+\item
+  {Setting:} Hyderabad, India, capital of Andrha Pradesh
+\item
+  {Sample:} randomly treat 52 (out of 104) neighbourhoods with new
+  Spandana branch.
+\item
+  {Data Collection:} survey households 18 months, and then 42 months
+  after treatment (N=6,850).
+\item
+  {Research Design:} ``focus here on reduced-form/intent-to-treat
+  estimates'\,' because of spillover or general equilibrium effects.
+\end{itemize}
+
+\emph{``given the sampling frame, ours will be an intent-to-treat (ITT)
+analysis on a sample of''likely borrowers.'' This is thus neither the
+effect on those who borrow nor the average effect on the neighborhood.
+Rather, it is the average effect of easier access to microfinance on
+those who are its primary targets.'\,' (p.35)}
+
+\textbf{Intention-To-Treat (ITT)}
+
+\par
+
+\begin{itemize}
+\tightlist
+\item
+  Based on initial random assignment (i.e.~reduced form)
+\item
+  Not on take-up or receipt of treatment
+\end{itemize}
+
+\emph{``The main drawback of these ITT analyses is that they do not
+answer questions about causal effects of the receipt of treatment
+itself, only about causal effects of the assignment to treatment.''
+(Imbens and Rubin, 2015, p.515)\footnote{More generally used in
+  discussion of non-compliance.}}
+
+\includegraphics{Images/Banerjee_Timeline_1.png}
+
+\begin{itemize}
+\tightlist
+\item
+  Outcomes of interest:
+\end{itemize}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  consumption
+\item
+  business creation
+\item
+  business income
+\item
+  education
+\item
+  health
+\item
+  women's empowerment
+\end{enumerate}
+
+\begin{itemize}
+\tightlist
+\item
+  Initial (18-month) take-up is lower than expected (by Spandana):
+  26.7\% in treated neighbourhoods and 18.3\% in control.
+\item
+  NOTE: control group is not `untreated' as other companies enter both
+  treated and control groups during this period.
+
+  \par
+
+  \begin{itemize}
+  \tightlist
+  \item
+    By second survey both groups had similar take-up, but treatment
+    group had bigger and older loans.
+  \end{itemize}
+\item
+  Highlights after 18 months:
+
+  \par
+
+  \begin{enumerate}
+  \def\labelenumi{\arabic{enumi}.}
+  \tightlist
+  \item
+    Decline in informal borrowing. 2. No difference in borrowed amount.
+    3. No difference in (nondurable) consumption, but increase in
+    purchase of durable goods. 4. No impact on entrepreneurship, but
+    invest in existing businesses. 5. Increase in profitability of some
+    businesses (upper tail)
+  \end{enumerate}
+\item
+  Highlights after 42 months:
+
+  \par
+
+  \begin{enumerate}
+  \def\labelenumi{\arabic{enumi}.}
+  \tightlist
+  \item
+    Businesses have more assets, more businesses are more profitable 2.
+    Average still small \(\Rightarrow\) doesn't help small businesses 3.
+    No evidence of consumption change
+  \end{enumerate}
+\item
+  No effect on female empowerment outcomes.
+\item
+  Almost 70\% of households do not have an MFI loan, despite
+  eligibility, yet borrow from other sources.
+\end{itemize}
+
+\includegraphics{Images/Banerjee_Baseline_1.png}
+
+NOTE: Baseline survey covers a different set of households.
+
+The authors estimate the following regression model in each period after
+the intervention,\footnote{I have use the authors' notation.}
+
+\[
+            y_{ia} = \alpha + \beta \times Treat_{ia} + X_a'\gamma + \varepsilon_{ia}
+\]
+
+where \(i\) represents the individual and \(a\) the area
+(neighbourhood).
+
+\par
+
+\begin{itemize}
+\tightlist
+\item
+  \(X_a\) is a vector of area controls \textbf{at baseline}, including
+  population, per capita literature, etc.
+\end{itemize}
+
+\includegraphics{Images/Banerjee_Regression_1.png}
+\includegraphics{Images/Banerjee_Regression_3.png}
+\includegraphics{Images/Banerjee_Regression_2.png}
+
+Conclusion:
+
+\emph{``microcredit is not for every household, or even most households,
+and \textbf{it does not lead to the miraculous social transformation}
+some proponents have claimed\ldots allows some households to sacrifice
+some instantaneous utility (temptation goods or leisure) in order to
+finance lumpy purchases, either for their home or in order to establish
+or expand a business''}
+
+Similar results found in other RCTs, including ``Estimating the impact
+of microcredit on those who take it up: Evidence from a randomized
+experiment in Morocco'\,' by Cr\textquotesingle\{e\}pon, Devoto, Duflo
+\& Parient\textquotesingle\{e\} (2015)
+
+\par
+
+\begin{itemize}
+\tightlist
+\item
+  Clearer research design with untreated control group
+\item
+  No evidence of a gain in income or consumption
+\end{itemize}
+
+\hypertarget{notes-on-sample-variance-in-r}{%
+\subsubsection{Notes on sample variance (in
+R)}\label{notes-on-sample-variance-in-r}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{data1 }\OtherTok{\textless{}{-}}\FunctionTok{data.frame}\NormalTok{(}\AttributeTok{y0 =} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{4}\NormalTok{),}
+\AttributeTok{y1 =} \FunctionTok{c}\NormalTok{(}\DecValTok{3}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{3}\NormalTok{)}
+\NormalTok{)}
+\NormalTok{data1}\SpecialCharTok{$}\NormalTok{tau }\OtherTok{\textless{}{-}}\NormalTok{  data1}\SpecialCharTok{$}\NormalTok{y1}\SpecialCharTok{{-}}\NormalTok{data1}\SpecialCharTok{$}\NormalTok{y0}
+\NormalTok{data1}\SpecialCharTok{$}\NormalTok{St }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\FunctionTok{sd}\NormalTok{(data1}\SpecialCharTok{$}\NormalTok{y1)}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{,}\FunctionTok{sd}\NormalTok{(data1}\SpecialCharTok{$}\NormalTok{y0)}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{,}\FunctionTok{sd}\NormalTok{(data1}\SpecialCharTok{$}\NormalTok{tau)}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{,}\ConstantTok{NA}\NormalTok{)}
+\FunctionTok{print}\NormalTok{(}\FunctionTok{paste}\NormalTok{(}\StringTok{"Finite Sample Variance Tau{-}hat:"}\NormalTok{, data1}\SpecialCharTok{$}\NormalTok{St[}\DecValTok{1}\NormalTok{]}\SpecialCharTok{/}\DecValTok{2}\SpecialCharTok{+}\NormalTok{data1}\SpecialCharTok{$}\NormalTok{St[}\DecValTok{2}\NormalTok{]}\SpecialCharTok{/}\DecValTok{2}\SpecialCharTok{{-}}\NormalTok{data1}\SpecialCharTok{$}\NormalTok{St[}\DecValTok{3}\NormalTok{]}\SpecialCharTok{/}\DecValTok{4}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] "Finite Sample Variance Tau-hat: 0.5"
+\end{verbatim}
+
+Code out all the possible realizations of W
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{m }\OtherTok{\textless{}{-}} \DecValTok{1}
+\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\DecValTok{3}\NormalTok{)\{}
+\NormalTok{  j }\OtherTok{\textless{}{-}}\NormalTok{ i }\SpecialCharTok{+} \DecValTok{1}
+  \ControlFlowTok{while}\NormalTok{ (j }\SpecialCharTok{\textless{}=} \DecValTok{4}\NormalTok{) \{}
+\NormalTok{    data1[}\FunctionTok{paste0}\NormalTok{(}\StringTok{"w"}\NormalTok{, m)] }\OtherTok{\textless{}{-}} \FunctionTok{as.numeric}\NormalTok{((}\DecValTok{1}\SpecialCharTok{:}\FunctionTok{nrow}\NormalTok{(data1) }\SpecialCharTok{==}\NormalTok{ i) }\SpecialCharTok{|}\NormalTok{ (}\DecValTok{1}\SpecialCharTok{:}\FunctionTok{nrow}\NormalTok{(data1) }\SpecialCharTok{==}\NormalTok{ j))}
+\NormalTok{    m }\OtherTok{\textless{}{-}}\NormalTok{ m }\SpecialCharTok{+} \DecValTok{1}
+\NormalTok{    j }\OtherTok{\textless{}{-}}\NormalTok{ j }\SpecialCharTok{+} \DecValTok{1}
+\NormalTok{  \}}
+\NormalTok{\}}
+
+\NormalTok{tauhat }\OtherTok{\textless{}{-}} \FunctionTok{matrix}\NormalTok{(}\ConstantTok{NA}\NormalTok{, }\AttributeTok{nrow =} \DecValTok{6}\NormalTok{, }\AttributeTok{ncol =} \DecValTok{1}\NormalTok{)}
+
+\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\DecValTok{6}\NormalTok{) \{}
+\NormalTok{  data1[}\FunctionTok{paste0}\NormalTok{(}\StringTok{"yobs"}\NormalTok{, i)] }\OtherTok{\textless{}{-}}\NormalTok{ data1}\SpecialCharTok{$}\NormalTok{y1 }\SpecialCharTok{*}\NormalTok{ data1[}\FunctionTok{paste0}\NormalTok{(}\StringTok{"w"}\NormalTok{, i)] }\SpecialCharTok{+}\NormalTok{ data1}\SpecialCharTok{$}\NormalTok{y0 }\SpecialCharTok{*}\NormalTok{ (}\DecValTok{1} \SpecialCharTok{{-}}\NormalTok{ data1[}\FunctionTok{paste0}\NormalTok{(}\StringTok{"w"}\NormalTok{, i)])}
+\NormalTok{  model }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(}\FunctionTok{paste0}\NormalTok{(}\StringTok{"yobs"}\NormalTok{, i, }\StringTok{" \textasciitilde{} "}\NormalTok{, }\StringTok{"w"}\NormalTok{, i), }\AttributeTok{data =}\NormalTok{ data1)}
+\NormalTok{  tauhat[i, }\DecValTok{1}\NormalTok{] }\OtherTok{\textless{}{-}} \FunctionTok{coef}\NormalTok{(model)[}\FunctionTok{paste0}\NormalTok{(}\StringTok{"w"}\NormalTok{, i)]}
+\NormalTok{\}}
+\FunctionTok{print}\NormalTok{(}\FunctionTok{paste0}\NormalTok{(}\StringTok{"Finite Sample Variance Tau{-}hat is "}\NormalTok{, }\FunctionTok{sd}\NormalTok{(tauhat)}\SpecialCharTok{\^{}}\DecValTok{2}\SpecialCharTok{*}\DecValTok{5}\SpecialCharTok{/}\DecValTok{6}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] "Finite Sample Variance Tau-hat is 0.5"
+\end{verbatim}
+
+\hypertarget{experiments-irregular-assignment}{%
+\chapter{Experiments: Irregular
+Assignment}\label{experiments-irregular-assignment}}
+
+This is a book created from markdown and executable code.
+
+See Knuth (1984) for additional discussion of literate programming.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DecValTok{1} \SpecialCharTok{+} \DecValTok{1}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] 2
+\end{verbatim}
+
+\hypertarget{stratified-experiments}{%
+\chapter{Stratified Experiments}\label{stratified-experiments}}
+
+The discussion of simple randomized experiments ignores the possibility
+that assignment into treatment depends on an set of covariates \(X_i\).
+In this chapter we discuss experimental designs where the probability of
+treatment is stratified on characteristics of unit.
+
+Stratification is used to support the within-group analysis of
+experiments and can have significant benefits for the statistical power
+of the causal effects estimator. Stratified experiments will also form
+the basis of the way in which researchers think about casual inference
+using (cross-sectional) observational data where selection into
+treatment is not controlled (see Chapter \_).
+
+\hypertarget{stratified-randomized-experiment-1}{%
+\subsection{Stratified Randomized
+Experiment}\label{stratified-randomized-experiment-1}}
+
+Stratification involves the dividing of the population into a finite
+number of \textbf{blocks} or \textbf{strata} (\(B_i \in \{1,...,J\}\)),
+based on \emph{pre-treatment}, observable characteristics \(X_i\),
+
+\[
+B_i = B_i(X_i)
+\]
+
+Within each block, assignment into treatment is both probabilistic and
+individual, but differs by \(X_i\). Thus, there is a completely
+randomized experiment within each block and assignment is independent
+across blocks.
+
+Adapting our original definition of a completely randomized experiment
+(from Chapter \_) to this setting, we get that the probability of
+observing any assignment vector \(W_i\) conditional on potential
+outcomes and a vecotr of \(X_i\)-covariates is given by,
+
+\[
+\mathbf{Pr}(W|X,Y(0),Y(1))=
+\begin{cases}
+\prod^J_{j=1} (\frac{N(j)!}{N(j)_t!(N(j)-N(j)_t)!})^{-1} & \text{if} \quad \sum^N_{i:B_i=j} W_i=N(j)_t \\
+                    0 &\text{otherwise}
+\end{cases}
+\] and \$N(j)\_c is preset such that,
+
+\[
+0 < N(j)_t <N(j) \quad \text{for} \space j = 1,...,J
+\]
+
+Note, if N(j) \#\#\# Def. Stratified Randomized Experiment
+
+\bookmarksetup{startatroot}
+
+\hypertarget{observational-studies}{%
+\chapter{Observational Studies}\label{observational-studies}}
+
+This is a book created from markdown and executable code.
+
+See Knuth (1984) for additional discussion of literate programming.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DecValTok{1} \SpecialCharTok{+} \DecValTok{1}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] 2
+\end{verbatim}
+
+\part{Natural Experiments}
+
+\hypertarget{difference-in-differences---static}{%
+\chapter{Difference-in-Differences -
+Static}\label{difference-in-differences---static}}
+
+Recall Lecture 1.2 \emph{Causal Inference},
+
+\hypertarget{imbens-and-rubin-2015-p.-6}{%
+\section{(Imbens and Rubin, 2015,
+p.~6)}\label{imbens-and-rubin-2015-p.-6}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  ``First, the definition of the causal effect depends on the potential
+  outcomes, but it does not depend on which outcome is actually
+  observed.''
+\item
+  ``Second, the causal effect is the comparison of potential outcomes,
+  for the same unit, at the same moment in time post-treatment. In
+  particular, \textbf{the causal effect is not defined in terms of
+  comparisons of outcomes at different times.}\footnote{Emphasis added.}''
+\end{enumerate}
+
+\hypertarget{set-up-2-group-2-period}{%
+\section{Set-up: 2-group-2-period}\label{set-up-2-group-2-period}}
+
+The simple 2-group-2-period difference-in-differences set-up has the
+following characteristics,
+
+\begin{itemize}
+\tightlist
+\item
+  Two periods of data: either panel (longitudinal) or repeated
+  cross-section
+\item
+  A control group that is never-treated\footnote{If you use an
+    always-treated control group you would need to assume static
+    treatment effects.}
+\item
+  Treatment is absorbing: `always-on'\footnote{More relevant for
+    multiple periods.}
+\item
+  Typically, the treatment takes place in the second period.
+\end{itemize}
+
+Assuming additive treatment effects,
+
+\[
+Y_{it} = \begin{cases}
+Y_{it}(0) & \text{if } t < t_0 \\
+Y_{it}(0) + D_i\cdot(Y_{it}(1)-Y_{it}(0)) & \text{if } t \geq t_0
+\end{cases}
+\]
+
+\[
+= Y_{it}(0) + T_t\cdot D_i\cdot(Y_{it}(1)-Y_{it}(0))
+\]
+
+where, - ( \(T_t\) ): dummy variable ( \(=1\) ) after period of
+treatment (( \(t_0\) ) onwards). - ( \(D_i\) ): dummy variable ( \(=1\)
+) if unit ( \(i\) ) is in the treated group, 0 otherwise.
+
+\begin{tcolorbox}[enhanced jigsaw, breakable, colframe=quarto-callout-note-color-frame, toptitle=1mm, toprule=.15mm, opacitybacktitle=0.6, opacityback=0, rightrule=.15mm, titlerule=0mm, colback=white, bottomtitle=1mm, title={Note: ( \((Y_{it}(1),Y_{it}(0))\)) depend on time; so,}, arc=.35mm, coltitle=black, colbacktitle=quarto-callout-note-color!10!white, leftrule=.75mm, bottomrule=.15mm, left=2mm]
+
+\[
+Y_{it}(1)-Y_{it}(0) \lesseqqgtr Y_{it'}(1)-Y_{it'}(0)
+\]
+
+\end{tcolorbox}
+
+\hypertarget{exclusion-restrictions}{%
+\section{Exclusion Restrictions}\label{exclusion-restrictions}}
+
+The above set-up implies the following exclusion
+restrictions,\footnote{Particularly important in observational studies
+  with group and/or irregular assignment.}
+
+\begin{tcolorbox}[enhanced jigsaw, breakable, colframe=quarto-callout-note-color-frame, toptitle=1mm, toprule=.15mm, opacitybacktitle=0.6, opacityback=0, rightrule=.15mm, titlerule=0mm, colback=white, bottomtitle=1mm, title={Exclusion restriction: No pre-emptive behaviour}, arc=.35mm, coltitle=black, colbacktitle=quarto-callout-note-color!10!white, leftrule=.75mm, bottomrule=.15mm, left=2mm]
+
+\[
+Y_{it}=Y_{it}(0) \quad \forall\; (i,t)\;\text{s.t. }\;t< t_0
+\]
+
+\end{tcolorbox}
+
+and,
+
+\begin{tcolorbox}[enhanced jigsaw, breakable, colframe=quarto-callout-note-color-frame, toptitle=1mm, toprule=.15mm, opacitybacktitle=0.6, opacityback=0, rightrule=.15mm, titlerule=0mm, colback=white, bottomtitle=1mm, title={Exclusion restriction: No spillovers}, arc=.35mm, coltitle=black, colbacktitle=quarto-callout-note-color!10!white, leftrule=.75mm, bottomrule=.15mm, left=2mm]
+
+\[
+Y_{it}=Y_{it}(0) \quad \forall \;(i,t) \;\text{s.t.}\;D_i=0
+\]
+
+\end{tcolorbox}
+
+and,
+
+\begin{tcolorbox}[enhanced jigsaw, breakable, colframe=quarto-callout-note-color-frame, toptitle=1mm, toprule=.15mm, opacitybacktitle=0.6, opacityback=0, rightrule=.15mm, titlerule=0mm, colback=white, bottomtitle=1mm, title={Exclusion restriction: No switching}, arc=.35mm, coltitle=black, colbacktitle=quarto-callout-note-color!10!white, leftrule=.75mm, bottomrule=.15mm, left=2mm]
+
+\textbf{Treatment group} status, \(D_i\), does not depend on time. Only
+treatment status, \(D_i \cdot T_t\), varies with time.
+
+\end{tcolorbox}
+
+\hypertarget{dynamic-confounding-factors}{%
+\section{Dynamic Confounding
+Factors}\label{dynamic-confounding-factors}}
+
+Let us consider the first (dynamic) difference with just \textbf{two
+periods of data},
+
+\[
+\begin{aligned}
+&E[Y_{it}|D_i=1,T_t=1]-E[Y_{it}|D_i=1,T_t=0] \\
+=&E[Y_{it}(1)|D_i=1,T_t=1]-E[Y_{it}(0)|D_i=1,T_t=0] \\
+=&\underbrace{E[Y_{it}(1)|D_i=1,T_t=1]-E[Y_{it}(0)|D_i=1,T_t=1]}_{\text{ATT in period } t_0} \\
+&\underbrace{+E[Y_{it}(0)|D_i=1,T_t=1]-E[Y_{it}(0)|D_i=1,T_t=0]}_{\text{(dynamic) confounding factors}}
+\end{aligned}
+\]
+
+Once again, we don't observe the counterfactual for the treated group.
+\textbf{As such}, the CEF does not trace out a causal relationship.
+
+Notice, however, that for the untreated group,
+
+\[
+\begin{aligned}
+&E[Y_{it}|D_i=0,T_t=1]-E[Y_{it}|D_i=0,T_t=0] \\
+=&E[Y_{it}(0)|D_i=0,T_t=1]-E[Y_{it}(0)|D_i=0,T_t=0]
+\end{aligned}
+\]
+
+which looks very similar to,
+
+\[
+\color{red}{E[Y_{it}(0)|D_i=1,T_t=1]}
+\] \[
+-E[Y_{it}(0)|D_i=1,T_t=0]
+\] (Note to myself: Find a way to change this)
+
+from the treated group.
+
+\begin{tcolorbox}[enhanced jigsaw, breakable, colframe=quarto-callout-note-color-frame, toptitle=1mm, toprule=.15mm, opacitybacktitle=0.6, opacityback=0, rightrule=.15mm, titlerule=0mm, colback=white, bottomtitle=1mm, title={Parallel Trends Assumption (General version)}, arc=.35mm, coltitle=black, colbacktitle=quarto-callout-note-color!10!white, leftrule=.75mm, bottomrule=.15mm, left=2mm]
+
+\[
+\begin{aligned}
+&E[Y_{it}(0)|D_i=0,T_t=1]-E[Y_{it}(0)|D_i=0,T_t=0] \\
+=&E[Y_{it}(0)|D_i=1,T_t=1]-E[Y_{it}(0)|D_i=1,T_t=0]
+\end{aligned}
+\]
+
+\end{tcolorbox}
+
+With this assumption and the above exclusion restrictions, we have
+identification of the Average Treatment Effect \textbf{of the Treated}.
+
+With this assumption we can identify the ATT,
+
+\[
+\begin{aligned}
+&\big[E[Y_{it}|D_i=1,T_t=1]-E[Y_{it}|D_i=1,T_t=0]\big]\\
+&-\big[\textcolor{blue}{E[Y_{it}|D_i=0,T_t=1]-E[Y_{it}|D_i=0,T_t=0]}\big] \\
+=&\big[E[Y_{it}(1)|D_i=1,T_t=1]-E[Y_{it}(0)|D_i=1,T_t=0]\big] \\
+&-\big[\textcolor{blue}{E[Y_{it}(0)|D_i=0,T_t=1]-E[Y_{it}(0)|D_i=0,T_t=0]}\big] \\
+=&\big[E[Y_{it}(1)|D_i=1,T_t=1]\textcolor{red}{-E[Y_{it}(0)|D_i=1,T_t=1]}\big] \\
+&+\big[\textcolor{red}{E[Y_{it}(0)|D_i=1,T_t=1]}-E[Y_{it}(0)|D_i=1,T_t=0]\big] \\
+&-\big[\textcolor{blue}{E[Y_{it}(0)|D_i=0,T_t=1]-E[Y_{it}(0)|D_i=0,T_t=0]}\big] \\
+=&\underbrace{\big[E[Y_{it}(1)|D_i=1,T_t=1]\textcolor{red}{-E[Y_{it}(0)|D_i=1,T_t=1]}\big]}_{\text{ATT in period } t_0}
+\end{aligned}
+\]
+
+where the two penultimate lines cancel one another under parallel
+trends. Hence, the name \textbf{difference-in-differences}.
+
+\hypertarget{mapping-to-linear-model}{%
+\section{Mapping to Linear Model}\label{mapping-to-linear-model}}
+
+Let's consider the CEF of ( \(Y_{it}^{obs}\) ),
+
+\[
+E[Y_{it}|D_i,T_t]
+\]
+
+where, ( \(Y_{it} = Y_{it}(0) + T_t \cdot D_i(Y_{it}(1) - Y_{it}(0))\)
+).\footnote{Remember, this equation implies our exclusion restrictions.}
+
+\[
+\begin{aligned}
+E[Y_{it}|D_i,T_t] &= E[Y_{it}(0)|D_i,T_t] + T_t \cdot D_i E[(Y_{it}(1) - Y_{it}(0))|D_i,T_t] \\
+&= E[Y_{it}(0)|D_i,T_t=0] \\
+&\quad + T_t \cdot \left( E[Y_{it}(0)|D_i,T_t=1] - E[Y_{it}(0)|D_i,T_t=0] \right) \\
+&\quad + T_t \cdot D_i \cdot E[(Y_{it}(1) - Y_{it}(0))|D_i,T_t]
+\end{aligned}
+\]
+
+\textbf{Under parallel trends},
+
+\[
+\begin{aligned}
+&E[Y_{it}(0)|D_i,T_t=1]-E[Y_{it}(0)|D_i,T_t=0] \\
+&= \textcolor{blue}{E[Y_{it}(0)|T_t=1]-E[Y_{it}(0)|T_t=0]} \\
+&= \textcolor{blue}{\delta}
+\end{aligned}
+\]
+
+a constant! So, we have
+
+\[
+\begin{aligned}
+E[Y_{it}|D_i,T_t] &= E[Y_{it}(0)|D_i,T_t=0] \\
+&+ T_t \cdot \left( \textcolor{blue}{\underbrace{E[Y_{it}(0)|T_t=1]-E[Y_{it}(0)|T_t=0]}_{\delta}} \right) \\
+&+ T_t \cdot D_i \cdot E[(Y_{it}(1)-Y_{it}(0))|D_i,T_t]
+\end{aligned}
+\]
+
+We can then expand (\(E[Y_{it}(0)|D_i, T_t=0]\))
+
+\[
+\begin{aligned}
+E[Y_{it}(0)|D_i,T_t=0] &= E[Y_{it}(0)|D_i=0,T_t=0] \\
+&+ D_i \cdot \left( \textcolor{red}{E[Y_{it}(0)|D_i=1,T_t=0] - E[Y_{it}(0)|D_i=0,T_t=0]} \right) \\
+&= \alpha + \psi D_i
+\end{aligned}
+\]
+
+where \(\{ \alpha, \psi \}\) are two more constants. So, we have
+
+\[
+\begin{aligned}
+E[Y_{it}|D_i,T_t] &= \underbrace{E[Y_{it}(0)|D_i=0,T_t=0]}_{\alpha} \\
+&+ D_i \cdot \left( \textcolor{red}{\underbrace{E[Y_{it}(0)|D_i=1,T_t=0] - E[Y_{it}(0)|D_i=0,T_t=0]}_{\psi}} \right) \\
+&+ T_t \cdot \textcolor{blue}{\delta} + T_t \cdot D_i \cdot E[(Y_{it}(1)-Y_{it}(0))|D_i,T_t]
+\end{aligned}
+\]
+
+Finally, we can show,
+
+\[
+\begin{aligned}
+&T_t \cdot D_i \cdot E[(Y_{it}(1) - Y_{it}(0))|D_i,T_t] \\
+&= T_t \cdot D_i \cdot \textcolor{purple}{E[(Y_{it}(1) - Y_{it}(0))|D_i=1,T_t=1]} \\
+&= T_t \cdot D_i \cdot \tau_{ATT}(t_0) 
+\end{aligned}
+\]
+
+If we want, we can assume the ATT is static:
+\(\tau_{ATT}(t_0) = \tau_{ATT} \quad \forall t\).
+
+\[
+\begin{aligned}
+E[Y_{it}|D_i,T_t] &= \alpha + \textcolor{red}{\psi}D_i + \textcolor{blue}{\delta}T_t \\
+&+ T_t \cdot D_i \cdot \textcolor{purple}{\underbrace{E[(Y_{it}(1) - Y_{it}(0))|D_i=1,T_t=1}_{\tau_{ATT}(t_0)}} \\
+&= \alpha + \textcolor{red}{\psi}D_i + \textcolor{blue}{\delta}T_t + \textcolor{purple}{\tau_{ATT}(t_0)} T_t \cdot D_i
+\end{aligned}
+\]
+
+\begin{tcolorbox}[enhanced jigsaw, breakable, colframe=quarto-callout-note-color-frame, toptitle=1mm, toprule=.15mm, opacitybacktitle=0.6, opacityback=0, rightrule=.15mm, titlerule=0mm, colback=white, bottomtitle=1mm, title={Parallel Trends Assumption (Parametric version)}, arc=.35mm, coltitle=black, colbacktitle=quarto-callout-note-color!10!white, leftrule=.75mm, bottomrule=.15mm, left=2mm]
+
+\[
+E[Y_{it}(0)|D_i,T_t] = \alpha + \psi D_i + \delta T_t
+\]
+
+\end{tcolorbox}
+
+\begin{itemize}
+\tightlist
+\item
+  Note: assumption concerning the CEF.
+\item
+  Note: includes treatment group status.
+\end{itemize}
+
+Thus,
+
+\[
+\underbrace{E[Y_{it}(0)|D_i=0,T_t=1]}_{\alpha + \delta} - \underbrace{E[Y_{it}(0)|D_i=0,T_t=0]}_{\alpha} = \delta
+\]
+
+and,
+
+\[
+\underbrace{\textcolor{red}{E[Y_{it}(0)|D_i=1,T_t=1]}}_{\alpha + \psi + \delta} - \underbrace{E[Y_{it}(0)|D_i=1,T_t=0]}_{\alpha + \psi} = \delta
+\]
+
+\hypertarget{graphical-example}{%
+\section{Graphical Example}\label{graphical-example}}
+
+\begin{figure}
+
+{\centering \includegraphics{paralleltrends_files/figure-pdf/fig-graph1-1.pdf}
+
+}
+
+\caption{\label{fig-graph1}Difference-in-Differences Plot 1}
+
+\end{figure}
+
+\begin{figure}
+
+{\centering \includegraphics{paralleltrends_files/figure-pdf/fig-graph2-1.pdf}
+
+}
+
+\caption{\label{fig-graph2}Difference-in-Differences Plot 2}
+
+\end{figure}
+
+\hypertarget{did-and-cia}{%
+\section{DiD and CIA}\label{did-and-cia}}
+
+Do we need the CIA/Unconfoundedness assumption?\\
+\textbf{NO}, Why not?
+
+\begin{itemize}
+\item
+  We do not identify the ATT as the coefficient on ( \(D_i\) ).
+\item
+  With two sources of variation, both time and treatment group, we can
+  identify the selection term in the pre-period,
+
+  \[
+  E[Y_i(0)|D_i=1,T_i=0] - E[Y_i(0)|D_i=0,T_i=0] = \psi
+  \]
+\item
+  Key assumption: selection doesn't change over time; i.e.,
+  \emph{parallel/common trends}.
+\end{itemize}
+
+\hypertarget{selection-1}{%
+\section{Selection}\label{selection-1}}
+
+Let us consider the first (cross-sectional) difference,
+
+\[
+\begin{aligned}
+&E[Y_{it}|D_i=1,T_t=1] - E[Y_{it}|D_i=0,T_t=1] \\
+&= E[Y_{it}(1)|D_i=1,T_t=1] - E[Y_{it}(0)|D_i=0,T_t=1] \\
+&= \underbrace{E[Y_{it}(1)|D_i=1,T_t=1] \textcolor{red}{- E[Y_{it}(0)|D_i=1,T_t=1]}}_{\text{ATT in period } t_0} \\
+&\quad \underbrace{\textcolor{red}{+ E[Y_{it}(0)|D_i=1,T_t=1]} - E[Y_{it}(0)|D_i=0,T_t=1]}_{\text{selection between groups}}
+\end{aligned}
+\]
+
+which is very similar to,
+
+\[
+E[Y_{it}(0)|D_i=1,T_t=0] - E[Y_{it}(0)|D_i=0,T_t=0]
+\]
+
+from the first period.
+
+With the parallel trends assumption,
+
+Selection is given by
+
+\[
+\underbrace{\textcolor{red}{E[Y_{it}(0)|D_i=1,T_t=1]}}_{\alpha + \psi + \delta} - \underbrace{E[Y_{it}(0)|D_i=0,T_t=1]}_{\alpha + \delta} = \psi
+\]
+
+and
+
+\[
+\underbrace{E[Y_{it}(0)|D_i=1,T_t=0]}_{\alpha + \psi} - \underbrace{E[Y_{it}(0)|D_i=0,T_t=0]}_{\alpha} = \psi
+\]
+
+\begin{itemize}
+\tightlist
+\item
+  Permits level differences between treatment and control.
+\item
+  Selection term is identified in pre-period.\footnote{Emphasizes
+    importance of `no pre-emptive behaviour' assumption.}
+\end{itemize}
+
+\hypertarget{difference-in-differences}{%
+\section{Difference-in-differences}\label{difference-in-differences}}
+
+Again we can identify the ATT as a \emph{difference-in-differences},
+
+\[
+\begin{aligned}
+&\left[E[Y_{it}|D_i=1,T_t=1] - \textcolor{blue}{E[Y_{it}|D_i=0,T_t=1]}\right] \\
+&- \left[E[Y_{it}|D_i=1,T_t=0] - \textcolor{blue}{E[Y_{it}|D_i=0,T_t=0]}\right] \\
+&= \left[E[Y_{it}(1)|D_i=1,T_t=1] - \textcolor{blue}{E[Y_{it}(0)|D_i=0,T_t=1]}\right] \\
+&- \left[E[Y_{it}(0)|D_i=1,T_t=0] - \textcolor{blue}{E[Y_{it}(0)|D_i=0,T_t=0]}\right] \\
+&= \underbrace{\left[E[Y_{it}(1)|D_i=1,T_t=1] \textcolor{red}{- E[Y_{it}(0)|D_i=1,T_t=1]}\right]}_{\tau_{ATT}(t_0)} \\
+&+ \underbrace{\left[\textcolor{red}{E[Y_{it}(0)|D_i=1,T_t=1]} - \textcolor{blue}{E[Y_{it}(0)|D_i=0,T_t=1]}\right]}_{= \psi} \\
+&- \underbrace{\left[E[Y_{it}(0)|D_i=1,T_t=0] - \textcolor{blue}{E[Y_{it}(0)|D_i=0,T_t=0]}\right]}_{= \psi}
+\end{aligned}
+\]
+
+\begin{itemize}
+\tightlist
+\item
+  Parallel trends allow us to pin down the selection component.
+\item
+  We do not need unconfoundedness to rule out selection.
+\end{itemize}
+
+\hypertarget{did-in-practice}{%
+\section{DiD in Practice}\label{did-in-practice}}
+
+\hypertarget{multi-group-2-period}{%
+\subsection{Multi-group-2-period}\label{multi-group-2-period}}
+
+\textbf{In a `natural' experiment setting}, treatment is almost always
+assigned at a group-level setting: geographical, demographic, etc.
+
+Let (\(Y_{itc}\)) be the outcome of unit (\(i\)) in period ( \(t\)),
+member of assignment-group (\(c(i)\)),
+
+\[
+c(i) \in \{1, \ldots, c_0, c_0 + 1, \ldots, C\}
+\]
+
+where groups are:
+
+\begin{itemize}
+\tightlist
+\item
+  Treated: ( \(1\), \(\ldots, c_0\) ) (no. treated groups = ( \(c_0\) ))
+\item
+  Control: ( \(c_0 + 1, \ldots, C\) ) (no. control groups \(=\) (
+  \(C - c_0\) ))
+\end{itemize}
+
+Thus,
+
+\[
+D_i = D_{c(i)} = \mathbf{1}\{c(i) \leq c_0\}
+\]
+
+\hypertarget{group-assignment}{%
+\section{Group Assignment}\label{group-assignment}}
+
+The relevant estimating equation is then,
+
+\[
+Y^{obs}_{itc} = \alpha + \psi D_{c} + \delta T_t + \beta D_{c} \cdot T_t + \varepsilon_{itc}
+\]
+
+\begin{itemize}
+\tightlist
+\item
+  A model that can be estimated using repeated cross-sections or
+  panel/longitudinal data.\footnote{This is also true for unit-level
+    assignment, assuming sample selection of the subsequent
+    cross-sections is independent of treatment.}
+\end{itemize}
+
+\hypertarget{group-fixed-effects}{%
+\section{Group Fixed Effects}\label{group-fixed-effects}}
+
+Fixed effects notation is used extensively in Microeconometrics.
+
+Given a set of assignment-groups ( \(c = 1, 2, 3, \ldots, C\)),
+assignment-group FE's can be written as,
+
+\[
+\psi_c = \sum_{j=1}^{C} \psi_j \mathbf{1}\{c = j\}
+\]
+
+\begin{itemize}
+\tightlist
+\item
+  A dummy variable for each value.
+\item
+  Standard to drop the constant term in the regression equation.
+\item
+  Implicitly, this is a group-specific constant.
+\end{itemize}
+
+\textbf{Parallel Trends Assumption (parametric version)}
+
+\[
+E[Y_{it}(0)|D_c,T_t] = \psi_c + \delta T_t
+\]
+
+Consider the two estimating equations,
+
+\[
+Y^{obs}_{itc} = \alpha + \psi D_c + \delta T_t + \beta_1 D_c \cdot T_t + \varepsilon_{itc}
+\]
+
+and
+
+\[
+Y^{obs}_{itc} = \psi_c + \delta T_t + \beta_2 D_c \cdot T_t + \epsilon_{itc}
+\]
+
+\begin{itemize}
+\tightlist
+\item
+  (\hat{\beta}\_2 = \hat{\beta}\_1) \textbf{IF} group size does not
+  change with time; i.e., a balanced panel of groups with stable group
+  sizes. Group size need not be equal.
+\item
+  Does not introduce bias.
+\item
+  But, ( se(\hat{\beta}\_2) ) \textbf{tends to be} smaller than (
+  se(\hat{\beta}\_1) )\footnote{`tends to be', because you also decrease
+    the degree of freedom.}.
+\end{itemize}
+
+With group FE's we \emph{typically} explain more of the variation in (
+Y(0) ).
+
+\hypertarget{example-uk-policy}{%
+\section{Example: UK Policy}\label{example-uk-policy}}
+
+Suppose Scotland and Wales introduce a policy to restrict access to fast
+food in year (\(t_0\)) and you have individual-level measures of BMI
+from across the UK.
+
+\begin{itemize}
+\item
+  (\$D\_c = \mathbf{1}{c \leq 2}\$)
+\item
+  Estimating equations,
+
+  \[
+  Y^{obs}_{itc} = \alpha + \psi D_c + \delta T_t + \beta_1 D_c \cdot T_t + \varepsilon_{itc}
+  \]
+
+  and
+
+  \[
+  Y^{obs}_{itc} = \underbrace{\sum_{j=1}^{4} \psi_j \mathbf{1}\{c = j\}}_{\psi_c} + \delta T_t + \beta_2 D_c \cdot T_t + \epsilon_{itc}
+  \]
+\end{itemize}
+
+\hypertarget{unit-fixed-effects}{%
+\section{Unit Fixed Effects}\label{unit-fixed-effects}}
+
+Suppose, you have \textbf{panel/longitudinal data}, then the
+specification,
+
+\[
+Y^{obs}_{itc} = \alpha_i + \delta T_t + \beta_3 D_c\cdot T_t + \upsilon_{itc}
+\]
+
+will \textbf{typically} yield an even more efficient estimator.
+
+\begin{itemize}
+\tightlist
+\item
+  \(\hat{\beta}_3=\hat{\beta}_2=\hat{\beta}_1\) \textbf{IF} all units
+  are observed in all periods; i.e., a balanced panel of units.
+\item
+  Does not introduce bias.
+\item
+  \(se(\hat{\beta}_3)\) \textbf{tends to be} smaller than
+  \(se(\hat{\beta}_2)\), which \emph{tends to be} smaller than
+  \(se(\hat{\beta}_1)\).
+\item
+  Increases the power of the test for \(H_0: \tau_{ATT}=0\).
+\item
+  Higher dimensions of FEs \emph{tend to} yield lower variance
+  estimators.
+\end{itemize}
+
+\hypertarget{adding-covariates-2}{%
+\section{Adding Covariates}\label{adding-covariates-2}}
+
+There are two reasons to add \textbf{GOOD} covariates to the model:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Improve the precision of estimates and increase power.
+\item
+  For identification (when \emph{unconditional} parallel trends fail).
+\end{enumerate}
+
+\textbf{Conditional Parallel Trends Assumption (General version)}
+
+\[
+\begin{aligned}
+&E[Y_{it}(0)|D_i=0,T_t=1,X_i'] - E[Y_{it}(0)|D_i=0,T_t=0,X_i'] \\
+&= E[Y_{it}(0)|D_i=1,T_t=1,X_i'] - E[Y_{it}(0)|D_i=1,T_t=0,X_i']
+\end{aligned}
+\]
+
+or
+
+\textbf{Conditional Parallel Trends Assumption (CEF version)}
+
+\[
+E[Y_{it}(0)|D_i,T_t,X_{it}] = \alpha + \psi D_i + \delta T_t + X_{it}'\gamma
+\]
+
+\begin{itemize}
+\tightlist
+\item
+  A \emph{weaker} assumption.
+\item
+  In a balanced panel, time-invariant differences across groups are
+  captured by treatment-group dummy (or assignment-group/unit FEs).
+\end{itemize}
+
+\textbf{Warning:} \textgreater{} If estimates are sensitive to the
+inclusion of good covariates, it suggests that one of the identifying
+assumptions \emph{may} have failed. \textbf{Why is the covariate
+composition of the groups changes differentially over time?} Could be
+due to non-parallel trends or switching between groups.
+
+With \emph{only 2 periods} of data, there is no test of the parallel
+trends assumption.
+
+\begin{itemize}
+\tightlist
+\item
+  Intuitively, similar groups \emph{may} be more likely to follow
+  parallel trends.
+\item
+  Argument for matching on covariates in pre-period. For example,
+  PSM-DID.
+\end{itemize}
+
+\hypertarget{did-in-practice---multiple-time-periods}{%
+\section{DiD in Practice - Multiple Time
+Periods}\label{did-in-practice---multiple-time-periods}}
+
+Suppose you had more than 2 periods of data, you might then choose to
+add time-fixed effects,
+
+\[
+Y^{obs}_{itc} = \psi_c + \delta_t + \beta_3 D_c\cdot T_t + \upsilon_{itc}
+\]
+
+where \(T_t=\mathbf{1}\{t\geq t_0\}\) and \(t_0\) is the period of
+treatment.
+
+\begin{itemize}
+\tightlist
+\item
+  However, we first need to discuss \emph{dynamic} treatment effects.
+\end{itemize}
+
+\textbf{Next lecture.}
+
+\hypertarget{card-krueger-1994}{%
+\section{Card \& Krueger (1994)}\label{card-krueger-1994}}
+
+This paper\footnote{Angrist \& Pischke attribute the first use of DiD in
+  Economics to Obenauer \& von den Nienburg (1915) (see page 228 of
+  \emph{Mostly Harmless Econometrics}).},
+
+\begin{itemize}
+\item
+  arguably, established difference-in-difference as the central tool in
+  Applied Microeconomics research;
+\item
+  turned the literature on the minimum wage upside down;
+\item
+  won David Card the Nobel Prize in Economics;
+\item
+  and started the closest thing to a fight in academic
+  Economics.\footnote{The debate between Card and Krueger (since
+    deceased, 2019), and Neumark and Wascher is ongoing.}
+\end{itemize}
+
+\hypertarget{pre-1990s-literature}{%
+\subsection{Pre-1990's Literature}\label{pre-1990s-literature}}
+
+\begin{itemize}
+\tightlist
+\item
+  Most of the literature supported the idea that higher minimum wages
+  reduce employment.
+\item
+  Wellington (1991) \& Brown et al.~(1983): A 10\% increase in minimum
+  wage reduces teen employment by 1\%.
+\item
+  Largely based on time-series evidence (Brown et al., 1982) or
+  cross-country studies.
+\end{itemize}
+
+\begin{quote}
+``Isolating the impacts of labor market institutions is inherently
+difficult\ldots{} Identification issues essentially result from the
+endogeneity of labor market institutions and the interactions between
+them\ldots{} makes it difficult to attribute variations in outcomes to
+the institutions themselves, rather than other features of the societies
+in which they exist.'' - Baetcherman (2012)
+\end{quote}
+
+\textbf{Card \& Krueger (AER, 1994)} is a seminal paper in this
+literature\footnote{And Katz \& Krueger (ILR Review, 1992)},
+
+\begin{itemize}
+\tightlist
+\item
+  Increase in New Jersey minimum wage from \$4.25 to \$5.05, April 1992.
+\item
+  Examine the impact on employment at fast food outlets (low wage jobs).
+\item
+  Use Pennsylvania as a control group in a \textbf{DiD research design}.
+\item
+  Find \textbf{no evidence} of a negative employment effect.
+\end{itemize}
+
+This paper highlights the fact that you can make strong conclusions from
+what is effectively a very simple research design.
+
+Include graph for \{Card \& Krueger (1994)\}
+
+NOTE: We could generate the same graph you copied from CK paper by using
+R and it looks more neat. Please find both and choose which one you like
+the most:\\
+
+\begin{figure}
+
+{\centering \includegraphics{paralleltrends_files/figure-pdf/Replicated Graph-1.pdf}
+
+}
+
+\caption{Replicating CK}
+
+\end{figure}
+
+Note: the graph is not quite right but I will fix it\\
+
+\hypertarget{legislative-change}{%
+\section{Legislative Change}\label{legislative-change}}
+
+This minimum wage change \textbf{was not unexpected}:
+
+\begin{itemize}
+\tightlist
+\item
+  Federal minimum wage is the floor to all state level minimum wages.
+\item
+  Federal increase from \$3.35 to \$3.80 in April 1990.
+\item
+  Federal increase from \$3.80 to \$4.25 in April 1991.
+\item
+  New Jersey chose to increase its own minimum wage to \$5.05 effective
+  April 1992, giving it the highest minimum wage in the country.
+\item
+  Opposed by business leaders, but the opposition lost an appeal (March,
+  1992) by a close margin.
+\end{itemize}
+
+This last-minute appeal and close election do create some uncertainty.
+
+\hypertarget{research-design}{%
+\section{Research Design}\label{research-design}}
+
+Card \& Krueger (1994) implement a basic difference-in-difference
+research design
+
+\[
+\tau_{ATT} = \big(E[Y_{it}|T_t=1,D_i=1] - E[Y_{it}|T_t=0,D_i=1]\big) - \big(E[Y_{it}|T_t=1,D_i=0] - E[Y_{it}|T_t=0,D_i=0]\big)
+\]
+
+where \(T_t = \mathbf{1}{\text{after April 1992}}\), and
+
+\[
+D_i = 
+\begin{cases}
+1 & \text{New Jersey} \\
+0 & \text{Pennsylvania}
+\end{cases}
+\]
+
+Include more graphs here\\
+\strut \\
+Card \& Krueger (1994)\}
+
+Conclusion,
+
+\begin{itemize}
+\tightlist
+\item
+  No evidence of a negative effect, as competitive models would predict.
+\item
+  If anything, some evidence of a small positive effect, as suggested by
+  monopsonistic models.
+\item
+  Card \& Krueger (1994) don't show pre-trends to help persuade you that
+  the parallel trends assumption is likely to hold.
+\item
+  After this paper comes the rebuttal by Neumark \& Wascher (2000, AER),
+  followed immediately by a response from Card \& Krueger (2000, AER).
+\item
+  This is just round 1 of what is a multi-round debate. The discussion
+  has now shifted away from state-level minimum wages to the study of
+  city-specific policies.
+\end{itemize}
+
+\hypertarget{dynamic-treatment-effects}{%
+\chapter{Dynamic Treatment Effects}\label{dynamic-treatment-effects}}
+
+\hypertarget{set-up}{%
+\section{Set-up}\label{set-up}}
+
+Today's discussion will concern,
+
+Once treatment is applied it remains fixed.
+
+\begin{itemize}
+\tightlist
+\item
+  If treatment is temporary, the model will capture long-term effects.
+\end{itemize}
+
+\hypertarget{dynamic-tes}{%
+\section{Dynamic TE's}\label{dynamic-tes}}
+
+Suppose that the treatment effect is indeed dynamic:
+
+\begin{tcolorbox}[enhanced jigsaw, breakable, colframe=quarto-callout-note-color-frame, toptitle=1mm, toprule=.15mm, opacitybacktitle=0.6, opacityback=0, rightrule=.15mm, titlerule=0mm, colback=white, bottomtitle=1mm, title={Note}, arc=.35mm, coltitle=black, colbacktitle=quarto-callout-note-color!10!white, leftrule=.75mm, bottomrule=.15mm, left=2mm]
+
+For all ( \(t=0,1,2,...,T\))
+
+\[
+Y_{it}(1)-Y_{it}(0) = \tau_{it}
+\]
+
+\end{tcolorbox}
+
+It helps to normalize time to \textbf{event-time},
+
+\[
+s=t-S_{i}
+\]
+
+where (\(S_i\)) is the time period in which unit (\(i\)) first receives
+the treatment.
+
+\begin{itemize}
+\tightlist
+\item
+  (\(S_i\)) could be determined at the assignment-group level,
+\end{itemize}
+
+\[
+S_i=S_c
+\]
+
+Given time periods (\(t=0,1,...T\)), ( \(s=-T,..,-1,0,1,...,T\)). The
+dynamic treatment effect is specified as,
+
+\begin{tcolorbox}[enhanced jigsaw, breakable, colframe=quarto-callout-note-color-frame, toptitle=1mm, toprule=.15mm, opacitybacktitle=0.6, opacityback=0, rightrule=.15mm, titlerule=0mm, colback=white, bottomtitle=1mm, title={Note}, arc=.35mm, coltitle=black, colbacktitle=quarto-callout-note-color!10!white, leftrule=.75mm, bottomrule=.15mm, left=2mm]
+
+\[
+Y_{its}(1)-Y_{its}(0) = \tau_{is}
+\]
+
+\end{tcolorbox}
+
+\begin{itemize}
+\tightlist
+\item
+  The relevant unit of time is event-time, not calendar time.\footnote{This
+    rules out dynamic TEs which change over (calendar) time.}
+\item
+  In a 2-group-multiple-period setting ( \(s\) ) does not vary
+  independently of ( \(t\) ) for the treated units.
+\item
+  This set-up becomes more useful when describing multi-cohort settings.
+\end{itemize}
+
+\hypertarget{dynamic-tes-1}{%
+\section{Dynamic TE's}\label{dynamic-tes-1}}
+
+\begin{tcolorbox}[enhanced jigsaw, breakable, colframe=quarto-callout-note-color-frame, toptitle=1mm, toprule=.15mm, opacitybacktitle=0.6, opacityback=0, rightrule=.15mm, titlerule=0mm, colback=white, bottomtitle=1mm, title={Note}, arc=.35mm, coltitle=black, colbacktitle=quarto-callout-note-color!10!white, leftrule=.75mm, bottomrule=.15mm, left=2mm]
+
+\textbf{Treatment Cohort}\\
+A group of individuals treated at the same time, ( \$S\_i\$).
+
+\end{tcolorbox}
+
+\begin{itemize}
+\tightlist
+\item
+  In a staggered-DiD model or event-study, there are multiple cohorts.
+\item
+  For \emph{never treated} groups, \[
+  S_i = \infty
+  \]
+\item
+  A never treated and not-yet/future treated group are NOT the same.
+\end{itemize}
+
+\hypertarget{group-2-period}{%
+\section{2-group-2-period}\label{group-2-period}}
+
+Recall from lecture 4.1,
+
+\[
+Y^{obs}_{it} = \alpha + \psi D_i + \delta T_t + \beta D_i \cdot T_t + \varepsilon_{it}
+\]
+
+Using this new notation, we can rewrite this equation as,
+
+\[
+Y^{obs}_{it} = \psi D_i + \delta_t + \beta \mathbf{1}\{s \geq 0\} + \varepsilon_{it}
+\]
+
+\begin{itemize}
+\tightlist
+\item
+  Time FEs are the same as a post-treatment dummy with 2 periods.
+\item
+  For the treated group, ( \(S_i = t_0\) ).
+\item
+  For the control group, ( \$S\_i = \infty \$ ).
+\item
+  ( \(D_i \cdot T_t = \mathbf{1}{t \geq S_i} = \mathbf{1}{s \geq 0}\));
+  which implies, \[
+  \Rightarrow \mathbf{1}\{s = t - \infty \geq 0\} = 0 \quad \text{**always.**}
+  \]
+\end{itemize}
+
+\hypertarget{multi-group-2-period-1}{%
+\section{Multi-group-2-period}\label{multi-group-2-period-1}}
+
+Recall from lecture 4.1,
+
+\[
+Y^{obs}_{itc} = \psi_c + \delta T_t + \beta D_c \cdot T_t + \varepsilon_{itc}
+\]
+
+Using this new notation, we can rewrite this equation as,
+
+\[
+Y^{obs}_{itc} = \psi_c + \delta_t + \beta \mathbf{1}\{s \geq 0\} + \varepsilon_{itc}
+\]
+
+\begin{itemize}
+\tightlist
+\item
+  For the treated groups (( \(c \leq c_0\) )), ( \(S_c = t_0\) ).
+\item
+  For the control groups (( \(c > c_0\))), ( \$S\_c = \infty\$ ).
+\item
+  ( \(D_c \cdot T_t = \mathbf{1}{t \geq S_c} = \mathbf{1}{s \geq 0}\) )
+\item
+  In both these applications, there is a one-to-one mapping from event
+  to calendar time.
+\end{itemize}
+
+\hypertarget{multi-period-did}{%
+\chapter{Multi-Period DiD}\label{multi-period-did}}
+
+We can define a more flexible version of the parallel trends,\footnote{For
+  example, see discussion on Eissa \& Liebman (1996).}
+
+\begin{tcolorbox}[enhanced jigsaw, breakable, colframe=quarto-callout-note-color-frame, toptitle=1mm, toprule=.15mm, opacitybacktitle=0.6, opacityback=0, rightrule=.15mm, titlerule=0mm, colback=white, bottomtitle=1mm, title={Note}, arc=.35mm, coltitle=black, colbacktitle=quarto-callout-note-color!10!white, leftrule=.75mm, bottomrule=.15mm, left=2mm]
+
+\textbf{Parallel Trends Assumption (Parametric version)}\\
+\[
+E[Y_{it}(0)|D_i, t] = \psi D_i + \delta_t
+\]
+
+\end{tcolorbox}
+
+or,
+
+\begin{tcolorbox}[enhanced jigsaw, breakable, colframe=quarto-callout-note-color-frame, toptitle=1mm, toprule=.15mm, opacitybacktitle=0.6, opacityback=0, rightrule=.15mm, titlerule=0mm, colback=white, bottomtitle=1mm, title={Note}, arc=.35mm, coltitle=black, colbacktitle=quarto-callout-note-color!10!white, leftrule=.75mm, bottomrule=.15mm, left=2mm]
+
+\textbf{Parallel Trends Assumption (Parametric version)}\\
+\[
+E[Y_{itc}(0)|c, t] = \psi_c + \delta_t
+\] with group FEs.
+
+\end{tcolorbox}
+
+\begin{tcolorbox}[enhanced jigsaw, breakable, colframe=quarto-callout-note-color-frame, toptitle=1mm, toprule=.15mm, opacitybacktitle=0.6, opacityback=0, rightrule=.15mm, titlerule=0mm, colback=white, bottomtitle=1mm, title={Note}, arc=.35mm, coltitle=black, colbacktitle=quarto-callout-note-color!10!white, leftrule=.75mm, bottomrule=.15mm, left=2mm]
+
+\textbf{Parallel Trends Assumption (Parametric version)}\\
+\[
+E[Y_{it}(0)|D_i, t] = \alpha_i + \delta_t
+\] with unit FEs.
+
+\end{tcolorbox}
+
+\hypertarget{multi-period-did-1}{%
+\section{Multi-Period DiD}\label{multi-period-did-1}}
+
+However, if we specify the model as,
+
+\[
+Y^{obs}_{it} = \psi D_i + \delta_t + \beta \mathbf{1}\{s \geq 0\} + \upsilon_{it}
+\]
+
+where (\(\beta\)) captures the ATT in all post-treatment periods, then
+we have proposed a linear regression model that best characterizes,
+
+\begin{tcolorbox}[enhanced jigsaw, breakable, colframe=quarto-callout-note-color-frame, toptitle=1mm, toprule=.15mm, opacitybacktitle=0.6, opacityback=0, rightrule=.15mm, titlerule=0mm, colback=white, bottomtitle=1mm, title={Note}, arc=.35mm, coltitle=black, colbacktitle=quarto-callout-note-color!10!white, leftrule=.75mm, bottomrule=.15mm, left=2mm]
+
+\textbf{Static Treatment Effects}
+
+\[
+Y_{it}(1) - Y_{it}(0) = \tau_{i}
+\]
+
+\end{tcolorbox}
+
+\[
+\tau_{ATT}(s) = E[Y_{it}(1) - Y_{it}(0)|D_i = 1, t = S_i + s] = \tau_{ATT} \quad \forall \; s \geq 0
+\]
+
+\hypertarget{dynamic-did}{%
+\section{Dynamic DiD}\label{dynamic-did}}
+
+If TEs are dynamic, it is better to estimate either,
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Semi-dynamic model,
+\end{enumerate}
+
+\[
+Y^{obs}_{it} = \psi D_i + \delta_t + \sum_{j \geq 0} \beta_j \mathbf{1}\{s = j\} + \upsilon_{it}
+\]
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  Dynamic model,
+\end{enumerate}
+
+\[
+Y^{obs}_{it} = \psi D_i + \delta_t + \sum_{j \neq -1} \beta_j \mathbf{1}\{s = j\} + \upsilon_{it}
+\]
+
+\begin{itemize}
+\tightlist
+\item
+  In applied settings, you should always specify such a model with time
+  FEs, and not a single post-treatment dummy. Failure to do so will
+  typically lead to a false counterfactual.\footnote{Can you demonstrate
+    this?}
+\item
+  You have to normalize 1 period. It does not have to be ( s = -1 ), but
+  should be a pre-period.
+\end{itemize}
+
+\hypertarget{dynamic-did-continued}{%
+\section{Dynamic DiD (Continued)}\label{dynamic-did-continued}}
+
+Consider the dynamic specification,
+
+\[
+Y^{obs}_{it} = \psi D_i + \delta_t + \sum_{j \neq -1} \beta_j \mathbf{1}\{s = j\} + \upsilon_{it}
+\]
+
+\begin{itemize}
+\tightlist
+\item
+  We must exclude at least one of the event-time dummies. Standard to
+  exclude pre-treatment period.
+\end{itemize}
+
+\textbf{QUESTION:} Assuming parallel trends and all necessary exclusion
+restrictions, how would we define ( \(\beta_2\) )?
+
+{[}ON BOARD{]}
+
+\hypertarget{dynamic-did-exclusion-restrictions}{%
+\section{Dynamic DiD (Exclusion
+Restrictions)}\label{dynamic-did-exclusion-restrictions}}
+
+Notice: - Linear model can identify treatment effects up to a normalized
+period. - We must assume,
+
+\begin{tcolorbox}[enhanced jigsaw, breakable, colframe=quarto-callout-note-color-frame, toptitle=1mm, toprule=.15mm, opacitybacktitle=0.6, opacityback=0, rightrule=.15mm, titlerule=0mm, colback=white, bottomtitle=1mm, title={Note}, arc=.35mm, coltitle=black, colbacktitle=quarto-callout-note-color!10!white, leftrule=.75mm, bottomrule=.15mm, left=2mm]
+
+\textbf{Exclusion restriction: No pre-emptive behaviour}
+
+\[
+E[Y_{it}|D_i = 1, t = t_0 + j] = E[Y_{it}(0)|D_i = 1, t = t_0 + j]
+\]
+
+for \textbf{some} (\(j \< 0\)).
+
+\end{tcolorbox}
+
+\begin{itemize}
+\tightlist
+\item
+  Pre-emptive behaviour biases both pre-treatment \textbf{and
+  post-treatment} TE estimates.
+\end{itemize}
+
+\hypertarget{test-parallel-trends}{%
+\section{Test parallel trends}\label{test-parallel-trends}}
+
+\textbf{Assuming no pre-emptive behaviour}, the test,
+
+\[
+H_0: \beta_s = 0 \quad \forall \quad s < 0
+\]
+
+is a valid test for parallel trends \textbf{in the pre-treatment
+period}.
+
+\[
+\begin{aligned}
+\beta_s = & \left[\underbrace{E[Y_{it}|D_i = 1, t = t_0 + s] - E[Y_{it}|D_i = 1, t = t_0 - 1]}_{\text{Pre-trend of treated.}}\right] \\
+& - \left[\underbrace{\textcolor{blue}{E[Y_{it}|D_i = 0, t = t_0 + s] - E[Y_{it}|D_i = 0, t = t_0 - 1]}}_{\text{Pre-trend of control.}}\right]
+\end{aligned}
+\]
+
+for (\(s \< 0\)) and (\(s \neq -1\)).\footnote{Here, (\(s=-1\)) is the
+  normalized period.}
+
+\hypertarget{dynamic-did-visualization}{%
+\section{Dynamic DiD (Visualization)}\label{dynamic-did-visualization}}
+
+The problem can be how to distinguish between, - a failure of parallel
+trends, - and pre-emptive behaviour.
+
+{[}Alternative DID Plot{]}
+
+\hypertarget{dynamic-did-renormalization}{%
+\section{Dynamic DiD
+(Renormalization)}\label{dynamic-did-renormalization}}
+
+If there appears to be pre-emptive behaviour - and a reason for its
+presence - you can always renormalize the excluded base period.
+
+Here goes the other figure (I do not have it yet)
+
+include another graph here
+
+\hypertarget{next-up-1}{%
+\section{Next-up}\label{next-up-1}}
+
+\begin{itemize}
+\tightlist
+\item
+  `Things Fall Apart' - The problems with dynamic/staggered DiD and
+  two-way FEs
+\item
+  What to do.
+\item
+  Generalized two-way FEs models
+\item
+  Synthetic Control
+\end{itemize}
+
+\hypertarget{example-eissa-liebman-1996}{%
+\section{Example: Eissa \& Liebman
+(1996)}\label{example-eissa-liebman-1996}}
+
+\hypertarget{section}{%
+\subsection{}\label{section}}
+
+\textbf{Example: Eissa \& Liebman (1996)}
+
+\hypertarget{set-up-eitc}{%
+\section{Set-up: EITC}\label{set-up-eitc}}
+
+Countries create tax credits for a number of reasons, these are
+typically after tax reimbursements based eligibility in certain
+criteria. Many are simply used to transfer income to a targeted
+population, and do not (intentionally) induce any behavioural response.
+
+\begin{itemize}
+\tightlist
+\item
+  However, the \textbf{Earned} Income Tax Credit (EITC) is a uniquely
+  targeted public policy that aims to both assist poorer, more
+  vulnerable households while also incentivizing labour force
+  participation (Holz \& Scholz, 2003).
+\end{itemize}
+
+The EITC aims to solve the following problem:
+
+\begin{tcolorbox}[enhanced jigsaw, breakable, colframe=quarto-callout-note-color-frame, toptitle=1mm, toprule=.15mm, opacitybacktitle=0.6, opacityback=0, rightrule=.15mm, titlerule=0mm, colback=white, bottomtitle=1mm, title={Note}, arc=.35mm, coltitle=black, colbacktitle=quarto-callout-note-color!10!white, leftrule=.75mm, bottomrule=.15mm, left=2mm]
+
+How do you redistribute money to poorer households without inducing a
+negative income effect? And can you design a policy that actually
+increases labour force participation while redistributing income.
+
+\end{tcolorbox}
+
+The tax credit increases in value with your earned income up to a
+threshold\ldots{}
+
+\begin{figure}
+
+{\centering \includegraphics{eitc1.pdf}
+
+}
+
+\caption{The tax credit is 40\% of earned income for the first \$14570
+(2019 parameters based on single earner with 2 children)}
+
+\end{figure}
+
+\ldots{} at which point it is flat up to a second threshold\ldots{}
+
+\begin{figure}
+
+{\centering \includegraphics{eitc2.pdf}
+
+}
+
+\caption{The maximum is \$5828 (2019 parameters based on single earner
+with 2 children)}
+
+\end{figure}
+
+\ldots and then is phased out.
+
+\begin{figure}
+
+{\centering \includegraphics{eitc3.pdf}
+
+}
+
+\caption{The phase out rate is 21.06\% which ends at \$46703 (2019
+parameters based on single earner with 2 children)}
+
+\end{figure}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  PHASE IN: acts as a subsidy to work: incentive to earn more
+\item
+  PLATEAU: no subsidy, and hence no additional incentive to work more
+\item
+  PHASE OUT: effectively a tax on every additional dollar earned:
+  disincentive to earn more
+\end{enumerate}
+
+\begin{tcolorbox}[enhanced jigsaw, breakable, colframe=quarto-callout-note-color-frame, toptitle=1mm, toprule=.15mm, opacitybacktitle=0.6, opacityback=0, rightrule=.15mm, titlerule=0mm, colback=white, bottomtitle=1mm, title={Note}, arc=.35mm, coltitle=black, colbacktitle=quarto-callout-note-color!10!white, leftrule=.75mm, bottomrule=.15mm, left=2mm]
+
+``The EITC creates a complicated and ambiguous set of labor supply
+incentives. Standard labor supply theory does indeed predict that the
+EITC will encourage labor force participation. This occurs because the
+EITC is available only to taxpayers with earned income. But theory also
+predicts that the credit reduces the number of hours worked by most
+eligible taxpayers already in the labor force.'' (Eissa \& Liebman,
+1996)
+
+\end{tcolorbox}
+
+Therefore, the EITC should have a differential impact on hours worked
+versus participation depending on an individual's income level.
+
+\hypertarget{eissa-liebman-1996}{%
+\section{Eissa \& Liebman (1996)}\label{eissa-liebman-1996}}
+
+One of the seminal papers on this topic is Eissa \& Liebman (QJE, 1996)
+``Labor responses to the earned income tax credit''.
+
+\begin{itemize}
+\item
+  The Tax Reform Act of 1986 made the EITC more generous.
+\item
+  Exploit the fact that the EITC structure differentially treats single
+  women w/w/o children.\footnote{Only after 1994 did the EITC become
+    available to low-income workers without children.}
+\item
+  Simple difference-in-difference research design: single women with
+  (without) children are the treated (control) group.
+\item
+  Single mothers were the largest recipients of EITC (48\%).
+\item
+  Estimate that the expansion increased labour supply of women with
+  children by 2.8\% over that of single women without children.
+\item
+  \hypertarget{section-1}{%
+  \section{}\label{section-1}}
+\end{itemize}
+
+The policy variation introduced by the reform is depicted below.
+
+\begin{figure}
+
+{\centering \includegraphics[width=0.4\textwidth,height=\textheight]{eissaliebman_figure4.png}
+
+}
+
+\caption{Policy Variation}
+
+\end{figure}
+
+And here is the author's description of this graph.
+
+\begin{figure}
+
+{\centering \includegraphics[width=0.4\textwidth,height=\textheight]{eissaliebman_figure4description.png}
+
+}
+
+\caption{Author's Description}
+
+\end{figure}
+
+The authors estimate two specifications:
+
+\begin{itemize}
+\item
+  A difference-in-difference specification within a probit model, as
+  labour force is a discrete choice\footnote{Note, authors tend to avoid
+    this approach now and simply estimate a linear probability model.
+    More on this in Weeks 9 \& 10.}.
+
+  \[P(lfp_{it}=1) = \Phi\left(\alpha + \beta Z_{it}+\gamma_0kids_i + \gamma_1post86_t+\gamma_2(kids\times post86)_{it}\right)\]
+\item
+  A standard linear specification
+
+  \[Annual\;Hours_{it} = \alpha + \beta Z_{it}+\gamma_0kids_i + \gamma_1post86_t+\gamma_2(kids\times post86)_{it}\]
+\item
+  Sample of unmarried women (aged 16-44), March CPS survey. Pre-period =
+  1985-1987 and post=1989-1991. Data includes tax records from the
+  previous year.
+\end{itemize}
+
+Regarding participation, the results are unambiguously positive, as no
+one receives less of an incentive to work.
+
+\includegraphics[width=0.5\textwidth,height=\textheight]{eissa_tab3_1.png}
+\includegraphics[width=0.5\textwidth,height=\textheight]{eissa_tab3_2.png}
+
+While the impact of the EITC expansion on participation should be
+unambiguously positive, because no-one receives less of an incentive to
+work, the impact on hours worked is more ambiguous.
+
+\includegraphics[width=0.5\textwidth,height=\textheight]{eissa_tab5_1.png}
+\includegraphics[width=0.5\textwidth,height=\textheight]{eissa_tab5_2.png}
+
+\begin{itemize}
+\tightlist
+\item
+  Eissa \& Liebman find no evidence of an hours effect, which could be
+  the result of tax complexity: workers don't really understand how the
+  EITC works, and don't know if they will receive the credit.
+\end{itemize}
+
+\begin{tcolorbox}[enhanced jigsaw, breakable, colframe=quarto-callout-note-color-frame, toptitle=1mm, toprule=.15mm, opacitybacktitle=0.6, opacityback=0, rightrule=.15mm, titlerule=0mm, colback=white, bottomtitle=1mm, title={Meyer \& Rosenbaum (2001)}, arc=.35mm, coltitle=black, colbacktitle=quarto-callout-note-color!10!white, leftrule=.75mm, bottomrule=.15mm, left=2mm]
+
+\begin{itemize}
+\tightlist
+\item
+  Similar research design using single mothers with and without
+  children.
+\item
+  Evaluate a more complex \texttt{bundle} of policy changes over a
+  longer period of time (1984-1996) including the EITC.
+\item
+  Find evidence that the EITC and other tax changes accounted for 60\%
+  of the increase in female employment.
+\item
+  Changes in Medicaid, training, and childcare programs played a smaller
+  role.
+\end{itemize}
+
+\end{tcolorbox}
+
+\hypertarget{other-studies}{%
+\section{Other studies}\label{other-studies}}
+
+\begin{tcolorbox}[enhanced jigsaw, breakable, colframe=quarto-callout-note-color-frame, toptitle=1mm, toprule=.15mm, opacitybacktitle=0.6, opacityback=0, rightrule=.15mm, titlerule=0mm, colback=white, bottomtitle=1mm, title={Eissa \& Hoynes (JPub, 2004)}, arc=.35mm, coltitle=black, colbacktitle=quarto-callout-note-color!10!white, leftrule=.75mm, bottomrule=.15mm, left=2mm]
+
+\begin{itemize}
+\tightlist
+\item
+  Examines the labour supply responses of married couples.
+\item
+  Find evidence that expansion of EITC from 1984-1996 reduced the labour
+  supply of married couples: decline in female labour supply was larger
+  than any increase in male labour supply.
+\item
+  Conclude that EITC was subsidizing married women to stay at home.
+\item
+  See also Eissa \& Hoynes (2006) ``Behavioural responses to taxes:
+  Lessons from the EITC and Labor Supply''.
+\end{itemize}
+
+\end{tcolorbox}
+
+See also Dahl \& Lochner (2012) for a study that evaluates the impact on
+child outcomes. This study employs an IV research design.
+
+\hfill\break
+\hfill\break
+
+\hypertarget{event-studies-or-staggered-did}{%
+\chapter{Event-Studies or Staggered
+DiD}\label{event-studies-or-staggered-did}}
+
+Suppose, you observe multiple treatment \emph{cohorts} and a
+never-treated control.
+
+\begin{itemize}
+\tightlist
+\item
+  For example, \(S_i = \{3,4,5,\infty\}\) for \(t=\{0,1,2,3,4,5,6\}\)
+\item
+  Common with staggered treatment: e.g., staggered adoption of a policy
+  across countries/states.
+\item
+  Dynamics remain the same as event-time normalizes time across cohorts.
+\item
+  Imbalance in event-time across cohorts.
+\end{itemize}
+
+For example, Right To Work laws in the US:
+
+\begin{figure}
+
+{\centering \includegraphics[width=0.3\textwidth,height=\textheight]{map_rtw_v2.png}
+
+}
+
+\caption{Right To Work Laws Map}
+
+\end{figure}
+
+It is standard to estimate,
+
+\[
+Y_{itc} = \psi_c + \delta_t + \sum_{j\neq-1}\beta_j 1\{s=j\} + \varepsilon_{itc}
+\]
+
+where \(s=t-S_c\). Here we use \(\psi_c\) to denote cohort
+FEs.\footnote{This one comes from Abraham and Sun (2018, p.12).}
+
+Or with panel data,
+
+\[
+Y_{itc} = \alpha_i + \delta_t + \sum_{j\neq-1}\beta_j 1\{s=j\} + \varepsilon_{itc}
+\]
+
+where \(\alpha_i\) are unit FEs.
+
+Consider a cohort \(c_1\) treated in period \(S_{c_1} = t_1\) and
+\textbf{never-treated} group \(c_0\)
+
+\[
+\begin{align*}
+\beta_j=&\left[E[Y_{its}|c=c_1,t = t_1 + j] - E[Y_{it}|c=c_0,t = t_1+j]\right] \\
+&-\left[E[Y_{it}|c=c_1,t = t_1 - 1] - E[Y_{it}|c=c_0,t = t_1 -1]\right]
+\end{align*}
+\]
+
+There is another cohort \(c_2\) treated in period \(S_{c_1} = t_2\) and
+never-treated group \(c_0\)
+
+\[
+\begin{align*}
+\beta_j=&\left[E[Y_{its}|c=c_2,t = t_2 + j] - E[Y_{it}|c=c_0,t = t_2+j]\right] \\
+&-\left[E[Y_{it}|c=c_2,t = t_2 - 1] - E[Y_{it}|c=c_0,t = t_2 -1]\right]
+\end{align*}
+\]
+
+\begin{itemize}
+\tightlist
+\item
+  According to the linear model we have specified, these DiDs are the
+  same.
+\item
+  It turns out, \(\beta_j\) from the linear model weights the
+  cohort-specific ATTs.
+\item
+  But the weights can be problematic (more on this next week).
+\end{itemize}
+
+A nice thing about event-studies is that you do \textbf{need} a
+never-treated control group.
+
+\begin{itemize}
+\tightlist
+\item
+  For example, \(S_i = \{3,4,5\}\) for \(t=\{0,1,2,3,4,5,6\}\)
+\item
+  Under the parallel trends assumption (plus no pre-emptive behaviour),
+  future-treated cohorts can be used to trace out the counterfactual for
+  earlier treated cohorts.
+\item
+  However, without a never-treated control, the model \emph{fully
+  dynamic} is \textbf{under identified}\footnote{This one comes from
+    Abraham and Sun (2018, p.12).}.
+\end{itemize}
+
+\hypertarget{example-kleven-et-al.-2019}{%
+\chapter{Example: Kleven et
+al.~(2019)}\label{example-kleven-et-al.-2019}}
+
+\textbf{Kleven et al.~(2019)}
+
+\hypertarget{context}{%
+\section{Context}\label{context}}
+
+A number of studies have shown that over the past 4 decades,\footnote{This
+  result also comes from Abraham and Sun (2018, p.14).}
+
+\begin{itemize}
+\tightlist
+\item
+  Steady increase in female labour force participation
+\item
+  Steady convergence in female earnings and decline in gender-wage gap
+\item
+  A large share of which is explained by steady convergence of education
+  and experience profiles of men and women.
+\item
+  Both of these have plateaued over the last 2 decades
+\item
+  The ``parent penalty'' remains as the ``final chapter'' (Goldin, 2014)
+\end{itemize}
+
+Kleven, Landais \& Søgaard (2019)'s ``Children and Gender Inequality:
+Evidence from Denmark''
+
+\begin{itemize}
+\tightlist
+\item
+  Uses a large administrative panel dataset
+\item
+  Estimate an event-study design of the birth of a first child
+\item
+  Demonstrates a large (\textasciitilde20\%) and persistent cost to
+  parent penalties.
+\item
+  The magnitude of the penalty is persistent across generations and
+  informed by the gender identities an individual is exposed to as a
+  child.
+\item
+  The results are visually very appealing, if not shocking.\footnote{Requires
+    installation of \texttt{drdid}.}
+\end{itemize}
+
+The authors estimate a simple event-study model,
+
+\[
+Y^g_{ist} = \sum_{j\neq-1}\alpha^g_j\cdot1\{j=t\}+\sum_{k}\beta^g_k\cdot1\{k=age_{is}\}+\sum_y\gamma^g_y\cdot1\{y=s\}+\nu^g_{ist}
+\]
+
+\begin{itemize}
+\tightlist
+\item
+  Kleven et al.~use \(t\) to denote event-time and \(s\) calendar year.
+\item
+  Event-time is defined as number of years since birth of first child.
+\item
+  The sample includes only women who eventually have a child
+\end{itemize}
+
+Note, there are no individual (or cohort) FEs in the estimating
+equation,
+
+\[
+Y^g_{ist} = \sum_{j\neq-1}\alpha^g_j\cdot1\{j=t\}+\sum_{k}\beta^g_k\cdot1\{k=age_{is}\}+\sum_y\gamma^g_y\cdot1\{y=s\}+\nu^g_{ist}
+\]
+
+\begin{itemize}
+\tightlist
+\item
+  Including individual FEs will lead to under identification problem
+\item
+  There are then two options:
+
+  \begin{enumerate}
+  \def\labelenumi{\arabic{enumi}.}
+  \tightlist
+  \item
+    Include never-treated control. But women who never have children are
+    likely different and face different earnings profile.
+  \item
+    Exclude pre-treatment event-times. But childbirth is not-random and
+    we want to check from pre-emptive behaviour.
+  \end{enumerate}
+\end{itemize}
+
+What is the source of identifying variation in this equation?
+
+\begin{itemize}
+\tightlist
+\item
+  Differences across childbirth cohorts (year of first-birth of child):
+
+  \begin{enumerate}
+  \def\labelenumi{\arabic{enumi}.}
+  \tightlist
+  \item
+    Women of the same birth cohorts (year of own birth) who have their
+    first child at a different age.
+  \item
+    Women of different birth cohorts who give birth at the same age.
+  \item
+    Without individual FE, there is no first-difference ``within'' the
+    same individual.
+  \end{enumerate}
+\end{itemize}
+
+Moreover, for each event-time the above comparisons are made across
+childbirth cohorts that are spaced further and further apart.
+
+\begin{itemize}
+\tightlist
+\item
+  For \(t=1,2,3\) this may seem reasonable.
+\item
+  But for \(t=10,11,12\) do we expect the parallel trends assumption to
+  hold (conditional on age)?
+\end{itemize}
+
+Recall, the model is identified under the assumption that,
+
+\[
+E[Y^g_{ist}(0)|s,age_{its}] = \sum_{k}\beta^g_k\cdot1\{k=age_{is}\}+\sum_y\gamma^g_y\cdot1\{y=s\}
+\]
+
+Thus,
+
+\begin{itemize}
+\tightlist
+\item
+  the age profile must be constant over time
+\item
+  and different childbirth cohorts must experience similar aggregate
+  shocks to the outcome. For one, this means that changes in family
+  policy cannot differentially affect different treatment cohorts.
+\item
+  In light of Abraham \& Sun (2021), this paper must essentially assume
+  that the ATT(t) is homogenous \textbf{across cohorts}.
+\end{itemize}
+
+In practice the authors don't just look at the raw coefficients, but
+instead normalize them by the expected value of the outcome under the
+counterfactual of no treatment.\footnote{This value is predicted by the
+  model by setting all the \(\alpha\) coefficients to 0.}
+
+\[
+P^g_t = \frac{\hat{\alpha}^g_t}{E[\tilde{Y}^g_{ist}|t]}
+\]
+
+This they call the \textbf{parent penalty}: the relative change in the
+outcome because of the event of childbirth.
+
+Do not forget to write kleven\_fig1a here.
+
+Do not forget to write kleven\_fig1b here.
+
+For women who remain in employment, there is a sorting into more
+``family friendly'' firms.
+
+Do not forget to write kleven\_fig2a here.
+
+Do not forget to write kleven\_fig2b here.
+
+After an additional decomposition process, Kleven et al.~(2019)
+conclude,
+
+\begin{itemize}
+\tightlist
+\item
+  That the parent penalty explains the remainder of the gender
+  earnings/wage gap.
+\item
+  It's highly persistent, even in advanced economies with extensive
+  policy support.
+\item
+  In a separate working paper (see Moodle) the authors demonstrate how
+  the penalty compares across different countries. Argue that it is
+  highly correlated with cultural norms.
+\end{itemize}
+
+Do we think of these estimates as causal?
+
+\begin{itemize}
+\tightlist
+\item
+  You could make the case that the linear regression model provides an
+  unbiased estimate of the change in labour market outcomes, given the
+  absence of pre-emptive behaviour, discontinuous change at the
+  threshold. However, the identifying variation (event of childbirth) is
+  still endogenous.
+\end{itemize}
+
+\hypertarget{kleven-et-al.-2019b}{%
+\chapter{Kleven et al.~(2019b)}\label{kleven-et-al.-2019b}}
+
+From Kleven, Landais, Posch, Steinhauser, Zweimüller (2019)
+
+Do not forget to write kleven\_figA1 here.
+
+From Kleven, Landais, Posch, Steinhauser, Zweimüller (2019)
+
+Do not forget to write kleven\_figA2 here.
+
+From Kleven, Landais, Posch, Steinhauser, Zweimüller (2019)
+
+Do not forget to write kleven\_figA3 here.
+
+\hypertarget{things-fall-apart-for-did}{%
+\chapter{`Things fall apart' for DiD}\label{things-fall-apart-for-did}}
+
+\textbf{`Things fall apart' for DiD}
+
+\hypertarget{difference-in-difference-revisited}{%
+\section{Difference-in-Difference
+Revisited}\label{difference-in-difference-revisited}}
+
+\textbf{Difference-in-Difference Revisited}
+
+In a simple 2-group-2-period model,
+
+\[
+\beta = \tau_{ATT}
+\]
+
+under the CEF (parallel trends) assumption.\footnote{This one comes from
+  Abraham and Sun (2018, p.12).}
+
+\hypertarget{multi-period}{%
+\section{Multi-period}\label{multi-period}}
+
+In a 2-group-multi-period model, you have the option of specifying a
+static specification,
+
+\[
+Y_{it} = \alpha_i + \delta_t + \beta \mathbf{1}\{s\geq 0\} + \varepsilon_{it}
+\]
+
+or a dynamic specification,
+
+\[
+Y_{it} = \alpha_i + \delta_t + \sum_{j\neq-1}\beta_j \mathbf{1}\{s=j\} + \varepsilon_{it}
+\]
+
+In the dynamic model, each \(\beta_s\) corresponds to a simple
+2-group-2-period DiD and identifies an event-time specific ATT.
+
+\[
+\beta_s = \tau_{ATT}(s)
+\]
+
+\textbf{Assuming no anticipation in the base period}
+(\(\tau_{ATT}(-1)=0\)).
+
+With the \textbf{static specification},
+
+\begin{itemize}
+\tightlist
+\item
+  Without anticipatory behaviour,
+\end{itemize}
+
+\[
+\beta = \sum_{s\geq 0}\omega_s \tau_{ATT}(s)
+\]
+
+\begin{itemize}
+\tightlist
+\item
+  With anticipatory behaviour,
+\end{itemize}
+
+\[
+\beta = \sum_{s\geq 0}\omega_s \tau_{ATT}(s) + \sum_{s< 0}\omega_s \tau_{ATT}(s)
+\]
+
+where \(\sum_{s\geq 0}\omega_s = 1\) and \(\sum_{s< 0}\omega_s = 0\).
+
+\textbf{It is better to estimate the dynamic specification,} assuming we
+cannot rule out anticipatory behaviour for some pre-periods. And
+normalize to an earlier period without anticipatory behaviour.
+
+\hypertarget{event-studies-revisited}{%
+\section{Event-studies Revisited}\label{event-studies-revisited}}
+
+\textbf{Event-studies Revisited}
+
+Here, I paraphrase from Abraham and Sun (2018), who define
+\(\tau_{ATT}(c,s)\): the cohort-specific ATT of cohort \(c\) in
+event-time \(s\).\footnote{This result also comes from Abraham and Sun
+  (2018, p.14).}
+
+\begin{definition}[]\protect\hypertarget{def-cohort-specific-att}{}\label{def-cohort-specific-att}
+
+\textbf{Def. Cohort-specific ATT}
+
+Suppose cohort \(c\) is treated in period \(c\),
+
+\[
+\tau_{ATT}(c,s) = E[Y_{i,c+s}(c)-Y_{i,c+s}(\infty)|S_i=c]
+\]
+
+where the notation \(Y(c)\) denotes the potential outcome for treatment
+\textbf{from} period \(c\) and \(Y(\infty)\) denotes a counterfactual
+where the cohort is never treated.
+
+\end{definition}
+
+In this framework,
+
+\leavevmode\vadjust pre{\hypertarget{stationary-treatment-effects}{}}%
+\textbf{Stationary Treatment Effects}
+
+\[
+\tau_{ATT}(c,s) = \tau_{ATT}(c,s')\quad \forall\quad s,s'\geq0
+\]
+
+\leavevmode\vadjust pre{\hypertarget{cross-cohort-homogeneity}{}}%
+\textbf{Cross-cohort Homogeneity}
+
+\[
+\tau_{ATT}(c,s) = \tau_{ATT}(s)\quad \forall\quad s
+\]
+
+\leavevmode\vadjust pre{\hypertarget{no-anticipatory-pre-emptive-behaviour}{}}%
+\textbf{No anticipatory/pre-emptive behaviour}
+
+\[
+Y_{i,t}(c) = Y_{i,t}(\infty)\quad \forall\quad t<c
+\]
+
+\hypertarget{event-studies}{%
+\section{Event-studies}\label{event-studies}}
+
+A key result in Abraham and Sun (2018) concerns static specifications of
+event-studies (staggered DiD),
+
+\[
+Y_{its} = \alpha_i + \delta_t + \beta \mathbf{1}\{s\geq 0\} + \varepsilon_{its}
+\]
+
+With parallel trends assumption and no anticipatory behaviour,
+
+\[
+\beta = \sum_{c=0}^T\sum_{s= 0}^{T-c}\omega_{c,s} \tau_{ATT}(c,s)
+\]
+
+where
+
+\begin{itemize}
+\tightlist
+\item
+  the weights downweight the long-run treatment effects for `earlier'
+  cohorts (small \(c\))
+\item
+  if all units are eventually treated some weights will necessarily be
+  negative.
+\item
+  If CATTs are homogenous and static, then they are given by \(\beta\),
+  as the weights sum to 1.
+\end{itemize}
+
+\hypertarget{weights}{%
+\section{Weights}\label{weights}}
+
+There are a variety of decompositions of these weights in the
+literature.\footnote{This one comes from Abraham and Sun (2018, p.12).}
+In the static specification, the weight, \(\omega_{c,s}\), is
+\emph{characterized} by the residual in the regression,
+
+\[
+\mathbf{1}\{s\geq 0\} = \psi_i + \gamma_t + \xi_{it}
+\]
+
+\begin{itemize}
+\tightlist
+\item
+  This is a linear probability model
+\item
+  For cohorts treated \textbf{earlier} in the panel, the predicted
+  probability (given by the two-way FE model) may be \(>1\); especially,
+  if all cohorts are treated at the end of the panel. Thus, the residual
+  may be negative.
+\item
+  This down-weights the LR TEs of the policy, as these are captured by
+  earlier treated cohorts.
+\end{itemize}
+
+\hypertarget{event-studies-1}{%
+\section{Event-studies}\label{event-studies-1}}
+
+Two more results in Abraham and Sun (2018) concern dynamic
+specifications of event-studies,
+
+With parallel trends assumption \textbf{alone},
+
+\[
+\beta_s = \sum_{0\leq c \leq T-s}\omega_{c,s} \tau_{ATT}(c,s) + \sum_{s'\neq s}\sum_{0\leq c \leq T-s'}\omega_{c,s'} \tau_{ATT}(c,s')
+\]
+
+where
+
+\begin{itemize}
+\tightlist
+\item
+  the weights on \(\tau_{ATT}(c,s)\) sum to 1.
+\item
+  the weights on \(\tau_{ATT}(c,s')\) sum to 0 for \emph{each}
+  \(s'\neq s\).
+\item
+  the event-time specific coefficient averages across cohorts and
+  \textbf{all} event-time periods.
+\item
+  If the CATT is homogeneous (across cohorts), then
+  \(\beta_s = \tau_{ATT}(s)\), as the weights sum to 1 and 0.
+\end{itemize}
+
+If, in addition to parallel trends, we assume no anticipatory behaviour
+(i.e.~\(\tau_{ATT}(c,s)=0\;\forall\;s<0\)), the pre-treatment
+coefficients,
+
+\[
+\beta_s = \sum_{s'\geq 0}\sum_{0\leq c \leq T-s'}\omega_{c,s'} \tau_{ATT}(c,s') \qquad\qquad \text{for }s<0
+\]
+
+where
+
+\begin{itemize}
+\tightlist
+\item
+  the weights on \(\tau_{ATT}(c,s')\) sum to 0 for \emph{each}
+  \(s'\geq 0\).
+\end{itemize}
+
+Pre-treatment \emph{leads} are non-zero, even under parallels trends and
+no anticipatory behaviour, \textbf{if there is cross-cohort
+heterogeneity}.
+
+\hypertarget{weights-1}{%
+\section{Weights}\label{weights-1}}
+
+In the dynamic specification the weight, \(\omega_{c,j}\), is given by
+the population regression coefficient on \(\mathbf{1}\{s=j\}\) in the
+regression,\footnote{This result also comes from Abraham and Sun (2018,
+  p.14).}
+
+\[
+\mathbf{1}\{S_i=c\}\cdot\mathbf{1}\{s=j\} = \psi_i + \gamma_t + \sum_{k\neq-1}\beta_k \mathbf{1}\{s=k\} + \xi_{it}
+\]
+
+\begin{itemize}
+\tightlist
+\item
+  This is another linear probability model
+\item
+  Again the weights need not be non-negative.
+\end{itemize}
+
+\hypertarget{interaction-weighted-estimator}{%
+\section{Interaction-weighted
+estimator}\label{interaction-weighted-estimator}}
+
+The solution proposed by Abraham and Sun is fairly intuitive: specify
+the model to allow for cohort-specific treatment effects,
+
+\[
+Y_{its} = \alpha_i + \delta_t + \sum_{c=1}^{T-1}\sum_{j=1-c}^{T-1-c}\beta_{c,j} 1\{s=j\}\cdot\mathbf{1}\{S_i=c\} + \varepsilon_{its}
+\]
+
+\begin{itemize}
+\tightlist
+\item
+  An interaction between event-time dummies a cohort-dummy.
+\item
+  They apply simple sample-share weights to then compute,
+\end{itemize}
+
+\[
+\hat{\beta}_s^{IW} = \sum_{c=0}^{T-c-s}w_{c,s} \hat{\beta}_{c,s}
+\]
+
+where
+
+\[
+w_{c,s} = N_{c,s}/N_{s}
+\]
+
+\textbf{{[}Topic of Seminar 3.{]}}
+
+\hypertarget{other-papers-on-this-topic}{%
+\section{Other papers on this topic}\label{other-papers-on-this-topic}}
+
+This is now a large and growing literature,
+
+\begin{itemize}
+\tightlist
+\item
+  Borusyak \& Jaravel (2017)
+\item
+  Goodman-Bacon (2018)
+\item
+  Athey \& Imbens (2018 WP,2021)
+\item
+  Callaway \& Sant'Anna (2018 WP,2020)
+
+  \begin{itemize}
+  \tightlist
+  \item
+    STATA package \texttt{csdid} (Rios-Avila, Callaway, and Sant'Anna,
+    2021)\footnote{Requires installation of \texttt{drdid}.}
+  \end{itemize}
+\item
+  Abraham \& Sun (2018 WP, 2020)
+
+  \begin{itemize}
+  \tightlist
+  \item
+    see STATA package \texttt{eventstudyweights} (Sun, 2020)
+  \end{itemize}
+\item
+  de Chaisemartin \& D'Haultfœuille (2018, 2020)
+\item
+  Imai \& Kim (2017, 2020)
+\item
+  Goldsmith-Pinkham, Hull \& Kolesár (2022)
+\end{itemize}
+
+\hypertarget{abraham-sun-vs-callaway-santanna}{%
+\section{Abraham \& Sun vs Callaway \&
+Sant'Anna}\label{abraham-sun-vs-callaway-santanna}}
+
+Here is my interpretation of these two different solutions to the
+problem:
+
+\begin{itemize}
+\tightlist
+\item
+  A\&S's solution builds on the fact that the estimating equation does
+  not \texttt{map} to the causal model.
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \(\Rightarrow\) adapt the estimating equation to allow for different
+    ATT by cohort.
+  \item
+    \(\Rightarrow\) still estimated by OLS.
+  \end{itemize}
+\item
+  C\&S on the fact that the ATT is a weighted average of CATT.
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \(\Rightarrow\) propose weighted estimators for ATT.
+  \item
+    \(\Rightarrow\) need not be estimated by OLS.
+  \end{itemize}
+\end{itemize}
+
+\hypertarget{recap}{%
+\section{Recap}\label{recap}}
+
+\textbf{Take-home}
+
+With two-way FEs, any linear regression model that deviates from a
+2-group-2-(same)-period comparison may have a weighting problem.
+
+\begin{itemize}
+\tightlist
+\item
+  Difference-in-differences:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    2-group-2-(same)-period models are fine.
+  \item
+    In multi-period models, estimate a dynamic specification: reverts
+    back to 2-group-2-period.
+  \item
+    With multiple cohorts, you need to think about CATT. If you expect
+    the ATT to vary by cohort, estimate an interacted model. (Or see
+    other estimators from Callaway \& Sant'Anna (2018))
+  \end{itemize}
+\end{itemize}
+
+\hypertarget{conditional-expectations-1}{%
+\chapter{Conditional Expectations}\label{conditional-expectations-1}}
+
+This is a book created from markdown and executable code.
+
+See Knuth (1984) for additional discussion of literate programming.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DecValTok{1} \SpecialCharTok{+} \DecValTok{1}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] 2
+\end{verbatim}
+
+\hypertarget{discontinuities-structural-breaks-and-bunching}{%
+\chapter{Discontinuities, Structural Breaks, and
+Bunching}\label{discontinuities-structural-breaks-and-bunching}}
+
+This is a book created from markdown and executable code.
+
+See Knuth (1984) for additional discussion of literate programming.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DecValTok{1} \SpecialCharTok{+} \DecValTok{1}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] 2
+\end{verbatim}
+
+\textbf{Discontinuities?}
+
+\bookmarksetup{startatroot}
+
+\hypertarget{discussion}{%
+\chapter{Discussion}\label{discussion}}
+
+This is a book created from markdown and executable code.
+
+See Knuth (1984) for additional discussion of literate programming.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DecValTok{1} \SpecialCharTok{+} \DecValTok{1}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] 2
+\end{verbatim}
+
+\cleardoublepage
+\phantomsection
+\addcontentsline{toc}{part}{Appendices}
+\appendix
+
+\hypertarget{references}{%
+\chapter*{References}\label{references}}
+\addcontentsline{toc}{chapter}{References}
+
+\markboth{References}{References}
+
+\hypertarget{refs}{}
+\begin{CSLReferences}{1}{0}
+\leavevmode\vadjust pre{\hypertarget{ref-knuth84}{}}%
+Knuth, Donald E. 1984. {``Literate Programming.''} \emph{Comput. J.} 27
+(2): 97--111. \url{https://doi.org/10.1093/comjnl/27.2.97}.
+
+\end{CSLReferences}
+
+
+
+\end{document}

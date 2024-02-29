@@ -212,7 +212,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./unconfoundedness.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Experiments: Stratification</span></span></a>
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Stratified Experiments</span></span></a>
   </div>
 </li>
       </ul>
@@ -235,13 +235,25 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./paralleltrends.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Difference-in-Differences - Part 1</span></span></a>
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Difference-in-Differences - Static</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./staggereddid.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Event-Studies or Staggered DiD</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./synthetic.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Conditional Expectations</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./discontinuities.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Discontinuities, Structural Breaks, and Bunching</span></span></a>
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Discontinuities, Structural Breaks, and Bunching</span></span></a>
   </div>
 </li>
       </ul>
@@ -249,7 +261,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./discussion.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Discussion</span></span></a>
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Discussion</span></span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
@@ -293,6 +305,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#selection" id="toc-selection" class="nav-link" data-scroll-target="#selection"><span class="header-section-number">7.2.1</span> Selection</a></li>
   <li><a href="#why-randomize-1" id="toc-why-randomize-1" class="nav-link" data-scroll-target="#why-randomize-1"><span class="header-section-number">7.2.2</span> Why randomize?</a></li>
   <li><a href="#limits-of-randomization" id="toc-limits-of-randomization" class="nav-link" data-scroll-target="#limits-of-randomization"><span class="header-section-number">7.2.3</span> Limits of randomization</a></li>
+  <li><a href="#randomization-in-practice" id="toc-randomization-in-practice" class="nav-link" data-scroll-target="#randomization-in-practice"><span class="header-section-number">7.2.4</span> Randomization in practice</a></li>
   </ul></li>
   <li><a href="#hypothesis-testing-fisher-vs-neyman" id="toc-hypothesis-testing-fisher-vs-neyman" class="nav-link" data-scroll-target="#hypothesis-testing-fisher-vs-neyman"><span class="header-section-number">7.3</span> Hypothesis Testing: Fisher vs Neyman</a>
   <ul class="collapse">
@@ -301,6 +314,35 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#fisher-how-does-this-work" id="toc-fisher-how-does-this-work" class="nav-link" data-scroll-target="#fisher-how-does-this-work"><span class="header-section-number">7.3.3</span> Fisher: How does this work?</a></li>
   <li><a href="#neymans-ate-test" id="toc-neymans-ate-test" class="nav-link" data-scroll-target="#neymans-ate-test"><span class="header-section-number">7.3.4</span> Neyman’s ATE test</a></li>
   <li><a href="#sampling-variance-of-neyman-estimator" id="toc-sampling-variance-of-neyman-estimator" class="nav-link" data-scroll-target="#sampling-variance-of-neyman-estimator"><span class="header-section-number">7.3.5</span> Sampling Variance of Neyman estimator</a></li>
+  <li><a href="#sampling-variance-of-neyman-estimator-an-improvement" id="toc-sampling-variance-of-neyman-estimator-an-improvement" class="nav-link" data-scroll-target="#sampling-variance-of-neyman-estimator-an-improvement"><span class="header-section-number">7.3.6</span> Sampling Variance of Neyman estimator: An improvement</a></li>
+  <li><a href="#neyman-hypothesis-test" id="toc-neyman-hypothesis-test" class="nav-link" data-scroll-target="#neyman-hypothesis-test"><span class="header-section-number">7.3.7</span> Neyman hypothesis test</a></li>
+  <li><a href="#fisher-vs-neyman" id="toc-fisher-vs-neyman" class="nav-link" data-scroll-target="#fisher-vs-neyman"><span class="header-section-number">7.3.8</span> Fisher vs Neyman</a></li>
+  <li><a href="#neyman-super-population-equivalent" id="toc-neyman-super-population-equivalent" class="nav-link" data-scroll-target="#neyman-super-population-equivalent"><span class="header-section-number">7.3.9</span> Neyman: Super-population equivalent</a></li>
+  </ul></li>
+  <li><a href="#balance-tests" id="toc-balance-tests" class="nav-link" data-scroll-target="#balance-tests"><span class="header-section-number">7.4</span> Balance tests</a>
+  <ul class="collapse">
+  <li><a href="#testing-for-balance-in-covariates" id="toc-testing-for-balance-in-covariates" class="nav-link" data-scroll-target="#testing-for-balance-in-covariates"><span class="header-section-number">7.4.1</span> Testing for balance in covariates</a></li>
+  <li><a href="#next-up" id="toc-next-up" class="nav-link" data-scroll-target="#next-up"><span class="header-section-number">7.4.2</span> Next-up</a></li>
+  </ul></li>
+  <li><a href="#evaluating-rcts-using-a-linear-regression-model" id="toc-evaluating-rcts-using-a-linear-regression-model" class="nav-link" data-scroll-target="#evaluating-rcts-using-a-linear-regression-model"><span class="header-section-number">7.5</span> Evaluating RCTs using a Linear Regression Model</a>
+  <ul class="collapse">
+  <li><a href="#linear-regression-model" id="toc-linear-regression-model" class="nav-link" data-scroll-target="#linear-regression-model"><span class="header-section-number">7.5.1</span> Linear Regression Model</a></li>
+  <li><a href="#endogeneity" id="toc-endogeneity" class="nav-link" data-scroll-target="#endogeneity"><span class="header-section-number">7.5.2</span> Endogeneity</a></li>
+  <li><a href="#inference" id="toc-inference" class="nav-link" data-scroll-target="#inference"><span class="header-section-number">7.5.3</span> Inference</a></li>
+  <li><a href="#deatons-critique" id="toc-deatons-critique" class="nav-link" data-scroll-target="#deatons-critique"><span class="header-section-number">7.5.4</span> Deaton’s critique</a></li>
+  </ul></li>
+  <li><a href="#adding-covariates" id="toc-adding-covariates" class="nav-link" data-scroll-target="#adding-covariates"><span class="header-section-number">7.6</span> Adding covariates</a>
+  <ul class="collapse">
+  <li><a href="#adding-covariates-1" id="toc-adding-covariates-1" class="nav-link" data-scroll-target="#adding-covariates-1"><span class="header-section-number">7.6.1</span> Adding covariates</a></li>
+  <li><a href="#small-sample-bias" id="toc-small-sample-bias" class="nav-link" data-scroll-target="#small-sample-bias"><span class="header-section-number">7.6.2</span> Small sample bias</a></li>
+  <li><a href="#efficiency-gains" id="toc-efficiency-gains" class="nav-link" data-scroll-target="#efficiency-gains"><span class="header-section-number">7.6.3</span> Efficiency gains</a></li>
+  <li><a href="#good-controls" id="toc-good-controls" class="nav-link" data-scroll-target="#good-controls"><span class="header-section-number">7.6.4</span> Good controls</a></li>
+  <li><a href="#minimizing-variance" id="toc-minimizing-variance" class="nav-link" data-scroll-target="#minimizing-variance"><span class="header-section-number">7.6.5</span> Minimizing Variance</a></li>
+  <li><a href="#under-powered" id="toc-under-powered" class="nav-link" data-scroll-target="#under-powered"><span class="header-section-number">7.6.6</span> Under-powered</a></li>
+  </ul></li>
+  <li><a href="#the-microfinance-miracle-a-case-of-itt" id="toc-the-microfinance-miracle-a-case-of-itt" class="nav-link" data-scroll-target="#the-microfinance-miracle-a-case-of-itt"><span class="header-section-number">7.7</span> The Microfinance `Miracle’: A Case of ITT</a>
+  <ul class="collapse">
+  <li><a href="#the-microfinance-miracle" id="toc-the-microfinance-miracle" class="nav-link" data-scroll-target="#the-microfinance-miracle"><span class="header-section-number">7.7.1</span> The Microfinance `Miracle’</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -548,7 +590,10 @@ Recall,
 <li>Randomization allows us to learn about <span class="math inline">\(f_{Y(1)}\)</span> and <span class="math inline">\(f_{Y(0)}\)</span></li>
 <li>Randomization <strong>does not</strong> allow us to learn about <span class="math inline">\(f_{Y(1),Y(0)}\)</span> or <span class="math inline">\(f_{Y(1)-Y(0)}\)</span></li>
 </ul>
-<p>Example from Banerjee <em>et al.</em> (2015, p.&nbsp;38) <a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> <img src="images/Banerjee_p38.png" class="img-fluid"></p>
+<p>Example from Banerjee <em>et al.</em> (2015, p.&nbsp;38) <a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> <img src="Images/Banerjee_p38.png" class="img-fluid"></p>
+</section>
+<section id="randomization-in-practice" class="level3" data-number="7.2.4">
+<h3 data-number="7.2.4" class="anchored" data-anchor-id="randomization-in-practice"><span class="header-section-number">7.2.4</span> Randomization in practice</h3>
 In Applied Economics, policy evaluations that embrace randomization are commonly referred to as <strong>Randomized Control Trials (RCTs)</strong>.
 <ul>
 <li>These are typically the gold standard.</li>
@@ -835,6 +880,38 @@ H_0:\;\tau^{fs}_{ATE} = 0 \qquad\text{against}\qquad H_0:\;\tau^{fs}_{ATE} \neq 
 <div style="text-align: center;">
 PROOF [ON BOARD]
 </div>
+<div class="callout callout-style-default callout-important no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Proofs
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-9" class="callout-9-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><span class="math display">\[
+\begin{aligned}
+\hat{\tau} = &amp;\bar{Y}^{obs}_t-\bar{Y}^{obs}_c \\
+=&amp;\frac{1}{N_t}\sum_{i:w_i=1}y_i-\frac{1}{N_c}\sum_{i:w_0=1}y_i \\
+=&amp;\frac{1}{N_t}\sum_{i=1}w_iy_i-\frac{1}{N_c}\sum_{i=0}(1-w_i)y_i \\
+=&amp;\frac{1}{N}[\sum_{i=1}^{N}\frac{w_iy_i}{N_t/N}-\sum_{i=0}^{N}\frac{(1-w_i)y_i}{N_c/N}]
+\end{aligned}
+\]</span> Neyman Test statisitc -&gt; <span class="math inline">\(\mathbf{E}_w[\hat{\tau}|y(1),y(0)]=\tau_{ATE}^{fs}\)</span></p>
+<p>where <span class="math inline">\(\mathbf[E]_w\)</span> means taking expectation with respect to <span class="math inline">\(w\)</span></p>
+<p><span class="math display">\[
+\begin{aligned}
+\mathbf{E}_w[\hat{\tau}|y(1),y(0)] = &amp;\frac{1}{N}[\sum_{i=1}^{N}\frac{\mathbf{E}_w[w_i]y_i}{N_t/N}-\sum_{i=0}^{N}\frac{\mathbf{E}_w[1-w_i]y_i}{N_c/N}] \\
+where &amp;\space \mathbf{E}_w[w_i]=\frac{N_t}{N} \space\space\space\space\space \mathbf{E}_w[1-w_i]=\frac{N_c}{N} \\
+=&amp;\frac{1}{N}[\sum_{i=1}^{N}\frac{(N_t/N)y_i}{N_t/N}-\sum_{i=0}^{N}\frac{(N_c/N)y_i}{N_c/N}] \\
+=&amp;\frac{1}{N}\sum_{i=1}^{N}(y_i(1)-y_i(0))
+\end{aligned}
+\]</span></p>
+</div>
+</div>
+</div>
 </section>
 <section id="sampling-variance-of-neyman-estimator" class="level3" data-number="7.3.5">
 <h3 data-number="7.3.5" class="anchored" data-anchor-id="sampling-variance-of-neyman-estimator"><span class="header-section-number">7.3.5</span> Sampling Variance of Neyman estimator</h3>
@@ -902,52 +979,534 @@ Theorem: Neyman’s variance estimator
         s^2_t = \frac{1}{N_t-1}\sum_{i:W_i=1}^N (Y_i^{obs}-\bar{Y}^{obs}_t)^2
 \]</span><br>
 ** Note, this is different to the T-test variance</p>
-<section id="notes-on-sample-variance-in-r" class="level4" data-number="7.3.5.1">
-<h4 data-number="7.3.5.1" class="anchored" data-anchor-id="notes-on-sample-variance-in-r"><span class="header-section-number">7.3.5.1</span> Notes on sample variance (in R)</h4>
+</section>
+<section id="sampling-variance-of-neyman-estimator-an-improvement" class="level3" data-number="7.3.6">
+<h3 data-number="7.3.6" class="anchored" data-anchor-id="sampling-variance-of-neyman-estimator-an-improvement"><span class="header-section-number">7.3.6</span> Sampling Variance of Neyman estimator: An improvement</h3>
+<p>However, we can improve on this estimator for small samples. If we assume that <span class="math inline">\(Y_i(1)-Y_i(0)\)</span> is a constant, then <span class="math display">\[
+S^2 = S^2_c=S^2_t
+\]</span></p>
+<div class="callout callout-style-default callout-important no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Constant variance estimator
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>If the treatment effect is constant, then a more precise, unbiased estimator for the sampling variance is, <span class="math display">\[
+            \hat{V}^{const} = s^2\cdot\left(\frac{1}{N_c}+\frac{1}{N_t}\right)
+\]</span></p>
+</div>
+</div>
+<pre><code>where, </code></pre>
+<p><span class="math display">\[
+        s^2 = \frac{1}{N-2}\cdot\left(s^2_c\cdot(N_c-1)+s^2_t\cdot(N_t-1)\right)
+\]</span> ** These equations should be fairly familiar.</p>
+</section>
+<section id="neyman-hypothesis-test" class="level3" data-number="7.3.7">
+<h3 data-number="7.3.7" class="anchored" data-anchor-id="neyman-hypothesis-test"><span class="header-section-number">7.3.7</span> Neyman hypothesis test</h3>
+<p>To conduct inference we need to know the distribution of the test-statistic, not just the variance.</p>
+<p>Potential approaches:</p>
+<ol type="1">
+<li>Use a normal approximation of the randomization distribution of <span class="math inline">\(\hat{\tau}\)</span></li>
+<li>Approximate distribution of <span class="math inline">\(\hat{V}\)</span> by chi-squared and use t-distribution. <span class="math display">\[
+      t = \frac{\hat{\tau}}{\sqrt{\hat{V}}}
+\]</span></li>
+</ol>
+<p>Confidence intervals, <span class="math display">\[
+    CI^{0.95}(\tau^{fs}_{ATE}) \approxeq \left[\hat{\tau}+z_{0.025}\cdot\sqrt{\hat{V}},\hat{\tau}+z_{0.975}\cdot\sqrt{\hat{V}}\right]
+\]</span><br>
+or <span class="math display">\[
+        CI^{0.95}(\tau^{fs}_{ATE}) \approxeq \left[\hat{\tau}+t_{N-2,0.025}\cdot\sqrt{\hat{V}},\hat{\tau}+t_{N-2,0.975}\cdot\sqrt{\hat{V}}\right]
+\]</span></p>
+</section>
+<section id="fisher-vs-neyman" class="level3" data-number="7.3.8">
+<h3 data-number="7.3.8" class="anchored" data-anchor-id="fisher-vs-neyman"><span class="header-section-number">7.3.8</span> Fisher vs Neyman</h3>
+Remember the differences in the null hypotheses:
+<ul>
+<li>Fisher [<strong>exact</strong>]: <span class="math inline">\(H_0: Y_i(1)=Y_i(0) \quad\forall i=1,...,N\)</span></li>
+<li>Neyman: <span class="math inline">\(H'_0: \frac{1}{N}\sum_{i=1}^{N}(Y_i(1)-Y_i(0))=0\)</span></li>
+</ul>
+<p>From Imbens and Wooldridge (2009, p.23)<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>,</p>
+<p><img src="Images/table1_imbenswooldridge2009.png" class="img-fluid"></p>
+</section>
+<section id="neyman-super-population-equivalent" class="level3" data-number="7.3.9">
+<h3 data-number="7.3.9" class="anchored" data-anchor-id="neyman-super-population-equivalent"><span class="header-section-number">7.3.9</span> Neyman: Super-population equivalent</h3>
+<p>Suppose we think of the sample N as a draw from a potentially infinite super-population,</p>
+<div class="callout callout-style-default callout-important no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Result
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><span class="math display">\[
+                E[\hat{\tau}] = E[\tau^{fs}_{ATE}] = \tau_{ATE}
+\]</span> <span class="math display">\[
+                V(\hat{\tau}) = E\left[(\bar{Y}^{obs}_t-\bar{Y}^{obs}_c-E[\bar{Y}^{obs}_t-\bar{Y}^{obs}_c])^2\right]= \frac{\sigma^2_c}{N_c}+\frac{\sigma^2_t}{N_t}
+\]</span> Proof will be provided on Moodle.</p>
+</div>
+</div>
+<ul>
+<li><span class="math inline">\(\hat{V}^{neyman}\)</span> is an unbiased estimator for <span class="math inline">\(V\)</span>, <strong>even with heterogeneous TE’s</strong>.</li>
+<li><span class="math inline">\(\hat{V}^{neyman}\)</span> is a better default choice.</li>
+</ul>
+<div style="text-align: center;">
+VARIANCE PROOF ON MOODLE
+</div>
+</section>
+</section>
+<section id="balance-tests" class="level2" data-number="7.4">
+<h2 data-number="7.4" class="anchored" data-anchor-id="balance-tests"><span class="header-section-number">7.4</span> Balance tests</h2>
+<section id="testing-for-balance-in-covariates" class="level3" data-number="7.4.1">
+<h3 data-number="7.4.1" class="anchored" data-anchor-id="testing-for-balance-in-covariates"><span class="header-section-number">7.4.1</span> Testing for balance in covariates</h3>
+<p>All Randomized Control Trials should provide some variant of a balance table: a table comparing the means of pre-treatment covariates in each of the treatment groups.</p>
+<p>For example, (Oreopoulus, 2011, p.158)<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a></p>
+<p><img src="Images/Oreopoulus_Balance_1.png" class="img-fluid"></p>
+<p>These tests are typically based on the ANOVA (<span style="color : blue">AN</span>alysis <span style="color: blue">O</span>f <span style="color : blue">VA</span>riance) test.<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a></p>
+<ul>
+<li>Decomposes TSS into,<a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a></li>
+</ul>
+<p><span class="math display">\[
+                TSS = \sum_{k=1}^{K}\sum_{i=1}^{N(k)}(X_{ik}-\bar{X})^2 = \underbrace{\sum_{k=1}^{K}\sum_{i=1}^{N(k)}(X_{ik}-\bar{X}_k)^2}_\text{residual/within}+\underbrace{\sum_{k=1}^{K}N(k)(\bar{X}_k-\bar{X})^2}_\text{explained/between}
+\]</span></p>
+<ul>
+<li>The F-statistic, <span class="math display">\[
+            F-stat =\frac{ESS/(K-1)}{RSS/(N-K)} = \frac{\text{explained/between variance}}{\text{residual/within variance}}
+\]</span></li>
+</ul>
+<p>This is to estimating the linear regression model,</p>
+<p><span class="math display">\[
+            X_i = \beta_0 + \beta_1D_{i1}+...+ \beta_KD_{i,K-1}+\varepsilon_i
+\]</span></p>
+<p>where the dummy variables indicate <span class="math inline">\(K-1\)</span> groups. Test the joint linear hypothesis, <span class="math display">\[
+            H_0: \beta_1 = ... = \beta_{K-1} = 0
+\]</span></p>
+<p>against, <span class="math display">\[
+            H_1: \text{at least one }\beta_j\neq0\qquad j=1,...,K-1
+\]</span></p>
+<ul>
+<li>Note, you should be wary of testing each <span class="math inline">\(\beta\)</span> coefficient separately. <strong>Why?</strong></li>
+</ul>
+<p>For example, Dupas and Robinson (2013, p.1150)<a href="#fn7" class="footnote-ref" id="fnref7" role="doc-noteref"><sup>7</sup></a></p>
+<p><img src="Images/Dupas_Baseline_1.png" class="img-fluid"></p>
+It is important to remember,
+<ul>
+<li>Balance tests provide support for unconfoundedness (i.e.&nbsp;randomization has worked)</li>
+<li>We can test for differences in observables.</li>
+<li>We cannot rule out selection on unobservables.</li>
+<li>Partially rely on sufficiently large sample size.</li>
+</ul>
+</section>
+<section id="next-up" class="level3" data-number="7.4.2">
+<h3 data-number="7.4.2" class="anchored" data-anchor-id="next-up"><span class="header-section-number">7.4.2</span> Next-up</h3>
+<ul>
+<li>Evaluating RCT’s with Linear Regression and (one of) Angus Deaton’s critiques</li>
+<li>Covariates, Efficiency, and Power<br>
+</li>
+<li>Good and Bad Controls</li>
+<li>Intent to Treat and some examples</li>
+</ul>
+<!---
+
+
+
+
+
+here starts the second slide
+
+
+
+
+
+
+
+
+
+--->
+</section>
+</section>
+<section id="evaluating-rcts-using-a-linear-regression-model" class="level2" data-number="7.5">
+<h2 data-number="7.5" class="anchored" data-anchor-id="evaluating-rcts-using-a-linear-regression-model"><span class="header-section-number">7.5</span> Evaluating RCTs using a Linear Regression Model</h2>
+<section id="linear-regression-model" class="level3" data-number="7.5.1">
+<h3 data-number="7.5.1" class="anchored" data-anchor-id="linear-regression-model"><span class="header-section-number">7.5.1</span> Linear Regression Model</h3>
+<p>Consider the linear regression <em>model</em>, <span class="math display">\[
+            Y_i = \alpha+\beta W_i + \varepsilon_i
+\]</span> where, intuitively, <span class="math inline">\(Y_i = Y^{obs}_i\)</span>. The OLS estimator for the vector of parameters <span class="math inline">\((\alpha,\beta)\)</span> is defined as, <span class="math display">\[
+            (\hat{\alpha}^{OLS},\hat{\beta}^{OLS}) = \underset{a,b}{argmin} \sum_{i=1}^{N}(Y_i-a-b W_i)^2
+\]</span> We know that in the case of a simple linear regression model, <span class="math display">\[
+            \hat{\beta}^{OLS} = \frac{\sum_{i=1}^{N}(W_i-\bar{W})(Y_i-\bar{Y})}{\sum_{i=1}^{N}(W_i-\bar{W})^2} = (W'M_\ell W)^{-1}W'M_\ell Y
+\]</span></p>
+<p>the sample analogue of <span class="math inline">\(\beta = \frac{Cov(W_i,Y_i)}{Var(W_i)}\)</span>.</p>
+<p>Since <span class="math inline">\(\bar{W}=\frac{N_t}{N}\)</span>, we can show that <a href="#fn8" class="footnote-ref" id="fnref8" role="doc-noteref"><sup>8</sup></a></p>
+<p><span class="math display">\[
+            \hat{\beta}^{OLS} = \bar{Y}^{obs}_t-\bar{Y}^{obs}_c = \hat{\tau}
+\]</span></p>
+Which we know is an unbiased estimator for both <span class="math inline">\(\tau_{ATE}^{fs}\)</span> and <span class="math inline">\(\tau_{ATE}\)</span>.
+<ul>
+<li><span class="math inline">\(\hat{\beta}^{OLS}\)</span> is an unbiased estimate of the (average) causal effect, assuming unconfoundedness (i.e.&nbsp;completely random experiment).</li>
+</ul>
+<p>We want to create a mapping from potential outcomes to a linear regression model. Recall, <span class="math display">\[
+            Y^{obs}_i = Y_i(0)+W_i(Y_i(1)-Y_(0))
+\]</span> Let’s define<a href="#fn9" class="footnote-ref" id="fnref9" role="doc-noteref"><sup>9</sup></a>,</p>
+<p><span class="math display">\[
+        \begin{align*}
+            \mu &amp;=E[Y_i(0)] \\
+            \tau_{ATE} &amp;= E[Y_i(1)-Y_i(0)]
+        \end{align*}
+\]</span><br>
+We want to show that we can express <span class="math inline">\(Y^{obs}_i\)</span> as a linear regression model, <span class="math display">\[
+            Y^{obs}_i=\mu+\tau_{ATE}W_i+\varepsilon_i
+\]</span></p>
+</section>
+<section id="endogeneity" class="level3" data-number="7.5.2">
+<h3 data-number="7.5.2" class="anchored" data-anchor-id="endogeneity"><span class="header-section-number">7.5.2</span> Endogeneity</h3>
+<p>We write the error term from the linear regression model as function of these parameters and the potential outcomes in the following way, <span class="math display">\[
+        \begin{align*}
+            \varepsilon_i   &amp;=Y_i(0)- \mu+W_i\cdot(Y_i(1)-Y_i(0)-\tau_{ATE}) \\
+                            &amp;=\begin{cases*}
+                                Y^{obs}_i-\mu \qquad\qquad\quad \text{if}\quad W_i=0 \\
+                                Y^{obs}_i-\mu-\tau_{ATE} \qquad \text{if}\quad W_i=1
+                            \end{cases*} \\
+                            &amp;=\begin{cases*}
+                                Y_i(0)-E[Y_i(0)] \qquad\qquad\qquad\qquad\qquad\qquad\qquad\qquad\quad \text{if}\quad W_i=0 \\
+                                Y_i(0)-E[Y_i(0)]+\underbrace{\left(Y_i(1)-Y_i(0)-E[Y_i(1)-Y_i(0)]\right)}_\text{heterogeneity} \quad \text{if}\quad W_i=1
+                            \end{cases*}                        
+        \end{align*}
+\]</span> Note, for a more straight forward mapping we can assume homogenous TEs, <span class="math display">\[
+            (Y_i(1)-Y_i(0)) = \tau\qquad \forall i
+\]</span></p>
+<span class="math display">\[
+\begin{align}
+            Y_i &amp;= Y_i(0)+W_i\cdot\underbrace{(Y_i(1)-Y_i(0))}_{\tau} \\
+                &amp;=E[Y_i(0)]+\tau W_i+\underbrace{Y_i(0)-E[Y_i(0)]}_{\varepsilon_i} \\
+                &amp;=\mu+\tau W_i + \varepsilon_i
+\end{align}
+\]</span> As an assignment mechanism, randomization gives us unconfoundedness, <span class="math display">\[
+            (Y_i(1),Y_i(0))\perp W_i
+\]</span> So, then we can consider the conditional expectations of <span class="math inline">\(\varepsilon_i\)</span>,
+<ul>
+<li><strong><span class="math inline">\(W_i=0\)</span></strong> <span class="math display">\[
+        \begin{align*}
+            E[\varepsilon_i|W_i=0] &amp;= E[Y_i(0)- \mu + W_i\cdot(Y_i(1)-Y_i(0)-\tau_{ATE})|W_i=0] \\
+            &amp;= E[Y_i(0)- \mu|W_i=0] \\
+            &amp;=E[Y_i(0)|W_i=0]-E[Y_i(0)] = 0
+        \end{align*}
+\]</span></li>
+<li><strong><span class="math inline">\(W_i=1\)</span></strong> <span class="math display">\[
+        \begin{align*}
+            E[\varepsilon_i|W_i=1] &amp;= E[Y_i(0)- \mu + W_i\cdot(Y_i(1)-Y_i(0)-\tau_{ATE})|W_i=1] \\
+            &amp;= E[Y_i(1)-\tau_{ATE} - \mu|W_i=1] \\
+            &amp;=E[Y_i(1)|W_i=1]-E[Y_i(0)]-E[Y_i(1)-Y_i(0)] = 0
+        \end{align*}
+\]</span> Unconfoundedness gives you mean independence.</li>
+</ul>
+</section>
+<section id="inference" class="level3" data-number="7.5.3">
+<h3 data-number="7.5.3" class="anchored" data-anchor-id="inference"><span class="header-section-number">7.5.3</span> Inference</h3>
+<p>Suppose we assume homoskedasticity: <span class="math inline">\(\sigma_i^2=\sigma^2\)</span><br>
+<span class="math display">\[
+        \begin{align*}
+            \hat{\sigma}^2 = \frac{1}{N-2}\sum_{i=1}^N \hat{\varepsilon}_i^2&amp;= \frac{1}{N-2}\sum_{i=1}^N  (Y_i-\hat{\alpha}^{OLS}-\hat{\beta}^{OLS}W_i)^2 \\
+            &amp;=\frac{1}{N-2}\sum_{i=1}^N  \left(Y_i-\bar{Y}-(\bar{Y}^{obs}_t-\bar{Y}^{obs}_c)\cdot(W_i-\bar{W})\right)^2 \\
+            &amp;=\frac{1}{N-2}\left(\sum_{i:W_i=0}^N(Y_i-\bar{Y}^{obs}_c)^2+\sum_{i:W_i=1}^N(Y_i-\bar{Y}^{obs}_t)^2\right) \\
+            &amp;=s^2
+        \end{align*}
+\]</span></p>
+<p>where, <span class="math display">\[
+        s^2 = \frac{1}{N-2}\cdot\left(s^2_c\cdot(N_c-1)+s^2_t\cdot(N_t-1)\right)
+\]</span> ** Check to see if you can show this.</p>
+</section>
+<section id="deatons-critique" class="level3" data-number="7.5.4">
+<h3 data-number="7.5.4" class="anchored" data-anchor-id="deatons-critique"><span class="header-section-number">7.5.4</span> Deaton’s critique</h3>
+<p>Angus Deaton has made a number of criticisms against the use of RCTs in (Development) Economics. One of these is the misuse of linear regression:<a href="#fn10" class="footnote-ref" id="fnref10" role="doc-noteref"><sup>10</sup></a></p>
+<div class="callout callout-style-default callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Deaton (2010, p.442)
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>“However, the standard error of <span class="math inline">\(\beta_1\)</span> from the OLS regression is not generally correct. One problem is that the variance among the experimentals may be different from the variance among the controls, and to assume that the experiment affect the variance is very much against the minimalist spirit of RCTs.”</p>
+</div>
+</div>
+<p>The standard OLS variance estimator for <span class="math inline">\(\hat{\beta}^{OLS}\)</span> is, <span class="math display">\[
+        \hat{V}^{homosk} = \frac{\hat{\sigma}^2}{\sum_{i=1}^{N}(W_i-\bar{W})^2}=s^2\cdot\left(\frac{1}{N_c}+\frac{1}{N_t}\right)=\hat{V}^{const}
+\]</span> If instead you estimate heteroskedastic standard errors, <span class="math display">\[
+            \hat{V}^{hetero} = \frac{\sum_{i=1}^{N}\hat{\varepsilon}_i^2\cdot(W_i-\bar{W})^2}{\left(\sum_{i=1}^{N}(W_i-\bar{W})^2\right)^2} \approxeq \frac{s^2_c}{N_c}+\frac{s^2_t}{N_t}=\hat{V}^{neyman}
+\]</span></p>
+<div class="callout callout-style-default callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Deaton (2010, p.442)
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>“If the regression … is run with the standard heteroskedasticity correction to the standard error, the result will be the same as the formula for the standard error of the difference between two means, but not otherwise except in the special case where there are equal numbers of experimental and controls, in which case it turns out that the correction makes no difference and the OLS standard error is correct. It is not clear in the experimental development literature whether the correction is routinely done in practice…”</p>
+</div>
+</div>
+</section>
+</section>
+<section id="adding-covariates" class="level2" data-number="7.6">
+<h2 data-number="7.6" class="anchored" data-anchor-id="adding-covariates"><span class="header-section-number">7.6</span> Adding covariates</h2>
+<section id="adding-covariates-1" class="level3" data-number="7.6.1">
+<h3 data-number="7.6.1" class="anchored" data-anchor-id="adding-covariates-1"><span class="header-section-number">7.6.1</span> Adding covariates</h3>
+<p>Let us consider the linear regression model, <span class="math display">\[
+            Y_i = \alpha+\beta W_i + X_i'\gamma+\epsilon_i
+\]</span></p>
+where,
+<ul>
+<li><span class="math inline">\(W_i\)</span> is assigned according to a completely random experiment</li>
+<li><span class="math inline">\(X_i\)</span> is a <span class="math inline">\(k\times 1\)</span> vector of <strong>pre-treatment</strong> covariates</li>
+<li>the linear function <strong>need not</strong> be correctly specified</li>
+</ul>
+<p>Note: we are not interested in the interpretation of the <span class="math inline">\(\gamma\)</span>’s or <span class="math inline">\(\alpha\)</span>.</p>
+<div class="callout callout-style-default callout-important no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Theorem (Imbens and Rubin, 2015, p.123)
+</div>
+</div>
+<div class="callout-body-container callout-body">
+Suppose we conduct a <strong>completely randomized experiment</strong> in a sample drawn at random from an infinite population. Then,
+<ol type="1">
+<li><span class="math inline">\(plim\;\hat{\beta}=\tau_{ATE}\)</span></li>
+<li>The asymptotic distribution of <span class="math inline">\(\hat{\beta}\)</span> is normal.</li>
+</ol>
+</div>
+</div>
+This is a powerful result!
+<ul>
+<li>We are agnostic about the Conditional Expectation Function: <span class="math inline">\(E[Y_i|W_i,X_i']\)</span>.</li>
+<li>And the model need not be correctly specified.</li>
+</ul>
+</section>
+<section id="small-sample-bias" class="level3" data-number="7.6.2">
+<h3 data-number="7.6.2" class="anchored" data-anchor-id="small-sample-bias"><span class="header-section-number">7.6.2</span> Small sample bias</h3>
+<p>Unfortunately, in small samples <span class="math inline">\(\hat{\beta}^{OLS}\)</span> is a biased estimator of <span class="math inline">\(\tau_{ATE}\)</span>.<a href="#fn11" class="footnote-ref" id="fnref11" role="doc-noteref"><sup>11</sup></a></p>
+<ul>
+<li>The bias is <span class="math inline">\(\psi/N\)</span> and <span class="math inline">\(\psi\)</span> is given by, <span class="math display">\[
+            \psi = -\lim \frac{1}{N}\sum_{i=1}^N (\tau_i-\tau_{ATE})f(X_i)
+\]</span></li>
+<li>The source of the bias lies in the correlation between the unit-level treatment effect and the covariates.</li>
+<li>Recall, treatment is independent of the covariates.</li>
+<li>But, the individual level treatment effect may not be.</li>
+</ul>
+<div class="callout callout-style-default callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+In practice
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Include covariates and be wary if the estimated coefficient changes substantially.</p>
+</div>
+</div>
+</section>
+<section id="efficiency-gains" class="level3" data-number="7.6.3">
+<h3 data-number="7.6.3" class="anchored" data-anchor-id="efficiency-gains"><span class="header-section-number">7.6.3</span> Efficiency gains</h3>
+<p>With covariates, the sampling variance of the OLS estimator is reduced. Here are the estimators:<a href="#fn12" class="footnote-ref" id="fnref12" role="doc-noteref"><sup>12</sup></a></p>
+<span class="math display">\[
+\hat{V}^{hetero} = \frac{1}{N(N-k)}\cdot\frac{\sum_{i=1}^{N}(W_i-\bar{W})^2(Y_i-\hat{\alpha}^{OLS}-\hat{\beta}^{OLS}-X_i'\hat{\gamma}^{OLS})^2}{\left(\bar{W}(1-\bar{W})\right)^2}
+\]</span> or <span class="math display">\[
+            \hat{V}^{homosk} = \frac{1}{N(N-k)}\cdot\frac{\sum_{i=1}^{N}(Y_i-\hat{\alpha}^{OLS}-\hat{\beta}^{OLS}-X_i'\hat{\gamma}^{OLS})^2}{\bar{W}(1-\bar{W})}
+\]</span> where <span class="math inline">\(k\)</span> is the number of parameters estimated (including the constant).
+<ul>
+<li>Note, this holds only for <strong>good covariates</strong></li>
+</ul>
+</section>
+<section id="good-controls" class="level3" data-number="7.6.4">
+<h3 data-number="7.6.4" class="anchored" data-anchor-id="good-controls"><span class="header-section-number">7.6.4</span> Good controls</h3>
+<p>The question of good and bad controls is <strong>very</strong> important.<a href="#fn13" class="footnote-ref" id="fnref13" role="doc-noteref"><sup>13</sup></a></p>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Good control
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>A covariate that is not an outcome of the experiment.</p>
+</div>
+</div>
+<ul>
+<li>Variables measured at baseline,</li>
+<li>or individual characteristics that cannot change with the experiment (e.g.&nbsp;age).</li>
+</ul>
+What about stratification?
+<ul>
+<li>You should include stratifying variables in the model</li>
+<li>Stratification improves precision.</li>
+</ul>
+</section>
+<section id="minimizing-variance" class="level3" data-number="7.6.5">
+<h3 data-number="7.6.5" class="anchored" data-anchor-id="minimizing-variance"><span class="header-section-number">7.6.5</span> Minimizing Variance</h3>
+<p>Note, in the variance formulae we have the term in the denominator, <span class="math display">\[
+            \sum_{i=1}^N(W_i-\bar{W})^2 = N\bar{W}(1-\bar{W})
+\]</span></p>
+<div style="text-align : center">
+<pre><code>    TRY TO SHOW THIS</code></pre>
+</div>
+Which comes from the sample variance of the treatment variable.
+<p>To reduce the variance, we can maximize this function. This yields the solution,</p>
+<p><span class="math display">\[
+        \bar{W}^*=0.5
+\]</span></p>
+<ul>
+<li><strong>Equal assignment is efficient.</strong></li>
+</ul>
+</section>
+<section id="under-powered" class="level3" data-number="7.6.6">
+<h3 data-number="7.6.6" class="anchored" data-anchor-id="under-powered"><span class="header-section-number">7.6.6</span> Under-powered</h3>
+<p>RCTs often face the risk that they are <strong>under-powered</strong>. ::: {.allout-note icon=“false”} ## Power The probability of rejecting the null hypothesis (<span class="math inline">\(H_0: \tau=0\)</span>; i.e., of no effect) when it is <strong>false</strong>. <span class="math display">\[
+                \theta(\tau_0)=Pr(\text{Reject }H_0|\tau=\tau_0)
+\]</span> :::</p>
+<p>Recall, that we reject <span class="math inline">\(H_0: \tau=0\)</span> when <a href="#fn14" class="footnote-ref" id="fnref14" role="doc-noteref"><sup>14</sup></a></p>
+<p><span class="math display">\[
+            |S|&gt;z_{1-\alpha/2}\Longleftrightarrow |\hat{\tau}/se(\hat{\tau})|&gt;z_{1-\alpha/2}
+\]</span> Where <span class="math inline">\(S\)</span> is the test-statistic.</p>
+<span class="math display">\[
+        \begin{align*}
+            \theta(\tau_0)=&amp;Pr(|\hat{\tau}/se(\hat{\tau})|&gt;z_{1-\alpha/2}|\tau=\tau_0) \\
+            =&amp;Pr(\hat{\tau}/se(\hat{\tau})&lt;z_{\alpha/2}|\tau=\tau_0)+Pr(\hat{\tau}/se(\hat{\tau})&gt;z_{1-\alpha/2}|\tau=\tau_0) \\
+            =&amp;Pr\left(\frac{\hat{\tau}-\tau_0}{se(\hat{\tau})}&lt;z_{\alpha/2}-\frac{\tau_0}{se(\hat{\tau})}|\tau=\tau_0\right)\\
+            &amp;+Pr\left(\frac{\hat{\tau}-\tau_0}{se(\hat{\tau})}&gt;z_{1-\alpha/2}-\frac{\tau_0}{se(\hat{\tau})}|\tau=\tau_0\right) \\
+            =&amp;Pr\left(Z&lt;z_{\alpha/2}-\frac{\tau_0}{se(\hat{\tau})}|\tau=\tau_0\right)+Pr\left(Z&gt;z_{1-\alpha/2}-\frac{\tau_0}{se(\hat{\tau})}|\tau=\tau_0\right)
+        \end{align*}
+\]</span><br>
+Given the shape of the normal distribution, <span class="math inline">\(\theta(\tau_0)\)</span> is increasing in <span class="math inline">\(\tau_0/se(\hat{\tau})\)</span>:
+<ul>
+<li>Power is increasing in the absolute value of <span class="math inline">\(\tau_0\)</span></li>
+<li>Power decreasing in the <span class="math inline">\(Var(\hat{\tau})\Rightarrow\)</span> power is <strong>increasing in N</strong>.</li>
+</ul>
+</section>
+</section>
+<section id="the-microfinance-miracle-a-case-of-itt" class="level2" data-number="7.7">
+<h2 data-number="7.7" class="anchored" data-anchor-id="the-microfinance-miracle-a-case-of-itt"><span class="header-section-number">7.7</span> The Microfinance `Miracle’: A Case of ITT</h2>
+<section id="the-microfinance-miracle" class="level3" data-number="7.7.1">
+<h3 data-number="7.7.1" class="anchored" data-anchor-id="the-microfinance-miracle"><span class="header-section-number">7.7.1</span> The Microfinance `Miracle’</h3>
+‘<span style="color: blue"> The Miracle of Microfinance? Evidence from a Randomized Evaluation<a href="#fn15" class="footnote-ref" id="fnref15" role="doc-noteref"><sup>15</sup></a></span>’
+<ul>
+<li>Microfinance was seen as a `silver bullet’ for fighting poverty, but robust evidence was scarce.</li>
+<li>Existing evidence based on self-selected clients - not causal.</li>
+<li><span style="color: blue">Setting:</span> Hyderabad, India, capital of Andrha Pradesh</li>
+<li><span style="color: blue">Sample:</span> randomly treat 52 (out of 104) neighbourhoods with new Spandana branch.</li>
+<li><span style="color: blue">Data Collection:</span> survey households 18 months, and then 42 months after treatment (N=6,850).</li>
+<li><span style="color: blue">Research Design:</span> ``focus here on reduced-form/intent-to-treat estimates’’ because of spillover or general equilibrium effects.</li>
+</ul>
+<p><em>“given the sampling frame, ours will be an intent-to-treat (ITT) analysis on a sample of”likely borrowers.” This is thus neither the effect on those who borrow nor the average effect on the neighborhood. Rather, it is the average effect of easier access to microfinance on those who are its primary targets.’’ (p.35)</em></p>
+<strong>Intention-To-Treat (ITT)</strong>
+<ul>
+<li>Based on initial random assignment (i.e.&nbsp;reduced form)</li>
+<li>Not on take-up or receipt of treatment</li>
+</ul>
+<p><em>“The main drawback of these ITT analyses is that they do not answer questions about causal effects of the receipt of treatment itself, only about causal effects of the assignment to treatment.” (Imbens and Rubin, 2015, p.515)<a href="#fn16" class="footnote-ref" id="fnref16" role="doc-noteref"><sup>16</sup></a></em></p>
+<p><img src="Images/Banerjee_Timeline_1.png" class="img-fluid"></p>
+<ul>
+<li>Outcomes of interest:</li>
+</ul>
+<ol type="1">
+<li>consumption</li>
+<li>business creation</li>
+<li>business income</li>
+<li>education</li>
+<li>health</li>
+<li>women’s empowerment</li>
+</ol>
+<ul>
+<li>Initial (18-month) take-up is lower than expected (by Spandana): 26.7% in treated neighbourhoods and 18.3% in control.</li>
+<li>NOTE: control group is not `untreated’ as other companies enter both treated and control groups during this period.
+<ul>
+<li>By second survey both groups had similar take-up, but treatment group had bigger and older loans.</li>
+</ul></li>
+<li>Highlights after 18 months:
+<ol type="1">
+<li>Decline in informal borrowing. 2. No difference in borrowed amount. 3. No difference in (nondurable) consumption, but increase in purchase of durable goods. 4. No impact on entrepreneurship, but invest in existing businesses. 5. Increase in profitability of some businesses (upper tail)</li>
+</ol></li>
+<li>Highlights after 42 months:
+<ol type="1">
+<li>Businesses have more assets, more businesses are more profitable 2. Average still small <span class="math inline">\(\Rightarrow\)</span> doesn’t help small businesses 3. No evidence of consumption change</li>
+</ol></li>
+<li>No effect on female empowerment outcomes.</li>
+<li>Almost 70% of households do not have an MFI loan, despite eligibility, yet borrow from other sources.</li>
+</ul>
+<p><img src="Images/Banerjee_Baseline_1.png" class="img-fluid"></p>
+<p style="font-size: 14px;">
+NOTE: Baseline survey covers a different set of households.
+</p>
+<p>The authors estimate the following regression model in each period after the intervention,<a href="#fn17" class="footnote-ref" id="fnref17" role="doc-noteref"><sup>17</sup></a></p>
+<p><span class="math display">\[
+            y_{ia} = \alpha + \beta \times Treat_{ia} + X_a'\gamma + \varepsilon_{ia}
+\]</span></p>
+where <span class="math inline">\(i\)</span> represents the individual and <span class="math inline">\(a\)</span> the area (neighbourhood).
+<ul>
+<li><span class="math inline">\(X_a\)</span> is a vector of area controls , including population, per capita literature, etc.</li>
+</ul>
+<p><img src="Images/Banerjee_Regression_1.png" class="img-fluid"> <img src="Images/Banerjee_Regression_3.png" class="img-fluid"> <img src="Images/Banerjee_Regression_2.png" class="img-fluid"></p>
+<p>Conclusion:</p>
+<p><em>“microcredit is not for every household, or even most households, and <strong>it does not lead to the miraculous social transformation</strong> some proponents have claimed…allows some households to sacrifice some instantaneous utility (temptation goods or leisure) in order to finance lumpy purchases, either for their home or in order to establish or expand a business”</em></p>
+Similar results found in other RCTs, including ``Estimating the impact of microcredit on those who take it up: Evidence from a randomized experiment in Morocco’’ by Cr'{e}pon, Devoto, Duflo &amp; Parient'{e} (2015)
+<ul>
+<li>Clearer research design with untreated control group</li>
+<li>No evidence of a gain in income or consumption</li>
+</ul>
+<!---
+
+simulation of the small sample variance
+
+--->
+<section id="notes-on-sample-variance-in-r" class="level4" data-number="7.7.1.1">
+<h4 data-number="7.7.1.1" class="anchored" data-anchor-id="notes-on-sample-variance-in-r"><span class="header-section-number">7.7.1.1</span> Notes on sample variance (in R)</h4>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stargazer)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>
-Please cite as: </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code> Hlavac, Marek (2022). stargazer: Well-Formatted Regression and Summary Statistics Tables.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code> R package version 5.2.3. https://CRAN.R-project.org/package=stargazer </code></pre>
-</div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>data1 <span class="ot">&lt;-</span><span class="fu">data.frame</span>(<span class="at">y0 =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">2</span>,<span class="dv">4</span>),</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="at">y1 =</span> <span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">3</span>)</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>data1<span class="sc">$</span>tau <span class="ot">&lt;-</span>  data1<span class="sc">$</span>y1<span class="sc">-</span>data1<span class="sc">$</span>y0</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>data1<span class="sc">$</span>St <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">sd</span>(data1<span class="sc">$</span>y1)<span class="sc">^</span><span class="dv">2</span>,<span class="fu">sd</span>(data1<span class="sc">$</span>y0)<span class="sc">^</span><span class="dv">2</span>,<span class="fu">sd</span>(data1<span class="sc">$</span>tau)<span class="sc">^</span><span class="dv">2</span>,<span class="cn">NA</span>)</span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">"Finite Sample Variance Tau-hat:"</span>, data1<span class="sc">$</span>St[<span class="dv">1</span>]<span class="sc">/</span><span class="dv">2</span><span class="sc">+</span>data1<span class="sc">$</span>St[<span class="dv">2</span>]<span class="sc">/</span><span class="dv">2</span><span class="sc">-</span>data1<span class="sc">$</span>St[<span class="dv">3</span>]<span class="sc">/</span><span class="dv">4</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>data1 <span class="ot">&lt;-</span><span class="fu">data.frame</span>(<span class="at">y0 =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">2</span>,<span class="dv">4</span>),</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="at">y1 =</span> <span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">3</span>)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>data1<span class="sc">$</span>tau <span class="ot">&lt;-</span>  data1<span class="sc">$</span>y1<span class="sc">-</span>data1<span class="sc">$</span>y0</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>data1<span class="sc">$</span>St <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">sd</span>(data1<span class="sc">$</span>y1)<span class="sc">^</span><span class="dv">2</span>,<span class="fu">sd</span>(data1<span class="sc">$</span>y0)<span class="sc">^</span><span class="dv">2</span>,<span class="fu">sd</span>(data1<span class="sc">$</span>tau)<span class="sc">^</span><span class="dv">2</span>,<span class="cn">NA</span>)</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">"Finite Sample Variance Tau-hat:"</span>, data1<span class="sc">$</span>St[<span class="dv">1</span>]<span class="sc">/</span><span class="dv">2</span><span class="sc">+</span>data1<span class="sc">$</span>St[<span class="dv">2</span>]<span class="sc">/</span><span class="dv">2</span><span class="sc">-</span>data1<span class="sc">$</span>St[<span class="dv">3</span>]<span class="sc">/</span><span class="dv">4</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "Finite Sample Variance Tau-hat: 0.5"</code></pre>
 </div>
 </div>
 <p>Code out all the possible realizations of W</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="dv">1</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>){</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  j <span class="ot">&lt;-</span> i <span class="sc">+</span> <span class="dv">1</span></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="cf">while</span> (j <span class="sc">&lt;=</span> <span class="dv">4</span>) {</span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    data1[<span class="fu">paste0</span>(<span class="st">"w"</span>, m)] <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>((<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(data1) <span class="sc">==</span> i) <span class="sc">|</span> (<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(data1) <span class="sc">==</span> j))</span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    m <span class="ot">&lt;-</span> m <span class="sc">+</span> <span class="dv">1</span></span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>    j <span class="ot">&lt;-</span> j <span class="sc">+</span> <span class="dv">1</span></span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>tauhat <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="cn">NA</span>, <span class="at">nrow =</span> <span class="dv">6</span>, <span class="at">ncol =</span> <span class="dv">1</span>)</span>
-<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>) {</span>
-<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>  data1[<span class="fu">paste0</span>(<span class="st">"yobs"</span>, i)] <span class="ot">&lt;-</span> data1<span class="sc">$</span>y1 <span class="sc">*</span> data1[<span class="fu">paste0</span>(<span class="st">"w"</span>, i)] <span class="sc">+</span> data1<span class="sc">$</span>y0 <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> data1[<span class="fu">paste0</span>(<span class="st">"w"</span>, i)])</span>
-<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>  model <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="fu">paste0</span>(<span class="st">"yobs"</span>, i, <span class="st">" ~ "</span>, <span class="st">"w"</span>, i), <span class="at">data =</span> data1)</span>
-<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>  tauhat[i, <span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="fu">coef</span>(model)[<span class="fu">paste0</span>(<span class="st">"w"</span>, i)]</span>
-<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste0</span>(<span class="st">"Finite Sample Variance Tau-hat is "</span>, <span class="fu">sd</span>(tauhat)<span class="sc">^</span><span class="dv">2</span><span class="sc">*</span><span class="dv">5</span><span class="sc">/</span><span class="dv">6</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>){</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  j <span class="ot">&lt;-</span> i <span class="sc">+</span> <span class="dv">1</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="cf">while</span> (j <span class="sc">&lt;=</span> <span class="dv">4</span>) {</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    data1[<span class="fu">paste0</span>(<span class="st">"w"</span>, m)] <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>((<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(data1) <span class="sc">==</span> i) <span class="sc">|</span> (<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(data1) <span class="sc">==</span> j))</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    m <span class="ot">&lt;-</span> m <span class="sc">+</span> <span class="dv">1</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    j <span class="ot">&lt;-</span> j <span class="sc">+</span> <span class="dv">1</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>tauhat <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="cn">NA</span>, <span class="at">nrow =</span> <span class="dv">6</span>, <span class="at">ncol =</span> <span class="dv">1</span>)</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>) {</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>  data1[<span class="fu">paste0</span>(<span class="st">"yobs"</span>, i)] <span class="ot">&lt;-</span> data1<span class="sc">$</span>y1 <span class="sc">*</span> data1[<span class="fu">paste0</span>(<span class="st">"w"</span>, i)] <span class="sc">+</span> data1<span class="sc">$</span>y0 <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> data1[<span class="fu">paste0</span>(<span class="st">"w"</span>, i)])</span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>  model <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="fu">paste0</span>(<span class="st">"yobs"</span>, i, <span class="st">" ~ "</span>, <span class="st">"w"</span>, i), <span class="at">data =</span> data1)</span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>  tauhat[i, <span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="fu">coef</span>(model)[<span class="fu">paste0</span>(<span class="st">"w"</span>, i)]</span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste0</span>(<span class="st">"Finite Sample Variance Tau-hat is "</span>, <span class="fu">sd</span>(tauhat)<span class="sc">^</span><span class="dv">2</span><span class="sc">*</span><span class="dv">5</span><span class="sc">/</span><span class="dv">6</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "Finite Sample Variance Tau-hat is 0.5"</code></pre>
 </div>
@@ -961,7 +1520,22 @@ Please cite as: </code></pre>
 <hr>
 <ol>
 <li id="fn1"><p>First used in Rubin, D.B. (1990) ‘Formal Mode of Statistical Inference for Causal Effects’ Journal of Statistical Planning and Inference, 25(3), pp.&nbsp;279-292<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn2"><p>Banerjee, A., Duflo, E., Glennerster, R. &amp; Kinnan, C. 2015, “The Miracle of Microfinance? Evidence from a Randomized Evaluation”, American economic journal. Applied economics, vol.&nbsp;7, no. 1, pp.&nbsp;22-53. ### Randomization in practice<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>Banerjee, A., Duflo, E., Glennerster, R. &amp; Kinnan, C. 2015, “The Miracle of Microfinance? Evidence from a Randomized Evaluation”, American economic journal. Applied economics, vol.&nbsp;7, no. 1, pp.&nbsp;22-53.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>Imbens, G.W. &amp; Wooldridge, J.M. 2009, “Recent Developments in the Econometrics of Program Evaluation”, Journal of economic literature, vol.&nbsp;47, no. 1, pp.&nbsp;5-86.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p>Oreopoulos, P. 2011, “Why Do Skilled Immigrants Struggle in the Labor Market? A Field Experiment with Thirteen Thousand Resumes”, American economic journal. Economic policy, vol.&nbsp;3, no. 4, pp.&nbsp;148-171.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn5"><p>Common Alternatives include Multivariate ANOVA (MANOVA) and Analysis of Covariance (ANCOVA)<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn6"><p>Check your EC124 notes on this.<a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn7"><p>Dupas, P. &amp; Robinson, J. 2013, “Why Don’t the Poor Save More? Evidence from Health Savings Experiments”, The American economic review, vol.&nbsp;103, no. 4, pp.&nbsp;1138-1171.<a href="#fnref7" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn8"><p>Do ensure that you can show this.<a href="#fnref8" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn9"><p>Here I am avoiding finite sample notation. This is not a big issue as you can always define the expectation as an average in the finite sample.<a href="#fnref9" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn10"><p>Deaton, A. 2010, “Instruments, Randomization, and Learning about Development”, Journal of economic literature, vol.&nbsp;48, no. 2, pp.&nbsp;424-455.<a href="#fnref10" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn11"><p>Focus on the intuition of the results, not the equation. Taken from Deaton’s (2010, p.444) discussion of Freedman (2008). In this equation <span class="math inline">\(X_i\)</span> is single covariate.<a href="#fnref11" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn12"><p>Subject of first seminar.<a href="#fnref12" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn13"><p>Here I am being more general over the choice of the estimator <span class="math inline">\(\hat{\tau}\)</span> and I am approximating the distribution of the test-statistic with the standard normal.<a href="#fnref13" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn14"><p>Here I am being more general over the choice of the estimator <span class="math inline">\(\hat{\tau}\)</span> and I am approximating the distribution of the test-statistic with the standard normal.<a href="#fnref14" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn15"><p>Banerjee, A., Duflo, E., Glennerster, R. &amp; Kinnan, C. 2015, “The Miracle of Microfinance? Evidence from a Randomized Evaluation”, American economic journal. Applied economics, vol.&nbsp;7, no. 1, pp.&nbsp;22-53.<a href="#fnref15" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn16"><p>More generally used in discussion of non-compliance.<a href="#fnref16" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn17"><p>I have use the authors’ notation.<a href="#fnref17" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
 
