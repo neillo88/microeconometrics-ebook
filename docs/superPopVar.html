@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Microeconometrics - Appendix A — Proof of Super Population Variance</title>
+<title>Microeconometrics - Appendix A — Proof: Super population variance of two-sample mean estimator</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -19,40 +19,6 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
-}
-/* CSS for syntax highlighting */
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -95,6 +61,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   }
 }</script>
 
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 </head>
 
@@ -107,7 +75,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./references.html">Appendices</a></li><li class="breadcrumb-item"><a href="./superPopVar.html"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Proof of Super Population Variance</span></a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./references.html">Appendices</a></li><li class="breadcrumb-item"><a href="./superPopVar.html"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Proof: Super population variance of two-sample mean estimator</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -279,7 +247,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./superPopVar.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Proof of Super Population Variance</span></span></a>
+ <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Proof: Super population variance of two-sample mean estimator</span></span></a>
   </div>
 </li>
       </ul>
@@ -294,7 +262,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#running-code" id="toc-running-code" class="nav-link active" data-scroll-target="#running-code"><span class="header-section-number">A.1</span> Running Code</a></li>
+  <li><a href="#set-up" id="toc-set-up" class="nav-link active" data-scroll-target="#set-up"><span class="header-section-number">A.1</span> Set-up</a></li>
+  <li><a href="#proof" id="toc-proof" class="nav-link" data-scroll-target="#proof"><span class="header-section-number">A.2</span> Proof</a></li>
+  <li><a href="#discussion" id="toc-discussion" class="nav-link" data-scroll-target="#discussion"><span class="header-section-number">A.3</span> Discussion</a></li>
   </ul>
 </nav>
     </div>
@@ -303,7 +273,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Appendix A — Proof of Super Population Variance</h1>
+<h1 class="title">Appendix A — Proof: Super population variance of two-sample mean estimator</h1>
 </div>
 
 
@@ -318,25 +288,134 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header>
 
-<p>Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see <a href="https://quarto.org" class="uri">https://quarto.org</a>.</p>
-<section id="running-code" class="level2" data-number="A.1">
-<h2 data-number="A.1" class="anchored" data-anchor-id="running-code"><span class="header-section-number">A.1</span> Running Code</h2>
-<p>When you click the <strong>Render</strong> button a document will be generated that includes both content and the output of embedded code. You can embed code like this:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">+</span> <span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 2</code></pre>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>Acknowledgement: This discussion and proof borrows from Imbens and Rubin’s (2015) proof on page 98 of Causal Inference for Statistics, Social, and Biomedical Sciences: An Introduction.</p>
 </div>
 </div>
-<p>You can add options to executable code like this</p>
-<div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 4</code></pre>
+</div>
+<p>In lecture 2.1 on <em>Randomized Experiments</em> we discussed how the finite sample variance of the difference between means estimator <span class="math inline">\((\hat{\tau} = \bar{Y_t}− \bar{Y_c})\)</span> includes a term that captures the variance of the unit-level treatment effects, <span class="math display">\[
+S_{ct}^2=\frac{1}{N-1}\sum_{i=1}^N(Y_i(1)-Y_i(0)-\tau_{ATE}^{fs})^2
+\]</span> This term cannot estimated since we never observe the unit-level treatment effect. This leaves us with Neyman’s estimator, which assumes homogeneous treatment effects.</p>
+<p>If, instead, we treat the N observations to be a random draw from an infinite super population, then the variance of <span class="math inline">\(\hat{\tau}\)</span> is given by,</p>
+<p><span class="math display">\[
+V(\hat{\tau})=\mathbf{E}[(\bar{Y_t^{obs}}-\bar{Y_c^{obs}}-\mathbf{E}[\bar{Y_t^{obs}}-\bar{Y_c^{obs}}])^2]=\frac{\sigma^2_c}{N_c}+\frac{\sigma^2_t}{N_t}
+\]</span> where <span class="math inline">\(\{\sigma_t^2,\sigma_c^2\}\)</span> are the unobserved variances of distributions <span class="math inline">\(f_{Y(1)}\)</span> and <span class="math inline">\(f_{Y(0)}\)</span> in the super population. This equation is exact, yet excludes any term capturing the variance in the unit level treatment effects; suggesting that Neyman’s estimator is an unbiased estimator for the (super population) variance.</p>
+<section id="set-up" class="level2" data-number="A.1">
+<h2 data-number="A.1" class="anchored" data-anchor-id="set-up"><span class="header-section-number">A.1</span> Set-up</h2>
+<p>When considering the finite sample estimator, there is a single source of variation: W, the random vector which determines the treatment status of the N units. Since N is fixed, so are the distributions of <span class="math inline">\(Y(0)\)</span> and <span class="math inline">\(Y(1)\)</span>, the potential outcomes of the finite sample.</p>
+<p>If, instead, the sample is a random draw from the infinite super population, then the sample distributions of <span class="math inline">\(Y_i(0)\)</span> and <span class="math inline">\(Y_i(1)\)</span> vary as well. We therefore have two sources of random variation: randomized treatment allocation and random sampling. For this reason, we will need to use notation that reflects these.</p>
+<p>In this proof, I will use underscore W to denote when the expectation is over random sampling. For example, we showed in lecture 1.1 that <span class="math inline">\(\hat{\tau}\)</span> was an unbiased estimator of the finite sample ATE,</p>
+<p><span class="math display">\[
+\mathbf{E}_w[\hat{\tau}]=\tau_{ATE}^{fs}
+\]</span> in a completely randomized experiment. If the instead the expectation is over random sampling from the super population, I will use the notation underscore sp. Thus, our definition of the super population ATE is in fact,<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
+<p><span class="math display">\[
+\tau_{ATE} = \mathbf{E}[Y_i(1)-Y_i(0)]=\mathbf{E}_{sp}[Y_i(1)-Y_i(0)]=\tau_{ATE}^{sp}
+\]</span></p>
+<p>We can then consider the overall expectation which considers variation from both sources. For example, below I apply the Law of Iterated Expectations (LIE) to demonstrate that the <span class="math inline">\(\hat{\tau}\)</span> estimator is an unbiased estimator for the super population ATE.</p>
+<p><span class="math display">\[
+\mathbf{E}[\hat{\tau}]=\mathbf{E}_{sp}[E_W[\hat{\tau}|Y(1),Y(0)]=\mathbf{E}_{sp}[Y_i(1)-Y_i(0)]=\mathbf{E}_{sp}[\tau_{ATE}^{fs}]=\tau_{ATE}^{sp}
+\]</span></p>
+<p>With these definitions, we then know that <span class="math display">\[
+\begin{align}
+\sigma_t^2 =&amp; V_{sp}(Y_i(1))=\mathbf{E}_{sp}[Y_i(1)-\mathbf{E}_{sp}[Y_i(1)]^2] \\
+\sigma_c^2 =&amp; V_{sp}(Y_i(0))=\mathbf{E}_{sp}[Y_i(0)-\mathbf{E}_{sp}[Y_i(0)]^2] \\
+\text{and}\space\space\space \sigma_{ct}^2 =&amp; V_{sp}(Y_i(1)-Y_i(0))=\mathbf{E}_{sp}[(Y_i(1)-Y_i(0)-\tau_{ATE}^{sp})] \\
+\end{align}
+\]</span></p>
+</section>
+<section id="proof" class="level2" data-number="A.2">
+<h2 data-number="A.2" class="anchored" data-anchor-id="proof"><span class="header-section-number">A.2</span> Proof</h2>
+<div class="callout callout-style-simple callout-important no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+We need to show
 </div>
 </div>
-<p>The <code>echo: false</code> option disables the printing of code (only output is displayed).</p>
+<div class="callout-body-container callout-body">
+<p><span class="math display">\[
+V_{sp}(\hat{\tau}_{ATE}^{fs})=\frac{\sigma_c^2}{N_c}+\frac{\sigma_t^2}{N_t}
+\]</span></p>
+</div>
+</div>
+<p>First, consider the variance of the finite sample ATE with respect to random sampling, <span class="math display">\[
+V_{sp}(\tau_{ATE}^{fs})=V_{sp}(\bar{Y}(1)-\bar{Y}(0))
+\]</span> Since the finite sample ATE is a simple average over a fixed N, we can apply the same rule we use for any average estimator,</p>
+<p><span class="math display">\[
+V_{sp}(\tau_{ATE}^{fs})=V_{sp}(\frac{1}{N}\sum_{i=1}^N(Y_i(0)-Y_i(1)))=\frac{V_sp(Y_i(1)-Y_i(0))}{N}=\frac{\sigma_{ct}}{N}
+\]</span></p>
+<p>It will turn out this term is the reason we lose the additional variance term in the end. We want to solve for,</p>
+<p><span class="math display">\[
+\begin{align}
+V(\hat{\tau}) =&amp; \mathbf{E}[(\hat{\tau}-\mathbf{E}[\hat{\tau}])^2] \\
+=&amp; \mathbf{E}[(\hat{\tau}-\mathbf{E}_{sp}[\tau_{ATE}^{fs}])^2]
+\end{align}
+\]</span></p>
+<p>using the equation shown above.</p>
+<p>Next,we can use a common trick in Econometrics proofs: add and subtract.</p>
+<p><span class="math display">\[
+\begin{align}
+V(\hat{\tau}) = &amp; \mathbf{E}[(\hat{\tau}\underbrace{- (Y(1) - Y(0))}_{\tau_{ATE}^{fs}} + \underbrace{(Y(1) - Y(0))}_{\tau_{ATE}^{fs}} - \mathbf{E}_{sp}[\tau_{ATE}^{fs}] )^2] \\
+= &amp; \mathbf{E} [ (\hat{\tau} - (Y(1) - Y(0)))^2 ] \\
++ &amp; \mathbf{E} [ ((Y(1) - Y(0)) - E_{sp}[\tau_{ATE}^{fs}])^2] \\
++ &amp; 2 \cdot \mathbf{E}[ (\hat{\tau} - (Y(1) - Y(0)))\cdot((Y(1) - Y(0)) - \mathbf{E}_{sp}[\tau_{ATE}^{fs}] )] \\
+\end{align}
+\]</span> We can show that the third term is 0 by LIE,</p>
+<p><span class="math display">\[
+\begin{align}
+&amp; \mathbf{E}[(\hat{\tau} - (Y(1) - Y(0))) \cdot ((Y(1) - Y(0)) - \mathbf{E}_{sp}[\tau_{ATE}^{fs}] )] \\
+=&amp;\mathbf{E}_{sp}[\mathbf{E}_W[(\hat{\tau} - (Y(1) - Y(0)))\cdot((Y(1) - Y(0)) - \mathbf{E}_{sp}[\tau_{ATE}^{fs}])|Y(1),Y(0)] \\
+=&amp; \mathbf{E}_{sp}[\underbrace{\mathbf{E}_W[(\hat{\tau} - (Y(1) - Y(0)))|Y(1),Y(0)]}_{=0}\cdot((\bar{Y}(1) - \bar{Y}(0)) - \mathbf{E}_{sp}[\tau_{ATE}^{fs}])]\\
+=&amp; 0
+\end{align}
+\]</span></p>
+<p>Let us then consider the first term. Again, we can apply LIE: <span class="math display">\[
+\begin{align}
+&amp;\mathbf{E} [ (\hat{\tau} - (Y(1) - Y(0)))^2 ]\\
+=&amp; \mathbf{E}_{sp} [\mathbf{E}_W (\hat{\tau} - (Y(1) - Y(0)))^2|Y(1), Y(0)]
+\end{align}
+\]</span></p>
+<p>This in side expectation should be familiar from our discussion of finite sample variance of the estimator, <span class="math display">\[
+\mathbf{E}_W (\hat{\tau} - (Y(1) - Y(0)))^2|Y(1), Y(0)]= V_{fs}(\hat{\tau})=\frac{S_c^2}{N_c}+\frac{S_t^2}{N_t}+\frac{S_{ct}^2}{N}
+\]</span> Thus, the first term is given by,</p>
+<p><span class="math display">\[
+\begin{align}
+&amp; \mathbf{E} [ (\hat{\tau} - (Y(1) - Y(0)))^2 ] \\
+=&amp; \mathbf{E}_{sp}[\frac{S_c^2}{N_c}+\frac{S_t^2}{N_t}+\frac{S_{ct}^2}{N}] \\
+=&amp; \frac{\sigma^2_c}{N_c}+\frac{\sigma^2_t}{N_t} + \frac{\sigma^2_{ct}}{N}
+\end{align}
+\]</span></p>
+<p>The second term is, <span class="math display">\[
+\mathbf{E}[(\underbrace{(\bar{Y}(1)-\bar{Y}(0))}_{\tau_{ATE}^{fs}}-\mathbf{E}_{sp}[\tau_{ATE}^{fs}])^2]=V_{sp}(\tau_{ATE}^{fs})=\frac{\sigma^2_{ct}}{N}
+\]</span></p>
+<p>Adding these terms together, the <span class="math inline">\(\frac{\sigma^2_{ct}}{N}\)</span>cancels and we end up with, <span class="math display">\[
+V(\hat{\tau})=\frac{\sigma^2_c}{N_c}+\frac{\sigma^2_t}{N_t}
+\]</span></p>
+<p>And the estimator for the variance is just, <span class="math display">\[
+\hat{V}^{neyman}=\frac{s^2_c}{N_c}+\frac{s^2_t}{N_t}
+\]</span></p>
+</section>
+<section id="discussion" class="level2" data-number="A.3">
+<h2 data-number="A.3" class="anchored" data-anchor-id="discussion"><span class="header-section-number">A.3</span> Discussion</h2>
+<p>Our estimates of the super population ATE should be less precise than those of the finite sample ATE,as the former includes two sources of random variation: randomized treatment assignment and random sampling. This proof demonstrates this fact. Indeed, it is this lack of precision which results in us having a better idea of the super population variance relative to the finite sample variance.</p>
+<p>The proof includes a decomposition of the variance into two terms: (1) the variance of the estimator with respect to the finite sample ATE; and (2) the variance of the finite sample ATE with respect to the super population ATE. The first term takes into account the heterogeneity of the unit-level treatment effect: <span class="math inline">\(S^2_{ct}\)</span>. Knowing the variance of unit-level treatment effects in the finite sample (i.e.&nbsp;<span class="math inline">\(S^2_{ct}\)</span>) allows us to be more precise. Hence, the term is subtracted in the equation. In expectation (with respect to random sampling from the super population), this term captures how the ATE in any finite sample differs from the ATE in the super population.</p>
+<p>The second term, captures this same heterogeneity. However, when considering the super-population, this is an <strong>additional</strong> source of variation. The sample may be very different to the super population, meaning we can be less accurate about the overall population. Adding the two sources of variation together, we find that these terms cancel each other out.</p>
+<p>Since we cannot estimate <span class="math inline">\(S^2_{ct}\)</span>, we cannot accurately estimate the finite sample variance when there are heterogeneous treatment effects (discussed in lecture 2.1). However, this proof shows us that the Neyman variance estimator (<span class="math inline">\(\hat{V}^{neyman}\)</span>) is an unbiased estimator of the super population variance, even with heterogeneous treatment effects. This is one reason to prefer it over alternatives, such as <span class="math inline">\(\hat{V}^{const}\)</span> which may be more accurate in the finite sample, assuming homogenous treatment effects</p>
 
 
+</section>
+<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn1"><p>This is the notation used Imbens and Rubin (2015). I have not introduced it in class to avoid having too much notation; however, it is helpful here.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
 </section>
 
 </main> <!-- /main -->

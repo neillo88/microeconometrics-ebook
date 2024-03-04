@@ -1,20 +1,152 @@
-## Proof of Super Population Variance
+## Proof: Super population variance of two-sample mean estimator
 
-Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see <https://quarto.org>.
+::: {.callout-tip appearance="simple" icon="false"}
 
-## Running Code
+Acknowledgement: This discussion and proof borrows from Imbens and Rubin’s (2015) proof on page 98 of Causal Inference for Statistics, Social, and Biomedical Sciences: An Introduction.
 
-When you click the **Render** button a document will be generated that includes both content and the output of embedded code. You can embed code like this:
+:::
 
-```{r}
-1 + 1
-```
+In lecture 2.1 on *Randomized Experiments* we discussed how the finite sample variance of the difference between means estimator $(\hat{\tau} = \bar{Y_t}− \bar{Y_c})$ includes a term that captures the variance of the unit-level treatment effects,
+$$
+S_{ct}^2=\frac{1}{N-1}\sum_{i=1}^N(Y_i(1)-Y_i(0)-\tau_{ATE}^{fs})^2
+$$
+This term cannot estimated since we never observe the unit-level treatment effect. This leaves us with Neyman’s estimator, which assumes homogeneous treatment effects. 
 
-You can add options to executable code like this
+If, instead, we treat the N observations to be a random draw from an infinite super population, then the variance of $\hat{\tau}$ is given by,
 
-```{r}
-#| echo: false
-2 * 2
-```
+$$
+V(\hat{\tau})=\mathbf{E}[(\bar{Y_t^{obs}}-\bar{Y_c^{obs}}-\mathbf{E}[\bar{Y_t^{obs}}-\bar{Y_c^{obs}}])^2]=\frac{\sigma^2_c}{N_c}+\frac{\sigma^2_t}{N_t}
+$$
+where $\{\sigma_t^2,\sigma_c^2\}$ are the unobserved variances of distributions $f_{Y(1)}$ and $f_{Y(0)}$ in the super population. This equation is exact, yet excludes any term capturing the variance in the unit level treatment effects; suggesting that Neyman’s estimator is an unbiased estimator for the (super population) variance.
 
-The `echo: false` option disables the printing of code (only output is displayed).
+## Set-up
+ 
+When considering the finite sample estimator, there is a single source of variation: W, the random vector which determines the treatment status of the N units. Since N is fixed, so are the distributions of $Y(0)$ and $Y(1)$, the potential outcomes of the finite sample.
+
+If, instead, the sample is a random draw from the infinite super population, then the sample distributions of $Y_i(0)$ and $Y_i(1)$ vary as well. We therefore have two sources of random variation: randomized treatment allocation and random sampling. For this reason, we will need to use notation that reflects these.
+
+In this proof, I will use underscore W to denote when the expectation is over random sampling. For example, we showed in lecture 1.1 that $\hat{\tau}$ was an unbiased estimator of the finite sample ATE,
+
+$$
+\mathbf{E}_w[\hat{\tau}]=\tau_{ATE}^{fs}
+$$
+in a completely randomized experiment. If the instead the expectation is over random sampling from the super population, I will use the notation underscore sp. Thus, our definition of the super population ATE is in fact,[^1]
+
+[^1]: This is the notation used Imbens and Rubin (2015). I have not introduced it in class to avoid having too much notation; however, it is helpful here.
+
+$$
+\tau_{ATE} = \mathbf{E}[Y_i(1)-Y_i(0)]=\mathbf{E}_{sp}[Y_i(1)-Y_i(0)]=\tau_{ATE}^{sp}
+$$
+
+We can then consider the overall expectation which considers variation from both sources. For example, below I apply the Law of Iterated Expectations (LIE) to demonstrate that the $\hat{\tau}$ estimator is an unbiased estimator for the super population ATE.
+
+$$
+\mathbf{E}[\hat{\tau}]=\mathbf{E}_{sp}[E_W[\hat{\tau}|Y(1),Y(0)]=\mathbf{E}_{sp}[Y_i(1)-Y_i(0)]=\mathbf{E}_{sp}[\tau_{ATE}^{fs}]=\tau_{ATE}^{sp}
+$$
+
+With these definitions, we then know that
+$$
+\begin{align}
+\sigma_t^2 =& V_{sp}(Y_i(1))=\mathbf{E}_{sp}[Y_i(1)-\mathbf{E}_{sp}[Y_i(1)]^2] \\
+\sigma_c^2 =& V_{sp}(Y_i(0))=\mathbf{E}_{sp}[Y_i(0)-\mathbf{E}_{sp}[Y_i(0)]^2] \\
+\text{and}\space\space\space \sigma_{ct}^2 =& V_{sp}(Y_i(1)-Y_i(0))=\mathbf{E}_{sp}[(Y_i(1)-Y_i(0)-\tau_{ATE}^{sp})] \\
+\end{align}
+$$
+
+## Proof
+
+::: {.callout-important icon="false" appearance="simple"}
+## We need to show
+$$
+V_{sp}(\hat{\tau}_{ATE}^{fs})=\frac{\sigma_c^2}{N_c}+\frac{\sigma_t^2}{N_t}
+$$
+:::
+
+First, consider the variance of the finite sample ATE with respect to random sampling,
+$$
+V_{sp}(\tau_{ATE}^{fs})=V_{sp}(\bar{Y}(1)-\bar{Y}(0))
+$$
+Since the finite sample ATE is a simple average over a fixed N, we can apply the same rule we use for any average estimator,
+
+$$
+V_{sp}(\tau_{ATE}^{fs})=V_{sp}(\frac{1}{N}\sum_{i=1}^N(Y_i(0)-Y_i(1)))=\frac{V_sp(Y_i(1)-Y_i(0))}{N}=\frac{\sigma_{ct}}{N}
+$$
+
+It will turn out this term is the reason we lose the additional variance term in the end. We want to solve for,
+
+$$
+\begin{align}
+V(\hat{\tau}) =& \mathbf{E}[(\hat{\tau}-\mathbf{E}[\hat{\tau}])^2] \\
+=& \mathbf{E}[(\hat{\tau}-\mathbf{E}_{sp}[\tau_{ATE}^{fs}])^2]
+\end{align}
+$$
+
+using the equation shown above. 
+
+Next,we can use a common trick in Econometrics proofs: add and subtract.
+
+$$
+\begin{align}
+V(\hat{\tau}) = & \mathbf{E}[(\hat{\tau}\underbrace{- (Y(1) - Y(0))}_{\tau_{ATE}^{fs}} + \underbrace{(Y(1) - Y(0))}_{\tau_{ATE}^{fs}} - \mathbf{E}_{sp}[\tau_{ATE}^{fs}] )^2] \\
+= & \mathbf{E} [ (\hat{\tau} - (Y(1) - Y(0)))^2 ] \\
++ & \mathbf{E} [ ((Y(1) - Y(0)) - E_{sp}[\tau_{ATE}^{fs}])^2] \\
++ & 2 \cdot \mathbf{E}[ (\hat{\tau} - (Y(1) - Y(0)))\cdot((Y(1) - Y(0)) - \mathbf{E}_{sp}[\tau_{ATE}^{fs}] )] \\
+\end{align}
+$$
+We can show that the third term is 0 by LIE,
+
+$$
+\begin{align}
+& \mathbf{E}[(\hat{\tau} - (Y(1) - Y(0))) \cdot ((Y(1) - Y(0)) - \mathbf{E}_{sp}[\tau_{ATE}^{fs}] )] \\
+=&\mathbf{E}_{sp}[\mathbf{E}_W[(\hat{\tau} - (Y(1) - Y(0)))\cdot((Y(1) - Y(0)) - \mathbf{E}_{sp}[\tau_{ATE}^{fs}])|Y(1),Y(0)] \\
+=& \mathbf{E}_{sp}[\underbrace{\mathbf{E}_W[(\hat{\tau} - (Y(1) - Y(0)))|Y(1),Y(0)]}_{=0}\cdot((\bar{Y}(1) - \bar{Y}(0)) - \mathbf{E}_{sp}[\tau_{ATE}^{fs}])]\\
+=& 0
+\end{align}
+$$
+
+Let us then consider the first term. Again, we can apply LIE:
+$$
+\begin{align}
+&\mathbf{E} [ (\hat{\tau} - (Y(1) - Y(0)))^2 ]\\
+=& \mathbf{E}_{sp} [\mathbf{E}_W (\hat{\tau} - (Y(1) - Y(0)))^2|Y(1), Y(0)]
+\end{align}
+$$
+
+This in side expectation should be familiar from our discussion of finite sample variance of the estimator,
+$$
+\mathbf{E}_W (\hat{\tau} - (Y(1) - Y(0)))^2|Y(1), Y(0)]= V_{fs}(\hat{\tau})=\frac{S_c^2}{N_c}+\frac{S_t^2}{N_t}+\frac{S_{ct}^2}{N}
+$$
+Thus, the first term is given by,
+
+$$
+\begin{align}
+& \mathbf{E} [ (\hat{\tau} - (Y(1) - Y(0)))^2 ] \\
+=& \mathbf{E}_{sp}[\frac{S_c^2}{N_c}+\frac{S_t^2}{N_t}+\frac{S_{ct}^2}{N}] \\
+=& \frac{\sigma^2_c}{N_c}+\frac{\sigma^2_t}{N_t} + \frac{\sigma^2_{ct}}{N}
+\end{align}
+$$
+
+The second term is,
+$$
+\mathbf{E}[(\underbrace{(\bar{Y}(1)-\bar{Y}(0))}_{\tau_{ATE}^{fs}}-\mathbf{E}_{sp}[\tau_{ATE}^{fs}])^2]=V_{sp}(\tau_{ATE}^{fs})=\frac{\sigma^2_{ct}}{N}
+$$
+
+Adding these terms together, the $\frac{\sigma^2_{ct}}{N}$cancels and we end up with,
+$$
+V(\hat{\tau})=\frac{\sigma^2_c}{N_c}+\frac{\sigma^2_t}{N_t}
+$$
+
+And the estimator for the variance is just,
+$$
+\hat{V}^{neyman}=\frac{s^2_c}{N_c}+\frac{s^2_t}{N_t}
+$$
+
+## Discussion
+Our estimates of the super population ATE should be less precise than those of the finite sample ATE,as the former includes two sources of random variation: randomized treatment assignment and random sampling. This proof demonstrates this fact. Indeed, it is this lack of precision which results in us having a better idea of the super population variance relative to the finite sample variance.
+
+The proof includes a decomposition of the variance into two terms: (1) the variance of the estimator with respect to the finite sample ATE; and (2) the variance of the finite sample ATE with respect to the super population ATE. The first term takes into account the heterogeneity of the unit-level treatment effect: $S^2_{ct}$. Knowing the variance of unit-level treatment effects in the finite sample (i.e. $S^2_{ct}$) allows us to be more precise. Hence, the term is subtracted in the equation. In expectation (with respect to random sampling from the super population), this term captures how the ATE in any finite sample differs from the ATE in the super population.
+
+The second term, captures this same heterogeneity. However, when considering the super-population, this is an **additional** source of variation. The sample may be very different to the super population, meaning we can be less accurate about the overall population. Adding the two sources of variation together, we find that these terms cancel each other out.
+
+
+Since we cannot estimate $S^2_{ct}$, we cannot accurately estimate the finite sample variance when there are heterogeneous treatment effects (discussed in lecture 2.1). However, this proof shows us that the Neyman variance estimator ($\hat{V}^{neyman}$) is an unbiased estimator of the super population variance, even with heterogeneous treatment effects. This is one reason to prefer it over alternatives, such as $\hat{V}^{const}$ which may be more accurate in the finite sample, assuming homogenous treatment effects
