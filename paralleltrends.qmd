@@ -1007,8 +1007,42 @@ $$
 
 **QUESTION:** Assuming parallel trends and all necessary exclusion restrictions, how would we define ( $\beta_2$ )?
 
-::: {style="text-align: center"}
-\[ON BOARD\]
+Proof:
+
+::: {.details}
+::: {.summary title="Click to see the proof"}
+
+Single period of treatment: $t_0$
+
+Control group $S_i = \infty$
+
+$\beta_2$ event-time $s = 2$.
+
+$$
+1 \{S = 2\} = D_i \cdot 1 \{t = t_0+2\}.
+$$
+
+$$
+\beta_1 = 
+\left[ E[Y_t | D_i=1, t=t_0+2] - E[Y_t | D_i=0, t=t_0+2] \right] - 
+\left[ E[Y_t | D_i=1, t=t_0-1] - E[Y_t | D_i=0, t=t_0-1] \right]
+$$
+
+$$
+= E[Y_t(1) - Y_t(0) | D_i=1, t=t_0+2] 
+$$
+
+$$
++ \textcolor{red}{E[Y_t(0) | D_i=1, t=t_0+2] - E[Y_t(0) | D_i=0, t=t_0+2]}
+$$
+
+$$
+- \textcolor{red}{E[Y_t(1) | D_i=1, t=t_0-1] - E[Y_t(0) | D_i=0, t=t_0-1]}
+$$
+
+Where $\textcolor{red}{\phi + \delta_{t2}}$ and $\textcolor{red}{\delta_{t-1}}$ are the effects to be controlled for.
+
+:::
 :::
 
 ## Dynamic DiD (Exclusion Restrictions)
