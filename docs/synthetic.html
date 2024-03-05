@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Microeconometrics - 13&nbsp; Conditional Expectations</title>
+<title>Microeconometrics - Synthetic Control</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,60 +20,7 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
-/* CSS for citations */
-div.csl-bib-body { }
-div.csl-entry {
-  clear: both;
-}
-.hanging-indent div.csl-entry {
-  margin-left:2em;
-  text-indent:-2em;
-}
-div.csl-left-margin {
-  min-width:2em;
-  float:left;
-}
-div.csl-right-inline {
-  margin-left:2em;
-  padding-left:1em;
-}
-div.csl-indent {
-  margin-left: 2em;
-}</style>
+</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -115,6 +62,8 @@ div.csl-indent {
   }
 }</script>
 
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 </head>
 
@@ -127,7 +76,7 @@ div.csl-indent {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./paralleltrends.html">Natural Experiments</a></li><li class="breadcrumb-item"><a href="./synthetic.html"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Conditional Expectations</span></a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./paralleltrends.html">Natural Experiments</a></li><li class="breadcrumb-item"><a href="./synthetic.html">Synthetic Control</a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -264,13 +213,13 @@ div.csl-indent {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./synthetic.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Conditional Expectations</span></span></a>
+ <span class="menu-text">Synthetic Control</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./discontinuities.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Discontinuities, Structural Breaks, and Bunching</span></span></a>
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Discontinuities, Structural Breaks, and Bunching</span></span></a>
   </div>
 </li>
       </ul>
@@ -278,7 +227,7 @@ div.csl-indent {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./discussion.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Discussion</span></span></a>
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Discussion</span></span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
@@ -296,6 +245,12 @@ div.csl-indent {
  <span class="menu-text">References</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./superPopVar.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Proof: Super population variance of two-sample mean estimator</span></span></a>
+  </div>
+</li>
       </ul>
   </li>
     </ul>
@@ -304,14 +259,51 @@ div.csl-indent {
 <div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#section" id="toc-section" class="nav-link active" data-scroll-target="#section"></a></li>
+  <li><a href="#motivation" id="toc-motivation" class="nav-link" data-scroll-target="#motivation">Motivation</a></li>
+  <li><a href="#set-up" id="toc-set-up" class="nav-link" data-scroll-target="#set-up">Set-up</a>
+  <ul class="collapse">
+  <li><a href="#data-structure" id="toc-data-structure" class="nav-link" data-scroll-target="#data-structure">Data Structure</a></li>
+  <li><a href="#set-up-1" id="toc-set-up-1" class="nav-link" data-scroll-target="#set-up-1">Set-up</a></li>
+  <li><a href="#weights" id="toc-weights" class="nav-link" data-scroll-target="#weights">Weights</a></li>
+  </ul></li>
+  <li><a href="#identification" id="toc-identification" class="nav-link" data-scroll-target="#identification">Identification</a>
+  <ul class="collapse">
+  <li><a href="#synthetic-control" id="toc-synthetic-control" class="nav-link" data-scroll-target="#synthetic-control">Synthetic Control</a></li>
+  </ul></li>
+  <li><a href="#synthetic-control-1" id="toc-synthetic-control-1" class="nav-link" data-scroll-target="#synthetic-control-1">Synthetic Control</a></li>
+  <li><a href="#identification-1" id="toc-identification-1" class="nav-link" data-scroll-target="#identification-1">Identification</a></li>
+  <li><a href="#implementation" id="toc-implementation" class="nav-link" data-scroll-target="#implementation">Implementation</a></li>
+  <li><a href="#implementation-1" id="toc-implementation-1" class="nav-link" data-scroll-target="#implementation-1">Implementation</a></li>
+  <li><a href="#synthetic-control-vs-did" id="toc-synthetic-control-vs-did" class="nav-link" data-scroll-target="#synthetic-control-vs-did">Synthetic Control vs DiD</a>
+  <ul class="collapse">
+  <li><a href="#synthetic-control-2" id="toc-synthetic-control-2" class="nav-link" data-scroll-target="#synthetic-control-2">Synthetic Control</a></li>
+  <li><a href="#difference-in-difference" id="toc-difference-in-difference" class="nav-link" data-scroll-target="#difference-in-difference">Difference-in-Difference</a></li>
+  </ul></li>
+  <li><a href="#synthetic-control-vs-did-1" id="toc-synthetic-control-vs-did-1" class="nav-link" data-scroll-target="#synthetic-control-vs-did-1">Synthetic Control vs DiD</a></li>
+  <li><a href="#implementation-in-statar" id="toc-implementation-in-statar" class="nav-link" data-scroll-target="#implementation-in-statar">Implementation in STATA/R</a></li>
+  <li><a href="#concluding-thoughts" id="toc-concluding-thoughts" class="nav-link" data-scroll-target="#concluding-thoughts">Concluding Thoughts</a></li>
+  <li><a href="#linear-regression" id="toc-linear-regression" class="nav-link" data-scroll-target="#linear-regression">Linear Regression</a></li>
+  <li><a href="#problem-of-causal-inference" id="toc-problem-of-causal-inference" class="nav-link" data-scroll-target="#problem-of-causal-inference">Problem of Causal Inference</a></li>
+  <li><a href="#reduced-form" id="toc-reduced-form" class="nav-link" data-scroll-target="#reduced-form">Reduced Form</a>
+  <ul class="collapse">
+  <li><a href="#instruments-for-structural-equations" id="toc-instruments-for-structural-equations" class="nav-link" data-scroll-target="#instruments-for-structural-equations">Instruments for Structural Equations</a></li>
+  <li><a href="#identification-of-causal-effects" id="toc-identification-of-causal-effects" class="nav-link" data-scroll-target="#identification-of-causal-effects">Identification of Causal Effects</a></li>
+  <li><a href="#microeconometrics-is-simple" id="toc-microeconometrics-is-simple" class="nav-link" data-scroll-target="#microeconometrics-is-simple">Microeconometrics is ‘Simple’</a></li>
+  </ul></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Conditional Expectations</span></h1>
+<h1 class="title">Synthetic Control</h1>
 </div>
 
 
@@ -326,21 +318,417 @@ div.csl-indent {
 
 </header>
 
-<p>This is a book created from markdown and executable code.</p>
-<p>See <span class="citation" data-cites="knuth84">Knuth (<a href="#ref-knuth84" role="doc-biblioref">1984</a>)</span> for additional discussion of literate programming.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">+</span> <span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 2</code></pre>
+<section id="section" class="level2">
+<h2 class="anchored" data-anchor-id="section"></h2>
+<div class="callout callout-style-default callout-caution callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Expand To Learn About Terrorism in Franco’s era
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Terrorism is bad but it brought about synthetic controls.This is an example of a ‘folded’ caution callout that can be expanded by the user. You can use `collapse=“true”` to collapse it by default or `collapse=“false”` to make a collapsible callout that is expanded by default.</p>
 </div>
 </div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Note that there are five types of callouts, including: `note`, `warning`, `important`, `tip`, and `caution`.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip with Title
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>This is an example of a callout with a title.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled" title="Tip with Title">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip with Title
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>This is a callout with a title.</p>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Pay Attention
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Using callouts is an effective way to highlight content that your reader give special consideration or attention.</p>
+</div>
+</div>
+</section>
+<section id="motivation" class="level2">
+<h2 class="anchored" data-anchor-id="motivation">Motivation</h2>
+<p>In a limited data setting (where other matching is infeasible), for example, aggregated data, how do we pick a control group? Typically, we have a pool of potential `donors’; e.g.</p>
+</section>
+<section id="set-up" class="level2">
+<h2 class="anchored" data-anchor-id="set-up">Set-up</h2>
+<section id="data-structure" class="level3">
+<h3 class="anchored" data-anchor-id="data-structure">Data Structure</h3>
+<p>You observe data for <strong>units</strong>,</p>
+<p><span class="math display">\[
+i=1,2,3,\ldots,J
+\]</span></p>
+<p>where unit <span class="math inline">\(i=1\)</span> is treated,</p>
+<p><span class="math display">\[
+D_i = \mathbf{1}\{i=1\}
+\]</span></p>
+<p>and units,</p>
+<p><span class="math display">\[
+i=2,3,\ldots,J
+\]</span></p>
+<p>are all potential `donors’ for the control group.</p>
+</section>
+<section id="set-up-1" class="level3">
+<h3 class="anchored" data-anchor-id="set-up-1">Set-up</h3>
+<p>CEF implies the static specification,</p>
+<p><span class="math display">\[
+Y_{it} = \delta_t + \gamma X_i + \beta D_{i} \cdot T_t + \varepsilon_{it}
+\]</span></p>
+<p>where <span class="math inline">\(D_{i} \cdot T_t = \mathbf{1}\{s&gt;0\}\)</span>. We need to assume</p>
+<p><span class="math display">\[
+E[\varepsilon_{it} | D_{i} \cdot T_t, X_i, \delta_t] = E[\varepsilon_{it} | X_i, \delta_t]=0
+\]</span></p>
+<p><strong>Conditional mean independence</strong> of the error term from this model with respect to treatment suggests that both assignment and timing of treatment is independent of other shocks.</p>
+</section>
+<section id="weights" class="level3">
+<h3 class="anchored" data-anchor-id="weights">Weights</h3>
+<p>We define the vector of weights,</p>
+<p><span class="math display">\[
+W= \begin{bmatrix}
+w_2, w_3, \ldots, w_J
+\end{bmatrix}
+\]</span></p>
+<p>such that,</p>
+<p><span class="math display">\[
+\sum_{j=2}^J W_j = 1
+\]</span></p>
+<p>From the pool of donors we can define,</p>
+<p><span class="math display">\[
+\sum_{j=2}^{J} w_{j} Y_{jt}(0) = \sum_{j=2}^{J} w_{j} \delta_{t} + \sum_{j=2}^{J} w_{j} \gamma X_{j} + \sum_{j=2}^{J} w_{j} \varepsilon_{jt} = \delta_{t} + \gamma \sum_{j=2}^{J} w_{j} X_{j} + \sum_{j=2}^{J} w_{j} \varepsilon_{jt}
+\]</span></p>
+</section>
+</section>
+<section id="identification" class="level2">
+<h2 class="anchored" data-anchor-id="identification">Identification</h2>
+<section id="synthetic-control" class="level3">
+<h3 class="anchored" data-anchor-id="synthetic-control">Synthetic Control</h3>
+<p>The goal of synthetic control is to pick the vector of weights <span class="math inline">\(W^*\)</span> such that,</p>
+<p><span class="math display">\[
+\sum_{j=2}^{J} w^*_{j} X_{j} = X_{1}
+\]</span></p>
+<p>where the term on the RHS is that of the treated unit.</p>
+<p>In which case,</p>
+<p><span class="math display">\[
+Y_{1t}(0) - \sum_{j=2}^{J} w_{j}^{*} Y_{jt}(0) = \left[ \delta_{t} + \gamma X_{1} + \varepsilon_{1t} \right] - \left[ \delta_{t} + \gamma \sum_{j=2}^{J} w^*_{j} X_{j} + \sum_{j=2}^{J} w_{j}^{*} \varepsilon_{jt} \right] = \gamma \left[ X_{1} - \sum_{j=2}^{J} w_{j}^{*} X_{j} \right] + \varepsilon_{1t} - \sum_{j=2}^{J} w_{j}^{*} \varepsilon_{jt}
+\]</span></p>
+</section>
+</section>
+<section id="synthetic-control-1" class="level2">
+<h2 class="anchored" data-anchor-id="synthetic-control-1">Synthetic Control</h2>
+<p><strong>Why does it work?</strong> If you take expectations on both sides for ( s ),</p>
+<p><span class="math display">\[
+E [Y_{1t}(0) - \sum_{j=2}^{J} w_{j}^{*} Y_{jt}(0) | X_i, D_{i} = 1,t=t_0+s] = E [\epsilon_{1t} - \sum_{j=2}^{J} w_{j}^{*} \epsilon_{jt} | X_i, D_{i} = 1,t=t_0+s]
+\]</span></p>
+<p>If the term on the RHS equals 0, then,</p>
+<p><span class="math display">\[
+E [Y_{1t}(0) |X_i,D_{i} = 1,t=t_0+s] = E [\sum_{j=2}^{J} w_{j}^{*} Y_{jt}(0) | X_i, D_{i} = 1,t=t_0+s]
+\]</span></p>
+<p><strong>We can observe the unobservable counterfactual for the treated unit.</strong></p>
+</section>
+<section id="identification-1" class="level2">
+<h2 class="anchored" data-anchor-id="identification-1">Identification</h2>
+<p>Implicitly, we have assumed,</p>
+<p><span class="math display">\[
+E[\epsilon_{1t} - \sum_{j=2}^{J} w_{j}^{*} \epsilon_{jt} | X_i, D_{i} = 1,t=t_0+s] = 0
+\]</span></p>
+<ul>
+<li>The unobservable determinants of ( Y_i(0) ) are mean independent of the timing <strong>and allocation</strong> of treatment, conditional on ( X_i ). Under these assumptions, the ATT is given as,</li>
+</ul>
+<p><span class="math display">\[
+\tau_{\scriptsize{ATT}}(s) = E[ Y_{1t}(1) | X_i, D_{i} = 1,t=t_0+s] - E [Y_{1t}(0) | X_i, D_{i} = 1,t=t_0+s]
+\]</span></p>
+<p>for ( s ).</p>
+<p>Pre-intervention - for ( s &lt; 0 ) - we require,</p>
+<p><span class="math display">\[
+E[Y_{1t}(0) |X_i,  D_{i}=1,t=t_0+s] = E[\sum_{j=2}^{J} w_{j}^{*} Y_{jt}(0) | X_i,  D_{i}=1,t=t_0+s]
+\]</span></p>
+<ul>
+<li>With the optimal weights, this holds.</li>
+<li><strong>In practice</strong>, these optimal weights may not exist.</li>
+</ul>
+</section>
+<section id="implementation" class="level2">
+<h2 class="anchored" data-anchor-id="implementation">Implementation</h2>
+<p>The conditions we need to (would like to) satisfy are</p>
+<p><span class="math display">\[
+\begin{aligned}
+&amp;\sum_{j=2}^{J} w_{j} X_{j1} = X_{11}\ \text{(approximate covariate 1)} \\
+&amp;\vdots \\
+&amp;\sum_{j=2}^{J} w_{j} X_{jK} = X_{1K}\ \text{(approximate covariate K)} \\
+&amp;\sum_{j=2}^{J} w_{j} \bar{Y}_{j} = \bar{Y}_{1}\ \text{(approximate avg. pre-period outcomes)} \\
+&amp;\sum_{j=2}^{J} w_{j} = 1\ \text{(weights sum to one)} \\
+&amp;w_{j} \geq 0, j= 2, \ldots, J\ \text{(weights are non-negative)}
+\end{aligned}
+\]</span></p>
+<p>We select the weights that most closely satisfy these conditions.</p>
+<p>We could decide that matching on some characteristics is more important than matching on others, and introduce weights ( <em>{k} ) and ( </em>{y} )</p>
+<p><span class="math display">\[
+\begin{aligned}
+\hat{W} &amp;= \text{arg min}\ \sum_{k=1}^{K} \alpha_{k} \bigg( X_{1}^{k} - \sum_{j=2}^{J} w_{j} X_{j}^{k} \bigg)^2 + \alpha_{y} \bigg( \bar{Y}_{1}  - \sum_{j=2}^{J} w_{j} \bar{Y}_{j} \bigg)^2 \\
+&amp;\text{s.t.}\ w_{j} \geq 0 \\
+&amp;\sum_{j=2}^{J} w_{j} = 1
+\end{aligned}
+\]</span></p>
+<ul>
+<li>This is a complex minimization problem, but there are statistical packages that find the optimal weights for you.</li>
+</ul>
+</section>
+<section id="implementation-1" class="level2">
+<h2 class="anchored" data-anchor-id="implementation-1">Implementation</h2>
+<p>We could decide that matching on some characteristics is more important than matching on others, and introduce weights <span class="math inline">\(\alpha_{k}\)</span> and <span class="math inline">\(\alpha_{y}\)</span>:</p>
+<p><span class="math display">\[
+\begin{aligned}
+\hat{W} &amp;= \text{arg min}\ \sum_{k=1}^{K} \alpha_{k} \left( X_{1}^{k} - \sum_{j=2}^{J} w_{j} X_{j}^{k} \right)^2 + \alpha_{y} \left( \bar{Y}_{1}  - \sum_{j=2}^{J} w_{j} \bar{Y}_{j} \right)^2 \\
+&amp;\text{s.t.}\ \hspace{5.5mm}  w_{j} \geq 0 \\
+&amp; \hspace{5mm} \sum_{j=2}^{J} w_{j} = 1
+\end{aligned}
+\]</span></p>
+<ul>
+<li>In this case, the researcher needs to choose <span class="math inline">\(\alpha_{k}\)</span> and <span class="math inline">\(\alpha_{y}\)</span>.</li>
+</ul>
+</section>
+<section id="synthetic-control-vs-did" class="level2">
+<h2 class="anchored" data-anchor-id="synthetic-control-vs-did">Synthetic Control vs DiD</h2>
+<section id="synthetic-control-2" class="level3">
+<h3 class="anchored" data-anchor-id="synthetic-control-2">Synthetic Control</h3>
+<ul>
+<li><p>Synthetic Control Model:</p>
+<p><span class="math display">\[
+Y_{it} = \delta_t + \gamma X_i + \sum_{j \geq 0} \beta_s \mathbf{1}\{s=j\} + \varepsilon_{it}
+\]</span></p>
+<ul>
+<li>No problem of pre-trends, <strong>by construction</strong></li>
+<li>Typically matching on the level in pre-period and <strong>observable</strong> characteristics that determine selection.</li>
+</ul></li>
+</ul>
+</section>
+<section id="difference-in-difference" class="level3">
+<h3 class="anchored" data-anchor-id="difference-in-difference">Difference-in-Difference</h3>
+<ul>
+<li><p>Difference-in-Difference Model<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>:</p>
+<p><span class="math display">\[
+Y_{it} = \delta_t + \psi_c + \sum_{j \neq -1} \beta_s \mathbf{1}\{s=j\}+\upsilon_{it}
+\]</span></p>
+<ul>
+<li>Can test for pre-trends (in the pre-period)</li>
+<li>Allows for time-invariant selection between groups; both on observable and unobservable characteristics.</li>
+</ul></li>
+</ul>
+<p>In difference-in-differences, for <span class="math inline">\(s \geq 0\)</span>,</p>
+<p><span class="math display">\[
+\begin{aligned}
+\beta_s =&amp; [E[Y_{it}|D_i=1,t = t_0+s] - E[Y_{it}|D_i=0,t = t_0+s]] \\
+&amp; - [E[Y_{it}|D_i=1,t = t_0-1] - E[Y_{it}|D_i=0,t=t_0-1]] \\
+=&amp; [E[Y_{it}(1)|D_i=1,t = t_0+s] - E[Y_{it}(0)|D_i=1,t = t_0+s]] \\
+&amp; + E[Y_{it}(0)|D_i=1,t = t_0+s] - E[Y_{it}(0)|D_i=0,t = t_0+s] \\
+&amp; - [E[Y_{it}(0)|D_i=1,t = t_0-1] - E[Y_{it}(0)|D_i=0,t=t_0-1]] \\
+=&amp; \tau_{\scriptsize{ATT}}(s)
+\end{aligned}
+\]</span></p>
+<p>under the parallel trends assumption and any exclusion restrictions, including no pre-emptive/anticipatory behaviour.</p>
+</section>
+</section>
+<section id="synthetic-control-vs-did-1" class="level2">
+<h2 class="anchored" data-anchor-id="synthetic-control-vs-did-1">Synthetic Control vs DiD</h2>
+<p>In synthetic control, for <span class="math inline">\(s \geq 0\)</span>:</p>
+<p><span class="math display">\[
+\begin{aligned}
+\beta_s =&amp; \ [E[Y_{1t}|X_i, D_i=1,t = t_0+s] - E[\sum_{j=2}^J w^*_jY_{jt}|X_i, D_i=0,t = t_0+s]] \\
+=&amp; \ [E[Y_{1t}(1)|X_i, D_i=1,t = t_0+s] - E[Y_{1t}(0)|X_i, D_i=1,t = t_0+s]] \\
+&amp;+ \ [\text{The expected difference of untreated potential outcomes is 0}] \\
+=&amp; \ \tau_{\scriptsize{ATT}}(s)
+\end{aligned}
+\]</span></p>
+<p>under:</p>
+<ul>
+<li>Assumed <em>common</em> counterfactual expectation of <span class="math inline">\(Y_i(0)\)</span> with respect to <span class="math inline">\(X_i\)</span>.</li>
+<li><em>Conditional</em> independence of <span class="math inline">\(\varepsilon_{it}\)</span> and treatment assignment and timing.</li>
+<li>Any exclusion restrictions, including no pre-emptive/anticipatory behavior.</li>
+<li>The existence of optimal weights.</li>
+</ul>
+</section>
+<section id="implementation-in-statar" class="level2">
+<h2 class="anchored" data-anchor-id="implementation-in-statar">Implementation in STATA/R</h2>
+<p>For those looking to use a synthetic control method, I would strongly recommend looking at:</p>
+<ul>
+<li><a href="https://web.stanford.edu/~jhain/synthpage.html">Jens Hainmueller’s website</a>
+<ul>
+<li>Includes a short video on the <code>synth</code> package for STATA/R.</li>
+</ul></li>
+<li>The example in Assignment 1 is not necessarily specified correctly. Rather, it aims to demonstrate how the weights might change depending on whether you match on pre-period covariates (at specific times) or pre-period outcomes. <strong>Think about the weights!</strong></li>
+</ul>
+</section>
+<section id="concluding-thoughts" class="level1">
+<h1>Concluding Thoughts</h1>
+<p>“We have covered A LOT in 5 weeks! My take-home message!”</p>
+</section>
+<section id="linear-regression" class="level1">
+<h1>Linear Regression</h1>
+<p>Up until now, your Microeconometrics training has mostly centered around the linear regression model:</p>
+<p><span class="math display">\[
+Y_i = X_i'\beta + \varepsilon_i \quad \Rightarrow \quad \frac{\partial Y_i}{\partial X_{i1}} = \beta_1
+\]</span></p>
+<p>“It is this model that has largely informed your understanding of the causal relationship between variables X on Y. I have <strong>deliberately</strong> tried to deconstruct this view.”</p>
+<ul>
+<li>First, by defining causal effects outside of this model.</li>
+<li>Second, by showing that a linear model does not always identify (average) treatment effects.</li>
+</ul>
+<p>“The linear regression model explains <span class="math inline">\(Y_i\)</span>, not <span class="math inline">\(\{Y_i(1),Y_i(0)\}\)</span>, and does not explicitly allow for <em>heterogeneity</em>.”</p>
+</section>
+<section id="problem-of-causal-inference" class="level1">
+<h1>Problem of Causal Inference</h1>
+<p>“We defined the fundamental problem of causal inference as a <strong>missing data problem</strong>; the unobserved counterfactual.”</p>
+<p>“The primary identification challenge has always been <strong>selection</strong>.”</p>
+<ul>
+<li>relates to endogeneity in LRMs</li>
+<li>In observational data, selection on (un)observables, which relates to OVB in LRMs.</li>
+</ul>
+</section>
+<section id="reduced-form" class="level1">
+<h1>Reduced Form</h1>
+<p>“So far we have talked only about reduced form relationships: how the (‘natural’) experiment, <span class="math inline">\(W\)</span> (or <span class="math inline">\(D\)</span>), affects the outcome <span class="math inline">\(Y\)</span>.”</p>
+<p><span class="math display">\[
+W \Rightarrow Y
+\]</span></p>
+<p>“Where the experiment is an <strong>instrument</strong> (<span class="math inline">\(Z\)</span>), used to independently shift the distribution of the variable of interest.”</p>
+<p><span class="math display">\[
+Z \Rightarrow Y
+\]</span></p>
+<ul>
+<li>This is, in part, why observational studies struggle to identify causal effects. You don’t have an instrument. Assumptions like CIA, are unlikely to hold.</li>
+<li>But RCTs have their own issues: irregular assignment (identify ITT) and lack of power, among others.</li>
+</ul>
+<section id="instruments-for-structural-equations" class="level2">
+<h2 class="anchored" data-anchor-id="instruments-for-structural-equations">Instruments for Structural Equations</h2>
+<p>Next week, you will look at what it means to use the (‘natural’) experiment as an instrument for the unidentified relationship between outcome <span class="math inline">\(Y\)</span> and <span class="math inline">\(X\)</span>, where <span class="math inline">\(X\)</span> is <strong>selected/endogenous</strong>.</p>
+<p><span class="math display">\[
+X \rightarrow Y \\
+\uparrow \\
+Z
+\]</span></p>
+<p>Here, the relationship between <span class="math inline">\(Y\)</span> and <span class="math inline">\(X\)</span> is sometimes referred to as the <strong>structural</strong> relationship.</p>
+</section>
+<section id="identification-of-causal-effects" class="level2">
+<h2 class="anchored" data-anchor-id="identification-of-causal-effects">Identification of Causal Effects</h2>
+<p>When comparing two groups:</p>
+<ol type="1">
+<li><strong>Randomization is fantastic!</strong> It gives you unconfoundedness.
+<ul>
+<li>In practice, it has its limitations.</li>
+<li>Can use linear regression to estimate ATE.</li>
+<li>Heterogeneity implies heteroscedasticity.</li>
+<li>Power is a challenge.</li>
+<li>With stratification, you need to think about the controls (Assignment 1).</li>
+</ul></li>
+<li><strong>Cross-sectional analysis with observational data</strong> requires unconfoundedness/CIA.
+<ul>
+<li>Without overlap, you can assume the CEF of <span class="math inline">\(Y(0)\)</span>.</li>
+<li>With overlap, you can use a matching estimator.</li>
+<li>Linear regression with saturated controls does variance weighting.</li>
+<li>Covariate matching, propensity score matching, or weighted LS are options.</li>
+<li>The main limitation is <strong>observing the right covariates</strong>.</li>
+</ul></li>
+</ol>
+<p>When comparing two groups, over time:</p>
+<ol type="1">
+<li><strong>With 2-periods of data:</strong>
+<ul>
+<li>Can identify the ATT, <strong>without</strong> unconfoundedness/CIA.</li>
+<li>Allows for selection across groups but needs exclusion restrictions.</li>
+</ul></li>
+<li><strong>With multiple periods of data:</strong>
+<ul>
+<li>Static specifications can misbehave.</li>
+<li>Try to get back to a 2-group-2-period comparison: i.e., estimate dynamic specification.</li>
+<li>Can test for parallel trends in <strong>pre-period, assuming no pre-emptive behaviour</strong>.</li>
+</ul></li>
+</ol>
+<p>When comparing many (staggered) groups:</p>
+<ul>
+<li><strong>Two-way FE models</strong> can misbehave:
+<ul>
+<li>Either assume ATT is constant across cohorts.</li>
+<li>Estimate a model that separately estimates each CATT (i.e., return to 2-group-2-period):
+<ul>
+<li>Abraham &amp; Sun propose an interactive estimator.</li>
+<li>Callaway &amp; Sant’Anna propose a propensity score weighted estimator.</li>
+</ul></li>
+</ul></li>
+</ul>
+<p>If data is limited:</p>
+<ul>
+<li>Try synthetic control.</li>
+<li>Must assume conditional mean independence.</li>
+<li>Do not immediately accept the weights; use your intuition.</li>
+</ul>
+</section>
+<section id="microeconometrics-is-simple" class="level2">
+<h2 class="anchored" data-anchor-id="microeconometrics-is-simple">Microeconometrics is ‘Simple’</h2>
+<p><strong>My <em>personal</em> take,</strong></p>
+<ul>
+<li>Models are great, when they’re right. They seldom are.</li>
+<li>For causal inference, we can do two things well:
+<ol type="1">
+<li>Compare the averages of two groups under random assignment.</li>
+<li>Compare the averages of two (<em>similar</em>) groups over two periods under parallel trends.</li>
+</ol></li>
+<li>We can do fancy things, and they sometimes work. However, people believe simple stories (in my experience).</li>
+</ul>
+<p><strong>Microeconometrics is ‘simple’, sorry to disappoint.</strong></p>
+<p>Beyond that, be ready to make assumptions.</p>
 
 
-<div id="refs" class="references csl-bib-body hanging-indent" role="list">
-<div id="ref-knuth84" class="csl-entry" role="listitem">
-Knuth, Donald E. 1984. <span>“Literate Programming.”</span> <em>Comput. J.</em> 27 (2): 97–111. <a href="https://doi.org/10.1093/comjnl/27.2.97">https://doi.org/10.1093/comjnl/27.2.97</a>.
-</div>
-</div>
+</section>
+</section>
+<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn1"><p>Or with unit fixed effects (<span class="math inline">\(\alpha_i\)</span>) with panel data.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -584,7 +972,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   </div>
   <div class="nav-page nav-page-next">
       <a href="./discontinuities.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Discontinuities, Structural Breaks, and Bunching</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Discontinuities, Structural Breaks, and Bunching</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
