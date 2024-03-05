@@ -1,9 +1,384 @@
-# Conditional Expectations
+# Synthetic Control {.unnumbered}
 
-This is a book created from markdown and executable code.
+## 
 
-See @knuth84 for additional discussion of literate programming.
+::: {.callout-caution collapse="true"}
+## Expand To Learn About Terrorism in Franco's era 
 
-```{r}
-1 + 1
-```
+Terrorism is bad but it brought about synthetic controls.This is an example of a 'folded' caution callout that can be expanded by the user. You can use \`collapse="true"\` to collapse it by default or \`collapse="false"\` to make a collapsible callout that is expanded by default.
+:::
+
+::: {.callout-note}
+Note that there are five types of callouts, including:
+\`note\`, \`warning\`, \`important\`, \`tip\`, and \`caution\`.
+:::
+
+::: {.callout-tip}
+## Tip with Title
+
+This is an example of a callout with a title.
+:::
+
+::: {.callout-tip title="Tip with Title"}
+This is a callout with a title.
+:::
+
+::: {.callout-note appearance="simple"}
+
+## Pay Attention
+
+Using callouts is an effective way to highlight content that your reader give special consideration or attention.
+
+:::
+
+## Motivation
+
+In a limited data setting (where other matching is infeasible), for example, aggregated data, how do we pick a control group? Typically, we have a pool of potential \`donors'; e.g.
+
+## Set-up
+
+### Data Structure
+
+You observe data for **units**,
+
+$$
+i=1,2,3,\ldots,J
+$$
+
+where unit $i=1$ is treated,
+
+$$
+D_i = \mathbf{1}\{i=1\}
+$$
+
+and units,
+
+$$
+i=2,3,\ldots,J
+$$
+
+are all potential \`donors' for the control group.
+
+### Set-up
+
+CEF implies the static specification,
+
+$$
+Y_{it} = \delta_t + \gamma X_i + \beta D_{i} \cdot T_t + \varepsilon_{it}
+$$
+
+where $D_{i} \cdot T_t = \mathbf{1}\{s>0\}$. We need to assume
+
+$$
+E[\varepsilon_{it} | D_{i} \cdot T_t, X_i, \delta_t] = E[\varepsilon_{it} | X_i, \delta_t]=0
+$$
+
+**Conditional mean independence** of the error term from this model with respect to treatment suggests that both assignment and timing of treatment is independent of other shocks.
+
+### Weights
+
+We define the vector of weights,
+
+$$
+W= \begin{bmatrix}
+w_2, w_3, \ldots, w_J
+\end{bmatrix}
+$$
+
+such that,
+
+$$
+\sum_{j=2}^J W_j = 1
+$$
+
+From the pool of donors we can define,
+
+$$
+\sum_{j=2}^{J} w_{j} Y_{jt}(0) = \sum_{j=2}^{J} w_{j} \delta_{t} + \sum_{j=2}^{J} w_{j} \gamma X_{j} + \sum_{j=2}^{J} w_{j} \varepsilon_{jt} = \delta_{t} + \gamma \sum_{j=2}^{J} w_{j} X_{j} + \sum_{j=2}^{J} w_{j} \varepsilon_{jt}
+$$
+
+## Identification
+
+### Synthetic Control
+
+The goal of synthetic control is to pick the vector of weights $W^*$ such that,
+
+$$
+\sum_{j=2}^{J} w^*_{j} X_{j} = X_{1}
+$$
+
+where the term on the RHS is that of the treated unit.
+
+In which case,
+
+$$
+Y_{1t}(0) - \sum_{j=2}^{J} w_{j}^{*} Y_{jt}(0) = \left[ \delta_{t} + \gamma X_{1} + \varepsilon_{1t} \right] - \left[ \delta_{t} + \gamma \sum_{j=2}^{J} w^*_{j} X_{j} + \sum_{j=2}^{J} w_{j}^{*} \varepsilon_{jt} \right] = \gamma \left[ X_{1} - \sum_{j=2}^{J} w_{j}^{*} X_{j} \right] + \varepsilon_{1t} - \sum_{j=2}^{J} w_{j}^{*} \varepsilon_{jt}
+$$
+
+## Synthetic Control
+
+**Why does it work?** If you take expectations on both sides for \( s \geq 0 \),
+
+$$
+E [Y_{1t}(0) - \sum_{j=2}^{J} w_{j}^{*} Y_{jt}(0) | X_i, D_{i} = 1,t=t_0+s] = E [\epsilon_{1t} - \sum_{j=2}^{J} w_{j}^{*} \epsilon_{jt} | X_i, D_{i} = 1,t=t_0+s]
+$$
+
+If the term on the RHS equals 0, then,
+
+$$
+E [Y_{1t}(0) |X_i,D_{i} = 1,t=t_0+s] = E [\sum_{j=2}^{J} w_{j}^{*} Y_{jt}(0) | X_i, D_{i} = 1,t=t_0+s]
+$$
+
+**We can observe the unobservable counterfactual for the treated unit.**
+
+## Identification
+
+Implicitly, we have assumed,
+
+$$
+E[\epsilon_{1t} - \sum_{j=2}^{J} w_{j}^{*} \epsilon_{jt} | X_i, D_{i} = 1,t=t_0+s] = 0
+$$
+
+- The unobservable determinants of \( Y_i(0) \) are mean independent of the timing **and allocation** of treatment, conditional on \( X_i \). Under these assumptions, the ATT is given as,
+
+$$
+\tau_{\scriptsize{ATT}}(s) = E[ Y_{1t}(1) | X_i, D_{i} = 1,t=t_0+s] - E [Y_{1t}(0) | X_i, D_{i} = 1,t=t_0+s]
+$$
+
+for \( s \geq 0 \).
+
+Pre-intervention - for \( s < 0 \) - we require,
+
+$$
+E[Y_{1t}(0) |X_i,  D_{i}=1,t=t_0+s] = E[\sum_{j=2}^{J} w_{j}^{*} Y_{jt}(0) | X_i,  D_{i}=1,t=t_0+s]
+$$
+
+- With the optimal weights, this holds.
+- **In practice**, these optimal weights may not exist.
+
+## Implementation
+
+The conditions we need to (would like to) satisfy are
+
+$$
+\begin{aligned}
+&\sum_{j=2}^{J} w_{j} X_{j1} = X_{11}\ \text{(approximate covariate 1)} \\
+&\vdots \\
+&\sum_{j=2}^{J} w_{j} X_{jK} = X_{1K}\ \text{(approximate covariate K)} \\
+&\sum_{j=2}^{J} w_{j} \bar{Y}_{j} = \bar{Y}_{1}\ \text{(approximate avg. pre-period outcomes)} \\
+&\sum_{j=2}^{J} w_{j} = 1\ \text{(weights sum to one)} \\
+&w_{j} \geq 0, j= 2, \ldots, J\ \text{(weights are non-negative)}
+\end{aligned}
+$$
+
+We select the weights that most closely satisfy these conditions.
+
+We could decide that matching on some characteristics is more important than matching on others, and introduce weights \( \alpha_{k} \) and \( \alpha_{y} \)
+
+$$
+\begin{aligned}
+\hat{W} &= \text{arg min}\ \sum_{k=1}^{K} \alpha_{k} \bigg( X_{1}^{k} - \sum_{j=2}^{J} w_{j} X_{j}^{k} \bigg)^2 + \alpha_{y} \bigg( \bar{Y}_{1}  - \sum_{j=2}^{J} w_{j} \bar{Y}_{j} \bigg)^2 \\
+&\text{s.t.}\ w_{j} \geq 0 \\
+&\sum_{j=2}^{J} w_{j} = 1
+\end{aligned}
+$$
+
+- This is a complex minimization problem, but there are statistical packages that find the optimal weights for you.
+
+## Implementation
+
+We could decide that matching on some characteristics is more important than matching on others, and introduce weights $\alpha_{k}$ and $\alpha_{y}$:
+
+$$
+\begin{aligned}
+\hat{W} &= \text{arg min}\ \sum_{k=1}^{K} \alpha_{k} \left( X_{1}^{k} - \sum_{j=2}^{J} w_{j} X_{j}^{k} \right)^2 + \alpha_{y} \left( \bar{Y}_{1}  - \sum_{j=2}^{J} w_{j} \bar{Y}_{j} \right)^2 \\
+&\text{s.t.}\ \hspace{5.5mm}  w_{j} \geq 0 \\
+& \hspace{5mm} \sum_{j=2}^{J} w_{j} = 1
+\end{aligned}
+$$
+
+- In this case, the researcher needs to choose $\alpha_{k}$ and $\alpha_{y}$.
+
+## Synthetic Control vs DiD
+
+### Synthetic Control
+
+- Synthetic Control Model:
+  
+  $$
+  Y_{it} = \delta_t + \gamma X_i + \sum_{j \geq 0} \beta_s \mathbf{1}\{s=j\} + \varepsilon_{it}
+  $$
+  
+  - No problem of pre-trends, **by construction**
+  - Typically matching on the level in pre-period and **observable** characteristics that determine selection.
+
+### Difference-in-Difference
+
+- Difference-in-Difference Model[^DiDFootnote]:
+  
+  $$
+  Y_{it} = \delta_t + \psi_c + \sum_{j \neq -1} \beta_s \mathbf{1}\{s=j\}+\upsilon_{it}
+  $$
+  
+  - Can test for pre-trends (in the pre-period)
+  - Allows for time-invariant selection between groups; both on observable and unobservable characteristics.
+
+[^DiDFootnote]: Or with unit fixed effects ($\alpha_i$) with panel data.
+
+In difference-in-differences, for $s \geq 0$,
+
+$$
+\begin{aligned}
+\beta_s =& [E[Y_{it}|D_i=1,t = t_0+s] - E[Y_{it}|D_i=0,t = t_0+s]] \\
+& - [E[Y_{it}|D_i=1,t = t_0-1] - E[Y_{it}|D_i=0,t=t_0-1]] \\
+=& [E[Y_{it}(1)|D_i=1,t = t_0+s] - E[Y_{it}(0)|D_i=1,t = t_0+s]] \\
+& + E[Y_{it}(0)|D_i=1,t = t_0+s] - E[Y_{it}(0)|D_i=0,t = t_0+s] \\
+& - [E[Y_{it}(0)|D_i=1,t = t_0-1] - E[Y_{it}(0)|D_i=0,t=t_0-1]] \\
+=& \tau_{\scriptsize{ATT}}(s)
+\end{aligned}
+$$
+
+under the parallel trends assumption and any exclusion restrictions, including no pre-emptive/anticipatory behaviour.
+
+## Synthetic Control vs DiD
+
+In synthetic control, for $s \geq 0$:
+
+$$
+\begin{aligned}
+\beta_s =& \ [E[Y_{1t}|X_i, D_i=1,t = t_0+s] - E[\sum_{j=2}^J w^*_jY_{jt}|X_i, D_i=0,t = t_0+s]] \\
+=& \ [E[Y_{1t}(1)|X_i, D_i=1,t = t_0+s] - E[Y_{1t}(0)|X_i, D_i=1,t = t_0+s]] \\
+&+ \ [\text{The expected difference of untreated potential outcomes is 0}] \\
+=& \ \tau_{\scriptsize{ATT}}(s)
+\end{aligned}
+$$
+
+under:
+
+- Assumed *common* counterfactual expectation of $Y_i(0)$ with respect to $X_i$.
+- *Conditional* independence of $\varepsilon_{it}$ and treatment assignment and timing.
+- Any exclusion restrictions, including no pre-emptive/anticipatory behavior.
+- The existence of optimal weights.
+
+## Implementation in STATA/R
+
+For those looking to use a synthetic control method, I would strongly recommend looking at:
+
+- [Jens Hainmueller's website](https://web.stanford.edu/~jhain/synthpage.html)
+  - Includes a short video on the `synth` package for STATA/R.
+- The example in Assignment 1 is not necessarily specified correctly. Rather, it aims to demonstrate how the weights might change depending on whether you match on pre-period covariates (at specific times) or pre-period outcomes. **Think about the weights!**
+
+# Concluding Thoughts
+
+"We have covered A LOT in 5 weeks! My take-home message!"
+
+# Linear Regression
+
+Up until now, your Microeconometrics training has mostly centered around the linear regression model:
+
+$$
+Y_i = X_i'\beta + \varepsilon_i \quad \Rightarrow \quad \frac{\partial Y_i}{\partial X_{i1}} = \beta_1
+$$
+
+"It is this model that has largely informed your understanding of the causal relationship between variables X on Y. I have **deliberately** tried to deconstruct this view."
+
+- First, by defining causal effects outside of this model.
+- Second, by showing that a linear model does not always identify (average) treatment effects.
+
+"The linear regression model explains $Y_i$, not $\{Y_i(1),Y_i(0)\}$, and does not explicitly allow for *heterogeneity*."
+
+# Problem of Causal Inference
+
+"We defined the fundamental problem of causal inference as a **missing data problem**; the unobserved counterfactual."
+
+"The primary identification challenge has always been **selection**."
+
+- relates to endogeneity in LRMs
+- In observational data, selection on (un)observables, which relates to OVB in LRMs.
+
+# Reduced Form
+
+"So far we have talked only about reduced form relationships: how the ('natural') experiment, $W$ (or $D$), affects the outcome $Y$."
+
+$$
+W \Rightarrow Y
+$$
+
+"Where the experiment is an **instrument** ($Z$), used to independently shift the distribution of the variable of interest."
+
+$$
+Z \Rightarrow Y
+$$
+
+- This is, in part, why observational studies struggle to identify causal effects. You don't have an instrument. Assumptions like CIA, are unlikely to hold.
+- But RCTs have their own issues: irregular assignment (identify ITT) and lack of power, among others.
+
+## Instruments for Structural Equations
+
+Next week, you will look at what it means to use the ('natural') experiment as an instrument for the unidentified relationship between outcome $Y$ and $X$, where $X$ is **selected/endogenous**.
+
+$$
+X \rightarrow Y \\
+\uparrow \\
+Z
+$$
+
+Here, the relationship between $Y$ and $X$ is sometimes referred to as the **structural** relationship.
+
+## Identification of Causal Effects
+
+When comparing two groups:
+
+1. **Randomization is fantastic!** It gives you unconfoundedness.
+    - In practice, it has its limitations.
+    - Can use linear regression to estimate ATE.
+    - Heterogeneity implies heteroscedasticity.
+    - Power is a challenge.
+    - With stratification, you need to think about the controls (Assignment 1).
+
+2. **Cross-sectional analysis with observational data** requires unconfoundedness/CIA.
+    - Without overlap, you can assume the CEF of $Y(0)$.
+    - With overlap, you can use a matching estimator.
+    - Linear regression with saturated controls does variance weighting.
+    - Covariate matching, propensity score matching, or weighted LS are options.
+    - The main limitation is **observing the right covariates**.
+
+When comparing two groups, over time:
+
+1. **With 2-periods of data:**
+    - Can identify the ATT, **without** unconfoundedness/CIA.
+    - Allows for selection across groups but needs exclusion restrictions.
+
+2. **With multiple periods of data:**
+    - Static specifications can misbehave.
+    - Try to get back to a 2-group-2-period comparison: i.e., estimate dynamic specification.
+    - Can test for parallel trends in **pre-period, assuming no pre-emptive behaviour**.
+
+When comparing many (staggered) groups:
+
+- **Two-way FE models** can misbehave:
+    - Either assume ATT is constant across cohorts.
+    - Estimate a model that separately estimates each CATT (i.e., return to 2-group-2-period):
+        - Abraham & Sun propose an interactive estimator.
+        - Callaway & Sant'Anna propose a propensity score weighted estimator.
+
+If data is limited:
+
+- Try synthetic control.
+- Must assume conditional mean independence.
+- Do not immediately accept the weights; use your intuition.
+
+## Microeconometrics is 'Simple'
+
+**My *personal* take,**
+
+- Models are great, when they're right. They seldom are.
+- For causal inference, we can do two things well:
+  1. Compare the averages of two groups under random assignment.
+  2. Compare the averages of two (*similar*) groups over two periods under parallel trends.
+- We can do fancy things, and they sometimes work. However, people believe simple stories (in my experience).
+
+**Microeconometrics is 'simple', sorry to disappoint.**
+
+Beyond that, be ready to make assumptions.
+
