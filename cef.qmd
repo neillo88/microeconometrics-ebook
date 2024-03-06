@@ -44,7 +44,7 @@ be an indicator of treatment status.
 "In completely randomized experiments, the **observable** difference between conditional expectations provided us with an estimate of the ATE."
 
 $$
-E[Y_i|W_i=1] - E[Y_i|W_i=0] = \tau_{ATT} = \tau_{\scriptsize{ATE}}
+E[Y_i|W_i=1] - E[Y_i|W_i=0] = \tau_{\scriptsize{ATT}} = \tau_{\scriptsize{ATE}}
 $$
 
 "As the selection component is zero from unconfoundedness."
@@ -88,8 +88,40 @@ $$
 "Here's what you need to know about the CEF:"
 
 1.  "We can express the *observed* outcome $Y_i$ as a sum of $E[Y_i|X_i]+\varepsilon_i$ where $E[\varepsilon_i|X_i]=0$ (i.e., mean independent)."
+
+::: {.callout-caution collapse="true"}
+## Proof
+
+1. $E[\varepsilon_i | X_i] = E[Y_i - E[Y_i | X_i] | X_i] = E[Y_i | X_i] - E[Y_i | X_i] = 0$
+
+2. $E[h(X_i)\varepsilon_i] = E[h(X_i)E[\varepsilon_i | X_i]] = E[h(X_i) \times 0] = 0$
+
+:::
+
+
+
 2.  "$E[Y_i|X_i]$ is the best predictor of $Y_i$."
+
+::: {.callout-caution collapse="true"}
+## Proof
+
+\[
+(Y_i - m(X_i))^2 = \left((Y_i - E[Y_i | X_i]) + (E[Y_i | X_i] - m(X_i))\right)^2
+\]
+\[
+= (Y_i - E[Y_i | X_i])^2 + (E[Y_i | X_i] - m(X_i))^2 + 2(Y_i - E[Y_i | X_i]) \times (E[Y_i | X_i] - m(X_i))
+\]
+
+The last term (cross product) is mean zero. Thus, the function is minimized by setting $m(X_i) = E[Y_i | X_i]$.
+
+:::
+
 3.  "ANOVA Theorem: The variance of $Y_i$ can be decomposed as $V(E[Y_i|X_i])+E(V(Y_i|X_i))$"
+
+::: {.callout-caution collapse="true"}
+## Proof
+
+:::
 
 "A second set of theorems related the CEF to the linear population regression function, $X_i'\beta = \beta_1X_{1i} + \beta_2X_{2i} + \ldots + \beta_kX_{ki}$:"
 
@@ -109,35 +141,29 @@ $$
 
 The shortcut approach to the identification of causal effects with linear regression involves:
 
-- **CEF of $Y_i(0)$**: Assume
-  $$
-  E[Y_i(0)|X_i'] = X_i'\gamma
-  $$
-  This may include a constant term.
+-   **CEF of** $Y_i(0)$: Assume $$
+    E[Y_i(0)|X_i'] = X_i'\gamma
+    $$ This may include a constant term.
 
-- **Additive treatment effects**:
-  $$
-  Y_i(1) = Y_i(0) + \tau_i
-  $$
+-   **Additive treatment effects**: $$
+    Y_i(1) = Y_i(0) + \tau_i
+    $$
 
-- **Heterogeneity independent of $X$'s**:
-  $$
-  E[Y_i(1) - Y_i(0)|D_i,X_i'] = E[Y_i(1) - Y_i(0)|D_i]
-  $$
+-   **Heterogeneity independent of** $X$'s: $$
+    E[Y_i(1) - Y_i(0)|D_i,X_i'] = E[Y_i(1) - Y_i(0)|D_i]
+    $$
 
 We do need to assume an additional assumption concerning assignment:
 
-- **CIA/Unconfoundedness**:
-  $$
-  (Y(1),Y(0)) \perp D | X
-  $$
+-   **CIA/Unconfoundedness**: $$
+    (Y(1),Y(0)) \perp D | X
+    $$
 
-  **or** a weaker,
+    **or** a weaker,
 
-- **Unconfoundedness for controls**:
-  $$
-  Y(0) \perp D | X
-  $$
+-   **Unconfoundedness for controls**: $$
+    Y(0) \perp D | X
+    $$
 
 While we have defined $E[Y_i(0)|X_i']$, the linear regression model will depend on:
 
@@ -150,56 +176,44 @@ E[Y^{obs}_i|D_i,X_i'] &= E[Y_i(0)+\tau_iD_i|D_i,X_i'] \\
 \end{aligned}
 $$
 
-From line 2 to 3,
-$$
+From line 2 to 3, $$
 E[Y_i(0)|D_i,X_i'] = E[Y_i(0)|X_i']
-$$
-holds if either confoundedness assumptions hold.
+$$ holds if either confoundedness assumptions hold.
 
-If we assume the stronger CIA-unconfoundedness,
-$$
+If we assume the stronger CIA-unconfoundedness, $$
 E[Y_i(1)-Y_i(0)|D_i]D_i = E[Y_i(1)-Y_i(0)]D_i = \tau_{\scriptsize{ATE}}D_i
-$$
-This gives us the CEF,
-$$
+$$ This gives us the CEF, $$
 E[Y^{obs}_i|D_i,X_i'] = \tau_{\scriptsize{ATE}}D_i + X_i'\gamma
 $$
 
-If we assume the weaker unconfoundedness for covariates assumption,
-$$
+If we assume the weaker unconfoundedness for covariates assumption, $$
 E[Y_i(1)-Y_i(0)|D_i]D_i = \left(\tau_{ATU} + D_i(\tau_{ATT}-\tau_{ATU})\right)D_i = \tau_{ATT}D_i
 $$
 
-This gives us the CEF,
-$$
+This gives us the CEF, $$
 E[Y^{obs}_i|D_i,X_i'] = \tau_{ATT}D_i + X_i'\gamma
 $$
 
-By specifying the CEF of both $Y_i(1)$ and $Y_i(0)$, we know that
-$$
+By specifying the CEF of both $Y_i(1)$ and $Y_i(0)$, we know that $$
 Y^{obs}_i = \tau_{ATT}D_i + X_i'\gamma + \varepsilon_i
-$$
-where,
-$$
+$$ where, $$
 E[\varepsilon_i|D_i,X_i'] = 0
 $$
 
 By specifying the CEF of both $Y_i(1)$ and $Y_i(0)$, we understand that:
 
-- There is no question whether the linear regression model gives us the ATE/ATT.
-- This is a fairly strong assumption and not in the spirit of the RCT approach.
-- When examining RCTs, we were agnostic about the CEF.
+-   There is no question whether the linear regression model gives us the ATE/ATT.
+-   This is a fairly strong assumption and not in the spirit of the RCT approach.
+-   When examining RCTs, we were agnostic about the CEF.
 
 ## CEF Approach
 
 One crucial omission from this approach is that we do not need to assume overlap (or common support).
 
 ::: {custom-style="alertblock"}
-**Overlap**:
-$$
+**Overlap**: $$
 0 < e(X_i) < 1
-$$
-where, $e(X_i) = Pr(W_i=1|X_i')$
+$$ where, $e(X_i) = Pr(W_i=1|X_i')$
 :::
 
 ::: {custom-style="exampleblock"}
@@ -213,15 +227,14 @@ where, $e(X_i) = Pr(W_i=1|X_i')$
 As with completely random experiments, we can achieve identification of TE's via unconfoundedness.
 
 ::: {custom-style="block"}
-**Conditional Independence Assumption (CIA)**:
-$$
+**Conditional Independence Assumption (CIA)**: $$
 (Y_i(1), Y_i(0)) \perp D_i | X_i'
-$$
-"When treatment and outcome variables can be considered to be independent of one another after conditioning on control variables" (Wooldridge, 2010, p.799)^[CIA is the name used by Angrist and Pischke in MM and MHE when referring to unconfoundedness.]
+$$ "When treatment and outcome variables can be considered to be independent of one another after conditioning on control variables" (Wooldridge, 2010, p.799)[^cef-1]
 :::
 
-The CIA implies:
-$$
+[^cef-1]: CIA is the name used by Angrist and Pischke in MM and MHE when referring to unconfoundedness.
+
+The CIA implies: $$
 \begin{aligned}
 E[Y_i|D_i=1,X_i'] - E[Y_i|D_i=0,X_i'] &= E[Y_i(1)|D_i=1,X_i'] - E[Y_i(0)|D_i=0,X_i'] \\
 &= E[Y_i(1)|X_i'] - E[Y_i(0)|X_i'] \\
@@ -232,27 +245,23 @@ $$
 CIA rules out selection, conditional on observables:
 
 ::: {custom-style="alertblock"}
-**Selection on observables**: Under CIA,
-$$
+**Selection on observables**: Under CIA, $$
 E[Y_i(0)|D_i=1,X_i'] - E[Y_i(0)|D_i=0,X_i'] = 0
 $$
 :::
+
 This rules out selection on unobservables.
 
-Two remaining questions:
-1. How should we compute these covariate-matched treatment effects?
-2. What are the relevant covariates?
+Two remaining questions: 1. How should we compute these covariate-matched treatment effects? 2. What are the relevant covariates?
 
 ## Common Support
 
 Crucially, we now need to assume common support (or overlap):
 
 ::: {custom-style="alertblock"}
-**Overlap**:
-$$
+**Overlap**: $$
 0 < e(X_i) < 1
-$$
-where, $e(X_i) = Pr(W_i=1|X_i')$
+$$ where, $e(X_i) = Pr(W_i=1|X_i')$
 :::
 
 ## Conditional ATE
@@ -269,7 +278,9 @@ $$
 E[Y_i|D_i=1, X_i=x_k] - E[Y_i|D_i=0, X_i=x_k] = \tau_{\scriptsize{ATE}}(x_k)
 $$
 
-## ATE as a Weighted Average^[Here I borrow from Abadie and Cattaneo (2018), which is on Moodle.]
+## ATE as a Weighted Average[^cef-2]
+
+[^cef-2]: Here I borrow from Abadie and Cattaneo (2018), which is on Moodle.
 
 **Under CIA**, we can define the superpopulation ATE as:
 
@@ -285,9 +296,13 @@ $$
 
 # Regression as Matching
 
-**Regression as Matching**^[This result is also demonstrated in MHE.]
+**Regression as Matching**[^cef-3]
 
-We could then consider estimating these treatment effects using the linear regression model^[This is often referred to as a *fully saturated* regression.]:
+[^cef-3]: This result is also demonstrated in MHE.
+
+We could then consider estimating these treatment effects using the linear regression model[^cef-4]:
+
+[^cef-4]: This is often referred to as a *fully saturated* regression.
 
 $$
 Y_i = \beta D_i + \sum_{k=1}^{m} \gamma_k \mathbf{1}\{X_i=x_k\} + \upsilon_i
@@ -329,7 +344,9 @@ $$
 E[Y_i | D_i = 1, X_i = x_k] - E[Y_i | D_i = 0, X_i = x_k] = \tau_{\scriptsize{ATE}}(x_k)
 $$
 
-# ATE as a Weighted Average^[Here I borrow from Abadie and Cattaneo (2018), which is on Moodle]
+# ATE as a Weighted Average[^cef-5]
+
+[^cef-5]: Here I borrow from Abadie and Cattaneo (2018), which is on Moodle
 
 **Under CIA**, we can define the super population ATE as:
 
@@ -345,9 +362,13 @@ $$
 
 # Regression as Matching
 
-**Regression as Matching**^[This result is also demonstrated in MHE]
+**Regression as Matching**[^cef-6]
 
-We could then consider estimating these treatment effects using the linear regression model^[This is often referred to as a *fully saturated* regression.]:
+[^cef-6]: This result is also demonstrated in MHE
+
+We could then consider estimating these treatment effects using the linear regression model[^cef-7]:
+
+[^cef-7]: This is often referred to as a *fully saturated* regression.
 
 $$
 Y_i = \beta D_i + \sum_{k=1}^{m} \gamma_k \mathbf{1} \{X_i = x_k\} + \upsilon_i
@@ -367,8 +388,8 @@ $$
 
 The linear regression model coefficient is a **variance-weighted** average of the conditional mean differences. The weights:
 
-- Depend on the variance of $D_i$ conditional on $X_i$.
-- More weight will be applied to cases where the treatment allocation is equal (50-50).
+-   Depend on the variance of $D_i$ conditional on $X_i$.
+-   More weight will be applied to cases where the treatment allocation is equal (50-50).
 
 Thus:
 
@@ -380,14 +401,12 @@ $$
 
 # Next-up
 
-1. Propensity score matching
-2. Picking covariates
-3. Selection on **un**observables
+1.  Propensity score matching
+2.  Picking covariates
+3.  Selection on **un**observables
 
 Other topics:
 
-- Continuous treatment
+-   Continuous treatment
 
 Appendices with proofs and additional theorems can follow similar markdown structuring for their inclusion.
-
-
