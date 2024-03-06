@@ -92,35 +92,25 @@ $$
 ::: {.callout-caution collapse="true"}
 ## Proof
 
-1. $E[\varepsilon_i | X_i] = E[Y_i - E[Y_i | X_i] | X_i] = E[Y_i | X_i] - E[Y_i | X_i] = 0$
+1.  $E[\varepsilon_i | X_i] = E[Y_i - E[Y_i | X_i] | X_i] = E[Y_i | X_i] - E[Y_i | X_i] = 0$
 
-2. $E[h(X_i)\varepsilon_i] = E[h(X_i)E[\varepsilon_i | X_i]] = E[h(X_i) \times 0] = 0$
-
+2.  $E[h(X_i)\varepsilon_i] = E[h(X_i)E[\varepsilon_i | X_i]] = E[h(X_i) \times 0] = 0$
 :::
-
-
 
 2.  "$E[Y_i|X_i]$ is the best predictor of $Y_i$."
 
 ::: {.callout-caution collapse="true"}
 ## Proof
 
-\[
-(Y_i - m(X_i))^2 = \left((Y_i - E[Y_i | X_i]) + (E[Y_i | X_i] - m(X_i))\right)^2
-\]
-\[
-= (Y_i - E[Y_i | X_i])^2 + (E[Y_i | X_i] - m(X_i))^2 + 2(Y_i - E[Y_i | X_i]) \times (E[Y_i | X_i] - m(X_i))
-\]
+\[ (Y_i - m(X_i))\^2 = \left((Y_i - E\[Y_i \| X_i\]) + (E\[Y_i \| X_i\] - m(X_i))\right)\^2 \] \[ = (Y_i - E\[Y_i \| X_i\])\^2 + (E\[Y_i \| X_i\] - m(X_i))\^2 + 2(Y_i - E\[Y_i \| X_i\]) \times (E\[Y_i \| X_i\] - m(X_i)) \]
 
 The last term (cross product) is mean zero. Thus, the function is minimized by setting $m(X_i) = E[Y_i | X_i]$.
-
 :::
 
 3.  "ANOVA Theorem: The variance of $Y_i$ can be decomposed as $V(E[Y_i|X_i])+E(V(Y_i|X_i))$"
 
 ::: {.callout-caution collapse="true"}
 ## Proof
-
 :::
 
 "A second set of theorems related the CEF to the linear population regression function, $X_i'\beta = \beta_1X_{1i} + \beta_2X_{2i} + \ldots + \beta_kX_{ki}$:"
@@ -219,194 +209,3 @@ $$ where, $e(X_i) = Pr(W_i=1|X_i')$
 ::: {custom-style="exampleblock"}
 **Interpretation**: The correctly specified CEF allows us to perfectly predict the unobserved counterfactual of treated individuals based on their $X_i$. With unconfoundedness (for covariates), we can estimate this counterfactual using the control group.
 :::
-
-# The CIA Approach
-
-## Conditional Independence Assumption
-
-As with completely random experiments, we can achieve identification of TE's via unconfoundedness.
-
-::: {custom-style="block"}
-**Conditional Independence Assumption (CIA)**: $$
-(Y_i(1), Y_i(0)) \perp D_i | X_i'
-$$ "When treatment and outcome variables can be considered to be independent of one another after conditioning on control variables" (Wooldridge, 2010, p.799)[^cef-1]
-:::
-
-[^cef-1]: CIA is the name used by Angrist and Pischke in MM and MHE when referring to unconfoundedness.
-
-The CIA implies: $$
-\begin{aligned}
-E[Y_i|D_i=1,X_i'] - E[Y_i|D_i=0,X_i'] &= E[Y_i(1)|D_i=1,X_i'] - E[Y_i(0)|D_i=0,X_i'] \\
-&= E[Y_i(1)|X_i'] - E[Y_i(0)|X_i'] \\
-&= E[Y_i(1) - Y_i(0)|X_i']
-\end{aligned}
-$$
-
-CIA rules out selection, conditional on observables:
-
-::: {custom-style="alertblock"}
-**Selection on observables**: Under CIA, $$
-E[Y_i(0)|D_i=1,X_i'] - E[Y_i(0)|D_i=0,X_i'] = 0
-$$
-:::
-
-This rules out selection on unobservables.
-
-Two remaining questions: 1. How should we compute these covariate-matched treatment effects? 2. What are the relevant covariates?
-
-## Common Support
-
-Crucially, we now need to assume common support (or overlap):
-
-::: {custom-style="alertblock"}
-**Overlap**: $$
-0 < e(X_i) < 1
-$$ where, $e(X_i) = Pr(W_i=1|X_i')$
-:::
-
-## Conditional ATE
-
-Suppose we had a single covariate that took on $m$ **finite** values:
-
-$$
-X_i \in \{x_1, x_2, \ldots, x_m\}
-$$
-
-**Under CIA,**
-
-$$
-E[Y_i|D_i=1, X_i=x_k] - E[Y_i|D_i=0, X_i=x_k] = \tau_{\scriptsize{ATE}}(x_k)
-$$
-
-## ATE as a Weighted Average[^cef-2]
-
-[^cef-2]: Here I borrow from Abadie and Cattaneo (2018), which is on Moodle.
-
-**Under CIA**, we can define the superpopulation ATE as:
-
-$$
-\tau_{\scriptsize{ATE}} = \sum_{k=1}^{m} \left(E[Y_i|D_i=1, X_i=x_k] - E[Y_i|D_i=0, X_i=x_k]\right)Pr(X_i=x_k)
-$$
-
-Likewise, we can define the ATT as:
-
-$$
-\tau_{ATT} = \sum_{k=1}^{m} \left(E[Y_i|D_i=1, X_i=x_k] - E[Y_i|D_i=0, X_i=x_k]\right)Pr(X_i=x_k|D_i=1)
-$$
-
-# Regression as Matching
-
-**Regression as Matching**[^cef-3]
-
-[^cef-3]: This result is also demonstrated in MHE.
-
-We could then consider estimating these treatment effects using the linear regression model[^cef-4]:
-
-[^cef-4]: This is often referred to as a *fully saturated* regression.
-
-$$
-Y_i = \beta D_i + \sum_{k=1}^{m} \gamma_k \mathbf{1}\{X_i=x_k\} + \upsilon_i
-$$
-
-It can be shown that:
-
-$$
-\beta = \sum_{k=1}^{m} \left(E[Y_i|D_i=1, X_i=x_k] - E[Y_i|D_i=0, X_i=x_k]\right)w_k
-$$
-
-where:
-
-$$
-w_k = \frac{Var(D_i|X_i=x_k)Pr(X_i=x_k)}{\sum_{j=1}^{m} Var(D_i|X_i=x_j)Pr(X_i=x_j)}
-$$
-
-The linear regression model coefficient is a **variance-weighted** average of the conditional mean differences. The weights depend on the variance of $D_i$ conditional on $X_i$ and more weight will be applied to cases where the treatment allocation is equal (50-50).
-
-Thus,
-
-$$
-\beta \neq \tau_{\scriptsize{ATE}}
-$$
-
-unless $\tau_{\scriptsize{ATE}}(x_k) = \tau_{\scriptsize{ATE}} \quad \forall \; k=1, \ldots, m$; since the weights sum to 1. This is NOT the same as homogeneous treatment effects.
-
-# Conditional ATE
-
-Suppose we have a single covariate that takes on $m$ **finite** values:
-
-$$
-X_i \in \{x_1, x_2, \ldots, x_m\}
-$$
-
-**Under CIA**:
-
-$$
-E[Y_i | D_i = 1, X_i = x_k] - E[Y_i | D_i = 0, X_i = x_k] = \tau_{\scriptsize{ATE}}(x_k)
-$$
-
-# ATE as a Weighted Average[^cef-5]
-
-[^cef-5]: Here I borrow from Abadie and Cattaneo (2018), which is on Moodle
-
-**Under CIA**, we can define the super population ATE as:
-
-$$
-\tau_{\scriptsize{ATE}} = \sum_{k=1}^{m} \left( E[Y_i | D_i = 1, X_i = x_k] - E[Y_i | D_i = 0, X_i = x_k] \right) Pr(X_i = x_k)
-$$
-
-Likewise, we can define the ATT as:
-
-$$
-\tau_{ATT} = \sum_{k=1}^{m} \left( E[Y_i | D_i = 1, X_i = x_k] - E[Y_i | D_i = 0, X_i = x_k] \right) Pr(X_i = x_k | D_i = 1)
-$$
-
-# Regression as Matching
-
-**Regression as Matching**[^cef-6]
-
-[^cef-6]: This result is also demonstrated in MHE
-
-We could then consider estimating these treatment effects using the linear regression model[^cef-7]:
-
-[^cef-7]: This is often referred to as a *fully saturated* regression.
-
-$$
-Y_i = \beta D_i + \sum_{k=1}^{m} \gamma_k \mathbf{1} \{X_i = x_k\} + \upsilon_i
-$$
-
-It can be shown that:
-
-$$
-\beta = \sum_{k=1}^{m} \left( E[Y_i | D_i = 1, X_i = x_k] - E[Y_i | D_i = 0, X_i = x_k] \right) w_k
-$$
-
-where:
-
-$$
-w_k = \frac{Var(D_i | X_i = x_k) Pr(X_i = x_k)}{\sum_{j=1}^{m} Var(D_i | X_i = x_j) Pr(X_i = x_j)}
-$$
-
-The linear regression model coefficient is a **variance-weighted** average of the conditional mean differences. The weights:
-
--   Depend on the variance of $D_i$ conditional on $X_i$.
--   More weight will be applied to cases where the treatment allocation is equal (50-50).
-
-Thus:
-
-$$
-\beta \neq \tau_{\scriptsize{ATE}}
-$$
-
-**Unless** $\tau_{\scriptsize{ATE}}(x_k) = \tau_{\scriptsize{ATE}} \quad \forall \; k = 1, \ldots, m$; since the weights sum to 1. This is **NOT** the same as homogeneous treatment effects.
-
-# Next-up
-
-1.  Propensity score matching
-2.  Picking covariates
-3.  Selection on **un**observables
-
-Other topics:
-
--   Continuous treatment
-
-Appendices with proofs and additional theorems can follow similar markdown structuring for their inclusion.
