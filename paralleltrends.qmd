@@ -1009,9 +1009,8 @@ $$
 
 Proof:
 
-::: {.details}
+::: details
 ::: {.summary title="Click to see the proof"}
-
 Single period of treatment: $t_0$
 
 Control group $S_i = \infty$
@@ -1041,7 +1040,6 @@ $$
 $$
 
 Where $\textcolor{red}{\phi + \delta_{t2}}$ and $\textcolor{red}{\delta_{t-1}}$ are the effects to be controlled for.
-
 :::
 :::
 
@@ -1160,12 +1158,6 @@ One of the seminal papers on this topic is Eissa & Liebman (QJE, 1996) "Labor re
 -   Single mothers were the largest recipients of EITC (48%).
 
 -   Estimate that the expansion increased labour supply of women with children by 2.8% over that of single women without children.
-
--   <div>
-
-    ## 
-
-    </div>
 
 [^paralleltrends-16]: Only after 1994 did the EITC become available to low-income workers without children.
 
