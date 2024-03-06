@@ -272,10 +272,6 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#conditional-expectation-function" id="toc-conditional-expectation-function" class="nav-link" data-scroll-target="#conditional-expectation-function"><span class="header-section-number">3.2</span> Conditional Expectation Function</a></li>
   <li><a href="#key-points-about-the-cef" id="toc-key-points-about-the-cef" class="nav-link" data-scroll-target="#key-points-about-the-cef"><span class="header-section-number">3.3</span> Key Points About the CEF</a></li>
   </ul></li>
-  <li><a href="#the-cef-of-y0-approach" id="toc-the-cef-of-y0-approach" class="nav-link" data-scroll-target="#the-cef-of-y0-approach"><span class="header-section-number">4</span> The CEF (of <span class="math inline">\(Y(0)\)</span>) Approach</a>
-  <ul class="collapse">
-  <li><a href="#cef-approach" id="toc-cef-approach" class="nav-link" data-scroll-target="#cef-approach"><span class="header-section-number">4.1</span> CEF Approach</a></li>
-  </ul></li>
   </ul>
 </nav>
     </div>
@@ -438,68 +434,6 @@ Proof
 <p>“Does this mean that <span class="math inline">\(X_i'\beta\)</span> is the best predictor of <span class="math inline">\(Y_i\)</span>? <strong>NO</strong>, as the <span class="math inline">\(E[Y_i|X_i]\)</span> may not be linear.”</p>
 <p>“In the Classical Linear Regression Model (CLRM) framework we assume the model is correctly specified as <span class="math inline">\(Y_i = X_i'\beta + \varepsilon_i\)</span> and conditional mean independence <span class="math inline">\(E[\varepsilon_i|X_i'] = 0\)</span>. We have assumed that the CEF of <span class="math inline">\(Y_i\)</span> is linear in parameters, <span class="math inline">\(E[Y_i|X_i'] = X_i'\beta\)</span>.”</p>
 <p>“Does this mean that the CEF of <span class="math inline">\(Y^{obs}_i\)</span> always traces out a causal relationship? <strong>NO</strong>, causality depends on the CEFs of <span class="math inline">\(Y_i(0), Y_i(1)\)</span> <strong>and</strong> the assignment mechanism.”</p>
-</section>
-</section>
-<section id="the-cef-of-y0-approach" class="level1" data-number="4">
-<h1 data-number="4"><span class="header-section-number">4</span> The CEF (of <span class="math inline">\(Y(0)\)</span>) Approach</h1>
-<section id="cef-approach" class="level2" data-number="4.1">
-<h2 data-number="4.1" class="anchored" data-anchor-id="cef-approach"><span class="header-section-number">4.1</span> CEF Approach</h2>
-<p>The shortcut approach to the identification of causal effects with linear regression involves:</p>
-<ul>
-<li><p><strong>CEF of</strong> <span class="math inline">\(Y_i(0)\)</span>: Assume <span class="math display">\[
-E[Y_i(0)|X_i'] = X_i'\gamma
-\]</span> This may include a constant term.</p></li>
-<li><p><strong>Additive treatment effects</strong>: <span class="math display">\[
-Y_i(1) = Y_i(0) + \tau_i
-\]</span></p></li>
-<li><p><strong>Heterogeneity independent of</strong> <span class="math inline">\(X\)</span>’s: <span class="math display">\[
-E[Y_i(1) - Y_i(0)|D_i,X_i'] = E[Y_i(1) - Y_i(0)|D_i]
-\]</span></p></li>
-</ul>
-<p>We do need to assume an additional assumption concerning assignment:</p>
-<ul>
-<li><p><strong>CIA/Unconfoundedness</strong>: <span class="math display">\[
-(Y(1),Y(0)) \perp D | X
-\]</span></p>
-<p><strong>or</strong> a weaker,</p></li>
-<li><p><strong>Unconfoundedness for controls</strong>: <span class="math display">\[
-Y(0) \perp D | X
-\]</span></p></li>
-</ul>
-<p>While we have defined <span class="math inline">\(E[Y_i(0)|X_i']\)</span>, the linear regression model will depend on:</p>
-<p><span class="math display">\[
-\begin{aligned}
-E[Y^{obs}_i|D_i,X_i'] &amp;= E[Y_i(0)+\tau_iD_i|D_i,X_i'] \\
-                      &amp;= E[Y_i(0)|D_i,X_i']+E[\tau_iD_i|D_i,X_i'] \\
-                      &amp;= E[Y_i(0)|X_i']+E[Y_i(1)-Y_i(0)|D_i]D_i \\
-                      &amp;= X_i'\gamma + E[Y_i(1)-Y_i(0)|D_i]D_i
-\end{aligned}
-\]</span></p>
-<p>From line 2 to 3, <span class="math display">\[
-E[Y_i(0)|D_i,X_i'] = E[Y_i(0)|X_i']
-\]</span> holds if either confoundedness assumptions hold.</p>
-<p>If we assume the stronger CIA-unconfoundedness, <span class="math display">\[
-E[Y_i(1)-Y_i(0)|D_i]D_i = E[Y_i(1)-Y_i(0)]D_i = \tau_{\scriptsize{ATE}}D_i
-\]</span> This gives us the CEF, <span class="math display">\[
-E[Y^{obs}_i|D_i,X_i'] = \tau_{\scriptsize{ATE}}D_i + X_i'\gamma
-\]</span></p>
-<p>If we assume the weaker unconfoundedness for covariates assumption, <span class="math display">\[
-E[Y_i(1)-Y_i(0)|D_i]D_i = \left(\tau_{ATU} + D_i(\tau_{ATT}-\tau_{ATU})\right)D_i = \tau_{ATT}D_i
-\]</span></p>
-<p>This gives us the CEF, <span class="math display">\[
-E[Y^{obs}_i|D_i,X_i'] = \tau_{ATT}D_i + X_i'\gamma
-\]</span></p>
-<p>By specifying the CEF of both <span class="math inline">\(Y_i(1)\)</span> and <span class="math inline">\(Y_i(0)\)</span>, we know that <span class="math display">\[
-Y^{obs}_i = \tau_{ATT}D_i + X_i'\gamma + \varepsilon_i
-\]</span> where, <span class="math display">\[
-E[\varepsilon_i|D_i,X_i'] = 0
-\]</span></p>
-<p>By specifying the CEF of both <span class="math inline">\(Y_i(1)\)</span> and <span class="math inline">\(Y_i(0)\)</span>, we understand that:</p>
-<ul>
-<li>There is no question whether the linear regression model gives us the ATE/ATT.</li>
-<li>This is a fairly strong assumption and not in the spirit of the RCT approach.</li>
-<li>When examining RCTs, we were agnostic about the CEF.</li>
-</ul>
 
 
 </section>
