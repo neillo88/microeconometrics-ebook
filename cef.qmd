@@ -196,16 +196,3 @@ By specifying the CEF of both $Y_i(1)$ and $Y_i(0)$, we understand that:
 -   This is a fairly strong assumption and not in the spirit of the RCT approach.
 -   When examining RCTs, we were agnostic about the CEF.
 
-## CEF Approach
-
-One crucial omission from this approach is that we do not need to assume overlap (or common support).
-
-::: {custom-style="alertblock"}
-**Overlap**: $$
-0 < e(X_i) < 1
-$$ where, $e(X_i) = Pr(W_i=1|X_i')$
-:::
-
-::: {custom-style="exampleblock"}
-**Interpretation**: The correctly specified CEF allows us to perfectly predict the unobserved counterfactual of treated individuals based on their $X_i$. With unconfoundedness (for covariates), we can estimate this counterfactual using the control group.
-:::
