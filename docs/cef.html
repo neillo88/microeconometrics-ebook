@@ -282,11 +282,11 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#conditional-independence-assumption" id="toc-conditional-independence-assumption" class="nav-link" data-scroll-target="#conditional-independence-assumption"><span class="header-section-number">5.1</span> Conditional Independence Assumption</a></li>
   <li><a href="#common-support" id="toc-common-support" class="nav-link" data-scroll-target="#common-support"><span class="header-section-number">5.2</span> Common Support</a></li>
   <li><a href="#conditional-ate" id="toc-conditional-ate" class="nav-link" data-scroll-target="#conditional-ate"><span class="header-section-number">5.3</span> Conditional ATE</a></li>
-  <li><a href="#ate-as-a-weighted-average" id="toc-ate-as-a-weighted-average" class="nav-link" data-scroll-target="#ate-as-a-weighted-average"><span class="header-section-number">5.4</span> ATE as a Weighted Average</a></li>
+  <li><a href="#ate-as-a-weighted-averagecef-2" id="toc-ate-as-a-weighted-averagecef-2" class="nav-link" data-scroll-target="#ate-as-a-weighted-averagecef-2"><span class="header-section-number">5.4</span> ATE as a Weighted Average</a></li>
   </ul></li>
   <li><a href="#regression-as-matching" id="toc-regression-as-matching" class="nav-link" data-scroll-target="#regression-as-matching"><span class="header-section-number">6</span> Regression as Matching</a></li>
   <li><a href="#conditional-ate-1" id="toc-conditional-ate-1" class="nav-link" data-scroll-target="#conditional-ate-1"><span class="header-section-number">7</span> Conditional ATE</a></li>
-  <li><a href="#ate-as-a-weighted-average-1" id="toc-ate-as-a-weighted-average-1" class="nav-link" data-scroll-target="#ate-as-a-weighted-average-1"><span class="header-section-number">8</span> ATE as a Weighted Average</a></li>
+  <li><a href="#ate-as-a-weighted-averagecef-5" id="toc-ate-as-a-weighted-averagecef-5" class="nav-link" data-scroll-target="#ate-as-a-weighted-averagecef-5"><span class="header-section-number">8</span> ATE as a Weighted Average</a></li>
   <li><a href="#regression-as-matching-1" id="toc-regression-as-matching-1" class="nav-link" data-scroll-target="#regression-as-matching-1"><span class="header-section-number">9</span> Regression as Matching</a></li>
   <li><a href="#next-up" id="toc-next-up" class="nav-link" data-scroll-target="#next-up"><span class="header-section-number">10</span> Next-up</a></li>
   </ul>
@@ -349,7 +349,7 @@ D_i = \mathbf{1}\{treated\}
 <h2 data-number="3.2" class="anchored" data-anchor-id="conditional-expectation-function"><span class="header-section-number">3.2</span> Conditional Expectation Function</h2>
 <p>“In completely randomized experiments, the <strong>observable</strong> difference between conditional expectations provided us with an estimate of the ATE.”</p>
 <p><span class="math display">\[
-E[Y_i|W_i=1] - E[Y_i|W_i=0] = \tau_{ATT} = \tau_{\scriptsize{ATE}}
+E[Y_i|W_i=1] - E[Y_i|W_i=0] = \tau_{\scriptsize{ATT}} = \tau_{\scriptsize{ATE}}
 \]</span></p>
 <p>“As the selection component is zero from unconfoundedness.”</p>
 <ul>
@@ -383,9 +383,65 @@ E[Y_i|D_i=0] = E[Y_i(0)|D_i=0] = \int t \cdot f_{y(0)}(t|D_i=0)dt
 <p>“Here’s what you need to know about the CEF:”</p>
 <ol type="1">
 <li>“We can express the <em>observed</em> outcome <span class="math inline">\(Y_i\)</span> as a sum of <span class="math inline">\(E[Y_i|X_i]+\varepsilon_i\)</span> where <span class="math inline">\(E[\varepsilon_i|X_i]=0\)</span> (i.e., mean independent).”</li>
+</ol>
+<div class="callout callout-style-default callout-caution callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Proof
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ol type="1">
+<li><p><span class="math inline">\(E[\varepsilon_i | X_i] = E[Y_i - E[Y_i | X_i] | X_i] = E[Y_i | X_i] - E[Y_i | X_i] = 0\)</span></p></li>
+<li><p><span class="math inline">\(E[h(X_i)\varepsilon_i] = E[h(X_i)E[\varepsilon_i | X_i]] = E[h(X_i) \times 0] = 0\)</span></p></li>
+</ol>
+</div>
+</div>
+</div>
+<ol start="2" type="1">
 <li>“<span class="math inline">\(E[Y_i|X_i]\)</span> is the best predictor of <span class="math inline">\(Y_i\)</span>.”</li>
+</ol>
+<div class="callout callout-style-default callout-caution callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Proof
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>[ (Y_i - m(X_i))^2 = ((Y_i - E[Y_i | X_i]) + (E[Y_i | X_i] - m(X_i)))^2 ] [ = (Y_i - E[Y_i | X_i])^2 + (E[Y_i | X_i] - m(X_i))^2 + 2(Y_i - E[Y_i | X_i]) (E[Y_i | X_i] - m(X_i)) ]</p>
+<p>The last term (cross product) is mean zero. Thus, the function is minimized by setting <span class="math inline">\(m(X_i) = E[Y_i | X_i]\)</span>.</p>
+</div>
+</div>
+</div>
+<ol start="3" type="1">
 <li>“ANOVA Theorem: The variance of <span class="math inline">\(Y_i\)</span> can be decomposed as <span class="math inline">\(V(E[Y_i|X_i])+E(V(Y_i|X_i))\)</span>”</li>
 </ol>
+<div class="callout callout-style-default callout-caution callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Proof
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+
+</div>
+</div>
+</div>
 <p>“A second set of theorems related the CEF to the linear population regression function, <span class="math inline">\(X_i'\beta = \beta_1X_{1i} + \beta_2X_{2i} + \ldots + \beta_kX_{ki}\)</span>:”</p>
 <ol type="1">
 <li>“If <span class="math inline">\(E[Y_i|X_i']\)</span> is linear (in parameters), then the population regression function provides it.”</li>
@@ -403,13 +459,13 @@ E[Y_i|D_i=0] = E[Y_i(0)|D_i=0] = \int t \cdot f_{y(0)}(t|D_i=0)dt
 <h2 data-number="4.1" class="anchored" data-anchor-id="cef-approach"><span class="header-section-number">4.1</span> CEF Approach</h2>
 <p>The shortcut approach to the identification of causal effects with linear regression involves:</p>
 <ul>
-<li><p><strong>CEF of <span class="math inline">\(Y_i(0)\)</span></strong>: Assume <span class="math display">\[
+<li><p><strong>CEF of</strong> <span class="math inline">\(Y_i(0)\)</span>: Assume <span class="math display">\[
 E[Y_i(0)|X_i'] = X_i'\gamma
 \]</span> This may include a constant term.</p></li>
 <li><p><strong>Additive treatment effects</strong>: <span class="math display">\[
 Y_i(1) = Y_i(0) + \tau_i
 \]</span></p></li>
-<li><p><strong>Heterogeneity independent of <span class="math inline">\(X\)</span>’s</strong>: <span class="math display">\[
+<li><p><strong>Heterogeneity independent of</strong> <span class="math inline">\(X\)</span>’s: <span class="math display">\[
 E[Y_i(1) - Y_i(0)|D_i,X_i'] = E[Y_i(1) - Y_i(0)|D_i]
 \]</span></p></li>
 </ul>
@@ -517,8 +573,8 @@ X_i \in \{x_1, x_2, \ldots, x_m\}
 E[Y_i|D_i=1, X_i=x_k] - E[Y_i|D_i=0, X_i=x_k] = \tau_{\scriptsize{ATE}}(x_k)
 \]</span></p>
 </section>
-<section id="ate-as-a-weighted-average" class="level2" data-number="5.4">
-<h2 data-number="5.4" class="anchored" data-anchor-id="ate-as-a-weighted-average"><span class="header-section-number">5.4</span> ATE as a Weighted Average<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></h2>
+<section id="ate-as-a-weighted-averagecef-2" class="level2" data-number="5.4">
+<h2 data-number="5.4" class="anchored" data-anchor-id="ate-as-a-weighted-averagecef-2"><span class="header-section-number">5.4</span> ATE as a Weighted Average<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></h2>
 <p><strong>Under CIA</strong>, we can define the superpopulation ATE as:</p>
 <p><span class="math display">\[
 \tau_{\scriptsize{ATE}} = \sum_{k=1}^{m} \left(E[Y_i|D_i=1, X_i=x_k] - E[Y_i|D_i=0, X_i=x_k]\right)Pr(X_i=x_k)
@@ -562,7 +618,7 @@ X_i \in \{x_1, x_2, \ldots, x_m\}
 E[Y_i | D_i = 1, X_i = x_k] - E[Y_i | D_i = 0, X_i = x_k] = \tau_{\scriptsize{ATE}}(x_k)
 \]</span></p>
 </section>
-<section id="ate-as-a-weighted-average-1" class="level1" data-number="8">
+<section id="ate-as-a-weighted-averagecef-5" class="level1" data-number="8">
 <h1 data-number="8"><span class="header-section-number">8</span> ATE as a Weighted Average<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a></h1>
 <p><strong>Under CIA</strong>, we can define the super population ATE as:</p>
 <p><span class="math display">\[
