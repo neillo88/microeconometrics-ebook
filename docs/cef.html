@@ -20,60 +20,7 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
-/* CSS for citations */
-div.csl-bib-body { }
-div.csl-entry {
-  clear: both;
-}
-.hanging-indent div.csl-entry {
-  margin-left:2em;
-  text-indent:-2em;
-}
-div.csl-left-margin {
-  min-width:2em;
-  float:left;
-}
-div.csl-right-inline {
-  margin-left:2em;
-  padding-left:1em;
-}
-div.csl-indent {
-  margin-left: 2em;
-}</style>
+</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -115,6 +62,8 @@ div.csl-indent {
   }
 }</script>
 
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 </head>
 
@@ -264,13 +213,13 @@ div.csl-indent {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./synthetic.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Conditional Expectations</span></span></a>
+ <span class="menu-text">Synthetic Control</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./discontinuities.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Discontinuities, Structural Breaks, and Bunching</span></span></a>
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Discontinuities, Structural Breaks, and Bunching</span></span></a>
   </div>
 </li>
       </ul>
@@ -278,7 +227,7 @@ div.csl-indent {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./discussion.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Discussion</span></span></a>
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Discussion</span></span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
@@ -296,6 +245,12 @@ div.csl-indent {
  <span class="menu-text">References</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./superPopVar.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Proof: Super population variance of two-sample mean estimator</span></span></a>
+  </div>
+</li>
       </ul>
   </li>
     </ul>
@@ -304,7 +259,38 @@ div.csl-indent {
 <div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#causal-regression---part-1" id="toc-causal-regression---part-1" class="nav-link active" data-scroll-target="#causal-regression---part-1"><span class="header-section-number">3</span> Causal Regression - Part 1</a>
+  <ul class="collapse">
+  <li><a href="#assignment-mechanism" id="toc-assignment-mechanism" class="nav-link" data-scroll-target="#assignment-mechanism"><span class="header-section-number">3.1</span> Assignment Mechanism</a>
+  <ul class="collapse">
+  <li><a href="#assignment-mechanisms" id="toc-assignment-mechanisms" class="nav-link" data-scroll-target="#assignment-mechanisms"><span class="header-section-number">3.1.1</span> Assignment Mechanisms</a></li>
+  </ul></li>
+  <li><a href="#conditional-expectation-function" id="toc-conditional-expectation-function" class="nav-link" data-scroll-target="#conditional-expectation-function"><span class="header-section-number">3.2</span> Conditional Expectation Function</a></li>
+  <li><a href="#key-points-about-the-cef" id="toc-key-points-about-the-cef" class="nav-link" data-scroll-target="#key-points-about-the-cef"><span class="header-section-number">3.3</span> Key Points About the CEF</a></li>
+  </ul></li>
+  <li><a href="#the-cef-of-y0-approach" id="toc-the-cef-of-y0-approach" class="nav-link" data-scroll-target="#the-cef-of-y0-approach"><span class="header-section-number">4</span> The CEF (of <span class="math inline">\(Y(0)\)</span>) Approach</a>
+  <ul class="collapse">
+  <li><a href="#cef-approach" id="toc-cef-approach" class="nav-link" data-scroll-target="#cef-approach"><span class="header-section-number">4.1</span> CEF Approach</a></li>
+  <li><a href="#cef-approach-1" id="toc-cef-approach-1" class="nav-link" data-scroll-target="#cef-approach-1"><span class="header-section-number">4.2</span> CEF Approach</a></li>
+  </ul></li>
+  <li><a href="#the-cia-approach" id="toc-the-cia-approach" class="nav-link" data-scroll-target="#the-cia-approach"><span class="header-section-number">5</span> The CIA Approach</a>
+  <ul class="collapse">
+  <li><a href="#conditional-independence-assumption" id="toc-conditional-independence-assumption" class="nav-link" data-scroll-target="#conditional-independence-assumption"><span class="header-section-number">5.1</span> Conditional Independence Assumption</a></li>
+  <li><a href="#common-support" id="toc-common-support" class="nav-link" data-scroll-target="#common-support"><span class="header-section-number">5.2</span> Common Support</a></li>
+  <li><a href="#conditional-ate" id="toc-conditional-ate" class="nav-link" data-scroll-target="#conditional-ate"><span class="header-section-number">5.3</span> Conditional ATE</a></li>
+  <li><a href="#ate-as-a-weighted-average" id="toc-ate-as-a-weighted-average" class="nav-link" data-scroll-target="#ate-as-a-weighted-average"><span class="header-section-number">5.4</span> ATE as a Weighted Average</a></li>
+  </ul></li>
+  <li><a href="#regression-as-matching" id="toc-regression-as-matching" class="nav-link" data-scroll-target="#regression-as-matching"><span class="header-section-number">6</span> Regression as Matching</a></li>
+  <li><a href="#conditional-ate-1" id="toc-conditional-ate-1" class="nav-link" data-scroll-target="#conditional-ate-1"><span class="header-section-number">7</span> Conditional ATE</a></li>
+  <li><a href="#ate-as-a-weighted-average-1" id="toc-ate-as-a-weighted-average-1" class="nav-link" data-scroll-target="#ate-as-a-weighted-average-1"><span class="header-section-number">8</span> ATE as a Weighted Average</a></li>
+  <li><a href="#regression-as-matching-1" id="toc-regression-as-matching-1" class="nav-link" data-scroll-target="#regression-as-matching-1"><span class="header-section-number">9</span> Regression as Matching</a></li>
+  <li><a href="#next-up" id="toc-next-up" class="nav-link" data-scroll-target="#next-up"><span class="header-section-number">10</span> Next-up</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -326,21 +312,320 @@ div.csl-indent {
 
 </header>
 
-<p>This is a book created from markdown and executable code.</p>
-<p>See <span class="citation" data-cites="knuth84">Knuth (<a href="#ref-knuth84" role="doc-biblioref">1984</a>)</span> for additional discussion of literate programming.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">+</span> <span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 2</code></pre>
+<section id="causal-regression---part-1" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Causal Regression - Part 1</h1>
+<p>“We will not have time to discuss <strong>Omitted Variable Bias</strong>. This is an important topic, but is addressed in MHE and MM. I will also provide slides from 2021/22 that go through it.”</p>
+<ul>
+<li>Just as selection is linked to endogeneity,</li>
+<li>the notion of <code>selection on observables</code> is linked to OVB.</li>
+<li>The standard OVB formula is one way of expressing the problem of selection in a linear model.</li>
+</ul>
+<p>“It remains an important topic that is examinable.”</p>
+<section id="assignment-mechanism" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="assignment-mechanism"><span class="header-section-number">3.1</span> Assignment Mechanism</h2>
+<p>“This week we discuss discrete (and continuous) treatments that need not arise from a completely random experiment.”</p>
+<p>Let,</p>
+<p><span class="math display">\[
+D_i = \mathbf{1}\{treated\}
+\]</span></p>
+<p>be an indicator of treatment status.</p>
+<p>“In classical randomized experiment the assignment mechanism is known.”</p>
+<section id="assignment-mechanisms" class="level3" data-number="3.1.1">
+<h3 data-number="3.1.1" class="anchored" data-anchor-id="assignment-mechanisms"><span class="header-section-number">3.1.1</span> Assignment Mechanisms</h3>
+<p>“More generally, there are two types of assignment.”</p>
+<p><strong>Regular Assignment:</strong> Assignment is (1) individualistic; (2) probabilistic; and (3) unconfounded.</p>
+<ul>
+<li>In RCTs the functional form of regular assignment is known.</li>
+<li>In observational studies, it is not. Focus on achieving balance in covariates.</li>
+</ul>
+<p><strong>Irregular Assignment:</strong> Assignment to treatment differs from receipt of treatment.</p>
+<ul>
+<li><p>Can have irregular assignment under randomization: estimate ITT or use assignment as instrument (estimate LATE).</p></li>
+<li><p>Typically necessitate additional <em>exclusion restrictions</em>.</p></li>
+</ul>
+</section>
+</section>
+<section id="conditional-expectation-function" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="conditional-expectation-function"><span class="header-section-number">3.2</span> Conditional Expectation Function</h2>
+<p>“In completely randomized experiments, the <strong>observable</strong> difference between conditional expectations provided us with an estimate of the ATE.”</p>
+<p><span class="math display">\[
+E[Y_i|W_i=1] - E[Y_i|W_i=0] = \tau_{ATT} = \tau_{\scriptsize{ATE}}
+\]</span></p>
+<p>“As the selection component is zero from unconfoundedness.”</p>
+<ul>
+<li><p>Yet, we have not discussed in detail the <strong>Conditional Expectation Function</strong>,</p>
+<p><span class="math display">\[
+E[Y_i|W_i]
+\]</span></p>
+<p>“which is integral to our understanding of linear regression.”</p></li>
+</ul>
+<p>“The <span class="math inline">\(E[Y_i|X_i]\)</span> is a <strong>random function</strong>”</p>
+<ul>
+<li>“<span class="math inline">\(X_i\)</span> is a random variable and <span class="math inline">\(E[Y_i|X_i]\)</span> is a function of <span class="math inline">\(X_i\)</span>”</li>
+</ul>
+<p>“If we fix <span class="math inline">\(X_i=x\)</span>, then”</p>
+<p><span class="math display">\[
+E[Y_i|X_i=x] = \int t \cdot f_y(t|X_i=x)dt = \int t dF_y(t|X_i=x)
+\]</span></p>
+<p>“is a <strong>constant</strong> (i.e., not random).”</p>
+<p>“Back to our discrete treatment example, <span class="math inline">\(E[Y_i|D_i]\)</span> is a random function, but”</p>
+<p><span class="math display">\[
+E[Y_i|D_i=1] = E[Y_i(1)|D_i=1] = \int t \cdot f_{y(1)}(t|D_i=1)dt
+\]</span></p>
+<p>“and”</p>
+<p><span class="math display">\[
+E[Y_i|D_i=0] = E[Y_i(0)|D_i=0] = \int t \cdot f_{y(0)}(t|D_i=0)dt
+\]</span></p>
+<p>“are both constants.”</p>
+</section>
+<section id="key-points-about-the-cef" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="key-points-about-the-cef"><span class="header-section-number">3.3</span> Key Points About the CEF</h2>
+<p>“Here’s what you need to know about the CEF:”</p>
+<ol type="1">
+<li>“We can express the <em>observed</em> outcome <span class="math inline">\(Y_i\)</span> as a sum of <span class="math inline">\(E[Y_i|X_i]+\varepsilon_i\)</span> where <span class="math inline">\(E[\varepsilon_i|X_i]=0\)</span> (i.e., mean independent).”</li>
+<li>“<span class="math inline">\(E[Y_i|X_i]\)</span> is the best predictor of <span class="math inline">\(Y_i\)</span>.”</li>
+<li>“ANOVA Theorem: The variance of <span class="math inline">\(Y_i\)</span> can be decomposed as <span class="math inline">\(V(E[Y_i|X_i])+E(V(Y_i|X_i))\)</span>”</li>
+</ol>
+<p>“A second set of theorems related the CEF to the linear population regression function, <span class="math inline">\(X_i'\beta = \beta_1X_{1i} + \beta_2X_{2i} + \ldots + \beta_kX_{ki}\)</span>:”</p>
+<ol type="1">
+<li>“If <span class="math inline">\(E[Y_i|X_i']\)</span> is linear (in parameters), then the population regression function provides it.”</li>
+<li>“The function <span class="math inline">\(X_i'\beta\)</span> is the best <strong>linear</strong> predictor of <span class="math inline">\(Y_i\)</span>.”</li>
+<li>“The function <span class="math inline">\(X_i'\beta\)</span> is the best MMSE <strong>linear</strong> approximation of <span class="math inline">\(E[Y_i|X_i]\)</span>.”</li>
+</ol>
+<p>“Does this mean that <span class="math inline">\(X_i'\beta\)</span> is the best predictor of <span class="math inline">\(Y_i\)</span>? <strong>NO</strong>, as the <span class="math inline">\(E[Y_i|X_i]\)</span> may not be linear.”</p>
+<p>“In the Classical Linear Regression Model (CLRM) framework we assume the model is correctly specified as <span class="math inline">\(Y_i = X_i'\beta + \varepsilon_i\)</span> and conditional mean independence <span class="math inline">\(E[\varepsilon_i|X_i'] = 0\)</span>. We have assumed that the CEF of <span class="math inline">\(Y_i\)</span> is linear in parameters, <span class="math inline">\(E[Y_i|X_i'] = X_i'\beta\)</span>.”</p>
+<p>“Does this mean that the CEF of <span class="math inline">\(Y^{obs}_i\)</span> always traces out a causal relationship? <strong>NO</strong>, causality depends on the CEFs of <span class="math inline">\(Y_i(0), Y_i(1)\)</span> <strong>and</strong> the assignment mechanism.”</p>
+</section>
+</section>
+<section id="the-cef-of-y0-approach" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> The CEF (of <span class="math inline">\(Y(0)\)</span>) Approach</h1>
+<section id="cef-approach" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="cef-approach"><span class="header-section-number">4.1</span> CEF Approach</h2>
+<p>The shortcut approach to the identification of causal effects with linear regression involves:</p>
+<ul>
+<li><p><strong>CEF of <span class="math inline">\(Y_i(0)\)</span></strong>: Assume <span class="math display">\[
+E[Y_i(0)|X_i'] = X_i'\gamma
+\]</span> This may include a constant term.</p></li>
+<li><p><strong>Additive treatment effects</strong>: <span class="math display">\[
+Y_i(1) = Y_i(0) + \tau_i
+\]</span></p></li>
+<li><p><strong>Heterogeneity independent of <span class="math inline">\(X\)</span>’s</strong>: <span class="math display">\[
+E[Y_i(1) - Y_i(0)|D_i,X_i'] = E[Y_i(1) - Y_i(0)|D_i]
+\]</span></p></li>
+</ul>
+<p>We do need to assume an additional assumption concerning assignment:</p>
+<ul>
+<li><p><strong>CIA/Unconfoundedness</strong>: <span class="math display">\[
+(Y(1),Y(0)) \perp D | X
+\]</span></p>
+<p><strong>or</strong> a weaker,</p></li>
+<li><p><strong>Unconfoundedness for controls</strong>: <span class="math display">\[
+Y(0) \perp D | X
+\]</span></p></li>
+</ul>
+<p>While we have defined <span class="math inline">\(E[Y_i(0)|X_i']\)</span>, the linear regression model will depend on:</p>
+<p><span class="math display">\[
+\begin{aligned}
+E[Y^{obs}_i|D_i,X_i'] &amp;= E[Y_i(0)+\tau_iD_i|D_i,X_i'] \\
+                      &amp;= E[Y_i(0)|D_i,X_i']+E[\tau_iD_i|D_i,X_i'] \\
+                      &amp;= E[Y_i(0)|X_i']+E[Y_i(1)-Y_i(0)|D_i]D_i \\
+                      &amp;= X_i'\gamma + E[Y_i(1)-Y_i(0)|D_i]D_i
+\end{aligned}
+\]</span></p>
+<p>From line 2 to 3, <span class="math display">\[
+E[Y_i(0)|D_i,X_i'] = E[Y_i(0)|X_i']
+\]</span> holds if either confoundedness assumptions hold.</p>
+<p>If we assume the stronger CIA-unconfoundedness, <span class="math display">\[
+E[Y_i(1)-Y_i(0)|D_i]D_i = E[Y_i(1)-Y_i(0)]D_i = \tau_{\scriptsize{ATE}}D_i
+\]</span> This gives us the CEF, <span class="math display">\[
+E[Y^{obs}_i|D_i,X_i'] = \tau_{\scriptsize{ATE}}D_i + X_i'\gamma
+\]</span></p>
+<p>If we assume the weaker unconfoundedness for covariates assumption, <span class="math display">\[
+E[Y_i(1)-Y_i(0)|D_i]D_i = \left(\tau_{ATU} + D_i(\tau_{ATT}-\tau_{ATU})\right)D_i = \tau_{ATT}D_i
+\]</span></p>
+<p>This gives us the CEF, <span class="math display">\[
+E[Y^{obs}_i|D_i,X_i'] = \tau_{ATT}D_i + X_i'\gamma
+\]</span></p>
+<p>By specifying the CEF of both <span class="math inline">\(Y_i(1)\)</span> and <span class="math inline">\(Y_i(0)\)</span>, we know that <span class="math display">\[
+Y^{obs}_i = \tau_{ATT}D_i + X_i'\gamma + \varepsilon_i
+\]</span> where, <span class="math display">\[
+E[\varepsilon_i|D_i,X_i'] = 0
+\]</span></p>
+<p>By specifying the CEF of both <span class="math inline">\(Y_i(1)\)</span> and <span class="math inline">\(Y_i(0)\)</span>, we understand that:</p>
+<ul>
+<li>There is no question whether the linear regression model gives us the ATE/ATT.</li>
+<li>This is a fairly strong assumption and not in the spirit of the RCT approach.</li>
+<li>When examining RCTs, we were agnostic about the CEF.</li>
+</ul>
+</section>
+<section id="cef-approach-1" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="cef-approach-1"><span class="header-section-number">4.2</span> CEF Approach</h2>
+<p>One crucial omission from this approach is that we do not need to assume overlap (or common support).</p>
+<div data-custom-style="alertblock">
+<p><strong>Overlap</strong>: <span class="math display">\[
+0 &lt; e(X_i) &lt; 1
+\]</span> where, <span class="math inline">\(e(X_i) = Pr(W_i=1|X_i')\)</span></p>
 </div>
+<div data-custom-style="exampleblock">
+<p><strong>Interpretation</strong>: The correctly specified CEF allows us to perfectly predict the unobserved counterfactual of treated individuals based on their <span class="math inline">\(X_i\)</span>. With unconfoundedness (for covariates), we can estimate this counterfactual using the control group.</p>
 </div>
+</section>
+</section>
+<section id="the-cia-approach" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> The CIA Approach</h1>
+<section id="conditional-independence-assumption" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="conditional-independence-assumption"><span class="header-section-number">5.1</span> Conditional Independence Assumption</h2>
+<p>As with completely random experiments, we can achieve identification of TE’s via unconfoundedness.</p>
+<div data-custom-style="block">
+<p><strong>Conditional Independence Assumption (CIA)</strong>: <span class="math display">\[
+(Y_i(1), Y_i(0)) \perp D_i | X_i'
+\]</span> “When treatment and outcome variables can be considered to be independent of one another after conditioning on control variables” (Wooldridge, 2010, p.799)<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
+</div>
+<p>The CIA implies: <span class="math display">\[
+\begin{aligned}
+E[Y_i|D_i=1,X_i'] - E[Y_i|D_i=0,X_i'] &amp;= E[Y_i(1)|D_i=1,X_i'] - E[Y_i(0)|D_i=0,X_i'] \\
+&amp;= E[Y_i(1)|X_i'] - E[Y_i(0)|X_i'] \\
+&amp;= E[Y_i(1) - Y_i(0)|X_i']
+\end{aligned}
+\]</span></p>
+<p>CIA rules out selection, conditional on observables:</p>
+<div data-custom-style="alertblock">
+<p><strong>Selection on observables</strong>: Under CIA, <span class="math display">\[
+E[Y_i(0)|D_i=1,X_i'] - E[Y_i(0)|D_i=0,X_i'] = 0
+\]</span></p>
+</div>
+<p>This rules out selection on unobservables.</p>
+<p>Two remaining questions: 1. How should we compute these covariate-matched treatment effects? 2. What are the relevant covariates?</p>
+</section>
+<section id="common-support" class="level2" data-number="5.2">
+<h2 data-number="5.2" class="anchored" data-anchor-id="common-support"><span class="header-section-number">5.2</span> Common Support</h2>
+<p>Crucially, we now need to assume common support (or overlap):</p>
+<div data-custom-style="alertblock">
+<p><strong>Overlap</strong>: <span class="math display">\[
+0 &lt; e(X_i) &lt; 1
+\]</span> where, <span class="math inline">\(e(X_i) = Pr(W_i=1|X_i')\)</span></p>
+</div>
+</section>
+<section id="conditional-ate" class="level2" data-number="5.3">
+<h2 data-number="5.3" class="anchored" data-anchor-id="conditional-ate"><span class="header-section-number">5.3</span> Conditional ATE</h2>
+<p>Suppose we had a single covariate that took on <span class="math inline">\(m\)</span> <strong>finite</strong> values:</p>
+<p><span class="math display">\[
+X_i \in \{x_1, x_2, \ldots, x_m\}
+\]</span></p>
+<p><strong>Under CIA,</strong></p>
+<p><span class="math display">\[
+E[Y_i|D_i=1, X_i=x_k] - E[Y_i|D_i=0, X_i=x_k] = \tau_{\scriptsize{ATE}}(x_k)
+\]</span></p>
+</section>
+<section id="ate-as-a-weighted-average" class="level2" data-number="5.4">
+<h2 data-number="5.4" class="anchored" data-anchor-id="ate-as-a-weighted-average"><span class="header-section-number">5.4</span> ATE as a Weighted Average<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></h2>
+<p><strong>Under CIA</strong>, we can define the superpopulation ATE as:</p>
+<p><span class="math display">\[
+\tau_{\scriptsize{ATE}} = \sum_{k=1}^{m} \left(E[Y_i|D_i=1, X_i=x_k] - E[Y_i|D_i=0, X_i=x_k]\right)Pr(X_i=x_k)
+\]</span></p>
+<p>Likewise, we can define the ATT as:</p>
+<p><span class="math display">\[
+\tau_{ATT} = \sum_{k=1}^{m} \left(E[Y_i|D_i=1, X_i=x_k] - E[Y_i|D_i=0, X_i=x_k]\right)Pr(X_i=x_k|D_i=1)
+\]</span></p>
+</section>
+</section>
+<section id="regression-as-matching" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> Regression as Matching</h1>
+<p><strong>Regression as Matching</strong><a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a></p>
+<p>We could then consider estimating these treatment effects using the linear regression model<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a>:</p>
+<p><span class="math display">\[
+Y_i = \beta D_i + \sum_{k=1}^{m} \gamma_k \mathbf{1}\{X_i=x_k\} + \upsilon_i
+\]</span></p>
+<p>It can be shown that:</p>
+<p><span class="math display">\[
+\beta = \sum_{k=1}^{m} \left(E[Y_i|D_i=1, X_i=x_k] - E[Y_i|D_i=0, X_i=x_k]\right)w_k
+\]</span></p>
+<p>where:</p>
+<p><span class="math display">\[
+w_k = \frac{Var(D_i|X_i=x_k)Pr(X_i=x_k)}{\sum_{j=1}^{m} Var(D_i|X_i=x_j)Pr(X_i=x_j)}
+\]</span></p>
+<p>The linear regression model coefficient is a <strong>variance-weighted</strong> average of the conditional mean differences. The weights depend on the variance of <span class="math inline">\(D_i\)</span> conditional on <span class="math inline">\(X_i\)</span> and more weight will be applied to cases where the treatment allocation is equal (50-50).</p>
+<p>Thus,</p>
+<p><span class="math display">\[
+\beta \neq \tau_{\scriptsize{ATE}}
+\]</span></p>
+<p>unless <span class="math inline">\(\tau_{\scriptsize{ATE}}(x_k) = \tau_{\scriptsize{ATE}} \quad \forall \; k=1, \ldots, m\)</span>; since the weights sum to 1. This is NOT the same as homogeneous treatment effects.</p>
+</section>
+<section id="conditional-ate-1" class="level1" data-number="7">
+<h1 data-number="7"><span class="header-section-number">7</span> Conditional ATE</h1>
+<p>Suppose we have a single covariate that takes on <span class="math inline">\(m\)</span> <strong>finite</strong> values:</p>
+<p><span class="math display">\[
+X_i \in \{x_1, x_2, \ldots, x_m\}
+\]</span></p>
+<p><strong>Under CIA</strong>:</p>
+<p><span class="math display">\[
+E[Y_i | D_i = 1, X_i = x_k] - E[Y_i | D_i = 0, X_i = x_k] = \tau_{\scriptsize{ATE}}(x_k)
+\]</span></p>
+</section>
+<section id="ate-as-a-weighted-average-1" class="level1" data-number="8">
+<h1 data-number="8"><span class="header-section-number">8</span> ATE as a Weighted Average<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a></h1>
+<p><strong>Under CIA</strong>, we can define the super population ATE as:</p>
+<p><span class="math display">\[
+\tau_{\scriptsize{ATE}} = \sum_{k=1}^{m} \left( E[Y_i | D_i = 1, X_i = x_k] - E[Y_i | D_i = 0, X_i = x_k] \right) Pr(X_i = x_k)
+\]</span></p>
+<p>Likewise, we can define the ATT as:</p>
+<p><span class="math display">\[
+\tau_{ATT} = \sum_{k=1}^{m} \left( E[Y_i | D_i = 1, X_i = x_k] - E[Y_i | D_i = 0, X_i = x_k] \right) Pr(X_i = x_k | D_i = 1)
+\]</span></p>
+</section>
+<section id="regression-as-matching-1" class="level1" data-number="9">
+<h1 data-number="9"><span class="header-section-number">9</span> Regression as Matching</h1>
+<p><strong>Regression as Matching</strong><a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a></p>
+<p>We could then consider estimating these treatment effects using the linear regression model<a href="#fn7" class="footnote-ref" id="fnref7" role="doc-noteref"><sup>7</sup></a>:</p>
+<p><span class="math display">\[
+Y_i = \beta D_i + \sum_{k=1}^{m} \gamma_k \mathbf{1} \{X_i = x_k\} + \upsilon_i
+\]</span></p>
+<p>It can be shown that:</p>
+<p><span class="math display">\[
+\beta = \sum_{k=1}^{m} \left( E[Y_i | D_i = 1, X_i = x_k] - E[Y_i | D_i = 0, X_i = x_k] \right) w_k
+\]</span></p>
+<p>where:</p>
+<p><span class="math display">\[
+w_k = \frac{Var(D_i | X_i = x_k) Pr(X_i = x_k)}{\sum_{j=1}^{m} Var(D_i | X_i = x_j) Pr(X_i = x_j)}
+\]</span></p>
+<p>The linear regression model coefficient is a <strong>variance-weighted</strong> average of the conditional mean differences. The weights:</p>
+<ul>
+<li>Depend on the variance of <span class="math inline">\(D_i\)</span> conditional on <span class="math inline">\(X_i\)</span>.</li>
+<li>More weight will be applied to cases where the treatment allocation is equal (50-50).</li>
+</ul>
+<p>Thus:</p>
+<p><span class="math display">\[
+\beta \neq \tau_{\scriptsize{ATE}}
+\]</span></p>
+<p><strong>Unless</strong> <span class="math inline">\(\tau_{\scriptsize{ATE}}(x_k) = \tau_{\scriptsize{ATE}} \quad \forall \; k = 1, \ldots, m\)</span>; since the weights sum to 1. This is <strong>NOT</strong> the same as homogeneous treatment effects.</p>
+</section>
+<section id="next-up" class="level1" data-number="10">
+<h1 data-number="10"><span class="header-section-number">10</span> Next-up</h1>
+<ol type="1">
+<li>Propensity score matching</li>
+<li>Picking covariates</li>
+<li>Selection on <strong>un</strong>observables</li>
+</ol>
+<p>Other topics:</p>
+<ul>
+<li>Continuous treatment</li>
+</ul>
+<p>Appendices with proofs and additional theorems can follow similar markdown structuring for their inclusion.</p>
 
 
-<div id="refs" class="references csl-bib-body hanging-indent" role="list">
-<div id="ref-knuth84" class="csl-entry" role="listitem">
-Knuth, Donald E. 1984. <span>“Literate Programming.”</span> <em>Comput. J.</em> 27 (2): 97–111. <a href="https://doi.org/10.1093/comjnl/27.2.97">https://doi.org/10.1093/comjnl/27.2.97</a>.
-</div>
-</div>
+</section>
+<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn1"><p>CIA is the name used by Angrist and Pischke in MM and MHE when referring to unconfoundedness.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>Here I borrow from Abadie and Cattaneo (2018), which is on Moodle.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>This result is also demonstrated in MHE.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p>This is often referred to as a <em>fully saturated</em> regression.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn5"><p>Here I borrow from Abadie and Cattaneo (2018), which is on Moodle<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn6"><p>This result is also demonstrated in MHE<a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn7"><p>This is often referred to as a <em>fully saturated</em> regression.<a href="#fnref7" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
