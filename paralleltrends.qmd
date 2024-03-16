@@ -607,7 +607,7 @@ This paper[^paralleltrends-9],
 
 This paper highlights the fact that you can make strong conclusions from what is effectively a very simple research design.
 
-Include graph for {Card & Krueger (1994)}
+![](docs/images/diff-card-krueger-1994-tab1.png)
 
 NOTE: We could generate the same graph you copied from CK paper by using R and it looks more neat. Please find both and choose which one you like the most:\
 
