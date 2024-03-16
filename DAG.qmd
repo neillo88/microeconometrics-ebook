@@ -11,7 +11,11 @@ library(ggplot2)
 library(dagitty)
 ```
 
-A DAG is a useful way of thinking about causal relationships. The concept of directed acyclic graphs, which we will refer to from now on as DAGs, began in the mid 20th century with the development of computer science. As with most of science DAGs came to solve the problem of graphing dependencies among variables. Here I present an example to demonstrate what I am talking about:
+# Introduction to DAGs
+
+A DAG is a useful way of thinking about causal relationships. The concept of directed acyclic graphs, which we will refer to from now on as DAGs, began in the mid 20th century with the development of computer science. As with most of science DAGs came to solve the problem of graphing dependencies among variables. It is important to emphasize for the curious reader the author who has brought DAGs to be part of the causality literature and that man is [Judea Pearl](https://en.wikipedia.org/wiki/Judea_Pearl).
+
+Here I present an example to demonstrate what I am talking about:
 
 ```{r}
 #| label: fig-dag
@@ -31,6 +35,10 @@ ggdag(dag0) +
   theme_dag() +
   ggtitle("Effect of X on Y")
 ```
+
+# Notation
+
+Unlike a normal graph DAGs go in one direction. What I mean is that we do not get cycles or feedback loops between the different nodes. This is a DAG:
 
 Because DAGs are used in Graph Theory we will use the same notation and names that they use. Each "variable" is a node in the graph and each "arrow" represents the direction of the causal relationship.In the example above we see an arrow going from x to y a this represents a one-way causal relationship. We can think of the graph above as x being the interest rate and y being the cost of borrowing money.
 
@@ -53,7 +61,7 @@ ggdag(dag_non_causal) +
   ggtitle("Non-causal relationship between X and Y")
 ```
 
-Here we can see a two way relationship which happens when x affects y and y affects x. The "arrows" connecting the two nodes (variables) are usually referred to as edges. When the edges are going in both directions we usually called them bi-directed edges. However, DAGs only go in one direction therefore, this is not a DAG anymore.
+Here we can see a two way relationship which happens when x affects y and y affects x. The "arrows" connecting the two nodes (variables) are usually referred to as edges. When the edges are going in both directions we usually called them bi-directed edges. However, it is important to emphasize that this is not a DAG anymore but it represents a feedback loop.
 
 To drive this concept home we will look at a DAG and its corresponding OLS regression equation. Please note that I am implicitly assuming that I have identified the correct relationship between the variables which is highly unlikely.
 
@@ -84,7 +92,7 @@ You might be asking yourself what is the point of all of this? Why are we compli
 
 # Why are DAGs important for Microeconometrics?
 
-## Causality 
+## Causality
 
 DAGs are useful when it comes to drawing causal relationships between variables. If X causes Y but Y does not cause X then we can represent this by the following graph:
 
@@ -162,7 +170,7 @@ $$
 X \rightarrow M \rightarrow Y
 $$
 
-# Visualising Instrumental Variables 
+# Visualising Instrumental Variables
 
 Instrumental variables (IV) like the name suggest are variables which are used as instruments to control for confounding and measurement error in observational studies. [John Snow](https://en.wikipedia.org/wiki/John_Snow), one of the fathers of modern epidemiology is widely recognised from his work during the cholera outbreak in the mid-19th century. You might ask yourself, what does epidemiology and cholera have to do with IVs? well... bare with me for a second.
 
@@ -188,3 +196,5 @@ ggdag(IV)+theme_dag_blank()
 
 # Code borrowed from https://donskerclass.github.io/EconometricsII/ControlandIV.html
 ```
+
+It is important to notice that the instrument $Z$ (proximity to the pump) for cholera infection $C$ satisfies both the relevance assumption and the exogeneity assumption which makes this a valid IV.
