@@ -32,6 +32,8 @@ book:
   appendices:
     - references.qmd
     - superPopVar.qmd
+    - DAG.qmd
+
 
 bibliography: references.bib
 
