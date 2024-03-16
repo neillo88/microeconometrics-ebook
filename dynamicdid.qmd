@@ -1,0 +1,5 @@
+---
+title: "Dynamic Difference-in-Differences"
+---
+
+Dynamic DID
