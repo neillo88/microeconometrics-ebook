@@ -1,502 +1,462 @@
-# Difference-in-Differences - Static
+1.  Difference-in-Differences - Static
 
-Recall Lecture 1.2 *Causal Inference*,
+    Recall Lecture 1.2 *Causal Inference*,
 
-## (Imbens and Rubin, 2015, p. 6)
+    ## (Imbens and Rubin, 2015, p. 6)
 
-1.  "First, the definition of the causal effect depends on the potential outcomes, but it does not depend on which outcome is actually observed."
-2.  "Second, the causal effect is the comparison of potential outcomes, for the same unit, at the same moment in time post-treatment. In particular, **the causal effect is not defined in terms of comparisons of outcomes at different times.**[^paralleltrends-1]"
+    1.  "First, the definition of the causal effect depends on the potential outcomes, but it does not depend on which outcome is actually observed."
+    2.  "Second, the causal effect is the comparison of potential outcomes, for the same unit, at the same moment in time post-treatment. In particular, **the causal effect is not defined in terms of comparisons of outcomes at different times.**[^paralleltrends-1]"
 
-[^paralleltrends-1]: Emphasis added.
+    ## Set-up: 2-group-2-period
 
-## Set-up: 2-group-2-period
+    The simple 2-group-2-period difference-in-differences set-up has the following characteristics,
 
-The simple 2-group-2-period difference-in-differences set-up has the following characteristics,
+    -   Two periods of data: either panel (longitudinal) or repeated cross-section
+    -   A control group that is never-treated[^paralleltrends-2]
+    -   Treatment is absorbing: 'always-on'[^paralleltrends-3]
+    -   Typically, the treatment takes place in the second period.
 
--   Two periods of data: either panel (longitudinal) or repeated cross-section
--   A control group that is never-treated[^paralleltrends-2]
--   Treatment is absorbing: 'always-on'[^paralleltrends-3]
--   Typically, the treatment takes place in the second period.
-
-[^paralleltrends-2]: If you use an always-treated control group you would need to assume static treatment effects.
-
-[^paralleltrends-3]: More relevant for multiple periods.
-
-Assuming additive treatment effects,
-
-$$
-Y_{it} = \begin{cases}
-Y_{it}(0) & \text{if } t < t_0 \\
-Y_{it}(0) + D_i\cdot(Y_{it}(1)-Y_{it}(0)) & \text{if } t \geq t_0
-\end{cases}
-$$
-
-$$
-= Y_{it}(0) + T_t\cdot D_i\cdot(Y_{it}(1)-Y_{it}(0))
-$$
-
-where, - ( $T_t$ ): dummy variable ( $=1$ ) after period of treatment (( $t_0$ ) onwards). - ( $D_i$ ): dummy variable ( $=1$ ) if unit ( $i$ ) is in the treated group, 0 otherwise.
-
-::: {.callout-note icon="false"}
-## Note: ( $(Y_{it}(1),Y_{it}(0))$) depend on time; so,
-
-$$
-Y_{it}(1)-Y_{it}(0) \lesseqqgtr Y_{it'}(1)-Y_{it'}(0)
-$$
-:::
-
-## Exclusion Restrictions
-
-The above set-up implies the following exclusion restrictions,[^paralleltrends-4]
-
-[^paralleltrends-4]: Particularly important in observational studies with group and/or irregular assignment.
-
-::: {.callout-note icon="false"}
-## Exclusion restriction: No pre-emptive behaviour
-
-$$
-Y_{it}=Y_{it}(0) \quad \forall\; (i,t)\;\text{s.t. }\;t< t_0
-$$
-:::
-
-and,
-
-::: {.callout-note icon="false"}
-## Exclusion restriction: No spillovers
-
-$$
-Y_{it}=Y_{it}(0) \quad \forall \;(i,t) \;\text{s.t.}\;D_i=0
-$$
-:::
-
-and,
-
-::: {.callout-note icon="false"}
-## Exclusion restriction: No switching
-
-**Treatment group** status, $D_i$, does not depend on time. Only treatment status, $D_i \cdot T_t$, varies with time.
-:::
-
-## Dynamic Confounding Factors
-
-Let us consider the first (dynamic) difference with just **two periods of data**,
-
-$$
-\begin{aligned}
-&E[Y_{it}|D_i=1,T_t=1]-E[Y_{it}|D_i=1,T_t=0] \\
-=&E[Y_{it}(1)|D_i=1,T_t=1]-E[Y_{it}(0)|D_i=1,T_t=0] \\
-=&\underbrace{E[Y_{it}(1)|D_i=1,T_t=1]-E[Y_{it}(0)|D_i=1,T_t=1]}_{\text{ATT in period } t_0} \\
-&\underbrace{+E[Y_{it}(0)|D_i=1,T_t=1]-E[Y_{it}(0)|D_i=1,T_t=0]}_{\text{(dynamic) confounding factors}}
-\end{aligned}
-$$
-
-Once again, we don't observe the counterfactual for the treated group. **As such**, the CEF does not trace out a causal relationship.
-
-Notice, however, that for the untreated group,
-
-$$
-\begin{aligned}
-&E[Y_{it}|D_i=0,T_t=1]-E[Y_{it}|D_i=0,T_t=0] \\
-=&E[Y_{it}(0)|D_i=0,T_t=1]-E[Y_{it}(0)|D_i=0,T_t=0]
-\end{aligned}
-$$
-
-which looks very similar to,
-
-$$
-\color{red}{E[Y_{it}(0)|D_i=1,T_t=1]}
-$$ $$
--E[Y_{it}(0)|D_i=1,T_t=0]
-$$ (Note to myself: Find a way to change this)
-
-from the treated group.
-
-::: {.callout-note icon="false"}
-## Parallel Trends Assumption (General version)
-
-$$
-\begin{aligned}
-&E[Y_{it}(0)|D_i=0,T_t=1]-E[Y_{it}(0)|D_i=0,T_t=0] \\
-=&E[Y_{it}(0)|D_i=1,T_t=1]-E[Y_{it}(0)|D_i=1,T_t=0]
-\end{aligned}
-$$
-:::
-
-With this assumption and the above exclusion restrictions, we have identification of the Average Treatment Effect **of the Treated**.
-
-With this assumption we can identify the ATT,
-
-$$
-\begin{aligned}
-&\big[E[Y_{it}|D_i=1,T_t=1]-E[Y_{it}|D_i=1,T_t=0]\big]\\
-&-\big[\textcolor{blue}{E[Y_{it}|D_i=0,T_t=1]-E[Y_{it}|D_i=0,T_t=0]}\big] \\
-=&\big[E[Y_{it}(1)|D_i=1,T_t=1]-E[Y_{it}(0)|D_i=1,T_t=0]\big] \\
-&-\big[\textcolor{blue}{E[Y_{it}(0)|D_i=0,T_t=1]-E[Y_{it}(0)|D_i=0,T_t=0]}\big] \\
-=&\big[E[Y_{it}(1)|D_i=1,T_t=1]\textcolor{red}{-E[Y_{it}(0)|D_i=1,T_t=1]}\big] \\
-&+\big[\textcolor{red}{E[Y_{it}(0)|D_i=1,T_t=1]}-E[Y_{it}(0)|D_i=1,T_t=0]\big] \\
-&-\big[\textcolor{blue}{E[Y_{it}(0)|D_i=0,T_t=1]-E[Y_{it}(0)|D_i=0,T_t=0]}\big] \\
-=&\underbrace{\big[E[Y_{it}(1)|D_i=1,T_t=1]\textcolor{red}{-E[Y_{it}(0)|D_i=1,T_t=1]}\big]}_{\text{ATT in period } t_0}
-\end{aligned}
-$$
-
-where the two penultimate lines cancel one another under parallel trends. Hence, the name **difference-in-differences**.
-
-## Mapping to Linear Model
-
-Let's consider the CEF of ( $Y_{it}^{obs}$ ),
-
-$$
-E[Y_{it}|D_i,T_t]
-$$
-
-where, ( $Y_{it} = Y_{it}(0) + T_t \cdot D_i(Y_{it}(1) - Y_{it}(0))$ ).[^paralleltrends-5]
-
-[^paralleltrends-5]: Remember, this equation implies our exclusion restrictions.
-
-$$
-\begin{aligned}
-E[Y_{it}|D_i,T_t] &= E[Y_{it}(0)|D_i,T_t] + T_t \cdot D_i E[(Y_{it}(1) - Y_{it}(0))|D_i,T_t] \\
-&= E[Y_{it}(0)|D_i,T_t=0] \\
-&\quad + T_t \cdot \left( E[Y_{it}(0)|D_i,T_t=1] - E[Y_{it}(0)|D_i,T_t=0] \right) \\
-&\quad + T_t \cdot D_i \cdot E[(Y_{it}(1) - Y_{it}(0))|D_i,T_t]
-\end{aligned}
-$$
-
-**Under parallel trends**,
-
-$$
-\begin{aligned}
-&E[Y_{it}(0)|D_i,T_t=1]-E[Y_{it}(0)|D_i,T_t=0] \\
-&= \textcolor{blue}{E[Y_{it}(0)|T_t=1]-E[Y_{it}(0)|T_t=0]} \\
-&= \textcolor{blue}{\delta}
-\end{aligned}
-$$
-
-a constant! So, we have
-
-$$
-\begin{aligned}
-E[Y_{it}|D_i,T_t] &= E[Y_{it}(0)|D_i,T_t=0] \\
-&+ T_t \cdot \left( \textcolor{blue}{\underbrace{E[Y_{it}(0)|T_t=1]-E[Y_{it}(0)|T_t=0]}_{\delta}} \right) \\
-&+ T_t \cdot D_i \cdot E[(Y_{it}(1)-Y_{it}(0))|D_i,T_t]
-\end{aligned}
-$$
-
-We can then expand ($E[Y_{it}(0)|D_i, T_t=0]$)
-
-$$
-\begin{aligned}
-E[Y_{it}(0)|D_i,T_t=0] &= E[Y_{it}(0)|D_i=0,T_t=0] \\
-&+ D_i \cdot \left( \textcolor{red}{E[Y_{it}(0)|D_i=1,T_t=0] - E[Y_{it}(0)|D_i=0,T_t=0]} \right) \\
-&= \alpha + \psi D_i
-\end{aligned}
-$$
-
-where $\{ \alpha, \psi \}$ are two more constants. So, we have
-
-$$
-\begin{aligned}
-E[Y_{it}|D_i,T_t] &= \underbrace{E[Y_{it}(0)|D_i=0,T_t=0]}_{\alpha} \\
-&+ D_i \cdot \left( \textcolor{red}{\underbrace{E[Y_{it}(0)|D_i=1,T_t=0] - E[Y_{it}(0)|D_i=0,T_t=0]}_{\psi}} \right) \\
-&+ T_t \cdot \textcolor{blue}{\delta} + T_t \cdot D_i \cdot E[(Y_{it}(1)-Y_{it}(0))|D_i,T_t]
-\end{aligned}
-$$
-
-Finally, we can show,
-
-$$
-\begin{aligned}
-&T_t \cdot D_i \cdot E[(Y_{it}(1) - Y_{it}(0))|D_i,T_t] \\
-&= T_t \cdot D_i \cdot \textcolor{purple}{E[(Y_{it}(1) - Y_{it}(0))|D_i=1,T_t=1]} \\
-&= T_t \cdot D_i \cdot \tau_{ATT}(t_0) 
-\end{aligned}
-$$
-
-If we want, we can assume the ATT is static: $\tau_{ATT}(t_0) = \tau_{ATT} \quad \forall t$.
-
-$$
-\begin{aligned}
-E[Y_{it}|D_i,T_t] &= \alpha + \textcolor{red}{\psi}D_i + \textcolor{blue}{\delta}T_t \\
-&+ T_t \cdot D_i \cdot \textcolor{purple}{\underbrace{E[(Y_{it}(1) - Y_{it}(0))|D_i=1,T_t=1}_{\tau_{ATT}(t_0)}} \\
-&= \alpha + \textcolor{red}{\psi}D_i + \textcolor{blue}{\delta}T_t + \textcolor{purple}{\tau_{ATT}(t_0)} T_t \cdot D_i
-\end{aligned}
-$$
-
-::: {.callout-note icon="false"}
-## Parallel Trends Assumption (Parametric version)
-
-$$
-E[Y_{it}(0)|D_i,T_t] = \alpha + \psi D_i + \delta T_t
-$$
-:::
-
--   Note: assumption concerning the CEF.
--   Note: includes treatment group status.
-
-Thus,
-
-$$
-\underbrace{E[Y_{it}(0)|D_i=0,T_t=1]}_{\alpha + \delta} - \underbrace{E[Y_{it}(0)|D_i=0,T_t=0]}_{\alpha} = \delta
-$$
-
-and,
-
-$$
-\underbrace{\textcolor{red}{E[Y_{it}(0)|D_i=1,T_t=1]}}_{\alpha + \psi + \delta} - \underbrace{E[Y_{it}(0)|D_i=1,T_t=0]}_{\alpha + \psi} = \delta
-$$
-
-## Graphical Example
-
-```{r}
-#| echo: false
-#| message: false
-#| warning: false
-#| label: fig-graph1
-#| fig-cap: "Difference-in-Differences Plot 1"
-
-library(latex2exp)
-library(ggplot2)
-library(dplyr)
-
-data <- data.frame(
-  D = c(0, 0, 1, 1),
-  T = c(0, 1, 0, 1),
-  Y = c(0.54, 0.57, 0.6, 0.59),
-  count = c(0.54, 0.57, 0.6, 0.63)
-)
-
-data <- data %>%
-  mutate(label = case_when(
-    D == 0 & T == 0 ~ "alpha",
-    D == 0 & T == 1 ~ "alpha + delta",
-    TRUE ~ ""  
-  ))
-
-p <- ggplot(data %>% filter(D == 0), aes(x = T, y = Y)) +
-  geom_line(color = "blue") +
-  geom_point(color = "blue", size = 3) +
-  geom_text(aes(label = label), parse = TRUE, nudge_y = 0.02, hjust = 0, color = "blue") +
-  labs(x = "T", y = TeX("E[Y|D,T]"), title = "DiD 1") +
-  theme_minimal() +
-  theme(
-    legend.position = "none",
-    panel.grid.major = element_blank(),
-    panel.grid.minor = element_blank(),
-    panel.background = element_blank(),
-    panel.border = element_rect(colour = "black", fill=NA, linewidth=1) 
-  ) +
-  scale_x_continuous(limits = c(-0.5, 1.5), breaks = 0:1, labels = c("0", "1")) +
-  scale_y_continuous(limits = c(0.4, 0.7), breaks = seq(0.4, 0.7, by = 0.1))
-
-print(p)
-```
-
-```{r}
-#| echo: false
-#| message: false
-#| warning: false
-#| label: fig-graph2
-#| fig-cap: "Difference-in-Differences Plot 2"
-
-
-data1 <- data %>%
-  mutate(label = case_when(
-    D == 0 & T == 0 ~ "alpha",
-    D == 1 & T == 0 ~ "alpha + psi",
-    D == 0 & T == 1 ~ "alpha + delta",
-    D == 1 & T == 1 ~ "alpha + psi + delta",
-    TRUE ~ ""  
-  ))
-
-p1 <- ggplot(data1, aes(x = T, y = Y)) +
-  geom_line(data = data[data$D == 0,], color = "blue") + 
-  geom_point(aes(color = factor(D), shape = factor(D)), size = 3) +
-  geom_text(aes(label = label), parse = TRUE, nudge_y = 0.02, hjust = 0, check_overlap = TRUE) +
-  scale_color_manual(values = c("blue", "black"), labels = c("Control", "Treated")) +
-  scale_shape_manual(values = c(16, 17), labels = c("Control", "Treated")) +
-  labs(x = "T", y = "E[Y|D,T]") +
-  theme_minimal() +
-  theme(
-    legend.position = "bottom",
-    legend.title = element_blank(),
-    axis.text.x = element_text(color = "black"),
-    axis.text.y = element_text(color = "black"),
-    axis.ticks = element_line(color = "black"),
-    axis.line = element_line(color = "black"),
-    panel.background = element_rect(fill = "white", colour = "black"),
-    panel.grid.major = element_blank(), 
-    panel.grid.minor = element_blank(), 
-    plot.title = element_blank()
-  ) +
-  scale_x_continuous(limits = c(-0.5, 1.5), breaks = 0:1, labels = c("0", "1")) +
-  scale_y_continuous(limits = c(0.4, 0.7), breaks = seq(0.4, 0.7, by = 0.1)) +
-  annotate("segment", x = 0, xend = 0, y = 0.54, yend = 0.6, colour = "black", 
-           arrow = arrow(type = "closed", length = unit(0.2,"inches"))) +
-  annotate("text", x = 0.05, y = 0.57, label = "psi", parse = TRUE) +
-  guides(color = guide_legend(override.aes = list(shape = c(16, 17)))) 
-
-
-print(p1)
-```
-
-## DiD and CIA
-
-Do we need the CIA/Unconfoundedness assumption?\
-**NO**, Why not?
-
--   We do not identify the ATT as the coefficient on ( $D_i$ ).
-
--   With two sources of variation, both time and treatment group, we can identify the selection term in the pre-period,
+    Assuming additive treatment effects,
 
     $$
-    E[Y_i(0)|D_i=1,T_i=0] - E[Y_i(0)|D_i=0,T_i=0] = \psi
+    Y_{it} = \begin{cases}
+    Y_{it}(0) & \text{if } t < t_0 \\
+    Y_{it}(0) + D_i\cdot(Y_{it}(1)-Y_{it}(0)) & \text{if } t \geq t_0
+    \end{cases}
     $$
 
--   Key assumption: selection doesn't change over time; i.e., *parallel/common trends*.
+    $$
+    = Y_{it}(0) + T_t\cdot D_i\cdot(Y_{it}(1)-Y_{it}(0))
+    $$
 
-## Selection
+    where, - ( $T_t$ ): dummy variable ( $=1$ ) after period of treatment (( $t_0$ ) onwards). - ( $D_i$ ): dummy variable ( $=1$ ) if unit ( $i$ ) is in the treated group, 0 otherwise.
 
-Let us consider the first (cross-sectional) difference,
+    ::: {.callout-note icon="false"}
+    ## Note: ( $(Y_{it}(1),Y_{it}(0))$) depend on time; so,
 
-$$
-\begin{aligned}
-&E[Y_{it}|D_i=1,T_t=1] - E[Y_{it}|D_i=0,T_t=1] \\
-&= E[Y_{it}(1)|D_i=1,T_t=1] - E[Y_{it}(0)|D_i=0,T_t=1] \\
-&= \underbrace{E[Y_{it}(1)|D_i=1,T_t=1] \textcolor{red}{- E[Y_{it}(0)|D_i=1,T_t=1]}}_{\text{ATT in period } t_0} \\
-&\quad \underbrace{\textcolor{red}{+ E[Y_{it}(0)|D_i=1,T_t=1]} - E[Y_{it}(0)|D_i=0,T_t=1]}_{\text{selection between groups}}
-\end{aligned}
-$$
+    $$
+    Y_{it}(1)-Y_{it}(0) \lesseqqgtr Y_{it'}(1)-Y_{it'}(0)
+    $$
+    :::
 
-which is very similar to,
+    ## Exclusion Restrictions
 
-$$
-E[Y_{it}(0)|D_i=1,T_t=0] - E[Y_{it}(0)|D_i=0,T_t=0]
-$$
+    The above set-up implies the following exclusion restrictions,[^paralleltrends-4]
 
-from the first period.
+    ::: {.callout-note icon="false"}
+    ## Exclusion restriction: No pre-emptive behaviour
 
-With the parallel trends assumption,
+    $$
+    Y_{it}=Y_{it}(0) \quad \forall\; (i,t)\;\text{s.t. }\;t< t_0
+    $$
+    :::
 
-Selection is given by
+    and,
 
-$$
-\underbrace{\textcolor{red}{E[Y_{it}(0)|D_i=1,T_t=1]}}_{\alpha + \psi + \delta} - \underbrace{E[Y_{it}(0)|D_i=0,T_t=1]}_{\alpha + \delta} = \psi
-$$
+    ::: {.callout-note icon="false"}
+    ## Exclusion restriction: No spillovers
 
-and
+    $$
+    Y_{it}=Y_{it}(0) \quad \forall \;(i,t) \;\text{s.t.}\;D_i=0
+    $$
+    :::
 
-$$
-\underbrace{E[Y_{it}(0)|D_i=1,T_t=0]}_{\alpha + \psi} - \underbrace{E[Y_{it}(0)|D_i=0,T_t=0]}_{\alpha} = \psi
-$$
+    and,
 
--   Permits level differences between treatment and control.
--   Selection term is identified in pre-period.[^paralleltrends-6]
+    ::: {.callout-note icon="false"}
+    ## Exclusion restriction: No switching
 
-[^paralleltrends-6]: Emphasizes importance of 'no pre-emptive behaviour' assumption.
+    **Treatment group** status, $D_i$, does not depend on time. Only treatment status, $D_i \cdot T_t$, varies with time.
+    :::
 
-## Difference-in-differences
+    ## Dynamic Confounding Factors
 
-Again we can identify the ATT as a *difference-in-differences*,
+    Let us consider the first (dynamic) difference with just **two periods of data**,
 
-$$
-\begin{aligned}
-&\left[E[Y_{it}|D_i=1,T_t=1] - \textcolor{blue}{E[Y_{it}|D_i=0,T_t=1]}\right] \\
-&- \left[E[Y_{it}|D_i=1,T_t=0] - \textcolor{blue}{E[Y_{it}|D_i=0,T_t=0]}\right] \\
-&= \left[E[Y_{it}(1)|D_i=1,T_t=1] - \textcolor{blue}{E[Y_{it}(0)|D_i=0,T_t=1]}\right] \\
-&- \left[E[Y_{it}(0)|D_i=1,T_t=0] - \textcolor{blue}{E[Y_{it}(0)|D_i=0,T_t=0]}\right] \\
-&= \underbrace{\left[E[Y_{it}(1)|D_i=1,T_t=1] \textcolor{red}{- E[Y_{it}(0)|D_i=1,T_t=1]}\right]}_{\tau_{ATT}(t_0)} \\
-&+ \underbrace{\left[\textcolor{red}{E[Y_{it}(0)|D_i=1,T_t=1]} - \textcolor{blue}{E[Y_{it}(0)|D_i=0,T_t=1]}\right]}_{= \psi} \\
-&- \underbrace{\left[E[Y_{it}(0)|D_i=1,T_t=0] - \textcolor{blue}{E[Y_{it}(0)|D_i=0,T_t=0]}\right]}_{= \psi}
-\end{aligned}
-$$
+    $$
+    \begin{aligned}
+    &E[Y_{it}|D_i=1,T_t=1]-E[Y_{it}|D_i=1,T_t=0] \\
+    =&E[Y_{it}(1)|D_i=1,T_t=1]-E[Y_{it}(0)|D_i=1,T_t=0] \\
+    =&\underbrace{E[Y_{it}(1)|D_i=1,T_t=1]-E[Y_{it}(0)|D_i=1,T_t=1]}_{\text{ATT in period } t_0} \\
+    &\underbrace{+E[Y_{it}(0)|D_i=1,T_t=1]-E[Y_{it}(0)|D_i=1,T_t=0]}_{\text{(dynamic) confounding factors}}
+    \end{aligned}
+    $$
 
--   Parallel trends allow us to pin down the selection component.
--   We do not need unconfoundedness to rule out selection.
+    Once again, we don't observe the counterfactual for the treated group. **As such**, the CEF does not trace out a causal relationship.
 
-## DiD in Practice
+    Notice, however, that for the untreated group,
 
-### Multi-group-2-period
+    $$
+    \begin{aligned}
+    &E[Y_{it}|D_i=0,T_t=1]-E[Y_{it}|D_i=0,T_t=0] \\
+    =&E[Y_{it}(0)|D_i=0,T_t=1]-E[Y_{it}(0)|D_i=0,T_t=0]
+    \end{aligned}
+    $$
 
-**In a 'natural' experiment setting**, treatment is almost always assigned at a group-level setting: geographical, demographic, etc.
+    which looks very similar to,
 
-Let ($Y_{itc}$) be the outcome of unit ($i$) in period ( $t$), member of assignment-group ($c(i)$),
+    $$
+    \color{red}{E[Y_{it}(0)|D_i=1,T_t=1]}
+    $$ $$
+    -E[Y_{it}(0)|D_i=1,T_t=0]
+    $$ (Note to myself: Find a way to change this)
 
-$$
-c(i) \in \{1, \ldots, c_0, c_0 + 1, \ldots, C\}
-$$
+    from the treated group.
 
-where groups are:
+    ::: {.callout-note icon="false"}
+    ## Parallel Trends Assumption (General version)
 
--   Treated: ( $1$, $\ldots, c_0$ ) (no. treated groups = ( $c_0$ ))
--   Control: ( $c_0 + 1, \ldots, C$ ) (no. control groups $=$ ( $C - c_0$ ))
+    $$
+    \begin{aligned}
+    &E[Y_{it}(0)|D_i=0,T_t=1]-E[Y_{it}(0)|D_i=0,T_t=0] \\
+    =&E[Y_{it}(0)|D_i=1,T_t=1]-E[Y_{it}(0)|D_i=1,T_t=0]
+    \end{aligned}
+    $$
+    :::
 
-Thus,
+    With this assumption and the above exclusion restrictions, we have identification of the Average Treatment Effect **of the Treated**.
 
-$$
-D_i = D_{c(i)} = \mathbf{1}\{c(i) \leq c_0\}
-$$
+    With this assumption we can identify the ATT,
 
-## Group Assignment
+    $$
+    \begin{aligned}
+    &\big[E[Y_{it}|D_i=1,T_t=1]-E[Y_{it}|D_i=1,T_t=0]\big]\\
+    &-\big[\textcolor{blue}{E[Y_{it}|D_i=0,T_t=1]-E[Y_{it}|D_i=0,T_t=0]}\big] \\
+    =&\big[E[Y_{it}(1)|D_i=1,T_t=1]-E[Y_{it}(0)|D_i=1,T_t=0]\big] \\
+    &-\big[\textcolor{blue}{E[Y_{it}(0)|D_i=0,T_t=1]-E[Y_{it}(0)|D_i=0,T_t=0]}\big] \\
+    =&\big[E[Y_{it}(1)|D_i=1,T_t=1]\textcolor{red}{-E[Y_{it}(0)|D_i=1,T_t=1]}\big] \\
+    &+\big[\textcolor{red}{E[Y_{it}(0)|D_i=1,T_t=1]}-E[Y_{it}(0)|D_i=1,T_t=0]\big] \\
+    &-\big[\textcolor{blue}{E[Y_{it}(0)|D_i=0,T_t=1]-E[Y_{it}(0)|D_i=0,T_t=0]}\big] \\
+    =&\underbrace{\big[E[Y_{it}(1)|D_i=1,T_t=1]\textcolor{red}{-E[Y_{it}(0)|D_i=1,T_t=1]}\big]}_{\text{ATT in period } t_0}
+    \end{aligned}
+    $$
 
-The relevant estimating equation is then,
+    where the two penultimate lines cancel one another under parallel trends. Hence, the name **difference-in-differences**.
 
-$$
-Y^{obs}_{itc} = \alpha + \psi D_{c} + \delta T_t + \beta D_{c} \cdot T_t + \varepsilon_{itc}
-$$
+    ## Mapping to Linear Model
 
--   A model that can be estimated using repeated cross-sections or panel/longitudinal data.[^paralleltrends-7]
+    Let's consider the CEF of ( $Y_{it}^{obs}$ ),
 
-[^paralleltrends-7]: This is also true for unit-level assignment, assuming sample selection of the subsequent cross-sections is independent of treatment.
+    $$
+    E[Y_{it}|D_i,T_t]
+    $$
 
-## Group Fixed Effects
+    where, ( $Y_{it} = Y_{it}(0) + T_t \cdot D_i(Y_{it}(1) - Y_{it}(0))$ ).[^paralleltrends-5]
 
-Fixed effects notation is used extensively in Microeconometrics.
+    $$
+    \begin{aligned}
+    E[Y_{it}|D_i,T_t] &= E[Y_{it}(0)|D_i,T_t] + T_t \cdot D_i E[(Y_{it}(1) - Y_{it}(0))|D_i,T_t] \\
+    &= E[Y_{it}(0)|D_i,T_t=0] \\
+    &\quad + T_t \cdot \left( E[Y_{it}(0)|D_i,T_t=1] - E[Y_{it}(0)|D_i,T_t=0] \right) \\
+    &\quad + T_t \cdot D_i \cdot E[(Y_{it}(1) - Y_{it}(0))|D_i,T_t]
+    \end{aligned}
+    $$
 
-Given a set of assignment-groups ( $c = 1, 2, 3, \ldots, C$), assignment-group FE's can be written as,
+    **Under parallel trends**,
 
-$$
-\psi_c = \sum_{j=1}^{C} \psi_j \mathbf{1}\{c = j\}
-$$
+    $$
+    \begin{aligned}
+    &E[Y_{it}(0)|D_i,T_t=1]-E[Y_{it}(0)|D_i,T_t=0] \\
+    &= \textcolor{blue}{E[Y_{it}(0)|T_t=1]-E[Y_{it}(0)|T_t=0]} \\
+    &= \textcolor{blue}{\delta}
+    \end{aligned}
+    $$
 
--   A dummy variable for each value.
--   Standard to drop the constant term in the regression equation.
--   Implicitly, this is a group-specific constant.
+    a constant! So, we have
 
-::: block
-**Parallel Trends Assumption (parametric version)**
+    $$
+    \begin{aligned}
+    E[Y_{it}|D_i,T_t] &= E[Y_{it}(0)|D_i,T_t=0] \\
+    &+ T_t \cdot \left( \textcolor{blue}{\underbrace{E[Y_{it}(0)|T_t=1]-E[Y_{it}(0)|T_t=0]}_{\delta}} \right) \\
+    &+ T_t \cdot D_i \cdot E[(Y_{it}(1)-Y_{it}(0))|D_i,T_t]
+    \end{aligned}
+    $$
 
-$$
-E[Y_{it}(0)|D_c,T_t] = \psi_c + \delta T_t
-$$
-:::
+    We can then expand ($E[Y_{it}(0)|D_i, T_t=0]$)
 
-Consider the two estimating equations,
+    $$
+    \begin{aligned}
+    E[Y_{it}(0)|D_i,T_t=0] &= E[Y_{it}(0)|D_i=0,T_t=0] \\
+    &+ D_i \cdot \left( \textcolor{red}{E[Y_{it}(0)|D_i=1,T_t=0] - E[Y_{it}(0)|D_i=0,T_t=0]} \right) \\
+    &= \alpha + \psi D_i
+    \end{aligned}
+    $$
 
-$$
-Y^{obs}_{itc} = \alpha + \psi D_c + \delta T_t + \beta_1 D_c \cdot T_t + \varepsilon_{itc}
-$$
+    where $\{ \alpha, \psi \}$ are two more constants. So, we have
 
-and
+    $$
+    \begin{aligned}
+    E[Y_{it}|D_i,T_t] &= \underbrace{E[Y_{it}(0)|D_i=0,T_t=0]}_{\alpha} \\
+    &+ D_i \cdot \left( \textcolor{red}{\underbrace{E[Y_{it}(0)|D_i=1,T_t=0] - E[Y_{it}(0)|D_i=0,T_t=0]}_{\psi}} \right) \\
+    &+ T_t \cdot \textcolor{blue}{\delta} + T_t \cdot D_i \cdot E[(Y_{it}(1)-Y_{it}(0))|D_i,T_t]
+    \end{aligned}
+    $$
 
-$$
-Y^{obs}_{itc} = \psi_c + \delta T_t + \beta_2 D_c \cdot T_t + \epsilon_{itc}
-$$
+    Finally, we can show,
 
--   (\hat{\beta}\_2 = \hat{\beta}\_1) **IF** group size does not change with time; i.e., a balanced panel of groups with stable group sizes. Group size need not be equal.
--   Does not introduce bias.
--   But, ( se(\hat{\beta}\_2) ) **tends to be** smaller than ( se(\hat{\beta}\_1) )[^paralleltrends-8].
+    $$
+    \begin{aligned}
+    &T_t \cdot D_i \cdot E[(Y_{it}(1) - Y_{it}(0))|D_i,T_t] \\
+    &= T_t \cdot D_i \cdot \textcolor{purple}{E[(Y_{it}(1) - Y_{it}(0))|D_i=1,T_t=1]} \\
+    &= T_t \cdot D_i \cdot \tau_{ATT}(t_0) 
+    \end{aligned}
+    $$
 
-[^paralleltrends-8]: \`tends to be', because you also decrease the degree of freedom.
+    If we want, we can assume the ATT is static: $\tau_{ATT}(t_0) = \tau_{ATT} \quad \forall t$.
 
-With group FE's we *typically* explain more of the variation in ( Y(0) ).
+    $$
+    \begin{aligned}
+    E[Y_{it}|D_i,T_t] &= \alpha + \textcolor{red}{\psi}D_i + \textcolor{blue}{\delta}T_t \\
+    &+ T_t \cdot D_i \cdot \textcolor{purple}{\underbrace{E[(Y_{it}(1) - Y_{it}(0))|D_i=1,T_t=1}_{\tau_{ATT}(t_0)}} \\
+    &= \alpha + \textcolor{red}{\psi}D_i + \textcolor{blue}{\delta}T_t + \textcolor{purple}{\tau_{ATT}(t_0)} T_t \cdot D_i
+    \end{aligned}
+    $$
 
-## Example: UK Policy
+    ::: {.callout-note icon="false"}
+    ## Parallel Trends Assumption (Parametric version)
 
-Suppose Scotland and Wales introduce a policy to restrict access to fast food in year ($t_0$) and you have individual-level measures of BMI from across the UK.
+    $$
+    E[Y_{it}(0)|D_i,T_t] = \alpha + \psi D_i + \delta T_t
+    $$
+    :::
 
--   (\$D_c = \mathbf{1}{c \leq 2}\$)
+    -   Note: assumption concerning the CEF.
+    -   Note: includes treatment group status.
 
--   Estimating equations,
+    Thus,
+
+    $$
+    \underbrace{E[Y_{it}(0)|D_i=0,T_t=1]}_{\alpha + \delta} - \underbrace{E[Y_{it}(0)|D_i=0,T_t=0]}_{\alpha} = \delta
+    $$
+
+    and,
+
+    $$
+    \underbrace{\textcolor{red}{E[Y_{it}(0)|D_i=1,T_t=1]}}_{\alpha + \psi + \delta} - \underbrace{E[Y_{it}(0)|D_i=1,T_t=0]}_{\alpha + \psi} = \delta
+    $$
+
+    ## Graphical Example
+
+    ```{r}
+    #| echo: false
+    #| message: false
+    #| warning: false
+    #| label: fig-graph1
+    #| fig-cap: "Difference-in-Differences Plot 1"
+
+    library(latex2exp)
+    library(ggplot2)
+    library(dplyr)
+
+    data <- data.frame(
+      D = c(0, 0, 1, 1),
+      T = c(0, 1, 0, 1),
+      Y = c(0.54, 0.57, 0.6, 0.59),
+      count = c(0.54, 0.57, 0.6, 0.63)
+    )
+
+    data <- data %>%
+      mutate(label = case_when(
+        D == 0 & T == 0 ~ "alpha",
+        D == 0 & T == 1 ~ "alpha + delta",
+        TRUE ~ ""  
+      ))
+
+    p <- ggplot(data %>% filter(D == 0), aes(x = T, y = Y)) +
+      geom_line(color = "blue") +
+      geom_point(color = "blue", size = 3) +
+      geom_text(aes(label = label), parse = TRUE, nudge_y = 0.02, hjust = 0, color = "blue") +
+      labs(x = "T", y = TeX("E[Y|D,T]"), title = "DiD 1") +
+      theme_minimal() +
+      theme(
+        legend.position = "none",
+        panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        panel.background = element_blank(),
+        panel.border = element_rect(colour = "black", fill=NA, linewidth=1) 
+      ) +
+      scale_x_continuous(limits = c(-0.5, 1.5), breaks = 0:1, labels = c("0", "1")) +
+      scale_y_continuous(limits = c(0.4, 0.7), breaks = seq(0.4, 0.7, by = 0.1))
+
+    print(p)
+    ```
+
+    ```{r}
+    #| echo: false
+    #| message: false
+    #| warning: false
+    #| label: fig-graph2
+    #| fig-cap: "Difference-in-Differences Plot 2"
+
+
+    data1 <- data %>%
+      mutate(label = case_when(
+        D == 0 & T == 0 ~ "alpha",
+        D == 1 & T == 0 ~ "alpha + psi",
+        D == 0 & T == 1 ~ "alpha + delta",
+        D == 1 & T == 1 ~ "alpha + psi + delta",
+        TRUE ~ ""  
+      ))
+
+    p1 <- ggplot(data1, aes(x = T, y = Y)) +
+      geom_line(data = data[data$D == 0,], color = "blue") + 
+      geom_point(aes(color = factor(D), shape = factor(D)), size = 3) +
+      geom_text(aes(label = label), parse = TRUE, nudge_y = 0.02, hjust = 0, check_overlap = TRUE) +
+      scale_color_manual(values = c("blue", "black"), labels = c("Control", "Treated")) +
+      scale_shape_manual(values = c(16, 17), labels = c("Control", "Treated")) +
+      labs(x = "T", y = "E[Y|D,T]") +
+      theme_minimal() +
+      theme(
+        legend.position = "bottom",
+        legend.title = element_blank(),
+        axis.text.x = element_text(color = "black"),
+        axis.text.y = element_text(color = "black"),
+        axis.ticks = element_line(color = "black"),
+        axis.line = element_line(color = "black"),
+        panel.background = element_rect(fill = "white", colour = "black"),
+        panel.grid.major = element_blank(), 
+        panel.grid.minor = element_blank(), 
+        plot.title = element_blank()
+      ) +
+      scale_x_continuous(limits = c(-0.5, 1.5), breaks = 0:1, labels = c("0", "1")) +
+      scale_y_continuous(limits = c(0.4, 0.7), breaks = seq(0.4, 0.7, by = 0.1)) +
+      annotate("segment", x = 0, xend = 0, y = 0.54, yend = 0.6, colour = "black", 
+               arrow = arrow(type = "closed", length = unit(0.2,"inches"))) +
+      annotate("text", x = 0.05, y = 0.57, label = "psi", parse = TRUE) +
+      guides(color = guide_legend(override.aes = list(shape = c(16, 17)))) 
+
+
+    print(p1)
+    ```
+
+    ## DiD and CIA
+
+    Do we need the CIA/Unconfoundedness assumption?\
+    **NO**, Why not?
+
+    -   We do not identify the ATT as the coefficient on ( $D_i$ ).
+
+    -   With two sources of variation, both time and treatment group, we can identify the selection term in the pre-period,
+
+        $$
+        E[Y_i(0)|D_i=1,T_i=0] - E[Y_i(0)|D_i=0,T_i=0] = \psi
+        $$
+
+    -   Key assumption: selection doesn't change over time; i.e., *parallel/common trends*.
+
+    ## Selection
+
+    Let us consider the first (cross-sectional) difference,
+
+    $$
+    \begin{aligned}
+    &E[Y_{it}|D_i=1,T_t=1] - E[Y_{it}|D_i=0,T_t=1] \\
+    &= E[Y_{it}(1)|D_i=1,T_t=1] - E[Y_{it}(0)|D_i=0,T_t=1] \\
+    &= \underbrace{E[Y_{it}(1)|D_i=1,T_t=1] \textcolor{red}{- E[Y_{it}(0)|D_i=1,T_t=1]}}_{\text{ATT in period } t_0} \\
+    &\quad \underbrace{\textcolor{red}{+ E[Y_{it}(0)|D_i=1,T_t=1]} - E[Y_{it}(0)|D_i=0,T_t=1]}_{\text{selection between groups}}
+    \end{aligned}
+    $$
+
+    which is very similar to,
+
+    $$
+    E[Y_{it}(0)|D_i=1,T_t=0] - E[Y_{it}(0)|D_i=0,T_t=0]
+    $$
+
+    from the first period.
+
+    With the parallel trends assumption,
+
+    Selection is given by
+
+    $$
+    \underbrace{\textcolor{red}{E[Y_{it}(0)|D_i=1,T_t=1]}}_{\alpha + \psi + \delta} - \underbrace{E[Y_{it}(0)|D_i=0,T_t=1]}_{\alpha + \delta} = \psi
+    $$
+
+    and
+
+    $$
+    \underbrace{E[Y_{it}(0)|D_i=1,T_t=0]}_{\alpha + \psi} - \underbrace{E[Y_{it}(0)|D_i=0,T_t=0]}_{\alpha} = \psi
+    $$
+
+    -   Permits level differences between treatment and control.
+    -   Selection term is identified in pre-period.[^paralleltrends-6]
+
+    ## Difference-in-differences
+
+    Again we can identify the ATT as a *difference-in-differences*,
+
+    $$
+    \begin{aligned}
+    &\left[E[Y_{it}|D_i=1,T_t=1] - \textcolor{blue}{E[Y_{it}|D_i=0,T_t=1]}\right] \\
+    &- \left[E[Y_{it}|D_i=1,T_t=0] - \textcolor{blue}{E[Y_{it}|D_i=0,T_t=0]}\right] \\
+    &= \left[E[Y_{it}(1)|D_i=1,T_t=1] - \textcolor{blue}{E[Y_{it}(0)|D_i=0,T_t=1]}\right] \\
+    &- \left[E[Y_{it}(0)|D_i=1,T_t=0] - \textcolor{blue}{E[Y_{it}(0)|D_i=0,T_t=0]}\right] \\
+    &= \underbrace{\left[E[Y_{it}(1)|D_i=1,T_t=1] \textcolor{red}{- E[Y_{it}(0)|D_i=1,T_t=1]}\right]}_{\tau_{ATT}(t_0)} \\
+    &+ \underbrace{\left[\textcolor{red}{E[Y_{it}(0)|D_i=1,T_t=1]} - \textcolor{blue}{E[Y_{it}(0)|D_i=0,T_t=1]}\right]}_{= \psi} \\
+    &- \underbrace{\left[E[Y_{it}(0)|D_i=1,T_t=0] - \textcolor{blue}{E[Y_{it}(0)|D_i=0,T_t=0]}\right]}_{= \psi}
+    \end{aligned}
+    $$
+
+    -   Parallel trends allow us to pin down the selection component.
+    -   We do not need unconfoundedness to rule out selection.
+
+    ## DiD in Practice
+
+    ### Multi-group-2-period
+
+    **In a 'natural' experiment setting**, treatment is almost always assigned at a group-level setting: geographical, demographic, etc.
+
+    Let ($Y_{itc}$) be the outcome of unit ($i$) in period ( $t$), member of assignment-group ($c(i)$),
+
+    $$
+    c(i) \in \{1, \ldots, c_0, c_0 + 1, \ldots, C\}
+    $$
+
+    where groups are:
+
+    -   Treated: ( $1$, $\ldots, c_0$ ) (no. treated groups = ( $c_0$ ))
+    -   Control: ( $c_0 + 1, \ldots, C$ ) (no. control groups $=$ ( $C - c_0$ ))
+
+    Thus,
+
+    $$
+    D_i = D_{c(i)} = \mathbf{1}\{c(i) \leq c_0\}
+    $$
+
+    ## Group Assignment
+
+    The relevant estimating equation is then,
+
+    $$
+    Y^{obs}_{itc} = \alpha + \psi D_{c} + \delta T_t + \beta D_{c} \cdot T_t + \varepsilon_{itc}
+    $$
+
+    -   A model that can be estimated using repeated cross-sections or panel/longitudinal data.[^paralleltrends-7]
+
+    ## Group Fixed Effects
+
+    Fixed effects notation is used extensively in Microeconometrics.
+
+    Given a set of assignment-groups ( $c = 1, 2, 3, \ldots, C$), assignment-group FE's can be written as,
+
+    $$
+    \psi_c = \sum_{j=1}^{C} \psi_j \mathbf{1}\{c = j\}
+    $$
+
+    -   A dummy variable for each value.
+    -   Standard to drop the constant term in the regression equation.
+    -   Implicitly, this is a group-specific constant.
+
+    ::: block
+    **Parallel Trends Assumption (parametric version)**
+
+    $$
+    E[Y_{it}(0)|D_c,T_t] = \psi_c + \delta T_t
+    $$
+    :::
+
+    Consider the two estimating equations,
 
     $$
     Y^{obs}_{itc} = \alpha + \psi D_c + \delta T_t + \beta_1 D_c \cdot T_t + \varepsilon_{itc}
@@ -505,638 +465,682 @@ Suppose Scotland and Wales introduce a policy to restrict access to fast food in
     and
 
     $$
-    Y^{obs}_{itc} = \underbrace{\sum_{j=1}^{4} \psi_j \mathbf{1}\{c = j\}}_{\psi_c} + \delta T_t + \beta_2 D_c \cdot T_t + \epsilon_{itc}
+    Y^{obs}_{itc} = \psi_c + \delta T_t + \beta_2 D_c \cdot T_t + \epsilon_{itc}
     $$
 
-## Unit Fixed Effects
+    -   (\hat{\beta}\_2 = \hat{\beta}\_1) **IF** group size does not change with time; i.e., a balanced panel of groups with stable group sizes. Group size need not be equal.
+    -   Does not introduce bias.
+    -   But, ( se(\hat{\beta}\_2) ) **tends to be** smaller than ( se(\hat{\beta}\_1) )[^paralleltrends-8].
 
-Suppose, you have **panel/longitudinal data**, then the specification,
+    With group FE's we *typically* explain more of the variation in ( Y(0) ).
 
-$$
-Y^{obs}_{itc} = \alpha_i + \delta T_t + \beta_3 D_c\cdot T_t + \upsilon_{itc}
-$$
+    ## Example: UK Policy
 
-will **typically** yield an even more efficient estimator.
+    Suppose Scotland and Wales introduce a policy to restrict access to fast food in year ($t_0$) and you have individual-level measures of BMI from across the UK.
 
--   $\hat{\beta}_3=\hat{\beta}_2=\hat{\beta}_1$ **IF** all units are observed in all periods; i.e., a balanced panel of units.
--   Does not introduce bias.
--   $se(\hat{\beta}_3)$ **tends to be** smaller than $se(\hat{\beta}_2)$, which *tends to be* smaller than $se(\hat{\beta}_1)$.
--   Increases the power of the test for $H_0: \tau_{ATT}=0$.
--   Higher dimensions of FEs *tend to* yield lower variance estimators.
+    -   (\$D_c = \mathbf{1}{c \leq 2}\$)
 
-## Adding Covariates
+    -   Estimating equations,
 
-There are two reasons to add **GOOD** covariates to the model:
+        $$
+        Y^{obs}_{itc} = \alpha + \psi D_c + \delta T_t + \beta_1 D_c \cdot T_t + \varepsilon_{itc}
+        $$
 
-1.  Improve the precision of estimates and increase power.
-2.  For identification (when *unconditional* parallel trends fail).
+        and
 
-**Conditional Parallel Trends Assumption (General version)**
+        $$
+        Y^{obs}_{itc} = \underbrace{\sum_{j=1}^{4} \psi_j \mathbf{1}\{c = j\}}_{\psi_c} + \delta T_t + \beta_2 D_c \cdot T_t + \epsilon_{itc}
+        $$
 
-$$
-\begin{aligned}
-&E[Y_{it}(0)|D_i=0,T_t=1,X_i'] - E[Y_{it}(0)|D_i=0,T_t=0,X_i'] \\
-&= E[Y_{it}(0)|D_i=1,T_t=1,X_i'] - E[Y_{it}(0)|D_i=1,T_t=0,X_i']
-\end{aligned}
-$$
+    ## Unit Fixed Effects
 
-or
+    Suppose, you have **panel/longitudinal data**, then the specification,
 
-**Conditional Parallel Trends Assumption (CEF version)**
+    $$
+    Y^{obs}_{itc} = \alpha_i + \delta T_t + \beta_3 D_c\cdot T_t + \upsilon_{itc}
+    $$
 
-$$
-E[Y_{it}(0)|D_i,T_t,X_{it}] = \alpha + \psi D_i + \delta T_t + X_{it}'\gamma
-$$
+    will **typically** yield an even more efficient estimator.
 
--   A *weaker* assumption.
--   In a balanced panel, time-invariant differences across groups are captured by treatment-group dummy (or assignment-group/unit FEs).
+    -   $\hat{\beta}_3=\hat{\beta}_2=\hat{\beta}_1$ **IF** all units are observed in all periods; i.e., a balanced panel of units.
+    -   Does not introduce bias.
+    -   $se(\hat{\beta}_3)$ **tends to be** smaller than $se(\hat{\beta}_2)$, which *tends to be* smaller than $se(\hat{\beta}_1)$.
+    -   Increases the power of the test for $H_0: \tau_{ATT}=0$.
+    -   Higher dimensions of FEs *tend to* yield lower variance estimators.
 
-**Warning:** \> If estimates are sensitive to the inclusion of good covariates, it suggests that one of the identifying assumptions *may* have failed. **Why is the covariate composition of the groups changes differentially over time?** Could be due to non-parallel trends or switching between groups.
+    ## Adding Covariates
 
-With *only 2 periods* of data, there is no test of the parallel trends assumption.
+    There are two reasons to add **GOOD** covariates to the model:
 
--   Intuitively, similar groups *may* be more likely to follow parallel trends.
--   Argument for matching on covariates in pre-period. For example, PSM-DID.
+    1.  Improve the precision of estimates and increase power.
+    2.  For identification (when *unconditional* parallel trends fail).
 
-## DiD in Practice - Multiple Time Periods
+    **Conditional Parallel Trends Assumption (General version)**
 
-Suppose you had more than 2 periods of data, you might then choose to add time-fixed effects,
+    $$
+    \begin{aligned}
+    &E[Y_{it}(0)|D_i=0,T_t=1,X_i'] - E[Y_{it}(0)|D_i=0,T_t=0,X_i'] \\
+    &= E[Y_{it}(0)|D_i=1,T_t=1,X_i'] - E[Y_{it}(0)|D_i=1,T_t=0,X_i']
+    \end{aligned}
+    $$
 
-$$
-Y^{obs}_{itc} = \psi_c + \delta_t + \beta_3 D_c\cdot T_t + \upsilon_{itc}
-$$
+    or
 
-where $T_t=\mathbf{1}\{t\geq t_0\}$ and $t_0$ is the period of treatment.
+    **Conditional Parallel Trends Assumption (CEF version)**
 
--   However, we first need to discuss *dynamic* treatment effects.
+    $$
+    E[Y_{it}(0)|D_i,T_t,X_{it}] = \alpha + \psi D_i + \delta T_t + X_{it}'\gamma
+    $$
 
-**Next lecture.**
+    -   A *weaker* assumption.
+    -   In a balanced panel, time-invariant differences across groups are captured by treatment-group dummy (or assignment-group/unit FEs).
 
-## Card & Krueger (1994)
+    **Warning:** \> If estimates are sensitive to the inclusion of good covariates, it suggests that one of the identifying assumptions *may* have failed. **Why is the covariate composition of the groups changes differentially over time?** Could be due to non-parallel trends or switching between groups.
 
-This paper[^paralleltrends-9],
+    With *only 2 periods* of data, there is no test of the parallel trends assumption.
+
+    -   Intuitively, similar groups *may* be more likely to follow parallel trends.
+    -   Argument for matching on covariates in pre-period. For example, PSM-DID.
+
+    ## DiD in Practice - Multiple Time Periods
+
+    Suppose you had more than 2 periods of data, you might then choose to add time-fixed effects,
+
+    $$
+    Y^{obs}_{itc} = \psi_c + \delta_t + \beta_3 D_c\cdot T_t + \upsilon_{itc}
+    $$
+
+    where $T_t=\mathbf{1}\{t\geq t_0\}$ and $t_0$ is the period of treatment.
+
+    -   However, we first need to discuss *dynamic* treatment effects.
+
+    **Next lecture.**
+
+    ## Card & Krueger (1994)
+
+    This paper[^paralleltrends-9],
+
+    -   arguably, established difference-in-difference as the central tool in Applied Microeconomics research;
+
+    -   turned the literature on the minimum wage upside down;
+
+    -   won David Card the Nobel Prize in Economics;
+
+    -   and started the closest thing to a fight in academic Economics.[^paralleltrends-10]
+
+    ### Pre-1990's Literature
+
+    -   Most of the literature supported the idea that higher minimum wages reduce employment.
+    -   Wellington (1991) & Brown et al. (1983): A 10% increase in minimum wage reduces teen employment by 1%.
+    -   Largely based on time-series evidence (Brown et al., 1982) or cross-country studies.
+
+    > "Isolating the impacts of labor market institutions is inherently difficult... Identification issues essentially result from the endogeneity of labor market institutions and the interactions between them... makes it difficult to attribute variations in outcomes to the institutions themselves, rather than other features of the societies in which they exist." - Baetcherman (2012)
+
+    **Card & Krueger (AER, 1994)** is a seminal paper in this literature[^paralleltrends-11],
+
+    -   Increase in New Jersey minimum wage from \$4.25 to \$5.05, April 1992.
+    -   Examine the impact on employment at fast food outlets (low wage jobs).
+    -   Use Pennsylvania as a control group in a **DiD research design**.
+    -   Find **no evidence** of a negative employment effect.
+
+    This paper highlights the fact that you can make strong conclusions from what is effectively a very simple research design.
+
+    ![](docs/images/diff-card-krueger-1994-tab1.png)
+
+    ![](docs/images/diff-card-krueger-1994-fig1.png)
+
+    ```{r}
+    #| echo: false
+    #| message: false
+    #| warning: false
+    #| label: Replicated Graph
+    #| fig-cap: "Replicating CK"
+
+    #This is not my code, the code is borrowed and it is very neat but I could replicate it so that we do not have to reference it. Please see https://rpubs.com/phle/r_tutorial_difference_in_differences if you want to have a look at the original code. 
+
+    # library(dplyr)
+    # library(readr)
+    # library(stringr)
+    # library(ggplot2)
+    # library(tidyr)
+    # library(ggrepel)
+    # library(scales)
+    # library(ggpubr)
+    # library(plm)
+    # library(sjlabelled)
+    # library(lmtest)
+    # 
+    # #Data Cleaning: can be left out. 
+    # 
+    # # Temporary file and path
+    # tfile_path <- tempfile()
+    # tdir_path <- tempdir()
+    # 
+    # # Download zip file
+    # download.file("http://davidcard.berkeley.edu/data_sets/njmin.zip", 
+    #               destfile = tfile_path)
+    # 
+    # # Unzip
+    # unzip(tfile_path, exdir = tdir_path)
+    # 
+    # # Read codebook
+    # codebook <- read_lines(file = paste0(tdir_path, "/codebook"))
+    # 
+    # # Generate a vector with variable names
+    # variable_names <- codebook %>%
+    #   `[`(8:59) %>% # Variablennamen starten bei Element 8 (sheet)
+    #   `[`(-c(5, 6, 13, 14, 32, 33)) %>% # Elemente ohne Variablennamen entfernen
+    #   str_sub(1, 8) %>% # längster Variablenname enthält 8 Zeichen
+    #   str_squish() %>% # Whitespaces entfernen
+    #   str_to_lower() # nur Kleinbuchstaben verwenden
+    # 
+    # # Generate a vector with variable labels
+    # variable_labels <- codebook %>%
+    #   `[`(8:59) %>% # variable names start at element 8 (sheet)
+    #   `[`(-c(5, 6, 13, 14, 32, 33)) %>% # remove elements w/o variable names
+    #   sub(".*\\.[0-9]", "", .) %>%
+    #   `[`(-c(5:10))  %>% # these elements are combined later on
+    #   str_squish() # remove white spaces
+    #   
+    # # Region
+    # variable_labels[41] <- "region of restaurant"
+    # 
+    # # Read raw data
+    # data_raw <- read_table2(paste0(tdir_path, "/public.dat"),
+    #                         col_names = FALSE)
+    # 
+    # 
+    # # Add variable names
+    # data_mod <- data_raw %>%
+    #   select(-X47) %>% # remove empty column
+    #   `colnames<-`(., variable_names) %>% # Assign variable names
+    #   mutate_all(as.numeric) %>% # treat all variables as numeric
+    #   mutate(sheet = ifelse(sheet == 407 & chain == 4, 408, sheet)) # duplicated sheet id 407
+    # 
+    # # Process data (currently wide format)
+    # data_mod <- data_mod %>%
+    #   # chain value label
+    #   mutate(chain = case_when(chain == 1 ~ "bk",
+    #                            chain == 2 ~ "kfc",
+    #                            chain == 3 ~ "roys",
+    #                            chain == 4 ~ "wendys")) %>%
+    #   # state value label
+    #   mutate(state = case_when(state == 1 ~ "New Jersey",
+    #                            state == 0 ~ "Pennsylvania")) %>%
+    #   # Region dummy
+    #   mutate(region = case_when(southj == 1 ~ "southj",
+    #                             centralj == 1 ~ "centralj",
+    #                             northj == 1 ~ "northj",
+    #                             shore == 1 ~ "shorej",
+    #                             pa1 == 1 ~ "phillypa",
+    #                             pa2 == 1 ~ "eastonpa")) %>%
+    #   # meals value label
+    #   mutate(meals = case_when(meals == 0 ~ "none",
+    #                            meals == 1 ~ "free meals",
+    #                            meals == 2 ~ "reduced price meals",
+    #                            meals == 3 ~ "both free and reduced price meals")) %>%
+    #   # meals value label
+    #   mutate(meals2 = case_when(meals2 == 0 ~ "none",
+    #                             meals2 == 1 ~ "free meals",
+    #                             meals2 == 2 ~ "reduced price meals",
+    #                             meals2 == 3 ~ "both free and reduced price meals")) %>%
+    #   # status2 value label
+    #   mutate(status2 = case_when(status2 == 0 ~ "refused second interview",
+    #                              status2 == 1 ~ "answered 2nd interview",
+    #                              status2 == 2 ~ "closed for renovations",
+    #                              status2 == 3 ~ "closed permanently",
+    #                              status2 == 4 ~ "closed for highway construction",
+    #                              status2 == 5 ~ "closed due to Mall fire")) %>%
+    #   mutate(co_owned = if_else(co_owned == 1, "yes", "no")) %>%
+    #   mutate(bonus = if_else(bonus == 1, "yes", "no")) %>%
+    #   mutate(special2 = if_else(special2 == 1, "yes", "no")) %>%
+    #   mutate(type2 = if_else(type2 == 1, "phone", "personal")) %>%
+    #   select(-southj, -centralj, -northj, -shore, -pa1, -pa2) %>% # now included in region dummy
+    #   mutate(date2 = lubridate::mdy(date2)) %>% # Convert date
+    #   rename(open2 = open2r) %>% #Fit name to wave 1
+    #   rename(firstinc2 = firstin2) %>% # Fit name to wave 1
+    #   sjlabelled::set_label(variable_labels) # Add stored variable labels
+    # 
+    # # Structural variables
+    # structure <- data_mod %>%
+    #   select(sheet, chain, co_owned, state, region)
+    # 
+    # # Wave 1 variables
+    # wave1 <- data_mod %>%
+    #   select(-ends_with("2"), - names(structure)) %>%
+    #   mutate(observation = "February 1992") %>%
+    #   bind_cols(structure) 
+    # 
+    # # Wave 2 variables
+    # wave2 <- data_mod %>%
+    #   select(ends_with("2")) %>%
+    #   rename_all(~str_remove(., "2"))  %>%
+    #   mutate(observation = "November 1992") %>%
+    #   bind_cols(structure) 
+    # 
+    # # Final dataset
+    # card_krueger_1994 <- bind_rows(wave1, wave2) %>%
+    #   select(sort(names(.))) %>% # Sort columns alphabetically
+    #   sjlabelled::copy_labels(data_mod) # Restore variable labels
+    # 
+    # card_krueger_1994_mod <- card_krueger_1994 %>%
+    #   mutate(emptot = empft + nmgrs + 0.5 * emppt,
+    #          pct_fte = empft / emptot * 100)
+    # 
+    # # Now we plot with the cleaned data (This code is also not mine)
+    # 
+    # 
+    # hist.feb <- card_krueger_1994_mod %>%
+    #   filter(observation == "February 1992") %>%
+    #   ggplot(aes(wage_st, fill = state)) +
+    #   geom_histogram(aes(y=c(..count..[..group..==1]/sum(..count..[..group..==1]),
+    #                          ..count..[..group..==2]/sum(..count..[..group..==2]))*100),
+    #                  alpha=0.5, position = "dodge", bins = 23) +
+    #   labs(title = "February 1992", x = "Wage range", y = "Percent of stores", fill = "") +
+    #   scale_fill_grey()
+    # 
+    # hist.nov <- card_krueger_1994_mod %>%
+    #   filter(observation == "November 1992") %>%
+    #   ggplot(aes(wage_st, fill = state)) +
+    #   geom_histogram(aes(y=c(..count..[..group..==1]/sum(..count..[..group..==1]),
+    #                          ..count..[..group..==2]/sum(..count..[..group..==2]))*100),
+    #                  alpha = 0.5, position = "dodge", bins = 23) +
+    #   labs(title = "November 1992", x="Wage range", y = "Percent of stores", fill="") +
+    #   scale_fill_grey()
+    # 
+    # ggarrange(hist.feb, hist.nov, ncol = 2, 
+    #           common.legend = TRUE, legend = "bottom")
+    ```
+
+    ## Legislative Change
+
+    This minimum wage change **was not unexpected**:
+
+    -   Federal minimum wage is the floor to all state level minimum wages.
+    -   Federal increase from \$3.35 to \$3.80 in April 1990.
+    -   Federal increase from \$3.80 to \$4.25 in April 1991.
+    -   New Jersey chose to increase its own minimum wage to \$5.05 effective April 1992, giving it the highest minimum wage in the country.
+    -   Opposed by business leaders, but the opposition lost an appeal (March, 1992) by a close margin.
+
+    This last-minute appeal and close election do create some uncertainty.
+
+    ## Research Design
+
+    Card & Krueger (1994) implement a basic difference-in-difference research design
+
+    $$
+    \tau_{ATT} = \big(E[Y_{it}|T_t=1,D_i=1] - E[Y_{it}|T_t=0,D_i=1]\big) - \big(E[Y_{it}|T_t=1,D_i=0] - E[Y_{it}|T_t=0,D_i=0]\big)
+    $$
+
+    where $T_t = \mathbf{1}{\text{after April 1992}}$, and
+
+    $$
+    D_i = 
+    \begin{cases}
+    1 & \text{New Jersey} \\
+    0 & \text{Pennsylvania}
+    \end{cases}
+    $$
+
+    ![](docs/images/diff-card-krueger-1994-tab3.png)\
+    \
+    Conclusion,
+
+    -   No evidence of a negative effect, as competitive models would predict.
+    -   If anything, some evidence of a small positive effect, as suggested by monopsonistic models.
+    -   Card & Krueger (1994) don't show pre-trends to help persuade you that the parallel trends assumption is likely to hold.
+    -   After this paper comes the rebuttal by Neumark & Wascher (2000, AER), followed immediately by a response from Card & Krueger (2000, AER).
+    -   This is just round 1 of what is a multi-round debate. The discussion has now shifted away from state-level minimum wages to the study of city-specific policies.
+
+    # Dynamic Treatment Effects
+
+    ## Set-up
+
+    Today's discussion will concern,
+
+    ::: {.alert .alert-danger}
+    Once treatment is applied it remains fixed.
+    :::
+
+    -   If treatment is temporary, the model will capture long-term effects.
+
+    ## Dynamic TE's
+
+    Suppose that the treatment effect is indeed dynamic:
+
+    ::: {.callout-note icon="false"}
+    For all ( $t=0,1,2,...,T$)
+
+    $$
+    Y_{it}(1)-Y_{it}(0) = \tau_{it}
+    $$
+    :::
+
+    It helps to normalize time to **event-time**,
+
+    $$
+    s=t-S_{i}
+    $$
+
+    where ($S_i$) is the time period in which unit ($i$) first receives the treatment.
+
+    -   ($S_i$) could be determined at the assignment-group level,
+
+    $$
+    S_i=S_c
+    $$
+
+    Given time periods ($t=0,1,...T$), ( $s=-T,..,-1,0,1,...,T$). The dynamic treatment effect is specified as,
+
+    ::: {.callout-note icon="false"}
+    $$
+    Y_{its}(1)-Y_{its}(0) = \tau_{is}
+    $$
+    :::
+
+    -   The relevant unit of time is event-time, not calendar time.[^paralleltrends-12]
+    -   In a 2-group-multiple-period setting ( $s$ ) does not vary independently of ( $t$ ) for the treated units.
+    -   This set-up becomes more useful when describing multi-cohort settings.
+
+    ## Dynamic TE's
+
+    ::: {.callout-note icon="false"}
+    **Treatment Cohort**\
+    A group of individuals treated at the same time, ( \$S_i\$).
+    :::
+
+    -   In a staggered-DiD model or event-study, there are multiple cohorts.
+    -   For *never treated* groups, $$
+        S_i = \infty
+        $$
+    -   A never treated and not-yet/future treated group are NOT the same.
+
+    ## 2-group-2-period
+
+    Recall from lecture 4.1,
+
+    $$
+    Y^{obs}_{it} = \alpha + \psi D_i + \delta T_t + \beta D_i \cdot T_t + \varepsilon_{it}
+    $$
+
+    Using this new notation, we can rewrite this equation as,
+
+    $$
+    Y^{obs}_{it} = \psi D_i + \delta_t + \beta \mathbf{1}\{s \geq 0\} + \varepsilon_{it}
+    $$
+
+    -   Time FEs are the same as a post-treatment dummy with 2 periods.
+    -   For the treated group, ( $S_i = t_0$ ).
+    -   For the control group, ( \$S_i = \infty \$ ).
+    -   ( $D_i \cdot T_t = \mathbf{1}{t \geq S_i} = \mathbf{1}{s \geq 0}$); which implies, $$
+        \Rightarrow \mathbf{1}\{s = t - \infty \geq 0\} = 0 \quad \text{**always.**}
+        $$
+
+    ## Multi-group-2-period
+
+    Recall from lecture 4.1,
+
+    $$
+    Y^{obs}_{itc} = \psi_c + \delta T_t + \beta D_c \cdot T_t + \varepsilon_{itc}
+    $$
+
+    Using this new notation, we can rewrite this equation as,
+
+    $$
+    Y^{obs}_{itc} = \psi_c + \delta_t + \beta \mathbf{1}\{s \geq 0\} + \varepsilon_{itc}
+    $$
+
+    -   For the treated groups (( $c \leq c_0$ )), ( $S_c = t_0$ ).
+    -   For the control groups (( $c > c_0$)), ( \$S_c = \infty\$ ).
+    -   ( $D_c \cdot T_t = \mathbf{1}{t \geq S_c} = \mathbf{1}{s \geq 0}$ )
+    -   In both these applications, there is a one-to-one mapping from event to calendar time.
+
+    # Multi-Period DiD
+
+    We can define a more flexible version of the parallel trends,[^paralleltrends-13]
+
+    ::: {.callout-note icon="false"}
+    **Parallel Trends Assumption (Parametric version)**\
+    $$
+    E[Y_{it}(0)|D_i, t] = \psi D_i + \delta_t
+    $$
+    :::
+
+    or,
+
+    ::: {.callout-note icon="false"}
+    **Parallel Trends Assumption (Parametric version)**\
+    $$
+    E[Y_{itc}(0)|c, t] = \psi_c + \delta_t
+    $$ with group FEs.
+    :::
+
+    ::: {.callout-note icon="false"}
+    **Parallel Trends Assumption (Parametric version)**\
+    $$
+    E[Y_{it}(0)|D_i, t] = \alpha_i + \delta_t
+    $$ with unit FEs.
+    :::
+
+    ## Multi-Period DiD
+
+    However, if we specify the model as,
+
+    $$
+    Y^{obs}_{it} = \psi D_i + \delta_t + \beta \mathbf{1}\{s \geq 0\} + \upsilon_{it}
+    $$
+
+    where ($\beta$) captures the ATT in all post-treatment periods, then we have proposed a linear regression model that best characterizes,
+
+    ::: {.callout-note icon="false"}
+    **Static Treatment Effects**
+
+    $$
+    Y_{it}(1) - Y_{it}(0) = \tau_{i}
+    $$
+    :::
+
+    $$
+    \tau_{ATT}(s) = E[Y_{it}(1) - Y_{it}(0)|D_i = 1, t = S_i + s] = \tau_{ATT} \quad \forall \; s \geq 0
+    $$
+
+    ## Dynamic DiD
+
+    If TEs are dynamic, it is better to estimate either,
+
+    1.  Semi-dynamic model,
+
+    $$
+    Y^{obs}_{it} = \psi D_i + \delta_t + \sum_{j \geq 0} \beta_j \mathbf{1}\{s = j\} + \upsilon_{it}
+    $$
+
+    2.  Dynamic model,
+
+    $$
+    Y^{obs}_{it} = \psi D_i + \delta_t + \sum_{j \neq -1} \beta_j \mathbf{1}\{s = j\} + \upsilon_{it}
+    $$
+
+    -   In applied settings, you should always specify such a model with time FEs, and not a single post-treatment dummy. Failure to do so will typically lead to a false counterfactual.[^paralleltrends-14]
+    -   You have to normalize 1 period. It does not have to be ( s = -1 ), but should be a pre-period.
+
+    ## Dynamic DiD (Continued)
+
+    Consider the dynamic specification,
+
+    $$
+    Y^{obs}_{it} = \psi D_i + \delta_t + \sum_{j \neq -1} \beta_j \mathbf{1}\{s = j\} + \upsilon_{it}
+    $$
+
+    -   We must exclude at least one of the event-time dummies. Standard to exclude pre-treatment period.
+
+    **QUESTION:** Assuming parallel trends and all necessary exclusion restrictions, how would we define ( $\beta_2$ )?
+
+    Proof:
+
+    ::: details
+    ::: {.summary title="Click to see the proof"}
+    Single period of treatment: $t_0$
+
+    Control group $S_i = \infty$
+
+    $\beta_2$ event-time $s = 2$.
+
+    $$
+    1 \{S = 2\} = D_i \cdot 1 \{t = t_0+2\}.
+    $$
+
+    $$
+    \beta_1 = 
+    \left[ E[Y_t | D_i=1, t=t_0+2] - E[Y_t | D_i=0, t=t_0+2] \right] - 
+    \left[ E[Y_t | D_i=1, t=t_0-1] - E[Y_t | D_i=0, t=t_0-1] \right]
+    $$
+
+    $$
+    = E[Y_t(1) - Y_t(0) | D_i=1, t=t_0+2] 
+    $$
+
+    $$
+    + \textcolor{red}{E[Y_t(0) | D_i=1, t=t_0+2] - E[Y_t(0) | D_i=0, t=t_0+2]}
+    $$
+
+    $$
+    - \textcolor{red}{E[Y_t(1) | D_i=1, t=t_0-1] - E[Y_t(0) | D_i=0, t=t_0-1]}
+    $$
+
+    Where $\textcolor{red}{\phi + \delta_{t2}}$ and $\textcolor{red}{\delta_{t-1}}$ are the effects to be controlled for.
+    :::
+    :::
+
+    ## Dynamic DiD (Exclusion Restrictions)
+
+    Notice: - Linear model can identify treatment effects up to a normalized period. - We must assume,
+
+    ::: {.callout-note icon="false"}
+    **Exclusion restriction: No pre-emptive behaviour**
+
+    $$
+    E[Y_{it}|D_i = 1, t = t_0 + j] = E[Y_{it}(0)|D_i = 1, t = t_0 + j]
+    $$
+
+    for **some** ($j \< 0$).
+    :::
+
+    -   Pre-emptive behaviour biases both pre-treatment **and post-treatment** TE estimates.
+
+    ## Test parallel trends
+
+    **Assuming no pre-emptive behaviour**, the test,
+
+    $$
+    H_0: \beta_s = 0 \quad \forall \quad s < 0
+    $$
+
+    is a valid test for parallel trends **in the pre-treatment period**.
+
+    $$
+    \begin{aligned}
+    \beta_s = & \left[\underbrace{E[Y_{it}|D_i = 1, t = t_0 + s] - E[Y_{it}|D_i = 1, t = t_0 - 1]}_{\text{Pre-trend of treated.}}\right] \\
+    & - \left[\underbrace{\textcolor{blue}{E[Y_{it}|D_i = 0, t = t_0 + s] - E[Y_{it}|D_i = 0, t = t_0 - 1]}}_{\text{Pre-trend of control.}}\right]
+    \end{aligned}
+    $$
+
+    for ($s \< 0$) and ($s \neq -1$).[^paralleltrends-15]
+
+    ## Dynamic DiD (Visualization)
+
+    The problem can be how to distinguish between, - a failure of parallel trends, - and pre-emptive behaviour.
+
+    ::: {style="text-align: center"}
+    \[Alternative DID Plot\]
+    :::
+
+    ## Dynamic DiD (Renormalization)
+
+    If there appears to be pre-emptive behaviour - and a reason for its presence - you can always renormalize the excluded base period.
+
+    Here goes the other figure (I do not have it yet)
+
+    include another graph here
+
+    ## Next-up
+
+    -   'Things Fall Apart' - The problems with dynamic/staggered DiD and two-way FEs
+    -   What to do.
+    -   Generalized two-way FEs models
+    -   Synthetic Control
+
+    ## Example: [Eissa & Liebman (1996)](https://www.nber.org/papers/w5158)
+
+    ::: center
+    **Example: Eissa & Liebman (1996)**
+    :::
+
+    ## Set-up: EITC
+
+    Countries create tax credits for a number of reasons, these are typically after tax reimbursements based eligibility in certain criteria. Many are simply used to transfer income to a targeted population, and do not (intentionally) induce any behavioural response.
+
+    -   However, the **Earned** Income Tax Credit (EITC) is a uniquely targeted public policy that aims to both assist poorer, more vulnerable households while also incentivizing labour force participation (Holz & Scholz, 2003).
+
+    The EITC aims to solve the following problem:
+
+    ::: {.callout-note icon="false"}
+    How do you redistribute money to poorer households without inducing a negative income effect? And can you design a policy that actually increases labour force participation while redistributing income.
+    :::
+
+    The tax credit increases in value with your earned income up to a threshold...
+
+    ![](docs/images/EL1.png)
+
+    **Figure**: The tax credit is 40% of earned income for the first \$14570 ([2019 parameters](https://www.cbpp.org/research/policy-basics-the-earned-income-tax-credit) based on single earner with two children)
+
+    ...at which point it is flat up to a second threshold...
+
+    ![](docs/images/EL2.png)
+
+    **Figure**: The maximum is \$5828 ([2019 parameters](https://www.cbpp.org/research/policy-basics-the-earned-income-tax-credit) based on single earner with two children)
+
+    ... and then is fazed out
+
+[^paralleltrends-1]: Emphasis added.
+
+[^paralleltrends-2]: If you use an always-treated control group you would need to assume static treatment effects.
+
+[^paralleltrends-3]: More relevant for multiple periods.
+
+[^paralleltrends-4]: Particularly important in observational studies with group and/or irregular assignment.
+
+[^paralleltrends-5]: Remember, this equation implies our exclusion restrictions.
+
+[^paralleltrends-6]: Emphasizes importance of 'no pre-emptive behaviour' assumption.
+
+[^paralleltrends-7]: This is also true for unit-level assignment, assuming sample selection of the subsequent cross-sections is independent of treatment.
+
+[^paralleltrends-8]: \`tends to be', because you also decrease the degree of freedom.
 
 [^paralleltrends-9]: Angrist & Pischke attribute the first use of DiD in Economics to Obenauer & von den Nienburg (1915) (see page 228 of *Mostly Harmless Econometrics*).
 
--   arguably, established difference-in-difference as the central tool in Applied Microeconomics research;
-
--   turned the literature on the minimum wage upside down;
-
--   won David Card the Nobel Prize in Economics;
-
--   and started the closest thing to a fight in academic Economics.[^paralleltrends-10]
-
 [^paralleltrends-10]: The debate between Card and Krueger (since deceased, 2019), and Neumark and Wascher is ongoing.
-
-### Pre-1990's Literature
-
--   Most of the literature supported the idea that higher minimum wages reduce employment.
--   Wellington (1991) & Brown et al. (1983): A 10% increase in minimum wage reduces teen employment by 1%.
--   Largely based on time-series evidence (Brown et al., 1982) or cross-country studies.
-
-> "Isolating the impacts of labor market institutions is inherently difficult... Identification issues essentially result from the endogeneity of labor market institutions and the interactions between them... makes it difficult to attribute variations in outcomes to the institutions themselves, rather than other features of the societies in which they exist." - Baetcherman (2012)
-
-**Card & Krueger (AER, 1994)** is a seminal paper in this literature[^paralleltrends-11],
 
 [^paralleltrends-11]: And Katz & Krueger (ILR Review, 1992)
 
--   Increase in New Jersey minimum wage from \$4.25 to \$5.05, April 1992.
--   Examine the impact on employment at fast food outlets (low wage jobs).
--   Use Pennsylvania as a control group in a **DiD research design**.
--   Find **no evidence** of a negative employment effect.
-
-This paper highlights the fact that you can make strong conclusions from what is effectively a very simple research design.
-
-![](docs/images/diff-card-krueger-1994-tab1.png)
-
-NOTE: We could generate the same graph you copied from CK paper by using R and it looks more neat. Please find both and choose which one you like the most:\
-
-```{r}
-#| echo: false
-#| message: false
-#| warning: false
-#| label: Replicated Graph
-#| fig-cap: "Replicating CK"
-
-#This is not my code, the code is borrowed and it is very neat but I could replicate it so that we do not have to reference it. Please see https://rpubs.com/phle/r_tutorial_difference_in_differences if you want to have a look at the original code. 
-
-library(dplyr)
-library(readr)
-library(stringr)
-library(ggplot2)
-library(tidyr)
-library(ggrepel)
-library(scales)
-library(ggpubr)
-library(plm)
-library(sjlabelled)
-library(lmtest)
-
-#Data Cleaning: can be left out. 
-
-# Temporary file and path
-tfile_path <- tempfile()
-tdir_path <- tempdir()
-
-# Download zip file
-download.file("http://davidcard.berkeley.edu/data_sets/njmin.zip", 
-              destfile = tfile_path)
-
-# Unzip
-unzip(tfile_path, exdir = tdir_path)
-
-# Read codebook
-codebook <- read_lines(file = paste0(tdir_path, "/codebook"))
-
-# Generate a vector with variable names
-variable_names <- codebook %>%
-  `[`(8:59) %>% # Variablennamen starten bei Element 8 (sheet)
-  `[`(-c(5, 6, 13, 14, 32, 33)) %>% # Elemente ohne Variablennamen entfernen
-  str_sub(1, 8) %>% # längster Variablenname enthält 8 Zeichen
-  str_squish() %>% # Whitespaces entfernen
-  str_to_lower() # nur Kleinbuchstaben verwenden
-
-# Generate a vector with variable labels
-variable_labels <- codebook %>%
-  `[`(8:59) %>% # variable names start at element 8 (sheet)
-  `[`(-c(5, 6, 13, 14, 32, 33)) %>% # remove elements w/o variable names
-  sub(".*\\.[0-9]", "", .) %>%
-  `[`(-c(5:10))  %>% # these elements are combined later on
-  str_squish() # remove white spaces
-  
-# Region
-variable_labels[41] <- "region of restaurant"
-
-# Read raw data
-data_raw <- read_table2(paste0(tdir_path, "/public.dat"),
-                        col_names = FALSE)
-
-
-# Add variable names
-data_mod <- data_raw %>%
-  select(-X47) %>% # remove empty column
-  `colnames<-`(., variable_names) %>% # Assign variable names
-  mutate_all(as.numeric) %>% # treat all variables as numeric
-  mutate(sheet = ifelse(sheet == 407 & chain == 4, 408, sheet)) # duplicated sheet id 407
-
-# Process data (currently wide format)
-data_mod <- data_mod %>%
-  # chain value label
-  mutate(chain = case_when(chain == 1 ~ "bk",
-                           chain == 2 ~ "kfc",
-                           chain == 3 ~ "roys",
-                           chain == 4 ~ "wendys")) %>%
-  # state value label
-  mutate(state = case_when(state == 1 ~ "New Jersey",
-                           state == 0 ~ "Pennsylvania")) %>%
-  # Region dummy
-  mutate(region = case_when(southj == 1 ~ "southj",
-                            centralj == 1 ~ "centralj",
-                            northj == 1 ~ "northj",
-                            shore == 1 ~ "shorej",
-                            pa1 == 1 ~ "phillypa",
-                            pa2 == 1 ~ "eastonpa")) %>%
-  # meals value label
-  mutate(meals = case_when(meals == 0 ~ "none",
-                           meals == 1 ~ "free meals",
-                           meals == 2 ~ "reduced price meals",
-                           meals == 3 ~ "both free and reduced price meals")) %>%
-  # meals value label
-  mutate(meals2 = case_when(meals2 == 0 ~ "none",
-                            meals2 == 1 ~ "free meals",
-                            meals2 == 2 ~ "reduced price meals",
-                            meals2 == 3 ~ "both free and reduced price meals")) %>%
-  # status2 value label
-  mutate(status2 = case_when(status2 == 0 ~ "refused second interview",
-                             status2 == 1 ~ "answered 2nd interview",
-                             status2 == 2 ~ "closed for renovations",
-                             status2 == 3 ~ "closed permanently",
-                             status2 == 4 ~ "closed for highway construction",
-                             status2 == 5 ~ "closed due to Mall fire")) %>%
-  mutate(co_owned = if_else(co_owned == 1, "yes", "no")) %>%
-  mutate(bonus = if_else(bonus == 1, "yes", "no")) %>%
-  mutate(special2 = if_else(special2 == 1, "yes", "no")) %>%
-  mutate(type2 = if_else(type2 == 1, "phone", "personal")) %>%
-  select(-southj, -centralj, -northj, -shore, -pa1, -pa2) %>% # now included in region dummy
-  mutate(date2 = lubridate::mdy(date2)) %>% # Convert date
-  rename(open2 = open2r) %>% #Fit name to wave 1
-  rename(firstinc2 = firstin2) %>% # Fit name to wave 1
-  sjlabelled::set_label(variable_labels) # Add stored variable labels
-
-# Structural variables
-structure <- data_mod %>%
-  select(sheet, chain, co_owned, state, region)
-
-# Wave 1 variables
-wave1 <- data_mod %>%
-  select(-ends_with("2"), - names(structure)) %>%
-  mutate(observation = "February 1992") %>%
-  bind_cols(structure) 
-
-# Wave 2 variables
-wave2 <- data_mod %>%
-  select(ends_with("2")) %>%
-  rename_all(~str_remove(., "2"))  %>%
-  mutate(observation = "November 1992") %>%
-  bind_cols(structure) 
-
-# Final dataset
-card_krueger_1994 <- bind_rows(wave1, wave2) %>%
-  select(sort(names(.))) %>% # Sort columns alphabetically
-  sjlabelled::copy_labels(data_mod) # Restore variable labels
-
-card_krueger_1994_mod <- card_krueger_1994 %>%
-  mutate(emptot = empft + nmgrs + 0.5 * emppt,
-         pct_fte = empft / emptot * 100)
-
-# Now we plot with the cleaned data (This code is also not mine)
-
-
-hist.feb <- card_krueger_1994_mod %>%
-  filter(observation == "February 1992") %>%
-  ggplot(aes(wage_st, fill = state)) +
-  geom_histogram(aes(y=c(..count..[..group..==1]/sum(..count..[..group..==1]),
-                         ..count..[..group..==2]/sum(..count..[..group..==2]))*100),
-                 alpha=0.5, position = "dodge", bins = 23) +
-  labs(title = "February 1992", x = "Wage range", y = "Percent of stores", fill = "") +
-  scale_fill_grey()
-
-hist.nov <- card_krueger_1994_mod %>%
-  filter(observation == "November 1992") %>%
-  ggplot(aes(wage_st, fill = state)) +
-  geom_histogram(aes(y=c(..count..[..group..==1]/sum(..count..[..group..==1]),
-                         ..count..[..group..==2]/sum(..count..[..group..==2]))*100),
-                 alpha = 0.5, position = "dodge", bins = 23) +
-  labs(title = "November 1992", x="Wage range", y = "Percent of stores", fill="") +
-  scale_fill_grey()
-
-ggarrange(hist.feb, hist.nov, ncol = 2, 
-          common.legend = TRUE, legend = "bottom")
-```
-
-Note: the graph is not quite right but I will fix it\
-
-## Legislative Change
-
-This minimum wage change **was not unexpected**:
-
--   Federal minimum wage is the floor to all state level minimum wages.
--   Federal increase from \$3.35 to \$3.80 in April 1990.
--   Federal increase from \$3.80 to \$4.25 in April 1991.
--   New Jersey chose to increase its own minimum wage to \$5.05 effective April 1992, giving it the highest minimum wage in the country.
--   Opposed by business leaders, but the opposition lost an appeal (March, 1992) by a close margin.
-
-This last-minute appeal and close election do create some uncertainty.
-
-## Research Design
-
-Card & Krueger (1994) implement a basic difference-in-difference research design
-
-$$
-\tau_{ATT} = \big(E[Y_{it}|T_t=1,D_i=1] - E[Y_{it}|T_t=0,D_i=1]\big) - \big(E[Y_{it}|T_t=1,D_i=0] - E[Y_{it}|T_t=0,D_i=0]\big)
-$$
-
-where $T_t = \mathbf{1}{\text{after April 1992}}$, and
-
-$$
-D_i = 
-\begin{cases}
-1 & \text{New Jersey} \\
-0 & \text{Pennsylvania}
-\end{cases}
-$$
-
-Include more graphs here\
-\
-Card & Krueger (1994)}
-
-Conclusion,
-
--   No evidence of a negative effect, as competitive models would predict.
--   If anything, some evidence of a small positive effect, as suggested by monopsonistic models.
--   Card & Krueger (1994) don't show pre-trends to help persuade you that the parallel trends assumption is likely to hold.
--   After this paper comes the rebuttal by Neumark & Wascher (2000, AER), followed immediately by a response from Card & Krueger (2000, AER).
--   This is just round 1 of what is a multi-round debate. The discussion has now shifted away from state-level minimum wages to the study of city-specific policies.
-
-# Dynamic Treatment Effects
-
-## Set-up
-
-Today's discussion will concern,
-
-::: {.alert .alert-danger}
-Once treatment is applied it remains fixed.
-:::
-
--   If treatment is temporary, the model will capture long-term effects.
-
-## Dynamic TE's
-
-Suppose that the treatment effect is indeed dynamic:
-
-::: {.callout-note icon="false"}
-For all ( $t=0,1,2,...,T$)
-
-$$
-Y_{it}(1)-Y_{it}(0) = \tau_{it}
-$$
-:::
-
-It helps to normalize time to **event-time**,
-
-$$
-s=t-S_{i}
-$$
-
-where ($S_i$) is the time period in which unit ($i$) first receives the treatment.
-
--   ($S_i$) could be determined at the assignment-group level,
-
-$$
-S_i=S_c
-$$
-
-Given time periods ($t=0,1,...T$), ( $s=-T,..,-1,0,1,...,T$). The dynamic treatment effect is specified as,
-
-::: {.callout-note icon="false"}
-$$
-Y_{its}(1)-Y_{its}(0) = \tau_{is}
-$$
-:::
-
--   The relevant unit of time is event-time, not calendar time.[^paralleltrends-12]
--   In a 2-group-multiple-period setting ( $s$ ) does not vary independently of ( $t$ ) for the treated units.
--   This set-up becomes more useful when describing multi-cohort settings.
-
 [^paralleltrends-12]: This rules out dynamic TEs which change over (calendar) time.
-
-## Dynamic TE's
-
-::: {.callout-note icon="false"}
-**Treatment Cohort**\
-A group of individuals treated at the same time, ( \$S_i\$).
-:::
-
--   In a staggered-DiD model or event-study, there are multiple cohorts.
--   For *never treated* groups, $$
-    S_i = \infty
-    $$
--   A never treated and not-yet/future treated group are NOT the same.
-
-## 2-group-2-period
-
-Recall from lecture 4.1,
-
-$$
-Y^{obs}_{it} = \alpha + \psi D_i + \delta T_t + \beta D_i \cdot T_t + \varepsilon_{it}
-$$
-
-Using this new notation, we can rewrite this equation as,
-
-$$
-Y^{obs}_{it} = \psi D_i + \delta_t + \beta \mathbf{1}\{s \geq 0\} + \varepsilon_{it}
-$$
-
--   Time FEs are the same as a post-treatment dummy with 2 periods.
--   For the treated group, ( $S_i = t_0$ ).
--   For the control group, ( \$S_i = \infty \$ ).
--   ( $D_i \cdot T_t = \mathbf{1}{t \geq S_i} = \mathbf{1}{s \geq 0}$); which implies, $$
-    \Rightarrow \mathbf{1}\{s = t - \infty \geq 0\} = 0 \quad \text{**always.**}
-    $$
-
-## Multi-group-2-period
-
-Recall from lecture 4.1,
-
-$$
-Y^{obs}_{itc} = \psi_c + \delta T_t + \beta D_c \cdot T_t + \varepsilon_{itc}
-$$
-
-Using this new notation, we can rewrite this equation as,
-
-$$
-Y^{obs}_{itc} = \psi_c + \delta_t + \beta \mathbf{1}\{s \geq 0\} + \varepsilon_{itc}
-$$
-
--   For the treated groups (( $c \leq c_0$ )), ( $S_c = t_0$ ).
--   For the control groups (( $c > c_0$)), ( \$S_c = \infty\$ ).
--   ( $D_c \cdot T_t = \mathbf{1}{t \geq S_c} = \mathbf{1}{s \geq 0}$ )
--   In both these applications, there is a one-to-one mapping from event to calendar time.
-
-# Multi-Period DiD
-
-We can define a more flexible version of the parallel trends,[^paralleltrends-13]
 
 [^paralleltrends-13]: For example, see discussion on Eissa & Liebman (1996).
 
-::: {.callout-note icon="false"}
-**Parallel Trends Assumption (Parametric version)**\
-$$
-E[Y_{it}(0)|D_i, t] = \psi D_i + \delta_t
-$$
-:::
-
-or,
-
-::: {.callout-note icon="false"}
-**Parallel Trends Assumption (Parametric version)**\
-$$
-E[Y_{itc}(0)|c, t] = \psi_c + \delta_t
-$$ with group FEs.
-:::
-
-::: {.callout-note icon="false"}
-**Parallel Trends Assumption (Parametric version)**\
-$$
-E[Y_{it}(0)|D_i, t] = \alpha_i + \delta_t
-$$ with unit FEs.
-:::
-
-## Multi-Period DiD
-
-However, if we specify the model as,
-
-$$
-Y^{obs}_{it} = \psi D_i + \delta_t + \beta \mathbf{1}\{s \geq 0\} + \upsilon_{it}
-$$
-
-where ($\beta$) captures the ATT in all post-treatment periods, then we have proposed a linear regression model that best characterizes,
-
-::: {.callout-note icon="false"}
-**Static Treatment Effects**
-
-$$
-Y_{it}(1) - Y_{it}(0) = \tau_{i}
-$$
-:::
-
-$$
-\tau_{ATT}(s) = E[Y_{it}(1) - Y_{it}(0)|D_i = 1, t = S_i + s] = \tau_{ATT} \quad \forall \; s \geq 0
-$$
-
-## Dynamic DiD
-
-If TEs are dynamic, it is better to estimate either,
-
-1.  Semi-dynamic model,
-
-$$
-Y^{obs}_{it} = \psi D_i + \delta_t + \sum_{j \geq 0} \beta_j \mathbf{1}\{s = j\} + \upsilon_{it}
-$$
-
-2.  Dynamic model,
-
-$$
-Y^{obs}_{it} = \psi D_i + \delta_t + \sum_{j \neq -1} \beta_j \mathbf{1}\{s = j\} + \upsilon_{it}
-$$
-
--   In applied settings, you should always specify such a model with time FEs, and not a single post-treatment dummy. Failure to do so will typically lead to a false counterfactual.[^paralleltrends-14]
--   You have to normalize 1 period. It does not have to be ( s = -1 ), but should be a pre-period.
-
 [^paralleltrends-14]: Can you demonstrate this?
-
-## Dynamic DiD (Continued)
-
-Consider the dynamic specification,
-
-$$
-Y^{obs}_{it} = \psi D_i + \delta_t + \sum_{j \neq -1} \beta_j \mathbf{1}\{s = j\} + \upsilon_{it}
-$$
-
--   We must exclude at least one of the event-time dummies. Standard to exclude pre-treatment period.
-
-**QUESTION:** Assuming parallel trends and all necessary exclusion restrictions, how would we define ( $\beta_2$ )?
-
-Proof:
-
-::: details
-::: {.summary title="Click to see the proof"}
-Single period of treatment: $t_0$
-
-Control group $S_i = \infty$
-
-$\beta_2$ event-time $s = 2$.
-
-$$
-1 \{S = 2\} = D_i \cdot 1 \{t = t_0+2\}.
-$$
-
-$$
-\beta_1 = 
-\left[ E[Y_t | D_i=1, t=t_0+2] - E[Y_t | D_i=0, t=t_0+2] \right] - 
-\left[ E[Y_t | D_i=1, t=t_0-1] - E[Y_t | D_i=0, t=t_0-1] \right]
-$$
-
-$$
-= E[Y_t(1) - Y_t(0) | D_i=1, t=t_0+2] 
-$$
-
-$$
-+ \textcolor{red}{E[Y_t(0) | D_i=1, t=t_0+2] - E[Y_t(0) | D_i=0, t=t_0+2]}
-$$
-
-$$
-- \textcolor{red}{E[Y_t(1) | D_i=1, t=t_0-1] - E[Y_t(0) | D_i=0, t=t_0-1]}
-$$
-
-Where $\textcolor{red}{\phi + \delta_{t2}}$ and $\textcolor{red}{\delta_{t-1}}$ are the effects to be controlled for.
-:::
-:::
-
-## Dynamic DiD (Exclusion Restrictions)
-
-Notice: - Linear model can identify treatment effects up to a normalized period. - We must assume,
-
-::: {.callout-note icon="false"}
-**Exclusion restriction: No pre-emptive behaviour**
-
-$$
-E[Y_{it}|D_i = 1, t = t_0 + j] = E[Y_{it}(0)|D_i = 1, t = t_0 + j]
-$$
-
-for **some** ($j \< 0$).
-:::
-
--   Pre-emptive behaviour biases both pre-treatment **and post-treatment** TE estimates.
-
-## Test parallel trends
-
-**Assuming no pre-emptive behaviour**, the test,
-
-$$
-H_0: \beta_s = 0 \quad \forall \quad s < 0
-$$
-
-is a valid test for parallel trends **in the pre-treatment period**.
-
-$$
-\begin{aligned}
-\beta_s = & \left[\underbrace{E[Y_{it}|D_i = 1, t = t_0 + s] - E[Y_{it}|D_i = 1, t = t_0 - 1]}_{\text{Pre-trend of treated.}}\right] \\
-& - \left[\underbrace{\textcolor{blue}{E[Y_{it}|D_i = 0, t = t_0 + s] - E[Y_{it}|D_i = 0, t = t_0 - 1]}}_{\text{Pre-trend of control.}}\right]
-\end{aligned}
-$$
-
-for ($s \< 0$) and ($s \neq -1$).[^paralleltrends-15]
 
 [^paralleltrends-15]: Here, ($s=-1$) is the normalized period.
 
-## Dynamic DiD (Visualization)
+![](docs/images/EL3.png)
 
-The problem can be how to distinguish between, - a failure of parallel trends, - and pre-emptive behaviour.
+**Figure**: The phase out rate is 21.06% which ends at \$46703 ([2019 parameters](https://www.cbpp.org/research/policy-basics-the-earned-income-tax-credit) based on single earner with two children)
 
-::: {style="text-align: center"}
-\[Alternative DID Plot\]
-:::
-
-## Dynamic DiD (Renormalization)
-
-If there appears to be pre-emptive behaviour - and a reason for its presence - you can always renormalize the excluded base period.
-
-Here goes the other figure (I do not have it yet)
-
-include another graph here
-
-## Next-up
-
--   'Things Fall Apart' - The problems with dynamic/staggered DiD and two-way FEs
--   What to do.
--   Generalized two-way FEs models
--   Synthetic Control
-
-## Example: Eissa & Liebman (1996)
-
-### 
-
-::: center
-**Example: Eissa & Liebman (1996)**
-:::
-
-## Set-up: EITC
-
-Countries create tax credits for a number of reasons, these are typically after tax reimbursements based eligibility in certain criteria. Many are simply used to transfer income to a targeted population, and do not (intentionally) induce any behavioural response.
-
--   However, the **Earned** Income Tax Credit (EITC) is a uniquely targeted public policy that aims to both assist poorer, more vulnerable households while also incentivizing labour force participation (Holz & Scholz, 2003).
-
-The EITC aims to solve the following problem:
-
-::: {.callout-note icon="false"}
-How do you redistribute money to poorer households without inducing a negative income effect? And can you design a policy that actually increases labour force participation while redistributing income.
-:::
-
-The tax credit increases in value with your earned income up to a threshold...
-
-![The tax credit is 40% of earned income for the first \$14570 (2019 parameters based on single earner with 2 children)](eitc1)
-
-... at which point it is flat up to a second threshold...
-
-![The maximum is \$5828 (2019 parameters based on single earner with 2 children)](eitc2)
-
-...and then is phased out.
-
-![The phase out rate is 21.06% which ends at \$46703 (2019 parameters based on single earner with 2 children)](eitc3)
+Set up:
 
 1.  PHASE IN: acts as a subsidy to work: incentive to earn more
+
 2.  PLATEAU: no subsidy, and hence no additional incentive to work more
+
 3.  PHASE OUT: effectively a tax on every additional dollar earned: disincentive to earn more
 
 ::: {.callout-note icon="false"}
