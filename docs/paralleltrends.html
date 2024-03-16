@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Microeconometrics - 11&nbsp; Difference-in-Differences - Static</title>
+<title>Microeconometrics - 11&nbsp; Eissa &amp; Liebman (1996)</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -76,7 +76,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./paralleltrends.html">Natural Experiments</a></li><li class="breadcrumb-item"><a href="./paralleltrends.html"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Difference-in-Differences - Static</span></a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./paralleltrends.html">Natural Experiments</a></li><li class="breadcrumb-item"><a href="./paralleltrends.html"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Eissa &amp; Liebman (1996)</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -201,7 +201,7 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./paralleltrends.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Difference-in-Differences - Static</span></span></a>
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Eissa &amp; Liebman (1996)</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -275,57 +275,7 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#imbens-and-rubin-2015-p.-6" id="toc-imbens-and-rubin-2015-p.-6" class="nav-link active" data-scroll-target="#imbens-and-rubin-2015-p.-6"><span class="header-section-number">11.1</span> (Imbens and Rubin, 2015, p.&nbsp;6)</a></li>
-  <li><a href="#set-up-2-group-2-period" id="toc-set-up-2-group-2-period" class="nav-link" data-scroll-target="#set-up-2-group-2-period"><span class="header-section-number">11.2</span> Set-up: 2-group-2-period</a></li>
-  <li><a href="#exclusion-restrictions" id="toc-exclusion-restrictions" class="nav-link" data-scroll-target="#exclusion-restrictions"><span class="header-section-number">11.3</span> Exclusion Restrictions</a></li>
-  <li><a href="#dynamic-confounding-factors" id="toc-dynamic-confounding-factors" class="nav-link" data-scroll-target="#dynamic-confounding-factors"><span class="header-section-number">11.4</span> Dynamic Confounding Factors</a></li>
-  <li><a href="#mapping-to-linear-model" id="toc-mapping-to-linear-model" class="nav-link" data-scroll-target="#mapping-to-linear-model"><span class="header-section-number">11.5</span> Mapping to Linear Model</a></li>
-  <li><a href="#graphical-example" id="toc-graphical-example" class="nav-link" data-scroll-target="#graphical-example"><span class="header-section-number">11.6</span> Graphical Example</a></li>
-  <li><a href="#did-and-cia" id="toc-did-and-cia" class="nav-link" data-scroll-target="#did-and-cia"><span class="header-section-number">11.7</span> DiD and CIA</a></li>
-  <li><a href="#selection" id="toc-selection" class="nav-link" data-scroll-target="#selection"><span class="header-section-number">11.8</span> Selection</a></li>
-  <li><a href="#difference-in-differences" id="toc-difference-in-differences" class="nav-link" data-scroll-target="#difference-in-differences"><span class="header-section-number">11.9</span> Difference-in-differences</a></li>
-  <li><a href="#did-in-practice" id="toc-did-in-practice" class="nav-link" data-scroll-target="#did-in-practice"><span class="header-section-number">11.10</span> DiD in Practice</a>
-  <ul class="collapse">
-  <li><a href="#multi-group-2-period" id="toc-multi-group-2-period" class="nav-link" data-scroll-target="#multi-group-2-period"><span class="header-section-number">11.10.1</span> Multi-group-2-period</a></li>
-  </ul></li>
-  <li><a href="#group-assignment" id="toc-group-assignment" class="nav-link" data-scroll-target="#group-assignment"><span class="header-section-number">11.11</span> Group Assignment</a></li>
-  <li><a href="#group-fixed-effects" id="toc-group-fixed-effects" class="nav-link" data-scroll-target="#group-fixed-effects"><span class="header-section-number">11.12</span> Group Fixed Effects</a></li>
-  <li><a href="#example-uk-policy" id="toc-example-uk-policy" class="nav-link" data-scroll-target="#example-uk-policy"><span class="header-section-number">11.13</span> Example: UK Policy</a></li>
-  <li><a href="#unit-fixed-effects" id="toc-unit-fixed-effects" class="nav-link" data-scroll-target="#unit-fixed-effects"><span class="header-section-number">11.14</span> Unit Fixed Effects</a></li>
-  <li><a href="#adding-covariates" id="toc-adding-covariates" class="nav-link" data-scroll-target="#adding-covariates"><span class="header-section-number">11.15</span> Adding Covariates</a></li>
-  <li><a href="#did-in-practice---multiple-time-periods" id="toc-did-in-practice---multiple-time-periods" class="nav-link" data-scroll-target="#did-in-practice---multiple-time-periods"><span class="header-section-number">11.16</span> DiD in Practice - Multiple Time Periods</a></li>
-  <li><a href="#card-krueger-1994" id="toc-card-krueger-1994" class="nav-link" data-scroll-target="#card-krueger-1994"><span class="header-section-number">11.17</span> Card &amp; Krueger (1994)</a>
-  <ul class="collapse">
-  <li><a href="#pre-1990s-literature" id="toc-pre-1990s-literature" class="nav-link" data-scroll-target="#pre-1990s-literature"><span class="header-section-number">11.17.1</span> Pre-1990’s Literature</a></li>
-  </ul></li>
-  <li><a href="#legislative-change" id="toc-legislative-change" class="nav-link" data-scroll-target="#legislative-change"><span class="header-section-number">11.18</span> Legislative Change</a></li>
-  <li><a href="#research-design" id="toc-research-design" class="nav-link" data-scroll-target="#research-design"><span class="header-section-number">11.19</span> Research Design</a></li>
-  <li><a href="#dynamic-treatment-effects" id="toc-dynamic-treatment-effects" class="nav-link" data-scroll-target="#dynamic-treatment-effects"><span class="header-section-number">12</span> Dynamic Treatment Effects</a>
-  <ul class="collapse">
-  <li><a href="#set-up" id="toc-set-up" class="nav-link" data-scroll-target="#set-up"><span class="header-section-number">12.1</span> Set-up</a></li>
-  <li><a href="#dynamic-tes" id="toc-dynamic-tes" class="nav-link" data-scroll-target="#dynamic-tes"><span class="header-section-number">12.2</span> Dynamic TE’s</a></li>
-  <li><a href="#dynamic-tes-1" id="toc-dynamic-tes-1" class="nav-link" data-scroll-target="#dynamic-tes-1"><span class="header-section-number">12.3</span> Dynamic TE’s</a></li>
-  <li><a href="#group-2-period" id="toc-group-2-period" class="nav-link" data-scroll-target="#group-2-period"><span class="header-section-number">12.4</span> 2-group-2-period</a></li>
-  <li><a href="#multi-group-2-period-1" id="toc-multi-group-2-period-1" class="nav-link" data-scroll-target="#multi-group-2-period-1"><span class="header-section-number">12.5</span> Multi-group-2-period</a></li>
-  </ul></li>
-  <li><a href="#multi-period-did" id="toc-multi-period-did" class="nav-link" data-scroll-target="#multi-period-did"><span class="header-section-number">13</span> Multi-Period DiD</a>
-  <ul class="collapse">
-  <li><a href="#multi-period-did-1" id="toc-multi-period-did-1" class="nav-link" data-scroll-target="#multi-period-did-1"><span class="header-section-number">13.1</span> Multi-Period DiD</a></li>
-  <li><a href="#dynamic-did" id="toc-dynamic-did" class="nav-link" data-scroll-target="#dynamic-did"><span class="header-section-number">13.2</span> Dynamic DiD</a></li>
-  <li><a href="#dynamic-did-continued" id="toc-dynamic-did-continued" class="nav-link" data-scroll-target="#dynamic-did-continued"><span class="header-section-number">13.3</span> Dynamic DiD (Continued)</a></li>
-  <li><a href="#dynamic-did-exclusion-restrictions" id="toc-dynamic-did-exclusion-restrictions" class="nav-link" data-scroll-target="#dynamic-did-exclusion-restrictions"><span class="header-section-number">13.4</span> Dynamic DiD (Exclusion Restrictions)</a></li>
-  <li><a href="#test-parallel-trends" id="toc-test-parallel-trends" class="nav-link" data-scroll-target="#test-parallel-trends"><span class="header-section-number">13.5</span> Test parallel trends</a></li>
-  <li><a href="#dynamic-did-visualization" id="toc-dynamic-did-visualization" class="nav-link" data-scroll-target="#dynamic-did-visualization"><span class="header-section-number">13.6</span> Dynamic DiD (Visualization)</a></li>
-  <li><a href="#dynamic-did-renormalization" id="toc-dynamic-did-renormalization" class="nav-link" data-scroll-target="#dynamic-did-renormalization"><span class="header-section-number">13.7</span> Dynamic DiD (Renormalization)</a></li>
-  <li><a href="#next-up" id="toc-next-up" class="nav-link" data-scroll-target="#next-up"><span class="header-section-number">13.8</span> Next-up</a></li>
-  <li><a href="#example-eissa-liebman-1996" id="toc-example-eissa-liebman-1996" class="nav-link" data-scroll-target="#example-eissa-liebman-1996"><span class="header-section-number">13.9</span> Example: Eissa &amp; Liebman (1996)</a>
-  <ul class="collapse">
-  <li><a href="#section" id="toc-section" class="nav-link" data-scroll-target="#section"><span class="header-section-number">13.9.1</span> </a></li>
-  </ul></li>
-  <li><a href="#set-up-eitc" id="toc-set-up-eitc" class="nav-link" data-scroll-target="#set-up-eitc"><span class="header-section-number">13.10</span> Set-up: EITC</a></li>
-  <li><a href="#eissa-liebman-1996" id="toc-eissa-liebman-1996" class="nav-link" data-scroll-target="#eissa-liebman-1996"><span class="header-section-number">13.11</span> Eissa &amp; Liebman (1996)</a></li>
-  <li><a href="#other-studies" id="toc-other-studies" class="nav-link" data-scroll-target="#other-studies"><span class="header-section-number">13.12</span> Other studies</a></li>
-  </ul></li>
+  <li><a href="#other-studies" id="toc-other-studies" class="nav-link active" data-scroll-target="#other-studies"><span class="header-section-number">13.11</span> Other studies</a></li>
   </ul>
 </nav>
     </div>
@@ -334,7 +284,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Difference-in-Differences - Static</span></h1>
+<h1 class="title"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Eissa &amp; Liebman (1996)</span></h1>
 </div>
 
 
@@ -349,16 +299,15 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
+<ol type="1">
+<li><p>Difference-in-Differences - Static</p>
 <p>Recall Lecture 1.2 <em>Causal Inference</em>,</p>
-<section id="imbens-and-rubin-2015-p.-6" class="level2" data-number="11.1">
-<h2 data-number="11.1" class="anchored" data-anchor-id="imbens-and-rubin-2015-p.-6"><span class="header-section-number">11.1</span> (Imbens and Rubin, 2015, p.&nbsp;6)</h2>
+<h2 id="imbens-and-rubin-2015-p.-6" data-number="11.1" class="anchored"><span class="header-section-number">11.1</span> (Imbens and Rubin, 2015, p.&nbsp;6)</h2>
 <ol type="1">
 <li>“First, the definition of the causal effect depends on the potential outcomes, but it does not depend on which outcome is actually observed.”</li>
 <li>“Second, the causal effect is the comparison of potential outcomes, for the same unit, at the same moment in time post-treatment. In particular, <strong>the causal effect is not defined in terms of comparisons of outcomes at different times.</strong><a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>”</li>
 </ol>
-</section>
-<section id="set-up-2-group-2-period" class="level2" data-number="11.2">
-<h2 data-number="11.2" class="anchored" data-anchor-id="set-up-2-group-2-period"><span class="header-section-number">11.2</span> Set-up: 2-group-2-period</h2>
+<h2 id="set-up-2-group-2-period" data-number="11.2" class="anchored"><span class="header-section-number">11.2</span> Set-up: 2-group-2-period</h2>
 <p>The simple 2-group-2-period difference-in-differences set-up has the following characteristics,</p>
 <ul>
 <li>Two periods of data: either panel (longitudinal) or repeated cross-section</li>
@@ -392,9 +341,7 @@ Y_{it}(1)-Y_{it}(0) \lesseqqgtr Y_{it'}(1)-Y_{it'}(0)
 \]</span></p>
 </div>
 </div>
-</section>
-<section id="exclusion-restrictions" class="level2" data-number="11.3">
-<h2 data-number="11.3" class="anchored" data-anchor-id="exclusion-restrictions"><span class="header-section-number">11.3</span> Exclusion Restrictions</h2>
+<h2 id="exclusion-restrictions" data-number="11.3" class="anchored"><span class="header-section-number">11.3</span> Exclusion Restrictions</h2>
 <p>The above set-up implies the following exclusion restrictions,<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a></p>
 <div class="callout callout-style-default callout-note no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -441,9 +388,7 @@ Exclusion restriction: No switching
 <p><strong>Treatment group</strong> status, <span class="math inline">\(D_i\)</span>, does not depend on time. Only treatment status, <span class="math inline">\(D_i \cdot T_t\)</span>, varies with time.</p>
 </div>
 </div>
-</section>
-<section id="dynamic-confounding-factors" class="level2" data-number="11.4">
-<h2 data-number="11.4" class="anchored" data-anchor-id="dynamic-confounding-factors"><span class="header-section-number">11.4</span> Dynamic Confounding Factors</h2>
+<h2 id="dynamic-confounding-factors" data-number="11.4" class="anchored"><span class="header-section-number">11.4</span> Dynamic Confounding Factors</h2>
 <p>Let us consider the first (dynamic) difference with just <strong>two periods of data</strong>,</p>
 <p><span class="math display">\[
 \begin{aligned}
@@ -501,9 +446,7 @@ Parallel Trends Assumption (General version)
 \end{aligned}
 \]</span></p>
 <p>where the two penultimate lines cancel one another under parallel trends. Hence, the name <strong>difference-in-differences</strong>.</p>
-</section>
-<section id="mapping-to-linear-model" class="level2" data-number="11.5">
-<h2 data-number="11.5" class="anchored" data-anchor-id="mapping-to-linear-model"><span class="header-section-number">11.5</span> Mapping to Linear Model</h2>
+<h2 id="mapping-to-linear-model" data-number="11.5" class="anchored"><span class="header-section-number">11.5</span> Mapping to Linear Model</h2>
 <p>Let’s consider the CEF of ( <span class="math inline">\(Y_{it}^{obs}\)</span> ),</p>
 <p><span class="math display">\[
 E[Y_{it}|D_i,T_t]
@@ -592,9 +535,7 @@ E[Y_{it}(0)|D_i,T_t] = \alpha + \psi D_i + \delta T_t
 <p><span class="math display">\[
 \underbrace{\textcolor{red}{E[Y_{it}(0)|D_i=1,T_t=1]}}_{\alpha + \psi + \delta} - \underbrace{E[Y_{it}(0)|D_i=1,T_t=0]}_{\alpha + \psi} = \delta
 \]</span></p>
-</section>
-<section id="graphical-example" class="level2" data-number="11.6">
-<h2 data-number="11.6" class="anchored" data-anchor-id="graphical-example"><span class="header-section-number">11.6</span> Graphical Example</h2>
+<h2 id="graphical-example" data-number="11.6" class="anchored"><span class="header-section-number">11.6</span> Graphical Example</h2>
 <div class="cell">
 <div class="cell-output-display">
 <div id="fig-graph1" class="quarto-figure quarto-figure-center anchored">
@@ -615,9 +556,7 @@ E[Y_{it}(0)|D_i,T_t] = \alpha + \psi D_i + \delta T_t
 </div>
 </div>
 </div>
-</section>
-<section id="did-and-cia" class="level2" data-number="11.7">
-<h2 data-number="11.7" class="anchored" data-anchor-id="did-and-cia"><span class="header-section-number">11.7</span> DiD and CIA</h2>
+<h2 id="did-and-cia" data-number="11.7" class="anchored"><span class="header-section-number">11.7</span> DiD and CIA</h2>
 <p>Do we need the CIA/Unconfoundedness assumption?<br>
 <strong>NO</strong>, Why not?</p>
 <ul>
@@ -628,9 +567,7 @@ E[Y_i(0)|D_i=1,T_i=0] - E[Y_i(0)|D_i=0,T_i=0] = \psi
 \]</span></p></li>
 <li><p>Key assumption: selection doesn’t change over time; i.e., <em>parallel/common trends</em>.</p></li>
 </ul>
-</section>
-<section id="selection" class="level2" data-number="11.8">
-<h2 data-number="11.8" class="anchored" data-anchor-id="selection"><span class="header-section-number">11.8</span> Selection</h2>
+<h2 id="selection" data-number="11.8" class="anchored"><span class="header-section-number">11.8</span> Selection</h2>
 <p>Let us consider the first (cross-sectional) difference,</p>
 <p><span class="math display">\[
 \begin{aligned}
@@ -658,9 +595,7 @@ E[Y_{it}(0)|D_i=1,T_t=0] - E[Y_{it}(0)|D_i=0,T_t=0]
 <li>Permits level differences between treatment and control.</li>
 <li>Selection term is identified in pre-period.<a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a></li>
 </ul>
-</section>
-<section id="difference-in-differences" class="level2" data-number="11.9">
-<h2 data-number="11.9" class="anchored" data-anchor-id="difference-in-differences"><span class="header-section-number">11.9</span> Difference-in-differences</h2>
+<h2 id="difference-in-differences" data-number="11.9" class="anchored"><span class="header-section-number">11.9</span> Difference-in-differences</h2>
 <p>Again we can identify the ATT as a <em>difference-in-differences</em>,</p>
 <p><span class="math display">\[
 \begin{aligned}
@@ -677,11 +612,8 @@ E[Y_{it}(0)|D_i=1,T_t=0] - E[Y_{it}(0)|D_i=0,T_t=0]
 <li>Parallel trends allow us to pin down the selection component.</li>
 <li>We do not need unconfoundedness to rule out selection.</li>
 </ul>
-</section>
-<section id="did-in-practice" class="level2" data-number="11.10">
-<h2 data-number="11.10" class="anchored" data-anchor-id="did-in-practice"><span class="header-section-number">11.10</span> DiD in Practice</h2>
-<section id="multi-group-2-period" class="level3" data-number="11.10.1">
-<h3 data-number="11.10.1" class="anchored" data-anchor-id="multi-group-2-period"><span class="header-section-number">11.10.1</span> Multi-group-2-period</h3>
+<h2 id="did-in-practice" data-number="11.10" class="anchored"><span class="header-section-number">11.10</span> DiD in Practice</h2>
+<h3 id="multi-group-2-period" data-number="11.10.1" class="anchored"><span class="header-section-number">11.10.1</span> Multi-group-2-period</h3>
 <p><strong>In a ‘natural’ experiment setting</strong>, treatment is almost always assigned at a group-level setting: geographical, demographic, etc.</p>
 <p>Let (<span class="math inline">\(Y_{itc}\)</span>) be the outcome of unit (<span class="math inline">\(i\)</span>) in period ( <span class="math inline">\(t\)</span>), member of assignment-group (<span class="math inline">\(c(i)\)</span>),</p>
 <p><span class="math display">\[
@@ -696,10 +628,7 @@ c(i) \in \{1, \ldots, c_0, c_0 + 1, \ldots, C\}
 <p><span class="math display">\[
 D_i = D_{c(i)} = \mathbf{1}\{c(i) \leq c_0\}
 \]</span></p>
-</section>
-</section>
-<section id="group-assignment" class="level2" data-number="11.11">
-<h2 data-number="11.11" class="anchored" data-anchor-id="group-assignment"><span class="header-section-number">11.11</span> Group Assignment</h2>
+<h2 id="group-assignment" data-number="11.11" class="anchored"><span class="header-section-number">11.11</span> Group Assignment</h2>
 <p>The relevant estimating equation is then,</p>
 <p><span class="math display">\[
 Y^{obs}_{itc} = \alpha + \psi D_{c} + \delta T_t + \beta D_{c} \cdot T_t + \varepsilon_{itc}
@@ -707,9 +636,7 @@ Y^{obs}_{itc} = \alpha + \psi D_{c} + \delta T_t + \beta D_{c} \cdot T_t + \vare
 <ul>
 <li>A model that can be estimated using repeated cross-sections or panel/longitudinal data.<a href="#fn7" class="footnote-ref" id="fnref7" role="doc-noteref"><sup>7</sup></a></li>
 </ul>
-</section>
-<section id="group-fixed-effects" class="level2" data-number="11.12">
-<h2 data-number="11.12" class="anchored" data-anchor-id="group-fixed-effects"><span class="header-section-number">11.12</span> Group Fixed Effects</h2>
+<h2 id="group-fixed-effects" data-number="11.12" class="anchored"><span class="header-section-number">11.12</span> Group Fixed Effects</h2>
 <p>Fixed effects notation is used extensively in Microeconometrics.</p>
 <p>Given a set of assignment-groups ( <span class="math inline">\(c = 1, 2, 3, \ldots, C\)</span>), assignment-group FE’s can be written as,</p>
 <p><span class="math display">\[
@@ -740,9 +667,7 @@ Y^{obs}_{itc} = \psi_c + \delta T_t + \beta_2 D_c \cdot T_t + \epsilon_{itc}
 <li>But, ( se(_2) ) <strong>tends to be</strong> smaller than ( se(_1) )<a href="#fn8" class="footnote-ref" id="fnref8" role="doc-noteref"><sup>8</sup></a>.</li>
 </ul>
 <p>With group FE’s we <em>typically</em> explain more of the variation in ( Y(0) ).</p>
-</section>
-<section id="example-uk-policy" class="level2" data-number="11.13">
-<h2 data-number="11.13" class="anchored" data-anchor-id="example-uk-policy"><span class="header-section-number">11.13</span> Example: UK Policy</h2>
+<h2 id="example-uk-policy" data-number="11.13" class="anchored"><span class="header-section-number">11.13</span> Example: UK Policy</h2>
 <p>Suppose Scotland and Wales introduce a policy to restrict access to fast food in year (<span class="math inline">\(t_0\)</span>) and you have individual-level measures of BMI from across the UK.</p>
 <ul>
 <li><p>($D_c = $)</p></li>
@@ -755,9 +680,7 @@ Y^{obs}_{itc} = \alpha + \psi D_c + \delta T_t + \beta_1 D_c \cdot T_t + \vareps
 Y^{obs}_{itc} = \underbrace{\sum_{j=1}^{4} \psi_j \mathbf{1}\{c = j\}}_{\psi_c} + \delta T_t + \beta_2 D_c \cdot T_t + \epsilon_{itc}
 \]</span></p></li>
 </ul>
-</section>
-<section id="unit-fixed-effects" class="level2" data-number="11.14">
-<h2 data-number="11.14" class="anchored" data-anchor-id="unit-fixed-effects"><span class="header-section-number">11.14</span> Unit Fixed Effects</h2>
+<h2 id="unit-fixed-effects" data-number="11.14" class="anchored"><span class="header-section-number">11.14</span> Unit Fixed Effects</h2>
 <p>Suppose, you have <strong>panel/longitudinal data</strong>, then the specification,</p>
 <p><span class="math display">\[
 Y^{obs}_{itc} = \alpha_i + \delta T_t + \beta_3 D_c\cdot T_t + \upsilon_{itc}
@@ -770,9 +693,7 @@ Y^{obs}_{itc} = \alpha_i + \delta T_t + \beta_3 D_c\cdot T_t + \upsilon_{itc}
 <li>Increases the power of the test for <span class="math inline">\(H_0: \tau_{ATT}=0\)</span>.</li>
 <li>Higher dimensions of FEs <em>tend to</em> yield lower variance estimators.</li>
 </ul>
-</section>
-<section id="adding-covariates" class="level2" data-number="11.15">
-<h2 data-number="11.15" class="anchored" data-anchor-id="adding-covariates"><span class="header-section-number">11.15</span> Adding Covariates</h2>
+<h2 id="adding-covariates" data-number="11.15" class="anchored"><span class="header-section-number">11.15</span> Adding Covariates</h2>
 <p>There are two reasons to add <strong>GOOD</strong> covariates to the model:</p>
 <ol type="1">
 <li>Improve the precision of estimates and increase power.</li>
@@ -800,9 +721,7 @@ E[Y_{it}(0)|D_i,T_t,X_{it}] = \alpha + \psi D_i + \delta T_t + X_{it}'\gamma
 <li>Intuitively, similar groups <em>may</em> be more likely to follow parallel trends.</li>
 <li>Argument for matching on covariates in pre-period. For example, PSM-DID.</li>
 </ul>
-</section>
-<section id="did-in-practice---multiple-time-periods" class="level2" data-number="11.16">
-<h2 data-number="11.16" class="anchored" data-anchor-id="did-in-practice---multiple-time-periods"><span class="header-section-number">11.16</span> DiD in Practice - Multiple Time Periods</h2>
+<h2 id="did-in-practice---multiple-time-periods" data-number="11.16" class="anchored"><span class="header-section-number">11.16</span> DiD in Practice - Multiple Time Periods</h2>
 <p>Suppose you had more than 2 periods of data, you might then choose to add time-fixed effects,</p>
 <p><span class="math display">\[
 Y^{obs}_{itc} = \psi_c + \delta_t + \beta_3 D_c\cdot T_t + \upsilon_{itc}
@@ -812,9 +731,7 @@ Y^{obs}_{itc} = \psi_c + \delta_t + \beta_3 D_c\cdot T_t + \upsilon_{itc}
 <li>However, we first need to discuss <em>dynamic</em> treatment effects.</li>
 </ul>
 <p><strong>Next lecture.</strong></p>
-</section>
-<section id="card-krueger-1994" class="level2" data-number="11.17">
-<h2 data-number="11.17" class="anchored" data-anchor-id="card-krueger-1994"><span class="header-section-number">11.17</span> Card &amp; Krueger (1994)</h2>
+<h2 id="card-krueger-1994" data-number="11.17" class="anchored"><span class="header-section-number">11.17</span> Card &amp; Krueger (1994)</h2>
 <p>This paper<a href="#fn9" class="footnote-ref" id="fnref9" role="doc-noteref"><sup>9</sup></a>,</p>
 <ul>
 <li><p>arguably, established difference-in-difference as the central tool in Applied Microeconomics research;</p></li>
@@ -822,8 +739,7 @@ Y^{obs}_{itc} = \psi_c + \delta_t + \beta_3 D_c\cdot T_t + \upsilon_{itc}
 <li><p>won David Card the Nobel Prize in Economics;</p></li>
 <li><p>and started the closest thing to a fight in academic Economics.<a href="#fn10" class="footnote-ref" id="fnref10" role="doc-noteref"><sup>10</sup></a></p></li>
 </ul>
-<section id="pre-1990s-literature" class="level3" data-number="11.17.1">
-<h3 data-number="11.17.1" class="anchored" data-anchor-id="pre-1990s-literature"><span class="header-section-number">11.17.1</span> Pre-1990’s Literature</h3>
+<h3 id="pre-1990s-literature" data-number="11.17.1" class="anchored"><span class="header-section-number">11.17.1</span> Pre-1990’s Literature</h3>
 <ul>
 <li>Most of the literature supported the idea that higher minimum wages reduce employment.</li>
 <li>Wellington (1991) &amp; Brown et al.&nbsp;(1983): A 10% increase in minimum wage reduces teen employment by 1%.</li>
@@ -841,24 +757,8 @@ Y^{obs}_{itc} = \psi_c + \delta_t + \beta_3 D_c\cdot T_t + \upsilon_{itc}
 </ul>
 <p>This paper highlights the fact that you can make strong conclusions from what is effectively a very simple research design.</p>
 <p><img src="docs/images/diff-card-krueger-1994-tab1.png" class="img-fluid"></p>
-<p>NOTE: We could generate the same graph you copied from CK paper by using R and it looks more neat. Please find both and choose which one you like the most:<br>
-</p>
-<div class="cell">
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="paralleltrends_files/figure-html/Replicated Graph-1.png" class="img-fluid figure-img" width="672"></p>
-<figcaption class="figure-caption">Replicating CK</figcaption>
-</figure>
-</div>
-</div>
-</div>
-<p>Note: the graph is not quite right but I will fix it<br>
-</p>
-</section>
-</section>
-<section id="legislative-change" class="level2" data-number="11.18">
-<h2 data-number="11.18" class="anchored" data-anchor-id="legislative-change"><span class="header-section-number">11.18</span> Legislative Change</h2>
+<p><img src="docs/images/diff-card-krueger-1994-fig1.png" class="img-fluid"></p>
+<h2 id="legislative-change" data-number="11.18" class="anchored"><span class="header-section-number">11.18</span> Legislative Change</h2>
 <p>This minimum wage change <strong>was not unexpected</strong>:</p>
 <ul>
 <li>Federal minimum wage is the floor to all state level minimum wages.</li>
@@ -868,9 +768,7 @@ Y^{obs}_{itc} = \psi_c + \delta_t + \beta_3 D_c\cdot T_t + \upsilon_{itc}
 <li>Opposed by business leaders, but the opposition lost an appeal (March, 1992) by a close margin.</li>
 </ul>
 <p>This last-minute appeal and close election do create some uncertainty.</p>
-</section>
-<section id="research-design" class="level2" data-number="11.19">
-<h2 data-number="11.19" class="anchored" data-anchor-id="research-design"><span class="header-section-number">11.19</span> Research Design</h2>
+<h2 id="research-design" data-number="11.19" class="anchored"><span class="header-section-number">11.19</span> Research Design</h2>
 <p>Card &amp; Krueger (1994) implement a basic difference-in-difference research design</p>
 <p><span class="math display">\[
 \tau_{ATT} = \big(E[Y_{it}|T_t=1,D_i=1] - E[Y_{it}|T_t=0,D_i=1]\big) - \big(E[Y_{it}|T_t=1,D_i=0] - E[Y_{it}|T_t=0,D_i=0]\big)
@@ -883,10 +781,9 @@ D_i =
 0 &amp; \text{Pennsylvania}
 \end{cases}
 \]</span></p>
-<p>Include more graphs here<br>
+<p><img src="docs/images/diff-card-krueger-1994-tab3.png" class="img-fluid"><br>
 <br>
-Card &amp; Krueger (1994)}</p>
-<p>Conclusion,</p>
+Conclusion,</p>
 <ul>
 <li>No evidence of a negative effect, as competitive models would predict.</li>
 <li>If anything, some evidence of a small positive effect, as suggested by monopsonistic models.</li>
@@ -894,11 +791,8 @@ Card &amp; Krueger (1994)}</p>
 <li>After this paper comes the rebuttal by Neumark &amp; Wascher (2000, AER), followed immediately by a response from Card &amp; Krueger (2000, AER).</li>
 <li>This is just round 1 of what is a multi-round debate. The discussion has now shifted away from state-level minimum wages to the study of city-specific policies.</li>
 </ul>
-</section>
-<section id="dynamic-treatment-effects" class="level1" data-number="12">
-<h1 data-number="12"><span class="header-section-number">12</span> Dynamic Treatment Effects</h1>
-<section id="set-up" class="level2" data-number="12.1">
-<h2 data-number="12.1" class="anchored" data-anchor-id="set-up"><span class="header-section-number">12.1</span> Set-up</h2>
+<h1 id="dynamic-treatment-effects" data-number="12"><span class="header-section-number">12</span> Dynamic Treatment Effects</h1>
+<h2 id="set-up" data-number="12.1" class="anchored"><span class="header-section-number">12.1</span> Set-up</h2>
 <p>Today’s discussion will concern,</p>
 <div class="alert alert-danger">
 <p>Once treatment is applied it remains fixed.</p>
@@ -906,9 +800,7 @@ Card &amp; Krueger (1994)}</p>
 <ul>
 <li>If treatment is temporary, the model will capture long-term effects.</li>
 </ul>
-</section>
-<section id="dynamic-tes" class="level2" data-number="12.2">
-<h2 data-number="12.2" class="anchored" data-anchor-id="dynamic-tes"><span class="header-section-number">12.2</span> Dynamic TE’s</h2>
+<h2 id="dynamic-tes" data-number="12.2" class="anchored"><span class="header-section-number">12.2</span> Dynamic TE’s</h2>
 <p>Suppose that the treatment effect is indeed dynamic:</p>
 <div class="callout callout-style-default callout-note no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -958,9 +850,7 @@ Y_{its}(1)-Y_{its}(0) = \tau_{is}
 <li>In a 2-group-multiple-period setting ( <span class="math inline">\(s\)</span> ) does not vary independently of ( <span class="math inline">\(t\)</span> ) for the treated units.</li>
 <li>This set-up becomes more useful when describing multi-cohort settings.</li>
 </ul>
-</section>
-<section id="dynamic-tes-1" class="level2" data-number="12.3">
-<h2 data-number="12.3" class="anchored" data-anchor-id="dynamic-tes-1"><span class="header-section-number">12.3</span> Dynamic TE’s</h2>
+<h2 id="dynamic-tes-1" data-number="12.3" class="anchored"><span class="header-section-number">12.3</span> Dynamic TE’s</h2>
 <div class="callout callout-style-default callout-note no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -982,9 +872,7 @@ S_i = \infty
 \]</span></li>
 <li>A never treated and not-yet/future treated group are NOT the same.</li>
 </ul>
-</section>
-<section id="group-2-period" class="level2" data-number="12.4">
-<h2 data-number="12.4" class="anchored" data-anchor-id="group-2-period"><span class="header-section-number">12.4</span> 2-group-2-period</h2>
+<h2 id="group-2-period" data-number="12.4" class="anchored"><span class="header-section-number">12.4</span> 2-group-2-period</h2>
 <p>Recall from lecture 4.1,</p>
 <p><span class="math display">\[
 Y^{obs}_{it} = \alpha + \psi D_i + \delta T_t + \beta D_i \cdot T_t + \varepsilon_{it}
@@ -1001,9 +889,7 @@ Y^{obs}_{it} = \psi D_i + \delta_t + \beta \mathbf{1}\{s \geq 0\} + \varepsilon_
 \Rightarrow \mathbf{1}\{s = t - \infty \geq 0\} = 0 \quad \text{**always.**}
 \]</span></li>
 </ul>
-</section>
-<section id="multi-group-2-period-1" class="level2" data-number="12.5">
-<h2 data-number="12.5" class="anchored" data-anchor-id="multi-group-2-period-1"><span class="header-section-number">12.5</span> Multi-group-2-period</h2>
+<h2 id="multi-group-2-period-1" data-number="12.5" class="anchored"><span class="header-section-number">12.5</span> Multi-group-2-period</h2>
 <p>Recall from lecture 4.1,</p>
 <p><span class="math display">\[
 Y^{obs}_{itc} = \psi_c + \delta T_t + \beta D_c \cdot T_t + \varepsilon_{itc}
@@ -1018,10 +904,7 @@ Y^{obs}_{itc} = \psi_c + \delta_t + \beta \mathbf{1}\{s \geq 0\} + \varepsilon_{
 <li>( <span class="math inline">\(D_c \cdot T_t = \mathbf{1}{t \geq S_c} = \mathbf{1}{s \geq 0}\)</span> )</li>
 <li>In both these applications, there is a one-to-one mapping from event to calendar time.</li>
 </ul>
-</section>
-</section>
-<section id="multi-period-did" class="level1" data-number="13">
-<h1 data-number="13"><span class="header-section-number">13</span> Multi-Period DiD</h1>
+<h1 id="multi-period-did" data-number="13"><span class="header-section-number">13</span> Multi-Period DiD</h1>
 <p>We can define a more flexible version of the parallel trends,<a href="#fn13" class="footnote-ref" id="fnref13" role="doc-noteref"><sup>13</sup></a></p>
 <div class="callout callout-style-default callout-note no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -1072,8 +955,7 @@ E[Y_{it}(0)|D_i, t] = \alpha_i + \delta_t
 \]</span> with unit FEs.</p>
 </div>
 </div>
-<section id="multi-period-did-1" class="level2" data-number="13.1">
-<h2 data-number="13.1" class="anchored" data-anchor-id="multi-period-did-1"><span class="header-section-number">13.1</span> Multi-Period DiD</h2>
+<h2 id="multi-period-did-1" data-number="13.1" class="anchored"><span class="header-section-number">13.1</span> Multi-Period DiD</h2>
 <p>However, if we specify the model as,</p>
 <p><span class="math display">\[
 Y^{obs}_{it} = \psi D_i + \delta_t + \beta \mathbf{1}\{s \geq 0\} + \upsilon_{it}
@@ -1098,9 +980,7 @@ Y_{it}(1) - Y_{it}(0) = \tau_{i}
 <p><span class="math display">\[
 \tau_{ATT}(s) = E[Y_{it}(1) - Y_{it}(0)|D_i = 1, t = S_i + s] = \tau_{ATT} \quad \forall \; s \geq 0
 \]</span></p>
-</section>
-<section id="dynamic-did" class="level2" data-number="13.2">
-<h2 data-number="13.2" class="anchored" data-anchor-id="dynamic-did"><span class="header-section-number">13.2</span> Dynamic DiD</h2>
+<h2 id="dynamic-did" data-number="13.2" class="anchored"><span class="header-section-number">13.2</span> Dynamic DiD</h2>
 <p>If TEs are dynamic, it is better to estimate either,</p>
 <ol type="1">
 <li>Semi-dynamic model,</li>
@@ -1118,9 +998,7 @@ Y^{obs}_{it} = \psi D_i + \delta_t + \sum_{j \neq -1} \beta_j \mathbf{1}\{s = j\
 <li>In applied settings, you should always specify such a model with time FEs, and not a single post-treatment dummy. Failure to do so will typically lead to a false counterfactual.<a href="#fn14" class="footnote-ref" id="fnref14" role="doc-noteref"><sup>14</sup></a></li>
 <li>You have to normalize 1 period. It does not have to be ( s = -1 ), but should be a pre-period.</li>
 </ul>
-</section>
-<section id="dynamic-did-continued" class="level2" data-number="13.3">
-<h2 data-number="13.3" class="anchored" data-anchor-id="dynamic-did-continued"><span class="header-section-number">13.3</span> Dynamic DiD (Continued)</h2>
+<h2 id="dynamic-did-continued" data-number="13.3" class="anchored"><span class="header-section-number">13.3</span> Dynamic DiD (Continued)</h2>
 <p>Consider the dynamic specification,</p>
 <p><span class="math display">\[
 Y^{obs}_{it} = \psi D_i + \delta_t + \sum_{j \neq -1} \beta_j \mathbf{1}\{s = j\} + \upsilon_{it}
@@ -1155,9 +1033,7 @@ Y^{obs}_{it} = \psi D_i + \delta_t + \sum_{j \neq -1} \beta_j \mathbf{1}\{s = j\
 <p>Where <span class="math inline">\(\textcolor{red}{\phi + \delta_{t2}}\)</span> and <span class="math inline">\(\textcolor{red}{\delta_{t-1}}\)</span> are the effects to be controlled for.</p>
 </div>
 </div>
-</section>
-<section id="dynamic-did-exclusion-restrictions" class="level2" data-number="13.4">
-<h2 data-number="13.4" class="anchored" data-anchor-id="dynamic-did-exclusion-restrictions"><span class="header-section-number">13.4</span> Dynamic DiD (Exclusion Restrictions)</h2>
+<h2 id="dynamic-did-exclusion-restrictions" data-number="13.4" class="anchored"><span class="header-section-number">13.4</span> Dynamic DiD (Exclusion Restrictions)</h2>
 <p>Notice: - Linear model can identify treatment effects up to a normalized period. - We must assume,</p>
 <div class="callout callout-style-default callout-note no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -1179,9 +1055,7 @@ E[Y_{it}|D_i = 1, t = t_0 + j] = E[Y_{it}(0)|D_i = 1, t = t_0 + j]
 <ul>
 <li>Pre-emptive behaviour biases both pre-treatment <strong>and post-treatment</strong> TE estimates.</li>
 </ul>
-</section>
-<section id="test-parallel-trends" class="level2" data-number="13.5">
-<h2 data-number="13.5" class="anchored" data-anchor-id="test-parallel-trends"><span class="header-section-number">13.5</span> Test parallel trends</h2>
+<h2 id="test-parallel-trends" data-number="13.5" class="anchored"><span class="header-section-number">13.5</span> Test parallel trends</h2>
 <p><strong>Assuming no pre-emptive behaviour</strong>, the test,</p>
 <p><span class="math display">\[
 H_0: \beta_s = 0 \quad \forall \quad s &lt; 0
@@ -1194,40 +1068,27 @@ H_0: \beta_s = 0 \quad \forall \quad s &lt; 0
 \end{aligned}
 \]</span></p>
 <p>for (<span class="math inline">\(s \&lt; 0\)</span>) and (<span class="math inline">\(s \neq -1\)</span>).<a href="#fn15" class="footnote-ref" id="fnref15" role="doc-noteref"><sup>15</sup></a></p>
-</section>
-<section id="dynamic-did-visualization" class="level2" data-number="13.6">
-<h2 data-number="13.6" class="anchored" data-anchor-id="dynamic-did-visualization"><span class="header-section-number">13.6</span> Dynamic DiD (Visualization)</h2>
+<h2 id="dynamic-did-visualization" data-number="13.6" class="anchored"><span class="header-section-number">13.6</span> Dynamic DiD (Visualization)</h2>
 <p>The problem can be how to distinguish between, - a failure of parallel trends, - and pre-emptive behaviour.</p>
 <div style="text-align: center">
 <p>[Alternative DID Plot]</p>
 </div>
-</section>
-<section id="dynamic-did-renormalization" class="level2" data-number="13.7">
-<h2 data-number="13.7" class="anchored" data-anchor-id="dynamic-did-renormalization"><span class="header-section-number">13.7</span> Dynamic DiD (Renormalization)</h2>
+<h2 id="dynamic-did-renormalization" data-number="13.7" class="anchored"><span class="header-section-number">13.7</span> Dynamic DiD (Renormalization)</h2>
 <p>If there appears to be pre-emptive behaviour - and a reason for its presence - you can always renormalize the excluded base period.</p>
 <p>Here goes the other figure (I do not have it yet)</p>
 <p>include another graph here</p>
-</section>
-<section id="next-up" class="level2" data-number="13.8">
-<h2 data-number="13.8" class="anchored" data-anchor-id="next-up"><span class="header-section-number">13.8</span> Next-up</h2>
+<h2 id="next-up" data-number="13.8" class="anchored"><span class="header-section-number">13.8</span> Next-up</h2>
 <ul>
 <li>‘Things Fall Apart’ - The problems with dynamic/staggered DiD and two-way FEs</li>
 <li>What to do.</li>
 <li>Generalized two-way FEs models</li>
 <li>Synthetic Control</li>
 </ul>
-</section>
-<section id="example-eissa-liebman-1996" class="level2" data-number="13.9">
-<h2 data-number="13.9" class="anchored" data-anchor-id="example-eissa-liebman-1996"><span class="header-section-number">13.9</span> Example: Eissa &amp; Liebman (1996)</h2>
-<section id="section" class="level3" data-number="13.9.1">
-<h3 data-number="13.9.1" class="anchored" data-anchor-id="section"><span class="header-section-number">13.9.1</span> </h3>
+<h2 id="example-eissa-liebman-1996" data-number="13.9" class="anchored"><span class="header-section-number">13.9</span> Example: <a href="https://www.nber.org/papers/w5158">Eissa &amp; Liebman (1996)</a></h2>
 <div class="center">
 <p><strong>Example: Eissa &amp; Liebman (1996)</strong></p>
 </div>
-</section>
-</section>
-<section id="set-up-eitc" class="level2" data-number="13.10">
-<h2 data-number="13.10" class="anchored" data-anchor-id="set-up-eitc"><span class="header-section-number">13.10</span> Set-up: EITC</h2>
+<h2 id="set-up-eitc" data-number="13.10" class="anchored"><span class="header-section-number">13.10</span> Set-up: EITC</h2>
 <p>Countries create tax credits for a number of reasons, these are typically after tax reimbursements based eligibility in certain criteria. Many are simply used to transfer income to a targeted population, and do not (intentionally) induce any behavioural response.</p>
 <ul>
 <li>However, the <strong>Earned</strong> Income Tax Credit (EITC) is a uniquely targeted public policy that aims to both assist poorer, more vulnerable households while also incentivizing labour force participation (Holz &amp; Scholz, 2003).</li>
@@ -1247,30 +1108,20 @@ Note
 </div>
 </div>
 <p>The tax credit increases in value with your earned income up to a threshold…</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="eitc1.png" class="img-fluid figure-img"></p>
-<figcaption class="figure-caption">The tax credit is 40% of earned income for the first $14570 (2019 parameters based on single earner with 2 children)</figcaption>
-</figure>
-</div>
-<p>… at which point it is flat up to a second threshold…</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="eitc2.png" class="img-fluid figure-img"></p>
-<figcaption class="figure-caption">The maximum is $5828 (2019 parameters based on single earner with 2 children)</figcaption>
-</figure>
-</div>
-<p>…and then is phased out.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="eitc3.png" class="img-fluid figure-img"></p>
-<figcaption class="figure-caption">The phase out rate is 21.06% which ends at $46703 (2019 parameters based on single earner with 2 children)</figcaption>
-</figure>
-</div>
+<p><img src="docs/images/EL1.png" class="img-fluid"></p>
+<p><strong>Figure</strong>: The tax credit is 40% of earned income for the first $14570 (<a href="https://www.cbpp.org/research/policy-basics-the-earned-income-tax-credit">2019 parameters</a> based on single earner with two children)</p>
+<p>…at which point it is flat up to a second threshold…</p>
+<p><img src="docs/images/EL2.png" class="img-fluid"></p>
+<p><strong>Figure</strong>: The maximum is $5828 (<a href="https://www.cbpp.org/research/policy-basics-the-earned-income-tax-credit">2019 parameters</a> based on single earner with two children)</p>
+<p>… and then is fazed out</p></li>
+</ol>
+<p><img src="docs/images/EL3.png" class="img-fluid"></p>
+<p><strong>Figure</strong>: The phase out rate is 21.06% which ends at $46703 (<a href="https://www.cbpp.org/research/policy-basics-the-earned-income-tax-credit">2019 parameters</a> based on single earner with two children)</p>
+<p>Set up:</p>
 <ol type="1">
-<li>PHASE IN: acts as a subsidy to work: incentive to earn more</li>
-<li>PLATEAU: no subsidy, and hence no additional incentive to work more</li>
-<li>PHASE OUT: effectively a tax on every additional dollar earned: disincentive to earn more</li>
+<li><p>PHASE IN: acts as a subsidy to work: incentive to earn more</p></li>
+<li><p>PLATEAU: no subsidy, and hence no additional incentive to work more</p></li>
+<li><p>PHASE OUT: effectively a tax on every additional dollar earned: disincentive to earn more</p></li>
 </ol>
 <div class="callout callout-style-default callout-note no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -1286,9 +1137,6 @@ Note
 </div>
 </div>
 <p>Therefore, the EITC should have a differential impact on hours worked versus participation depending on an individual’s income level.</p>
-</section>
-<section id="eissa-liebman-1996" class="level2" data-number="13.11">
-<h2 data-number="13.11" class="anchored" data-anchor-id="eissa-liebman-1996"><span class="header-section-number">13.11</span> Eissa &amp; Liebman (1996)</h2>
 <p>One of the seminal papers on this topic is Eissa &amp; Liebman (QJE, 1996) “Labor responses to the earned income tax credit”.</p>
 <ul>
 <li><p>The Tax Reform Act of 1986 made the EITC more generous.</p></li>
@@ -1344,9 +1192,8 @@ Meyer &amp; Rosenbaum (2001)
 </ul>
 </div>
 </div>
-</section>
-<section id="other-studies" class="level2" data-number="13.12">
-<h2 data-number="13.12" class="anchored" data-anchor-id="other-studies"><span class="header-section-number">13.12</span> Other studies</h2>
+<section id="other-studies" class="level2" data-number="13.11">
+<h2 data-number="13.11" class="anchored" data-anchor-id="other-studies"><span class="header-section-number">13.11</span> Other studies</h2>
 <div class="callout callout-style-default callout-note no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -1371,7 +1218,6 @@ Eissa &amp; Hoynes (JPub, 2004)
 </p>
 
 
-</section>
 </section>
 <section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
 <hr>
