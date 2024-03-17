@@ -139,7 +139,6 @@ Confounder
 #| code-fold: true
 #| code-summary: "Show the code"
 
-# Define the DAG
 dag3 <- dagify(
   Y ~ X + M,
   X ~ M,
@@ -148,12 +147,11 @@ dag3 <- dagify(
   outcome = "Y"
 )
 
-# Visualize the DAG with custom labels
-ggdag(dag3, text = TRUE) +  # Ensure to use text = TRUE to display full labels
+ggdag(dag3, text = TRUE) +  
   theme_dag() +
   ggtitle("DAG: Education Intervention's Effect on Job Performance with Motivation Level as a Confounder")
 
-# Analyze paths and identify unconfounded paths
+
 adjustedSet <- adjustmentSets(dag3)
 print(adjustedSet)
 ```
@@ -184,13 +182,11 @@ As you can already be thinking using the proximity as the IV helps isolate the e
 #| code-fold: true
 #| code-summary: "Show the code"
 
-IV<-dagify(C~W+U,W~U, W~Z) #create graph
-#Set position of nodes 
+IV<-dagify(C~W+U,W~U, W~Z) 
 coords<-list(x=c(W = 0, U = 1, C = 2, Z=-1),
           y=c(W = 0, U = 0.1, C = 0, Z=0)) 
 coords_df<-coords2df(coords)
 coordinates(IV)<-coords2list(coords_df)
-#Plot causal graph
 ggdag(IV)+theme_dag_blank()
   
 
