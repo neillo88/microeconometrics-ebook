@@ -18,10 +18,13 @@ book:
     - causality.qmd
     - part: "Controlled Experiments"
       chapters:
+        - classical.qmd
+        - stratified.qmd
+        - noncompliance.qmd
+    - part: "Observational Studies" 
+      chapters:
         - regular.qmd
-        - irregular.qmd
-        - unconfoundedness.qmd
-    - observational.qmd
+        - communsupport.qmd
     - part: "Natural Experiments"
       chapters:
         - paralleltrends.qmd

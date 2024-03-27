@@ -1,4 +1,4 @@
-# Experiments: Irregular Assignment
+# Irregular Assignment {#sec-regular}
 
 This is a book created from markdown and executable code.
 

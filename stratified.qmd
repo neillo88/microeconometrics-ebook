@@ -1,4 +1,4 @@
-# Stratified Experiments
+# Stratified Experiments {#sec-stratified}
 
 The discussion of simple randomized experiments ignores the possibility that assignment into treatment depends on an set of covariates $X_i$. In this chapter we discuss experimental designs where the probability of treatment is stratified on characteristics of unit.  
 
