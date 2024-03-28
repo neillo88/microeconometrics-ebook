@@ -148,80 +148,195 @@ This begs the question: why should we randomize?
 
 ## Selection
 
-The difference between means gives us, $$
-\begin{aligned}
-E[Y_i|W_i=1] - E[Y_i|W_i=0]\\
-=E[Y_i(1)|W_i=1]- E[Y_i(0)|W_i=0] \\
-=\underbrace{E[Y_i(1)|W_i=1]-E[Y_i(0)|W_i=1]}_{\tau_{ATT}=E[Y_i(1)-Y_i(0)|W_i=1]} & + \underbrace{E[Y_i(0)|W_i=1]- E[Y_i(0)|W_i=0]}_{\text{Selection}}
-\end{aligned}
-$$ What is the source of selection bias?
-
-\par
-
--   Individuals may select into treatment.
-    -   e.g. job training for unemployed workers.
-    -   e.g. maternity leave.
--   Treatment may be assigned according to a predefined grouping.
-    -   e.g. minimum wage set at the state level.
-    -   e.g. means tested public policy.
-
-### Why randomize?
-
-Unconfoundedness gives us $$
-E\left[Y_i(0)|W_i=1\right]=E\left[Y_i(0)|W_i=0\right]=E\left[Y_i(0)\right]
-$$ implying no selection **in expectation**
+The problem of selection is best demonstrated by a decomposition of the
+*observed* difference in means. This is the difference between the mean
+expected value of the *observed* outcomes of the treated and control
+groups.
 
 $$
-\underbrace{E\left[Y_i(0)|W_i=1\right]-E\left[Y_i(0)|W_i=0\right]}_\text{Selection}=0 
-$$ The observed difference \textbf{identifies} the ATT.
-\begin{equation*}       
-        E\left[Y_i|W_i=1\right]-E\left[Y_i|W_i=0\right]=\tau_{att} 
-    \end{equation*} and \begin{equation*}
-        \tau_{ATT}=\tau_{ATU}=\tau_{ATE}
-    \end{equation*} Randomization makes the comparison of two samples
-*ceteris paribus* **in expectation**.
+E[Y_i^{obs}|W_i=1] - E[Y_i^{obs}|W_i=0]
+$$ Given the relationship between the observed and potential outcomes
+described in @sec-causality, the observed difference gives us the
+difference between the expected value of $Y_i(1)$ for the treated group
+and $Y_i(0)$ for the control group.
 
-### Limits of randomization
+$$
+E[Y_i(1)|W_i=1]- E[Y_i(0)|W_i=0]
+$$ We can decompose this expression by adding and subtracting the
+*unobserved counterfactual* $E[Y_i(0)|W_i=1]$: the expected value of the
+outcome for the treated group had they not been treated.
 
-Recall,
+\$\$
 
-\par
+\underbrace{E[Y_i(1)|W_i=1]-E[Y_i(0)|W_i=1]}*{*\tau{ATT}=E\[Y_i(1)-Y_i(0)\|W_i=1\]} +
+\underbrace{E[Y_i(0)|W_i=1]- E[Y_i(0)|W_i=0]}\_{\text{Selection}}
 
--   Randomization allows us to learn about $f_{Y(1)}$ and $f_{Y(0)}$
--   Randomization **does not** allow us to learn about $f_{Y(1),Y(0)}$
-    or $f_{Y(1)-Y(0)}$
+\$\$
 
-Example from Banerjee *et al.* (2015, p. 38) [^1]
-![](Images/Banerjee_p38.png)
+The first difference is the Average Treatment Effect of the Treated
+(ATT). The second term is the difference in the expected value of
+$Y_i(0)$ between the treated and control groups. This difference
+describes the problem of *selection*: even without treatment there may
+be a mean difference between outcome of the treated and control groups.
 
-[^1]: Banerjee, A., Duflo, E., Glennerster, R. & Kinnan, C. 2015, "The
+This particular selection term can be more accurately described as
+selection *into treatment*. This is not the same as other selection
+problems, such as sample selection (as addressed by Heckman's
+parameteric selection correction). The problem of selection into
+treatment relates directly to the assignment mechanism.
+
+If units are assigned the treatment randomly, then treatment status is
+unconfounded and,
+
+$$
+  Y(1),Y(0)\perp W
+$$ which implies that,
+
+$$
+  E[Y_i(0)|W_i=1]=E[Y_i(0)|W_i=0]=E[Y_i(0)]
+$$ If assignment is unconfounded there is no selection into treatment
+and the observed difference gives you the ATT. In addition,
+unconfoundedness implies that,
+
+\$\$
+
+\underbrace{E[Y_i(1)-Y_i(0)|W_i=1]}*{*\tau{ATT}} =
+\underbrace{E[Y_i(1)-Y_i(0)|W_i=0]}*{*\tau{ATU}}=\underbrace{E[Y_i(1)-Y_i(0)]}*{*\tau{ATE}}
+
+\$\$
+
+A randomized experiment identifies the Average Treatment Effect: the
+average of the entire population and not just the treated group. Note,
+the above statement is true for both the finite and super-population.
+
+### Beyond the Mean
+
+Unconfoundedness is a powerful result and implies that we can identify
+both $f_{Y(1)}$ and $f_{Y(0)}$, the full marginal distributions of the
+potential outcomes under regular assignment. However, it **does not**
+allow us to learn about $f_{Y(1),Y(0)}$, the joint distribution of
+potential outcomes.
+
+Crucially, this means that we do not know $f_{Y(1)-Y(0)}$, the
+distribution unit-level treatment effects. As such, we cannot identify
+additional moments of the distibution of treatment effects, without
+additional assumptions.
+
+Why does it work for the mean? It works for the mean because it is a
+linear:
+
+$$
+  E[Y_i(1)-Y_i(0)] = E[Y_i(1)]-E[Y_i(0)]
+$$ The mean of unit level treatment effects can be identified from the
+mean of different marginal distributions. In contrast, other moments of
+the treatment effect distribution are are not linearly separablem. For
+example, the $q$-th quantile of treatment effects:
+
+$$
+  Q_q(Y_i(1)-Y_i(0)) \neq Q_q(Y_i(1))-Q_q(Y_i(0))
+$$
+
+In practice, many practitioners will estimate the quantile treatment
+effects: $\tau_q = Q_q(Y_i(1))-Q_q(Y_i(0))$. The figure below is from
+Banerjee et al. (2015) and plots the estimated quantile treatment
+effects of a Randomized Control Trial that increased access to
+microfinancing. Again, these are not estimates of the quantile of the
+distribution of treatment effects , but rather quantile treatment
+effects.
+
+```{=html}
+<!--- Banerjee, A., Duflo, E., Glennerster, R. & Kinnan, C. 2015, "The
     Miracle of Microfinance? Evidence from a Randomized Evaluation",
     American economic journal. Applied economics, vol. 7, no. 1, pp.
-    22-53.
+    22-53. --->
+```
+![Estimates of Quantile Treatment Effects from Banerjee *et al.* (2015,
+p. 38)](Images/Banerjee_p38.png)
 
-### Randomization in practice
+To learn about the quantiles of the treatment effects distribution we
+need to employ additional assumptions. In particular, we need to assume
+that the treatment preserves the rank of units: perfect rank
+correlation. Under this assumption any quantile of the distribution of
+treatment effects is equal to the corresponding quantile treatment
+effect.
 
-In Applied Economics, policy evaluations that embrace randomization are
-commonly referred to as **Randomized Control Trials (RCTs)**.
+One case where rank is preserved is homogeneous treatment effects.
+However, this is somewhat of a redundant case, since homogeneous
+treatment effects imply that all quantiles of the treatment effect
+distribution are the same and equal to the mean.
 
-\par
+### Randomization in Economics
 
--   These are typically the gold standard.
--   Unfortunately, randomization is not always feasible, it can be
-    unethical, and RCTs are generally very expensive.
-    -   Rely on the design and implementation of policies to exploit
-        other research designs: difference-in-differences, regression
-        discontinuity designs.
--   Useful lens through which to approach a research question?
-    -   For example, what is the impact of attending an Ivy-league
-        school?
-    -   The ideal experiment: randomize university allocation across all
-        applicants.
-    -   How far is another research design from this ideal?
+In applied microeconomics, randomized (field) experiments are commonly
+referred to as Randomized Control Trials (RCTs). This is a term that has
+been borrowed from the medical sciences, where the effectiveness of
+drugs and treatments are evaluated using randomized experiments.
+Economics RCTs are not necessarily as complex in design as medical
+experiments and typically don't include placebo treatments and
+double-blind assignment.
 
-## Hypothesis Testing: Fisher vs Neyman
+<!--- include citation of the extent of RCTs in Economics --->
 
-### The Relevant Hypothesis for Finite Sample
+While randomization has a long history of use in the laboratory
+experiments of Behavioural Economics and Microeconomic Theory research,
+its use in applied fields of research - including, Labour, Development,
+and Health Economics - is more recent. There are two main barriers to
+the use of RCTs in research:
+
+1.  They can be very expensive. The time, man-power, and direct cost of
+    implementing some RCTs can run into the millions of \$s.
+
+2.  They can be unethical. Many important research questions cannot be
+    studied using a RCT because the decision to treat one group of
+    individuals - and therefore exclude another from treatment - is
+    unethical.
+
+That does not mean that they are uncommon. Indeed, since the early 2000s
+there has been an explosion of research employing RCTs in Economics; in
+particular, in the field of Development Economics. In the developed
+world, many public policies are now evaluated first using small scale
+RCTs before being rolled out to the wider population.
+
+RCTs have come under criticism in Economics. Angus Deaton has been quite
+critical of the use of RCTs in Development Economics pointing out
+ethical, practical, and conceptual issues with their use. One of his
+more substantive critiques relates to the difference bewteen
+experimental treatments and real-world policies. RCTs measure the impact
+of the assigned treatment, which may differ substantially from a real
+world policy. For this reason, RCTs do not always tell us what the
+expected impact of a real policy change would be. For further reading on
+the topic, see Deaton (2010) and ...... .
+
+Another critique comes from James Heckman, who argues that internal
+validity of RCTs is lost to their lack of **external validity**. A
+randomized experiment can be used to study the (average) treatment
+effect of the sampled population, but says nothing about the wider
+population, not sampled by the experiment. Given their budgetary
+constraints, RCTs are often constrained in terms of the population they
+can sample; for example, you may trial a new education policy using a
+select sample of 50 schools. The RCT will inform you about the ATE for
+that sample of 50 schools, but not necessarily the wider population of
+schools. Extrapolation to the wider population requires us to make
+additional assumptions that may not be reasonable.
+
+Considering these limitations, there are many important Economics
+research questions which may not be appropriate to study using a
+randomized experiment. Answering these questions may require us to make
+additional assumptions and used more model-based Econometric tools.
+
+Nevertheless, randomization and, in particular, the notion of
+unconfounded treatment remains a useful lense through which to evaluate
+causal questions in observational settings. For example, we may wish to
+study the labour market value of attending a top-ranked university (as
+in Krueger) but, for ethical reasons, cannot randomly assign who attends
+a top ranked university. In the absence of randomization, it is likely
+that selection into treatment (attending a top-ranked university) is
+confounded. If randomization is the "gold standard", then how distinct
+is the observed assignment from random?
+
+## Inference under Randomization
+
+### Fisher vs Neyman
 
 When evaluating **finite samples**, there are two potential null
 hypothesis: 1. Fisher's sharp null hypothesis: $$
@@ -486,9 +601,9 @@ Remember the differences in the null hypotheses:
 -   Fisher \[**exact**\]: $H_0: Y_i(1)=Y_i(0) \quad\forall i=1,...,N$
 -   Neyman: $H'_0: \frac{1}{N}\sum_{i=1}^{N}(Y_i(1)-Y_i(0))=0$
 
-From Imbens and Wooldridge (2009, p.23)[^2],
+From Imbens and Wooldridge (2009, p.23)[^1],
 
-[^2]: Imbens, G.W. & Wooldridge, J.M. 2009, "Recent Developments in the
+[^1]: Imbens, G.W. & Wooldridge, J.M. 2009, "Recent Developments in the
     Econometrics of Program Evaluation", Journal of economic literature,
     vol. 47, no. 1, pp. 5-86.
 
@@ -525,9 +640,9 @@ All Randomized Control Trials should provide some variant of a balance
 table: a table comparing the means of pre-treatment covariates in each
 of the treatment groups.
 
-For example, (Oreopoulus, 2011, p.158)[^3]
+For example, (Oreopoulus, 2011, p.158)[^2]
 
-[^3]: Oreopoulos, P. 2011, "Why Do Skilled Immigrants Struggle in the
+[^2]: Oreopoulos, P. 2011, "Why Do Skilled Immigrants Struggle in the
     Labor Market? A Field Experiment with Thirteen Thousand Resumes",
     American economic journal. Economic policy, vol. 3, no. 4, pp.
     148-171.
@@ -536,14 +651,14 @@ For example, (Oreopoulus, 2011, p.158)[^3]
 
 These tests are typically based on the ANOVA
 ([AN]{style="color : blue"}alysis [O]{style="color: blue"}f
-[VA]{style="color : blue"}riance) test.[^4]
+[VA]{style="color : blue"}riance) test.[^3]
 
-[^4]: Common Alternatives include Multivariate ANOVA (MANOVA) and
+[^3]: Common Alternatives include Multivariate ANOVA (MANOVA) and
     Analysis of Covariance (ANCOVA)
 
--   Decomposes TSS into,[^5]
+-   Decomposes TSS into,[^4]
 
-[^5]: Check your EC124 notes on this.
+[^4]: Check your EC124 notes on this.
 
 $$
                 TSS = \sum_{k=1}^{K}\sum_{i=1}^{N(k)}(X_{ik}-\bar{X})^2 = \underbrace{\sum_{k=1}^{K}\sum_{i=1}^{N(k)}(X_{ik}-\bar{X}_k)^2}_\text{residual/within}+\underbrace{\sum_{k=1}^{K}N(k)(\bar{X}_k-\bar{X})^2}_\text{explained/between}
@@ -571,9 +686,9 @@ $$
 -   Note, you should be wary of testing each $\beta$ coefficient
     separately. **Why?**
 
-For example, Dupas and Robinson (2013, p.1150)[^6]
+For example, Dupas and Robinson (2013, p.1150)[^5]
 
-[^6]: Dupas, P. & Robinson, J. 2013, "Why Don't the Poor Save More?
+[^5]: Dupas, P. & Robinson, J. 2013, "Why Don't the Poor Save More?
     Evidence from Health Savings Experiments", The American economic
     review, vol. 103, no. 4, pp. 1138-1171.
 
@@ -631,9 +746,9 @@ $$
 
 the sample analogue of $\beta = \frac{Cov(W_i,Y_i)}{Var(W_i)}$.
 
-Since $\bar{W}=\frac{N_t}{N}$, we can show that [^7]
+Since $\bar{W}=\frac{N_t}{N}$, we can show that [^6]
 
-[^7]: Do ensure that you can show this.
+[^6]: Do ensure that you can show this.
 
 $$
             \hat{\beta}^{OLS} = \bar{Y}^{obs}_t-\bar{Y}^{obs}_c = \hat{\tau}
@@ -651,9 +766,9 @@ $\tau_{ATE}$.
 We want to create a mapping from potential outcomes to a linear
 regression model. Recall, $$
             Y^{obs}_i = Y_i(0)+W_i(Y_i(1)-Y_(0))
-$$ Let's define[^8],
+$$ Let's define[^7],
 
-[^8]: Here I am avoiding finite sample notation. This is not a big issue
+[^7]: Here I am avoiding finite sample notation. This is not a big issue
     as you can always define the expectation as an average in the finite
     sample.
 
@@ -737,9 +852,9 @@ $$ \*\* Check to see if you can show this.
 
 Angus Deaton has made a number of criticisms against the use of RCTs in
 (Development) Economics. One of these is the misuse of linear
-regression:[^9]
+regression:[^8]
 
-[^9]: Deaton, A. 2010, "Instruments, Randomization, and Learning about
+[^8]: Deaton, A. 2010, "Instruments, Randomization, and Learning about
     Development", Journal of economic literature, vol. 48, no. 2, pp.
     424-455.
 
@@ -816,9 +931,9 @@ This is a powerful result!
 ### Small sample bias
 
 Unfortunately, in small samples $\hat{\beta}^{OLS}$ is a biased
-estimator of $\tau_{ATE}$.[^10]
+estimator of $\tau_{ATE}$.[^9]
 
-[^10]: Focus on the intuition of the results, not the equation. Taken
+[^9]: Focus on the intuition of the results, not the equation. Taken
     from Deaton's (2010, p.444) discussion of Freedman (2008). In this
     equation $X_i$ is single covariate.
 
@@ -840,9 +955,9 @@ substantially.
 ### Efficiency gains
 
 With covariates, the sampling variance of the OLS estimator is reduced.
-Here are the estimators:[^11]
+Here are the estimators:[^10]
 
-[^11]: Subject of first seminar.
+[^10]: Subject of first seminar.
 
 $$
 \hat{V}^{hetero} = \frac{1}{N(N-k)}\cdot\frac{\sum_{i=1}^{N}(W_i-\bar{W})^2(Y_i-\hat{\alpha}^{OLS}-\hat{\beta}^{OLS}-X_i'\hat{\gamma}^{OLS})^2}{\left(\bar{W}(1-\bar{W})\right)^2}
@@ -857,9 +972,9 @@ constant).
 
 ### Good controls
 
-The question of good and bad controls is **very** important.[^12]
+The question of good and bad controls is **very** important.[^11]
 
-[^12]: Here I am being more general over the choice of the estimator
+[^11]: Here I am being more general over the choice of the estimator
     $\hat{\tau}$ and I am approximating the distribution of the
     test-statistic with the standard normal.
 
@@ -914,9 +1029,9 @@ null hypothesis ($H_0: \tau=0$; i.e., of no effect) when it is
                 \theta(\tau_0)=Pr(\text{Reject }H_0|\tau=\tau_0)
 $$ :::
 
-Recall, that we reject $H_0: \tau=0$ when [^13]
+Recall, that we reject $H_0: \tau=0$ when [^12]
 
-[^13]: Here I am being more general over the choice of the estimator
+[^12]: Here I am being more general over the choice of the estimator
     $\hat{\tau}$ and I am approximating the distribution of the
     test-statistic with the standard normal.
 
@@ -947,9 +1062,9 @@ increasing in $\tau_0/se(\hat{\tau})$:
 ### The Microfinance \`Miracle'
 
 '[The Miracle of Microfinance? Evidence from a Randomized
-Evaluation]{style="color: blue"}[^14]'
+Evaluation]{style="color: blue"}[^13]'
 
-[^14]: [Banerjee, A., Duflo, E., Glennerster, R. & Kinnan, C. 2015, "The
+[^13]: [Banerjee, A., Duflo, E., Glennerster, R. & Kinnan, C. 2015, "The
     Miracle of Microfinance? Evidence from a Randomized Evaluation",
     American economic journal. Applied economics, vol. 7, no. 1, pp.
     22-53.]{style="color: blue"}
@@ -985,9 +1100,9 @@ those who are its primary targets.'' (p.35)*
 *"The main drawback of these ITT analyses is that they do not answer
 questions about causal effects of the receipt of treatment itself, only
 about causal effects of the assignment to treatment." (Imbens and Rubin,
-2015, p.515)*[^15]
+2015, p.515)*[^14]
 
-[^15]: *More generally used in discussion of non-compliance.*
+[^14]: *More generally used in discussion of non-compliance.*
 
 ![](Images/Banerjee_Timeline_1.png)
 
@@ -1043,9 +1158,9 @@ NOTE: Baseline survey covers a different set of households.
 </p>
 
 The authors estimate the following regression model in each period after
-the intervention,[^16]
+the intervention,[^15]
 
-[^16]: I have use the authors' notation.
+[^15]: I have use the authors' notation.
 
 $$
             y_{ia} = \alpha + \beta \times Treat_{ia} + X_a'\gamma + \varepsilon_{ia}
