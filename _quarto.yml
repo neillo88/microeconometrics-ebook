@@ -24,7 +24,7 @@ book:
     - part: "Observational Studies" 
       chapters:
         - regular.qmd
-        - communsupport.qmd
+        - commonsupport.qmd
     - part: "Natural Experiments"
       chapters:
         - paralleltrends.qmd

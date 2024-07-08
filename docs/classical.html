@@ -1,0 +1,1950 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.4.555">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Microeconometrics - 7&nbsp; Randomized Experiments</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./stratified.html" rel="next">
+<link href="./causality.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./classical.html">Controlled Experiments</a></li><li class="breadcrumb-item"><a href="./classical.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Randomized Experiments</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Microeconometrics</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Preface</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cef.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Conditional Expectations</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+ <span class="menu-text">Parametric Models</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Linear Regression</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./instruments.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Instrumental Variables</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./panel.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Panel Data Models</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./causality.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Causality</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+ <span class="menu-text">Controlled Experiments</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./classical.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Randomized Experiments</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./stratified.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Stratified Experiments</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./noncompliance.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Irregular Assignment</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+ <span class="menu-text">Observational Studies</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./regular.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Propensity Score</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./commonsupport.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Observational Studies</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+ <span class="menu-text">Natural Experiments</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./paralleltrends.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Eissa &amp; Liebman (1996)</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./staggereddid.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Event-Studies or Staggered DiD</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./synthetic.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Synthetic Control</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./discontinuities.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Discontinuities, Structural Breaks, and Bunching</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./discussion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Discussion</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true">
+ <span class="menu-text">Appendices</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./superPopVar.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Proof: Super population variance of two-sample mean estimator</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./DAG.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Directed Acyclic Graphs (DAG)</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#classical-randomized-experiments" id="toc-classical-randomized-experiments" class="nav-link active" data-scroll-target="#classical-randomized-experiments"><span class="header-section-number">7.1</span> Classical Randomized Experiments</a>
+  <ul class="collapse">
+  <li><a href="#regular-assignment" id="toc-regular-assignment" class="nav-link" data-scroll-target="#regular-assignment"><span class="header-section-number">7.1.1</span> Regular Assignment</a></li>
+  <li><a href="#classical-annd-completely-randomized-experiment" id="toc-classical-annd-completely-randomized-experiment" class="nav-link" data-scroll-target="#classical-annd-completely-randomized-experiment"><span class="header-section-number">7.1.2</span> Classical annd Completely Randomized Experiment</a></li>
+  <li><a href="#unconfoundedness" id="toc-unconfoundedness" class="nav-link" data-scroll-target="#unconfoundedness"><span class="header-section-number">7.1.3</span> Unconfoundedness</a></li>
+  </ul></li>
+  <li><a href="#selection" id="toc-selection" class="nav-link" data-scroll-target="#selection"><span class="header-section-number">7.2</span> Selection</a>
+  <ul class="collapse">
+  <li><a href="#beyond-the-mean" id="toc-beyond-the-mean" class="nav-link" data-scroll-target="#beyond-the-mean"><span class="header-section-number">7.2.1</span> Beyond the Mean</a></li>
+  <li><a href="#randomization-in-economics" id="toc-randomization-in-economics" class="nav-link" data-scroll-target="#randomization-in-economics"><span class="header-section-number">7.2.2</span> Randomization in Economics</a></li>
+  </ul></li>
+  <li><a href="#inference-under-randomization" id="toc-inference-under-randomization" class="nav-link" data-scroll-target="#inference-under-randomization"><span class="header-section-number">7.3</span> Inference under Randomization</a>
+  <ul class="collapse">
+  <li><a href="#fisher-vs-neyman" id="toc-fisher-vs-neyman" class="nav-link" data-scroll-target="#fisher-vs-neyman"><span class="header-section-number">7.3.1</span> Fisher vs Neyman</a></li>
+  <li><a href="#fishers-exact-p-values" id="toc-fishers-exact-p-values" class="nav-link" data-scroll-target="#fishers-exact-p-values"><span class="header-section-number">7.3.2</span> Fisher’s exact p-values</a></li>
+  <li><a href="#fisher-how-does-this-work" id="toc-fisher-how-does-this-work" class="nav-link" data-scroll-target="#fisher-how-does-this-work"><span class="header-section-number">7.3.3</span> Fisher: How does this work?</a></li>
+  <li><a href="#neymans-ate-test" id="toc-neymans-ate-test" class="nav-link" data-scroll-target="#neymans-ate-test"><span class="header-section-number">7.3.4</span> Neyman’s ATE test</a></li>
+  <li><a href="#sampling-variance-of-neyman-estimator" id="toc-sampling-variance-of-neyman-estimator" class="nav-link" data-scroll-target="#sampling-variance-of-neyman-estimator"><span class="header-section-number">7.3.5</span> Sampling Variance of Neyman estimator</a></li>
+  <li><a href="#sampling-variance-of-neyman-estimator-an-improvement" id="toc-sampling-variance-of-neyman-estimator-an-improvement" class="nav-link" data-scroll-target="#sampling-variance-of-neyman-estimator-an-improvement"><span class="header-section-number">7.3.6</span> Sampling Variance of Neyman estimator: An improvement</a></li>
+  <li><a href="#neyman-hypothesis-test" id="toc-neyman-hypothesis-test" class="nav-link" data-scroll-target="#neyman-hypothesis-test"><span class="header-section-number">7.3.7</span> Neyman hypothesis test</a></li>
+  <li><a href="#fisher-vs-neyman-1" id="toc-fisher-vs-neyman-1" class="nav-link" data-scroll-target="#fisher-vs-neyman-1"><span class="header-section-number">7.3.8</span> Fisher vs Neyman</a></li>
+  <li><a href="#neyman-super-population-equivalent" id="toc-neyman-super-population-equivalent" class="nav-link" data-scroll-target="#neyman-super-population-equivalent"><span class="header-section-number">7.3.9</span> Neyman: Super-population equivalent</a></li>
+  </ul></li>
+  <li><a href="#balance-tests" id="toc-balance-tests" class="nav-link" data-scroll-target="#balance-tests"><span class="header-section-number">7.4</span> Balance tests</a>
+  <ul class="collapse">
+  <li><a href="#testing-for-balance-in-covariates" id="toc-testing-for-balance-in-covariates" class="nav-link" data-scroll-target="#testing-for-balance-in-covariates"><span class="header-section-number">7.4.1</span> Testing for balance in covariates</a></li>
+  <li><a href="#next-up" id="toc-next-up" class="nav-link" data-scroll-target="#next-up"><span class="header-section-number">7.4.2</span> Next-up</a></li>
+  </ul></li>
+  <li><a href="#evaluating-rcts-using-a-linear-regression-model" id="toc-evaluating-rcts-using-a-linear-regression-model" class="nav-link" data-scroll-target="#evaluating-rcts-using-a-linear-regression-model"><span class="header-section-number">7.5</span> Evaluating RCTs using a Linear Regression Model</a>
+  <ul class="collapse">
+  <li><a href="#linear-regression-model" id="toc-linear-regression-model" class="nav-link" data-scroll-target="#linear-regression-model"><span class="header-section-number">7.5.1</span> Linear Regression Model</a></li>
+  <li><a href="#endogeneity" id="toc-endogeneity" class="nav-link" data-scroll-target="#endogeneity"><span class="header-section-number">7.5.2</span> Endogeneity</a></li>
+  <li><a href="#inference" id="toc-inference" class="nav-link" data-scroll-target="#inference"><span class="header-section-number">7.5.3</span> Inference</a></li>
+  <li><a href="#deatons-critique" id="toc-deatons-critique" class="nav-link" data-scroll-target="#deatons-critique"><span class="header-section-number">7.5.4</span> Deaton’s critique</a></li>
+  </ul></li>
+  <li><a href="#adding-covariates" id="toc-adding-covariates" class="nav-link" data-scroll-target="#adding-covariates"><span class="header-section-number">7.6</span> Adding covariates</a>
+  <ul class="collapse">
+  <li><a href="#adding-covariates-1" id="toc-adding-covariates-1" class="nav-link" data-scroll-target="#adding-covariates-1"><span class="header-section-number">7.6.1</span> Adding covariates</a></li>
+  <li><a href="#small-sample-bias" id="toc-small-sample-bias" class="nav-link" data-scroll-target="#small-sample-bias"><span class="header-section-number">7.6.2</span> Small sample bias</a></li>
+  <li><a href="#efficiency-gains" id="toc-efficiency-gains" class="nav-link" data-scroll-target="#efficiency-gains"><span class="header-section-number">7.6.3</span> Efficiency gains</a></li>
+  <li><a href="#good-controls" id="toc-good-controls" class="nav-link" data-scroll-target="#good-controls"><span class="header-section-number">7.6.4</span> Good controls</a></li>
+  <li><a href="#minimizing-variance" id="toc-minimizing-variance" class="nav-link" data-scroll-target="#minimizing-variance"><span class="header-section-number">7.6.5</span> Minimizing Variance</a></li>
+  <li><a href="#under-powered" id="toc-under-powered" class="nav-link" data-scroll-target="#under-powered"><span class="header-section-number">7.6.6</span> Under-powered</a></li>
+  </ul></li>
+  <li><a href="#the-microfinance-miracle-a-case-of-itt" id="toc-the-microfinance-miracle-a-case-of-itt" class="nav-link" data-scroll-target="#the-microfinance-miracle-a-case-of-itt"><span class="header-section-number">7.7</span> The Microfinance `Miracle’: A Case of ITT</a>
+  <ul class="collapse">
+  <li><a href="#the-microfinance-miracle" id="toc-the-microfinance-miracle" class="nav-link" data-scroll-target="#the-microfinance-miracle"><span class="header-section-number">7.7.1</span> The Microfinance `Miracle’</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./classical.html">Controlled Experiments</a></li><li class="breadcrumb-item"><a href="./classical.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Randomized Experiments</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span id="sec-classical" class="quarto-section-identifier"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Randomized Experiments</span></span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="classical-randomized-experiments" class="level2" data-number="7.1">
+<h2 data-number="7.1" class="anchored" data-anchor-id="classical-randomized-experiments"><span class="header-section-number">7.1</span> Classical Randomized Experiments</h2>
+<p>In Statistics, a <em>random</em> experiment is an experiment in which the outcome cannot be predicted with certainty even if it was repeated under the exact same conditions. Our study of causal inference will focus on experiments that concern the comparison of treated and untreated (i.e. control) units. As such, the experiment concerns the treatment status of each unit.</p>
+<p>Let the <span class="math inline">\(W\in \mathbb{R}^N\)</span> denote the assignment vector of a sample of <span class="math inline">\(N\)</span> units: <span class="math inline">\(W_i \in \{0,1\}\)</span>.</p>
+<p>Whether <span class="math inline">\(W\)</span> constitutes a <em>randomized</em> experiment, depends on the <strong>mechanism</strong> which assigned each unit its treatment status. In this chapter we will examine the properties of <em>classical</em> randomized experiments and, in particular, <em>completely</em> randomized experiments.</p>
+<p>In the next few chapters we will assume that the receipt of treatment and assignment into treatment are the same. In <a href="#sec-irregular" class="quarto-xref"><span class="quarto-unresolved-ref">sec-irregular</span></a> we will examine the case where they are not, considering the case of symmetric mis-specification.</p>
+<!--- Should I add a quick comment on random vs randomized experiment? --->
+<section id="regular-assignment" class="level3" data-number="7.1.1">
+<h3 data-number="7.1.1" class="anchored" data-anchor-id="regular-assignment"><span class="header-section-number">7.1.1</span> Regular Assignment</h3>
+<p>In their discussion of randomized experiments, Imbens &amp; Rubin (2015) place three restrictions on the assignment mechanism. Together, these three restrictions are referred to as <em>regular assignment</em>.</p>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Assignment into treatment is regular if it is:</p>
+<ol type="1">
+<li><p>individualistic</p></li>
+<li><p>probabilistic</p></li>
+<li><p>unconfounded</p></li>
+</ol>
+</div>
+</div>
+<p>This definition was first used in Rubin (1990). The first condition - <em>individualistic</em> - means that the probability of selection depends on the (pre-treatment) characteristics of the individual, <strong>alone</strong>. The second condition - <em>probabilistic</em> - requires that each unit have an (<em>a priori</em>) non-zero probability of treatment. And the third condition - <em>unconfounded</em> - means that treatment is independent of potential outcomes, conditional on individual characteristics. We will define unconfoundedness in more detail shortly.</p>
+<!--- Rubin, D.B. (1990) 'Formal Mode of Statistical Inference for Causal Effects' Journal of Statistical Planning and Inference, 25(3), pp. 279-292 --->
+</section>
+<section id="classical-annd-completely-randomized-experiment" class="level3" data-number="7.1.2">
+<h3 data-number="7.1.2" class="anchored" data-anchor-id="classical-annd-completely-randomized-experiment"><span class="header-section-number">7.1.2</span> Classical annd Completely Randomized Experiment</h3>
+<p>A <em>classical</em> randomized experiment is one in which the researcher knows and, crucially, controls the assignment mechanism in such a manner that it constitutes the properties of regular assignment.</p>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>A <em>classical</em> randomized experiment is a randomized experiment in which:</p>
+<ol type="1">
+<li><p>assignment is regular (as above)</p></li>
+<li><p>the functional form of the assignment mechanism known and controlled by the researcher.</p></li>
+</ol>
+</div>
+</div>
+<p>A <em>completely</em> randomized experiment is a particular type of <em>classical</em> randomized experiments in which there is a fixed, pre-determined number of subjects due to be assigned the treatment.</p>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>A <em>completely</em> randomized experiment is a <em>classical</em> randomized experiment in which the number of units assigned to treatment is fixed according to, <span class="math display">\[
+            1 \leq N_t \leq N-1
+\]</span> where <span class="math inline">\(N_t\)</span> denotes the number of treated individuals.</p>
+</div>
+</div>
+<p>As such, the probability of observing a particular assignment vector, conditional on potential outcomes, is given by</p>
+<p><span class="math display">\[
+        Pr(W|X,Y(0),Y(1)) = \begin{cases}
+            \left(\frac{N!}{N_t!(N-N_t)!}\right)^{-1}\quad if \sum_{i=1}^{N} W_i=N_t \\
+            0\qquad\text{otherwise}
+            \end{cases} (#eq:regular1)
+\]</span></p>
+<!--- Should say something about where this formula comes from --->
+<p>Before moving on, it is important to consider that there may be instances of regular assignment outside of classical experiments. These are often instances where the researcher has not had control over or does not know the exact functional form of the assignment mechanism. In such settings, regular assignment is often required as an additional assumption, since it cannot be gauranteed. See Parts III and IV of Imbens &amp; Rubin (2015) for further reading on this topic. We will revisit part of this material in <a href="#sec-regular" class="quarto-xref"><span class="quarto-unresolved-ref">sec-regular</span></a>.</p>
+</section>
+<section id="unconfoundedness" class="level3" data-number="7.1.3">
+<h3 data-number="7.1.3" class="anchored" data-anchor-id="unconfoundedness"><span class="header-section-number">7.1.3</span> Unconfoundedness</h3>
+<p>It is evident from equation <span class="citation" data-cites="ref">(<a href="#ref-ref" role="doc-biblioref"><strong>ref?</strong></a>)</span>(eq:regular1) that probability of observing any particular allocation of treatment is independent of the potential outcomes. This is referred to as unconfoundedness.</p>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Assignment is unconfounded if,</p>
+<p><span class="math display">\[
+Y(1),Y(0)\perp W|X
+\]</span></p>
+</div>
+</div>
+<p>Angrist and Pischke (MM &amp; MHE) refer to this as the <strong>Conditional Independence Assumption</strong>. Implicit in their reference to unconfoundedness as an <em>assumption</em>, is the fact that MM and MHE employ this assumption in empirical settings that do not constitute controlled experiments and where regular assignment assumed.</p>
+<p>By this definition,</p>
+<p><span class="math display">\[
+      \mathbf{Pr}(W|X, Y(0),Y(1))=\mathbf{Pr}(W|X,Y'(0),Y'(1))
+\]</span> for all <span class="math inline">\(W\)</span>, <span class="math inline">\(X\)</span> (<span class="math inline">\(N\times k\)</span> matrix of covariates), <span class="math inline">\(Y(0)\)</span>, <span class="math inline">\(Y(1)\)</span>, <span class="math inline">\(Y'(0)\)</span>, and <span class="math inline">\(Y'(1)\)</span>.</p>
+<p>You may have noticed that in the simple case of a completely randomized experiment the probability of assignment does not depend on the <span class="math inline">\(X\)</span>-characteristics of the unit (i.e. <span class="citation" data-cites="ref">(<a href="#ref-ref" role="doc-biblioref"><strong>ref?</strong></a>)</span>(eq:regular1)). We will relax this assumption in <a href="#sec-statified" class="quarto-xref"><span class="quarto-unresolved-ref">sec-statified</span></a> when we consider stratified experiments. In general, the above definition is correct, while in this specific case conditioning on <span class="math inline">\(X\)</span> is not necessary.<br>
+At this point, it is important to note that randomization itself is not an assumption. Randomization is an assignment mechanism that, depending on its implementation, may constitute regular assignment and, when governed by the researcher, will yield a classical (or completely) randomized experiment.</p>
+<p>This begs the question: why should we randomize?</p>
+</section>
+</section>
+<section id="selection" class="level2" data-number="7.2">
+<h2 data-number="7.2" class="anchored" data-anchor-id="selection"><span class="header-section-number">7.2</span> Selection</h2>
+<p>The problem of selection is best demonstrated by a decomposition of the <em>observed</em> difference in means. This is the difference between the mean expected value of the <em>observed</em> outcomes of the treated and control groups.</p>
+<p><span class="math display">\[
+E[Y_i^{obs}|W_i=1] - E[Y_i^{obs}|W_i=0]
+\]</span> Given the relationship between the observed and potential outcomes described in <a href="#sec-causality" class="quarto-xref"><span class="quarto-unresolved-ref">sec-causality</span></a>, the observed difference gives us the difference between the expected value of <span class="math inline">\(Y_i(1)\)</span> for the treated group and <span class="math inline">\(Y_i(0)\)</span> for the control group.</p>
+<p><span class="math display">\[
+E[Y_i(1)|W_i=1]- E[Y_i(0)|W_i=0]
+\]</span> We can decompose this expression by adding and subtracting the <em>unobserved counterfactual</em> <span class="math inline">\(E[Y_i(0)|W_i=1]\)</span>: the expected value of the outcome for the treated group had they not been treated.</p>
+<p>$$</p>
+<p><em>{</em>=E[Y_i(1)-Y_i(0)|W_i=1]} + _{}</p>
+<p>$$</p>
+<p>The first difference is the Average Treatment Effect of the Treated (ATT). The second term is the difference in the expected value of <span class="math inline">\(Y_i(0)\)</span> between the treated and control groups. This difference describes the problem of <em>selection</em>: even without treatment there may be a mean difference between outcome of the treated and control groups.</p>
+<p>This particular selection term can be more accurately described as selection <em>into treatment</em>. This is not the same as other selection problems, such as sample selection (as addressed by Heckman’s parameteric selection correction). The problem of selection into treatment relates directly to the assignment mechanism.</p>
+<p>If units are assigned the treatment randomly, then treatment status is unconfounded and,</p>
+<p><span class="math display">\[
+  Y(1),Y(0)\perp W
+\]</span> which implies that,</p>
+<p><span class="math display">\[
+  E[Y_i(0)|W_i=1]=E[Y_i(0)|W_i=0]=E[Y_i(0)]
+\]</span> If assignment is unconfounded there is no selection into treatment and the observed difference gives you the ATT. In addition, unconfoundedness implies that,</p>
+<p>$$</p>
+<p><em>{</em>} = <em>{</em>}=<em>{</em>}</p>
+<p>$$</p>
+<p>A randomized experiment identifies the Average Treatment Effect: the average of the entire population and not just the treated group. Note, the above statement is true for both the finite and super-population.</p>
+<section id="beyond-the-mean" class="level3" data-number="7.2.1">
+<h3 data-number="7.2.1" class="anchored" data-anchor-id="beyond-the-mean"><span class="header-section-number">7.2.1</span> Beyond the Mean</h3>
+<p>Unconfoundedness is a powerful result and implies that we can identify both <span class="math inline">\(f_{Y(1)}\)</span> and <span class="math inline">\(f_{Y(0)}\)</span>, the full marginal distributions of the potential outcomes under regular assignment. However, it <strong>does not</strong> allow us to learn about <span class="math inline">\(f_{Y(1),Y(0)}\)</span>, the joint distribution of potential outcomes.</p>
+<p>Crucially, this means that we do not know <span class="math inline">\(f_{Y(1)-Y(0)}\)</span>, the distribution unit-level treatment effects. As such, we cannot identify additional moments of the distibution of treatment effects, without additional assumptions.</p>
+<p>Why does it work for the mean? It works for the mean because it is a linear:</p>
+<p><span class="math display">\[
+  E[Y_i(1)-Y_i(0)] = E[Y_i(1)]-E[Y_i(0)]
+\]</span> The mean of unit level treatment effects can be identified from the mean of different marginal distributions. In contrast, other moments of the treatment effect distribution are are not linearly separablem. For example, the <span class="math inline">\(q\)</span>-th quantile of treatment effects:</p>
+<p><span class="math display">\[
+  Q_q(Y_i(1)-Y_i(0)) \neq Q_q(Y_i(1))-Q_q(Y_i(0))
+\]</span></p>
+<p>In practice, many practitioners will estimate the quantile treatment effects: <span class="math inline">\(\tau_q = Q_q(Y_i(1))-Q_q(Y_i(0))\)</span>. The figure below is from Banerjee et al.&nbsp;(2015) and plots the estimated quantile treatment effects of a Randomized Control Trial that increased access to microfinancing. Again, these are not estimates of the quantile of the distribution of treatment effects , but rather quantile treatment effects.</p>
+<!--- Banerjee, A., Duflo, E., Glennerster, R. & Kinnan, C. 2015, "The
+    Miracle of Microfinance? Evidence from a Randomized Evaluation",
+    American economic journal. Applied economics, vol. 7, no. 1, pp.
+    22-53. --->
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Images/Banerjee_p38.png" class="img-fluid figure-img"></p>
+<figcaption>Estimates of Quantile Treatment Effects from Banerjee <em>et al.</em> (2015, p.&nbsp;38)</figcaption>
+</figure>
+</div>
+<p>To learn about the quantiles of the treatment effects distribution we need to employ additional assumptions. In particular, we need to assume that the treatment preserves the rank of units: perfect rank correlation. Under this assumption any quantile of the distribution of treatment effects is equal to the corresponding quantile treatment effect.</p>
+<p>One case where rank is preserved is homogeneous treatment effects. However, this is somewhat of a redundant case, since homogeneous treatment effects imply that all quantiles of the treatment effect distribution are the same and equal to the mean.</p>
+</section>
+<section id="randomization-in-economics" class="level3" data-number="7.2.2">
+<h3 data-number="7.2.2" class="anchored" data-anchor-id="randomization-in-economics"><span class="header-section-number">7.2.2</span> Randomization in Economics</h3>
+<p>In applied microeconomics, randomized (field) experiments are commonly referred to as Randomized Control Trials (RCTs). This is a term that has been borrowed from the medical sciences, where the effectiveness of drugs and treatments are evaluated using randomized experiments. Economics RCTs are not necessarily as complex in design as medical experiments and typically don’t include placebo treatments and double-blind assignment.</p>
+<!--- include citation of the extent of RCTs in Economics --->
+<p>While randomization has a long history of use in the laboratory experiments of Behavioural Economics and Microeconomic Theory research, its use in applied fields of research - including, Labour, Development, and Health Economics - is more recent. There are two main barriers to the use of RCTs in research:</p>
+<ol type="1">
+<li><p>They can be very expensive. The time, man-power, and direct cost of implementing some RCTs can run into the millions of $s.</p></li>
+<li><p>They can be unethical. Many important research questions cannot be studied using a RCT because the decision to treat one group of individuals - and therefore exclude another from treatment - is unethical.</p></li>
+</ol>
+<p>That does not mean that they are uncommon. Indeed, since the early 2000s there has been an explosion of research employing RCTs in Economics; in particular, in the field of Development Economics. In the developed world, many public policies are now evaluated first using small scale RCTs before being rolled out to the wider population.</p>
+<p>RCTs have come under criticism in Economics. Angus Deaton has been quite critical of the use of RCTs in Development Economics pointing out ethical, practical, and conceptual issues with their use. One of his more substantive critiques relates to the difference bewteen experimental treatments and real-world policies. RCTs measure the impact of the assigned treatment, which may differ substantially from a real world policy. For this reason, RCTs do not always tell us what the expected impact of a real policy change would be. For further reading on the topic, see Deaton (2010) and …… .</p>
+<p>Another critique comes from James Heckman, who argues that internal validity of RCTs is lost to their lack of <strong>external validity</strong>. A randomized experiment can be used to study the (average) treatment effect of the sampled population, but says nothing about the wider population, not sampled by the experiment. Given their budgetary constraints, RCTs are often constrained in terms of the population they can sample; for example, you may trial a new education policy using a select sample of 50 schools. The RCT will inform you about the ATE for that sample of 50 schools, but not necessarily the wider population of schools. Extrapolation to the wider population requires us to make additional assumptions that may not be reasonable.</p>
+<p>Considering these limitations, there are many important Economics research questions which may not be appropriate to study using a randomized experiment. Answering these questions may require us to make additional assumptions and used more model-based Econometric tools.</p>
+<p>Nevertheless, randomization and, in particular, the notion of unconfounded treatment remains a useful lense through which to evaluate causal questions in observational settings. For example, we may wish to study the labour market value of attending a top-ranked university (as in Krueger) but, for ethical reasons, cannot randomly assign who attends a top ranked university. In the absence of randomization, it is likely that selection into treatment (attending a top-ranked university) is confounded. If randomization is the “gold standard”, then how distinct is the observed assignment from random?</p>
+</section>
+</section>
+<section id="inference-under-randomization" class="level2" data-number="7.3">
+<h2 data-number="7.3" class="anchored" data-anchor-id="inference-under-randomization"><span class="header-section-number">7.3</span> Inference under Randomization</h2>
+<section id="fisher-vs-neyman" class="level3" data-number="7.3.1">
+<h3 data-number="7.3.1" class="anchored" data-anchor-id="fisher-vs-neyman"><span class="header-section-number">7.3.1</span> Fisher vs Neyman</h3>
+<p>When evaluating <strong>finite samples</strong>, there are two potential null hypothesis: 1. Fisher’s sharp null hypothesis: <span class="math display">\[
+            \begin{align*}
+                &amp;H_0: Y_i(1)=Y_i(0) \quad\forall i=1,...,N \\
+                \text{against }&amp;H_1:\;\exists\;i\; \text{s.t.}\;Y_i(1)\neq Y_i(0)
+            \end{align*}
+            \]</span> 2. Neyman’s (finite sample) average treatment effect (ATE) hypothesis: <span class="math display">\[
+            \begin{align*}
+                &amp;H'_0: \frac{1}{N}\sum_{i=1}^{N}(Y_i(1)-Y_i(0))=0 \\
+                \text{against }&amp;H'_1:\frac{1}{N}\sum_{i=1}^{N}(Y_i(1)-Y_i(0))\neq0
+        \end{align*}
+          \]</span></p>
+</section>
+<section id="fishers-exact-p-values" class="level3" data-number="7.3.2">
+<h3 data-number="7.3.2" class="anchored" data-anchor-id="fishers-exact-p-values"><span class="header-section-number">7.3.2</span> Fisher’s exact p-values</h3>
+<p>Consider the test statistic, <span class="math display">\[
+T(W,Y^{obs}) = \bar{Y}^{obs}_t-\bar{Y}^{obs}_c
+\]</span></p>
+<p>Since we know the assignment mechanism under randomization, we can consider other realizations of W, <span class="math display">\[
+            T(\tilde{W},Y^{obs})
+        \]</span> <strong>under the null hypothesis.</strong></p>
+<ul>
+<li><strong>Why?</strong> Under <span class="math inline">\(H_0\)</span>, <span class="math inline">\(Y^{obs}=Y(1)=Y(0)\)</span></li>
+<li>Just need to consider other allocations of <span class="math inline">\(W\)</span></li>
+<li>In fact, we can calculate the distribution of <span class="math inline">\(T\)</span> under the null.</li>
+<li>Can calculate p-value</li>
+<li>Works for many test-statistics, including rank</li>
+</ul>
+<p>Suppose we observe the data on outcomes <span class="math inline">\(Y^{obs}\)</span> and treatment status <span class="math inline">\(W\)</span>,</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Y^{obs}</th>
+<th>W</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>3</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td>6</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td>9</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td>5</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="fisher-how-does-this-work" class="level3" data-number="7.3.3">
+<h3 data-number="7.3.3" class="anchored" data-anchor-id="fisher-how-does-this-work"><span class="header-section-number">7.3.3</span> Fisher: How does this work?</h3>
+<p>Depending on treatment status, we either observe <span class="math inline">\(Y_i(0)\)</span> or <span class="math inline">\(Y_i(1)\)</span>,</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th><span class="math inline">\(Y^{obs}\)</span></th>
+<th><span class="math inline">\(W\)</span></th>
+<th><span class="math inline">\(Y(0)\)</span></th>
+<th><span class="math inline">\(Y(1)\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>3</td>
+<td>1</td>
+<td>-</td>
+<td>3</td>
+</tr>
+<tr class="even">
+<td>6</td>
+<td>0</td>
+<td>6</td>
+<td>-</td>
+</tr>
+<tr class="odd">
+<td>9</td>
+<td>1</td>
+<td>-</td>
+<td>9</td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td>1</td>
+<td>-</td>
+<td>4</td>
+</tr>
+<tr class="odd">
+<td>5</td>
+<td>0</td>
+<td>5</td>
+<td>-</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>0</td>
+<td>2</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>With this data we can compute any test-static <span class="math inline">\(T(W,Y^{obs})\)</span>. For example, the standard t-statistic (assuming unequal variances),</p>
+<p><span class="math display">\[
+T(W,Y^{obs}) = \frac{\hat{\tau}}{\hat{se}(\hat{\tau})} = \frac{\bar{Y}^{obs}_t-\bar{Y}^{obs}_c}{\sqrt{\frac{S^2_c}{N_c}+\frac{S^2_t}{N_t}}}
+\]</span> Since the null hypothesis - <span class="math inline">\(H_0: Y_i(0)=Y_i(1) \quad\forall\; i=1,...,N\)</span> - <strong>is sharp</strong>, we know,</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th><span class="math inline">\(Y^{obs}\)</span></th>
+<th><span class="math inline">\(W\)</span></th>
+<th><span class="math inline">\(Y(0)\)</span></th>
+<th><span class="math inline">\(Y(1)\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>3</td>
+<td>1</td>
+<td><span style="color: red">3</span></td>
+<td>3</td>
+</tr>
+<tr class="even">
+<td>6</td>
+<td>0</td>
+<td>6</td>
+<td><span style="color: red">6</span></td>
+</tr>
+<tr class="odd">
+<td>9</td>
+<td>1</td>
+<td><span style="color: red">9</span></td>
+<td>9</td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td>1</td>
+<td><span style="color: red">4</span></td>
+<td>4</td>
+</tr>
+<tr class="odd">
+<td>5</td>
+<td>0</td>
+<td>5</td>
+<td><span style="color: red">5</span></td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>0</td>
+<td>2</td>
+<td><span style="color: red">2</span></td>
+</tr>
+</tbody>
+</table>
+<p><strong>under the null</strong>.</p>
+<p>We can therefore construct other realizations of the treatment allocation: <span class="math inline">\(W'\)</span>.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 8%">
+<col style="width: 3%">
+<col style="width: 19%">
+<col style="width: 19%">
+<col style="width: 22%">
+<col style="width: 26%">
+</colgroup>
+<thead>
+<tr class="header">
+<th><span class="math inline">\(Y^{obs}\)</span></th>
+<th><span class="math inline">\(W\)</span></th>
+<th><span class="math inline">\(Y(0)\)</span></th>
+<th><span class="math inline">\(Y(1)\)</span></th>
+<th><span style="color: blue"><span class="math inline">\(W'\)</span></span></th>
+<th><span style="color: blue"><span class="math inline">\(Y^{obs'}\)</span></span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>3</td>
+<td>1</td>
+<td><span style="color: red">3</span></td>
+<td>3</td>
+<td><span style="color: blue">0</span></td>
+<td><span style="color: blue">3</span></td>
+</tr>
+<tr class="even">
+<td>6</td>
+<td>0</td>
+<td>6</td>
+<td><span style="color: red">6</span></td>
+<td><span style="color: blue">1</span></td>
+<td><span style="color: blue">6</span></td>
+</tr>
+<tr class="odd">
+<td>9</td>
+<td>1</td>
+<td><span style="color: red">9</span></td>
+<td>9</td>
+<td><span style="color: blue">1</span></td>
+<td><span style="color: blue">9</span></td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td>1</td>
+<td><span style="color: red">4</span></td>
+<td>4</td>
+<td><span style="color: blue">0</span></td>
+<td><span style="color: blue">4</span></td>
+</tr>
+<tr class="odd">
+<td>5</td>
+<td>0</td>
+<td>5</td>
+<td><span style="color: red">5</span></td>
+<td><span style="color: blue">0</span></td>
+<td><span style="color: blue">5</span></td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>0</td>
+<td>2</td>
+<td><span style="color: red">2</span></td>
+<td><span style="color: blue">1</span></td>
+<td><span style="color: blue">2</span></td>
+</tr>
+</tbody>
+</table>
+<p><span class="math display">\[
+T(W',Y(1),Y(0))
+\]</span> Compute for <strong>all</strong> possible realizations of <span class="math inline">\(W\)</span>, get the exact distribution of the test static <strong>under the sharp null hypothesis</strong>.</p>
+</section>
+<section id="neymans-ate-test" class="level3" data-number="7.3.4">
+<h3 data-number="7.3.4" class="anchored" data-anchor-id="neymans-ate-test"><span class="header-section-number">7.3.4</span> Neyman’s ATE test</h3>
+<p>Neyman’s null hypothesis is,</p>
+<p><span class="math display">\[
+H_0:\;\tau^{fs}_{ATE} = 0 \qquad\text{against}\qquad H_0:\;\tau^{fs}_{ATE} \neq 0
+\]</span></p>
+<p>We can express,</p>
+<p><span class="math display">\[
+        \tau^{fs}_{ATE} = \frac{1}{N}\sum_{i=1}^{N}(Y_i(1)-Y_i(0))=\bar{Y}(1)-\bar{Y}(0)
+\]</span></p>
+<pre><code>Then, </code></pre>
+<p><span class="math display">\[
+        \hat{\tau} = \bar{Y}^{obs}_t-\bar{Y}^{obs}_c
+\]</span></p>
+<p>Is an <strong>unbiased</strong> estimator for <span class="math inline">\(\tau^{fs}_{ATE}\)</span>.</p>
+<div style="text-align: center;">
+<p>PROOF [ON BOARD]</p>
+</div>
+<div class="callout callout-style-default callout-important no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Proofs
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><span class="math display">\[
+\begin{aligned}
+\hat{\tau} = &amp;\bar{Y}^{obs}_t-\bar{Y}^{obs}_c \\
+=&amp;\frac{1}{N_t}\sum_{i:w_i=1}y_i-\frac{1}{N_c}\sum_{i:w_0=1}y_i \\
+=&amp;\frac{1}{N_t}\sum_{i=1}w_iy_i-\frac{1}{N_c}\sum_{i=0}(1-w_i)y_i \\
+=&amp;\frac{1}{N}[\sum_{i=1}^{N}\frac{w_iy_i}{N_t/N}-\sum_{i=0}^{N}\frac{(1-w_i)y_i}{N_c/N}]
+\end{aligned}
+\]</span> Neyman Test statisitc -&gt; <span class="math inline">\(\mathbf{E}_w[\hat{\tau}|y(1),y(0)]=\tau_{ATE}^{fs}\)</span></p>
+<p>where <span class="math inline">\(\mathbf[E]_w\)</span> means taking expectation with respect to <span class="math inline">\(w\)</span></p>
+<p><span class="math display">\[
+\begin{aligned}
+\mathbf{E}_w[\hat{\tau}|y(1),y(0)] = &amp;\frac{1}{N}[\sum_{i=1}^{N}\frac{\mathbf{E}_w[w_i]y_i}{N_t/N}-\sum_{i=0}^{N}\frac{\mathbf{E}_w[1-w_i]y_i}{N_c/N}] \\
+where &amp;\space \mathbf{E}_w[w_i]=\frac{N_t}{N} \space\space\space\space\space \mathbf{E}_w[1-w_i]=\frac{N_c}{N} \\
+=&amp;\frac{1}{N}[\sum_{i=1}^{N}\frac{(N_t/N)y_i}{N_t/N}-\sum_{i=0}^{N}\frac{(N_c/N)y_i}{N_c/N}] \\
+=&amp;\frac{1}{N}\sum_{i=1}^{N}(y_i(1)-y_i(0))
+\end{aligned}
+\]</span></p>
+</div>
+</div>
+</div>
+</section>
+<section id="sampling-variance-of-neyman-estimator" class="level3" data-number="7.3.5">
+<h3 data-number="7.3.5" class="anchored" data-anchor-id="sampling-variance-of-neyman-estimator"><span class="header-section-number">7.3.5</span> Sampling Variance of Neyman estimator</h3>
+<p>Remember, with a fixed sample, the source of variation is <span class="math inline">\(W\)</span>.</p>
+<ul>
+<li><span class="math inline">\(E_W[W_i]=E_W[W_i^2] = \frac{N_t}{N}\)</span></li>
+<li><span class="math inline">\(Var_W(W_i) = \frac{N_t}{N}\cdot(1-\frac{N_t}{N})\)</span></li>
+</ul>
+<p>But we also need to consider the correlation between <span class="math inline">\(W_i\)</span> and <span class="math inline">\(W_{i'}\)</span>:</p>
+<ul>
+<li><span class="math inline">\(E_W[W_iW_{i'}]=Pr_W(W_i=1)\cdot Pr(W_i=1|W_i=1) = \frac{N_t}{N}\cdot\frac{N_t-1}{N-1}\)</span> for <span class="math inline">\(i\neq i'\)</span></li>
+</ul>
+<div class="callout callout-style-default callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Finite sampling variance of <span class="math inline">\(\hat{\tau}\)</span>
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><span class="math display">\[
+                V^{fs}(\hat{\tau}) = \frac{S^2_c}{N_c}+\frac{S^2_t}{N_t}-\frac{S^2_{ct}}{N}
+\]</span></p>
+</div>
+</div>
+<ul>
+<li>The proof is a little involved!</li>
+</ul>
+<p><span class="math display">\[
+        S^2_c = \frac{1}{N-1}\sum_{i=1}^N (Y_i(0)-\bar{Y}(0))^2
+\]</span></p>
+<p><span class="math display">\[
+    S^2_t = \frac{1}{N-1}\sum_{i=1}^N (Y_i(1)-\bar{Y}(1))^2
+\]</span> **Note, the variance of <span class="math inline">\(Y(1)\)</span> and <span class="math inline">\(Y(0)\)</span> need not be the same. And, <span class="math display">\[
+        \begin{align*}
+        S^2_{ct} &amp;= \frac{1}{N-1}\sum_{i=1}^N (Y_i(1)-Y_i(0)-(\bar{Y}(1)-\bar{Y}(0)))^2 \\
+        &amp;=\frac{1}{N-1}\sum_{i=1}^N (Y_i(1)-Y_i(0)-\tau^{fs}_{ATE})^2
+        \end{align*}
+\]</span></p>
+<ul>
+<li><p>Third term captures the sample variation in the unit-level TE.</p></li>
+<li><p>If TE are constant (i.e.&nbsp;<em>homogenous</em>), then equals 0.</p>
+<p>We have no way of estimating the <span class="math inline">\(S^2_{ct}\)</span> since it requires observation of both <span class="math inline">\(Y_i(1)\)</span> and <span class="math inline">\(Y_i(0)\)</span> for the same unit.</p></li>
+</ul>
+<div class="callout callout-style-default callout-important no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Theorem: Neyman’s variance estimator
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>If the treatment effect is constant, then an unbiased estimator for the sampling variance is, <span class="math display">\[
+        \hat{V}^{neyman} = \frac{s^2_c}{N_c}+\frac{s^2_t}{N_t}
+\]</span></p>
+</div>
+</div>
+<p>where, <span class="math display">\[
+        s^2_c = \frac{1}{N_c-1}\sum_{i:W_i=0}^N (Y_i^{obs}-\bar{Y}^{obs}_c)^2
+\]</span> <span class="math display">\[
+        s^2_t = \frac{1}{N_t-1}\sum_{i:W_i=1}^N (Y_i^{obs}-\bar{Y}^{obs}_t)^2
+\]</span><br>
+** Note, this is different to the T-test variance</p>
+</section>
+<section id="sampling-variance-of-neyman-estimator-an-improvement" class="level3" data-number="7.3.6">
+<h3 data-number="7.3.6" class="anchored" data-anchor-id="sampling-variance-of-neyman-estimator-an-improvement"><span class="header-section-number">7.3.6</span> Sampling Variance of Neyman estimator: An improvement</h3>
+<p>However, we can improve on this estimator for small samples. If we assume that <span class="math inline">\(Y_i(1)-Y_i(0)\)</span> is a constant, then <span class="math display">\[
+S^2 = S^2_c=S^2_t
+\]</span></p>
+<div class="callout callout-style-default callout-important no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Constant variance estimator
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>If the treatment effect is constant, then a more precise, unbiased estimator for the sampling variance is, <span class="math display">\[
+            \hat{V}^{const} = s^2\cdot\left(\frac{1}{N_c}+\frac{1}{N_t}\right)
+\]</span></p>
+</div>
+</div>
+<pre><code>where, </code></pre>
+<p><span class="math display">\[
+        s^2 = \frac{1}{N-2}\cdot\left(s^2_c\cdot(N_c-1)+s^2_t\cdot(N_t-1)\right)
+\]</span> ** These equations should be fairly familiar.</p>
+</section>
+<section id="neyman-hypothesis-test" class="level3" data-number="7.3.7">
+<h3 data-number="7.3.7" class="anchored" data-anchor-id="neyman-hypothesis-test"><span class="header-section-number">7.3.7</span> Neyman hypothesis test</h3>
+<p>To conduct inference we need to know the distribution of the test-statistic, not just the variance.</p>
+<p>Potential approaches:</p>
+<ol type="1">
+<li>Use a normal approximation of the randomization distribution of <span class="math inline">\(\hat{\tau}\)</span></li>
+<li>Approximate distribution of <span class="math inline">\(\hat{V}\)</span> by chi-squared and use t-distribution. <span class="math display">\[
+      t = \frac{\hat{\tau}}{\sqrt{\hat{V}}}
+\]</span></li>
+</ol>
+<p>Confidence intervals, <span class="math display">\[
+    CI^{0.95}(\tau^{fs}_{ATE}) \approxeq \left[\hat{\tau}+z_{0.025}\cdot\sqrt{\hat{V}},\hat{\tau}+z_{0.975}\cdot\sqrt{\hat{V}}\right]
+\]</span><br>
+or <span class="math display">\[
+        CI^{0.95}(\tau^{fs}_{ATE}) \approxeq \left[\hat{\tau}+t_{N-2,0.025}\cdot\sqrt{\hat{V}},\hat{\tau}+t_{N-2,0.975}\cdot\sqrt{\hat{V}}\right]
+\]</span></p>
+</section>
+<section id="fisher-vs-neyman-1" class="level3" data-number="7.3.8">
+<h3 data-number="7.3.8" class="anchored" data-anchor-id="fisher-vs-neyman-1"><span class="header-section-number">7.3.8</span> Fisher vs Neyman</h3>
+<p>Remember the differences in the null hypotheses:</p>
+<ul>
+<li>Fisher [<strong>exact</strong>]: <span class="math inline">\(H_0: Y_i(1)=Y_i(0) \quad\forall i=1,...,N\)</span></li>
+<li>Neyman: <span class="math inline">\(H'_0: \frac{1}{N}\sum_{i=1}^{N}(Y_i(1)-Y_i(0))=0\)</span></li>
+</ul>
+<p>From Imbens and Wooldridge (2009, p.23)<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>,</p>
+<p><img src="Images/table1_imbenswooldridge2009.png" class="img-fluid"></p>
+</section>
+<section id="neyman-super-population-equivalent" class="level3" data-number="7.3.9">
+<h3 data-number="7.3.9" class="anchored" data-anchor-id="neyman-super-population-equivalent"><span class="header-section-number">7.3.9</span> Neyman: Super-population equivalent</h3>
+<p>Suppose we think of the sample N as a draw from a potentially infinite super-population,</p>
+<div class="callout callout-style-default callout-important no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Result
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><span class="math display">\[
+                E[\hat{\tau}] = E[\tau^{fs}_{ATE}] = \tau_{ATE}
+\]</span> <span class="math display">\[
+                V(\hat{\tau}) = E\left[(\bar{Y}^{obs}_t-\bar{Y}^{obs}_c-E[\bar{Y}^{obs}_t-\bar{Y}^{obs}_c])^2\right]= \frac{\sigma^2_c}{N_c}+\frac{\sigma^2_t}{N_t}
+\]</span> Proof will be provided on Moodle.</p>
+</div>
+</div>
+<ul>
+<li><span class="math inline">\(\hat{V}^{neyman}\)</span> is an unbiased estimator for <span class="math inline">\(V\)</span>, <strong>even with heterogeneous TE’s</strong>.</li>
+<li><span class="math inline">\(\hat{V}^{neyman}\)</span> is a better default choice.</li>
+</ul>
+<div style="text-align: center;">
+<p>VARIANCE PROOF ON MOODLE</p>
+</div>
+</section>
+</section>
+<section id="balance-tests" class="level2" data-number="7.4">
+<h2 data-number="7.4" class="anchored" data-anchor-id="balance-tests"><span class="header-section-number">7.4</span> Balance tests</h2>
+<section id="testing-for-balance-in-covariates" class="level3" data-number="7.4.1">
+<h3 data-number="7.4.1" class="anchored" data-anchor-id="testing-for-balance-in-covariates"><span class="header-section-number">7.4.1</span> Testing for balance in covariates</h3>
+<p>All Randomized Control Trials should provide some variant of a balance table: a table comparing the means of pre-treatment covariates in each of the treatment groups.</p>
+<p>For example, (Oreopoulus, 2011, p.158)<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></p>
+<p><img src="Images/Oreopoulus_Balance_1.png" class="img-fluid"></p>
+<p>These tests are typically based on the ANOVA (<span style="color : blue">AN</span>alysis <span style="color: blue">O</span>f <span style="color : blue">VA</span>riance) test.<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a></p>
+<ul>
+<li>Decomposes TSS into,<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a></li>
+</ul>
+<p><span class="math display">\[
+                TSS = \sum_{k=1}^{K}\sum_{i=1}^{N(k)}(X_{ik}-\bar{X})^2 = \underbrace{\sum_{k=1}^{K}\sum_{i=1}^{N(k)}(X_{ik}-\bar{X}_k)^2}_\text{residual/within}+\underbrace{\sum_{k=1}^{K}N(k)(\bar{X}_k-\bar{X})^2}_\text{explained/between}
+\]</span></p>
+<ul>
+<li>The F-statistic, <span class="math display">\[
+            F-stat =\frac{ESS/(K-1)}{RSS/(N-K)} = \frac{\text{explained/between variance}}{\text{residual/within variance}}
+\]</span></li>
+</ul>
+<p>This is to estimating the linear regression model,</p>
+<p><span class="math display">\[
+            X_i = \beta_0 + \beta_1D_{i1}+...+ \beta_KD_{i,K-1}+\varepsilon_i
+\]</span></p>
+<p>where the dummy variables indicate <span class="math inline">\(K-1\)</span> groups. Test the joint linear hypothesis, <span class="math display">\[
+            H_0: \beta_1 = ... = \beta_{K-1} = 0
+\]</span></p>
+<p>against, <span class="math display">\[
+            H_1: \text{at least one }\beta_j\neq0\qquad j=1,...,K-1
+\]</span></p>
+<ul>
+<li>Note, you should be wary of testing each <span class="math inline">\(\beta\)</span> coefficient separately. <strong>Why?</strong></li>
+</ul>
+<p>For example, Dupas and Robinson (2013, p.1150)<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a></p>
+<p><img src="Images/Dupas_Baseline_1.png" class="img-fluid"></p>
+<p>It is important to remember,</p>
+<ul>
+<li>Balance tests provide support for unconfoundedness (i.e. randomization has worked)</li>
+<li>We can test for differences in observables.</li>
+<li>We cannot rule out selection on unobservables.</li>
+<li>Partially rely on sufficiently large sample size.</li>
+</ul>
+</section>
+<section id="next-up" class="level3" data-number="7.4.2">
+<h3 data-number="7.4.2" class="anchored" data-anchor-id="next-up"><span class="header-section-number">7.4.2</span> Next-up</h3>
+<ul>
+<li>Evaluating RCT’s with Linear Regression and (one of) Angus Deaton’s critiques</li>
+<li>Covariates, Efficiency, and Power<br>
+</li>
+<li>Good and Bad Controls</li>
+<li>Intent to Treat and some examples</li>
+</ul>
+<!---
+
+
+
+
+
+here starts the second slide
+
+
+
+
+
+
+
+
+
+--->
+</section>
+</section>
+<section id="evaluating-rcts-using-a-linear-regression-model" class="level2" data-number="7.5">
+<h2 data-number="7.5" class="anchored" data-anchor-id="evaluating-rcts-using-a-linear-regression-model"><span class="header-section-number">7.5</span> Evaluating RCTs using a Linear Regression Model</h2>
+<section id="linear-regression-model" class="level3" data-number="7.5.1">
+<h3 data-number="7.5.1" class="anchored" data-anchor-id="linear-regression-model"><span class="header-section-number">7.5.1</span> Linear Regression Model</h3>
+<p>Consider the linear regression <em>model</em>, <span class="math display">\[
+            Y_i = \alpha+\beta W_i + \varepsilon_i
+\]</span> where, intuitively, <span class="math inline">\(Y_i = Y^{obs}_i\)</span>. The OLS estimator for the vector of parameters <span class="math inline">\((\alpha,\beta)\)</span> is defined as, <span class="math display">\[
+            (\hat{\alpha}^{OLS},\hat{\beta}^{OLS}) = \underset{a,b}{argmin} \sum_{i=1}^{N}(Y_i-a-b W_i)^2
+\]</span> We know that in the case of a simple linear regression model, <span class="math display">\[
+            \hat{\beta}^{OLS} = \frac{\sum_{i=1}^{N}(W_i-\bar{W})(Y_i-\bar{Y})}{\sum_{i=1}^{N}(W_i-\bar{W})^2} = (W'M_\ell W)^{-1}W'M_\ell Y
+\]</span></p>
+<p>the sample analogue of <span class="math inline">\(\beta = \frac{Cov(W_i,Y_i)}{Var(W_i)}\)</span>.</p>
+<p>Since <span class="math inline">\(\bar{W}=\frac{N_t}{N}\)</span>, we can show that <a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a></p>
+<p><span class="math display">\[
+            \hat{\beta}^{OLS} = \bar{Y}^{obs}_t-\bar{Y}^{obs}_c = \hat{\tau}
+\]</span></p>
+<p>Which we know is an unbiased estimator for both <span class="math inline">\(\tau_{ATE}^{fs}\)</span> and <span class="math inline">\(\tau_{ATE}\)</span>.</p>
+<ul>
+<li><span class="math inline">\(\hat{\beta}^{OLS}\)</span> is an unbiased estimate of the (average) causal effect, assuming unconfoundedness (i.e.&nbsp;completely random experiment).</li>
+</ul>
+<p>We want to create a mapping from potential outcomes to a linear regression model. Recall, <span class="math display">\[
+            Y^{obs}_i = Y_i(0)+W_i(Y_i(1)-Y_(0))
+\]</span> Let’s define<a href="#fn7" class="footnote-ref" id="fnref7" role="doc-noteref"><sup>7</sup></a>,</p>
+<p><span class="math display">\[
+        \begin{align*}
+            \mu &amp;=E[Y_i(0)] \\
+            \tau_{ATE} &amp;= E[Y_i(1)-Y_i(0)]
+        \end{align*}
+\]</span><br>
+We want to show that we can express <span class="math inline">\(Y^{obs}_i\)</span> as a linear regression model, <span class="math display">\[
+            Y^{obs}_i=\mu+\tau_{ATE}W_i+\varepsilon_i
+\]</span></p>
+</section>
+<section id="endogeneity" class="level3" data-number="7.5.2">
+<h3 data-number="7.5.2" class="anchored" data-anchor-id="endogeneity"><span class="header-section-number">7.5.2</span> Endogeneity</h3>
+<p>We write the error term from the linear regression model as function of these parameters and the potential outcomes in the following way, <span class="math display">\[
+        \begin{align*}
+            \varepsilon_i   &amp;=Y_i(0)- \mu+W_i\cdot(Y_i(1)-Y_i(0)-\tau_{ATE}) \\
+                            &amp;=\begin{cases*}
+                                Y^{obs}_i-\mu \qquad\qquad\quad \text{if}\quad W_i=0 \\
+                                Y^{obs}_i-\mu-\tau_{ATE} \qquad \text{if}\quad W_i=1
+                            \end{cases*} \\
+                            &amp;=\begin{cases*}
+                                Y_i(0)-E[Y_i(0)] \qquad\qquad\qquad\qquad\qquad\qquad\qquad\qquad\quad \text{if}\quad W_i=0 \\
+                                Y_i(0)-E[Y_i(0)]+\underbrace{\left(Y_i(1)-Y_i(0)-E[Y_i(1)-Y_i(0)]\right)}_\text{heterogeneity} \quad \text{if}\quad W_i=1
+                            \end{cases*}                        
+        \end{align*}
+\]</span> Note, for a more straight forward mapping we can assume homogenous TEs, <span class="math display">\[
+            (Y_i(1)-Y_i(0)) = \tau\qquad \forall i
+\]</span></p>
+<p><span class="math display">\[
+\begin{align}
+            Y_i &amp;= Y_i(0)+W_i\cdot\underbrace{(Y_i(1)-Y_i(0))}_{\tau} \\
+                &amp;=E[Y_i(0)]+\tau W_i+\underbrace{Y_i(0)-E[Y_i(0)]}_{\varepsilon_i} \\
+                &amp;=\mu+\tau W_i + \varepsilon_i
+\end{align}
+\]</span> As an assignment mechanism, randomization gives us unconfoundedness, <span class="math display">\[
+            (Y_i(1),Y_i(0))\perp W_i
+\]</span> So, then we can consider the conditional expectations of <span class="math inline">\(\varepsilon_i\)</span>,</p>
+<ul>
+<li><span class="math inline">\(W_i=0\)</span> <span class="math display">\[
+        \begin{align*}
+            E[\varepsilon_i|W_i=0] &amp;= E[Y_i(0)- \mu + W_i\cdot(Y_i(1)-Y_i(0)-\tau_{ATE})|W_i=0] \\
+            &amp;= E[Y_i(0)- \mu|W_i=0] \\
+            &amp;=E[Y_i(0)|W_i=0]-E[Y_i(0)] = 0
+        \end{align*}
+\]</span></li>
+<li><span class="math inline">\(W_i=1\)</span> <span class="math display">\[
+        \begin{align*}
+            E[\varepsilon_i|W_i=1] &amp;= E[Y_i(0)- \mu + W_i\cdot(Y_i(1)-Y_i(0)-\tau_{ATE})|W_i=1] \\
+            &amp;= E[Y_i(1)-\tau_{ATE} - \mu|W_i=1] \\
+            &amp;=E[Y_i(1)|W_i=1]-E[Y_i(0)]-E[Y_i(1)-Y_i(0)] = 0
+        \end{align*}
+\]</span> Unconfoundedness gives you mean independence.</li>
+</ul>
+</section>
+<section id="inference" class="level3" data-number="7.5.3">
+<h3 data-number="7.5.3" class="anchored" data-anchor-id="inference"><span class="header-section-number">7.5.3</span> Inference</h3>
+<p>Suppose we assume homoskedasticity: <span class="math inline">\(\sigma_i^2=\sigma^2\)</span><br>
+<span class="math display">\[
+        \begin{align*}
+            \hat{\sigma}^2 = \frac{1}{N-2}\sum_{i=1}^N \hat{\varepsilon}_i^2&amp;= \frac{1}{N-2}\sum_{i=1}^N  (Y_i-\hat{\alpha}^{OLS}-\hat{\beta}^{OLS}W_i)^2 \\
+            &amp;=\frac{1}{N-2}\sum_{i=1}^N  \left(Y_i-\bar{Y}-(\bar{Y}^{obs}_t-\bar{Y}^{obs}_c)\cdot(W_i-\bar{W})\right)^2 \\
+            &amp;=\frac{1}{N-2}\left(\sum_{i:W_i=0}^N(Y_i-\bar{Y}^{obs}_c)^2+\sum_{i:W_i=1}^N(Y_i-\bar{Y}^{obs}_t)^2\right) \\
+            &amp;=s^2
+        \end{align*}
+\]</span></p>
+<p>where, <span class="math display">\[
+        s^2 = \frac{1}{N-2}\cdot\left(s^2_c\cdot(N_c-1)+s^2_t\cdot(N_t-1)\right)
+\]</span> ** Check to see if you can show this.</p>
+</section>
+<section id="deatons-critique" class="level3" data-number="7.5.4">
+<h3 data-number="7.5.4" class="anchored" data-anchor-id="deatons-critique"><span class="header-section-number">7.5.4</span> Deaton’s critique</h3>
+<p>Angus Deaton has made a number of criticisms against the use of RCTs in (Development) Economics. One of these is the misuse of linear regression:<a href="#fn8" class="footnote-ref" id="fnref8" role="doc-noteref"><sup>8</sup></a></p>
+<div class="callout callout-style-default callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Deaton (2010, p.442)
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>“However, the standard error of <span class="math inline">\(\beta_1\)</span> from the OLS regression is not generally correct. One problem is that the variance among the experimentals may be different from the variance among the controls, and to assume that the experiment affect the variance is very much against the minimalist spirit of RCTs.”</p>
+</div>
+</div>
+<p>The standard OLS variance estimator for <span class="math inline">\(\hat{\beta}^{OLS}\)</span> is, <span class="math display">\[
+        \hat{V}^{homosk} = \frac{\hat{\sigma}^2}{\sum_{i=1}^{N}(W_i-\bar{W})^2}=s^2\cdot\left(\frac{1}{N_c}+\frac{1}{N_t}\right)=\hat{V}^{const}
+\]</span> If instead you estimate heteroskedastic standard errors, <span class="math display">\[
+            \hat{V}^{hetero} = \frac{\sum_{i=1}^{N}\hat{\varepsilon}_i^2\cdot(W_i-\bar{W})^2}{\left(\sum_{i=1}^{N}(W_i-\bar{W})^2\right)^2} \approxeq \frac{s^2_c}{N_c}+\frac{s^2_t}{N_t}=\hat{V}^{neyman}
+\]</span></p>
+<div class="callout callout-style-default callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Deaton (2010, p.442)
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>“If the regression … is run with the standard heteroskedasticity correction to the standard error, the result will be the same as the formula for the standard error of the difference between two means, but not otherwise except in the special case where there are equal numbers of experimental and controls, in which case it turns out that the correction makes no difference and the OLS standard error is correct. It is not clear in the experimental development literature whether the correction is routinely done in practice…”</p>
+</div>
+</div>
+</section>
+</section>
+<section id="adding-covariates" class="level2" data-number="7.6">
+<h2 data-number="7.6" class="anchored" data-anchor-id="adding-covariates"><span class="header-section-number">7.6</span> Adding covariates</h2>
+<section id="adding-covariates-1" class="level3" data-number="7.6.1">
+<h3 data-number="7.6.1" class="anchored" data-anchor-id="adding-covariates-1"><span class="header-section-number">7.6.1</span> Adding covariates</h3>
+<p>Let us consider the linear regression model, <span class="math display">\[
+            Y_i = \alpha+\beta W_i + X_i'\gamma+\epsilon_i
+\]</span></p>
+<p>where,</p>
+<ul>
+<li><span class="math inline">\(W_i\)</span> is assigned according to a completely random experiment</li>
+<li><span class="math inline">\(X_i\)</span> is a <span class="math inline">\(k\times 1\)</span> vector of <strong>pre-treatment</strong> covariates</li>
+<li>the linear function <strong>need not</strong> be correctly specified</li>
+</ul>
+<p>Note: we are not interested in the interpretation of the <span class="math inline">\(\gamma\)</span>’s or <span class="math inline">\(\alpha\)</span>.</p>
+<div class="callout callout-style-default callout-important no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Theorem (Imbens and Rubin, 2015, p.123)
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Suppose we conduct a <strong>completely randomized experiment</strong> in a sample drawn at random from an infinite population. Then,</p>
+<ol type="1">
+<li><span class="math inline">\(plim\;\hat{\beta}=\tau_{ATE}\)</span></li>
+<li>The asymptotic distribution of <span class="math inline">\(\hat{\beta}\)</span> is normal.</li>
+</ol>
+</div>
+</div>
+<p>This is a powerful result!</p>
+<ul>
+<li>We are agnostic about the Conditional Expectation Function: <span class="math inline">\(E[Y_i|W_i,X_i']\)</span>.</li>
+<li>And the model need not be correctly specified.</li>
+</ul>
+</section>
+<section id="small-sample-bias" class="level3" data-number="7.6.2">
+<h3 data-number="7.6.2" class="anchored" data-anchor-id="small-sample-bias"><span class="header-section-number">7.6.2</span> Small sample bias</h3>
+<p>Unfortunately, in small samples <span class="math inline">\(\hat{\beta}^{OLS}\)</span> is a biased estimator of <span class="math inline">\(\tau_{ATE}\)</span>.<a href="#fn9" class="footnote-ref" id="fnref9" role="doc-noteref"><sup>9</sup></a></p>
+<ul>
+<li>The bias is <span class="math inline">\(\psi/N\)</span> and <span class="math inline">\(\psi\)</span> is given by, <span class="math display">\[
+            \psi = -\lim \frac{1}{N}\sum_{i=1}^N (\tau_i-\tau_{ATE})f(X_i)
+\]</span></li>
+<li>The source of the bias lies in the correlation between the unit-level treatment effect and the covariates.</li>
+<li>Recall, treatment is independent of the covariates.</li>
+<li>But, the individual level treatment effect may not be.</li>
+</ul>
+<div class="callout callout-style-default callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+In practice
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Include covariates and be wary if the estimated coefficient changes substantially.</p>
+</div>
+</div>
+</section>
+<section id="efficiency-gains" class="level3" data-number="7.6.3">
+<h3 data-number="7.6.3" class="anchored" data-anchor-id="efficiency-gains"><span class="header-section-number">7.6.3</span> Efficiency gains</h3>
+<p>With covariates, the sampling variance of the OLS estimator is reduced. Here are the estimators:<a href="#fn10" class="footnote-ref" id="fnref10" role="doc-noteref"><sup>10</sup></a></p>
+<p><span class="math display">\[
+\hat{V}^{hetero} = \frac{1}{N(N-k)}\cdot\frac{\sum_{i=1}^{N}(W_i-\bar{W})^2(Y_i-\hat{\alpha}^{OLS}-\hat{\beta}^{OLS}-X_i'\hat{\gamma}^{OLS})^2}{\left(\bar{W}(1-\bar{W})\right)^2}
+\]</span> or <span class="math display">\[
+            \hat{V}^{homosk} = \frac{1}{N(N-k)}\cdot\frac{\sum_{i=1}^{N}(Y_i-\hat{\alpha}^{OLS}-\hat{\beta}^{OLS}-X_i'\hat{\gamma}^{OLS})^2}{\bar{W}(1-\bar{W})}
+\]</span> where <span class="math inline">\(k\)</span> is the number of parameters estimated (including the constant).</p>
+<ul>
+<li>Note, this holds only for <strong>good covariates</strong></li>
+</ul>
+</section>
+<section id="good-controls" class="level3" data-number="7.6.4">
+<h3 data-number="7.6.4" class="anchored" data-anchor-id="good-controls"><span class="header-section-number">7.6.4</span> Good controls</h3>
+<p>The question of good and bad controls is <strong>very</strong> important.<a href="#fn11" class="footnote-ref" id="fnref11" role="doc-noteref"><sup>11</sup></a></p>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Good control
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>A covariate that is not an outcome of the experiment.</p>
+</div>
+</div>
+<ul>
+<li>Variables measured at baseline,</li>
+<li>or individual characteristics that cannot change with the experiment (e.g.&nbsp;age).</li>
+</ul>
+<p>What about stratification?</p>
+<ul>
+<li>You should include stratifying variables in the model</li>
+<li>Stratification improves precision.</li>
+</ul>
+</section>
+<section id="minimizing-variance" class="level3" data-number="7.6.5">
+<h3 data-number="7.6.5" class="anchored" data-anchor-id="minimizing-variance"><span class="header-section-number">7.6.5</span> Minimizing Variance</h3>
+<p>Note, in the variance formulae we have the term in the denominator, <span class="math display">\[
+            \sum_{i=1}^N(W_i-\bar{W})^2 = N\bar{W}(1-\bar{W})
+\]</span></p>
+<div style="text-align : center">
+<pre><code>    TRY TO SHOW THIS</code></pre>
+</div>
+<p>Which comes from the sample variance of the treatment variable.</p>
+<p>To reduce the variance, we can maximize this function. This yields the solution,</p>
+<p><span class="math display">\[
+        \bar{W}^*=0.5
+\]</span></p>
+<ul>
+<li><strong>Equal assignment is efficient.</strong></li>
+</ul>
+</section>
+<section id="under-powered" class="level3" data-number="7.6.6">
+<h3 data-number="7.6.6" class="anchored" data-anchor-id="under-powered"><span class="header-section-number">7.6.6</span> Under-powered</h3>
+<p>RCTs often face the risk that they are <strong>under-powered</strong>. ::: {.allout-note icon=“false”} ## Power The probability of rejecting the null hypothesis (<span class="math inline">\(H_0: \tau=0\)</span>; i.e., of no effect) when it is <strong>false</strong>. <span class="math display">\[
+                \theta(\tau_0)=Pr(\text{Reject }H_0|\tau=\tau_0)
+\]</span> :::</p>
+<p>Recall, that we reject <span class="math inline">\(H_0: \tau=0\)</span> when <a href="#fn12" class="footnote-ref" id="fnref12" role="doc-noteref"><sup>12</sup></a></p>
+<p><span class="math display">\[
+            |S|&gt;z_{1-\alpha/2}\Longleftrightarrow |\hat{\tau}/se(\hat{\tau})|&gt;z_{1-\alpha/2}
+\]</span> Where <span class="math inline">\(S\)</span> is the test-statistic.</p>
+<p><span class="math display">\[
+        \begin{align*}
+            \theta(\tau_0)=&amp;Pr(|\hat{\tau}/se(\hat{\tau})|&gt;z_{1-\alpha/2}|\tau=\tau_0) \\
+            =&amp;Pr(\hat{\tau}/se(\hat{\tau})&lt;z_{\alpha/2}|\tau=\tau_0)+Pr(\hat{\tau}/se(\hat{\tau})&gt;z_{1-\alpha/2}|\tau=\tau_0) \\
+            =&amp;Pr\left(\frac{\hat{\tau}-\tau_0}{se(\hat{\tau})}&lt;z_{\alpha/2}-\frac{\tau_0}{se(\hat{\tau})}|\tau=\tau_0\right)\\
+            &amp;+Pr\left(\frac{\hat{\tau}-\tau_0}{se(\hat{\tau})}&gt;z_{1-\alpha/2}-\frac{\tau_0}{se(\hat{\tau})}|\tau=\tau_0\right) \\
+            =&amp;Pr\left(Z&lt;z_{\alpha/2}-\frac{\tau_0}{se(\hat{\tau})}|\tau=\tau_0\right)+Pr\left(Z&gt;z_{1-\alpha/2}-\frac{\tau_0}{se(\hat{\tau})}|\tau=\tau_0\right)
+        \end{align*}
+\]</span><br>
+Given the shape of the normal distribution, <span class="math inline">\(\theta(\tau_0)\)</span> is increasing in <span class="math inline">\(\tau_0/se(\hat{\tau})\)</span>:</p>
+<ul>
+<li>Power is increasing in the absolute value of <span class="math inline">\(\tau_0\)</span></li>
+<li>Power decreasing in the <span class="math inline">\(Var(\hat{\tau})\Rightarrow\)</span> power is <strong>increasing in N</strong>.</li>
+</ul>
+</section>
+</section>
+<section id="the-microfinance-miracle-a-case-of-itt" class="level2" data-number="7.7">
+<h2 data-number="7.7" class="anchored" data-anchor-id="the-microfinance-miracle-a-case-of-itt"><span class="header-section-number">7.7</span> The Microfinance `Miracle’: A Case of ITT</h2>
+<section id="the-microfinance-miracle" class="level3" data-number="7.7.1">
+<h3 data-number="7.7.1" class="anchored" data-anchor-id="the-microfinance-miracle"><span class="header-section-number">7.7.1</span> The Microfinance `Miracle’</h3>
+<p>‘<span style="color: blue">The Miracle of Microfinance? Evidence from a Randomized Evaluation</span><a href="#fn13" class="footnote-ref" id="fnref13" role="doc-noteref"><sup>13</sup></a>’</p>
+<ul>
+<li>Microfinance was seen as a `silver bullet’ for fighting poverty, but robust evidence was scarce.</li>
+<li>Existing evidence based on self-selected clients - not causal.</li>
+<li><span style="color: blue">Setting:</span> Hyderabad, India, capital of Andrha Pradesh</li>
+<li><span style="color: blue">Sample:</span> randomly treat 52 (out of 104) neighbourhoods with new Spandana branch.</li>
+<li><span style="color: blue">Data Collection:</span> survey households 18 months, and then 42 months after treatment (N=6,850).</li>
+<li><span style="color: blue">Research Design:</span> ``focus here on reduced-form/intent-to-treat estimates’’ because of spillover or general equilibrium effects.</li>
+</ul>
+<p><em>“given the sampling frame, ours will be an intent-to-treat (ITT) analysis on a sample of”likely borrowers.” This is thus neither the effect on those who borrow nor the average effect on the neighborhood. Rather, it is the average effect of easier access to microfinance on those who are its primary targets.’’ (p.35)</em></p>
+<p><strong>Intention-To-Treat (ITT)</strong></p>
+<ul>
+<li>Based on initial random assignment (i.e.&nbsp;reduced form)</li>
+<li>Not on take-up or receipt of treatment</li>
+</ul>
+<p><em>“The main drawback of these ITT analyses is that they do not answer questions about causal effects of the receipt of treatment itself, only about causal effects of the assignment to treatment.” (Imbens and Rubin, 2015, p.515)</em><a href="#fn14" class="footnote-ref" id="fnref14" role="doc-noteref"><sup>14</sup></a></p>
+<p><img src="Images/Banerjee_Timeline_1.png" class="img-fluid"></p>
+<ul>
+<li>Outcomes of interest:</li>
+</ul>
+<ol type="1">
+<li>consumption</li>
+<li>business creation</li>
+<li>business income</li>
+<li>education</li>
+<li>health</li>
+<li>women’s empowerment</li>
+</ol>
+<ul>
+<li><p>Initial (18-month) take-up is lower than expected (by Spandana): 26.7% in treated neighbourhoods and 18.3% in control.</p></li>
+<li><p>NOTE: control group is not `untreated’ as other companies enter both treated and control groups during this period.</p>
+<ul>
+<li>By second survey both groups had similar take-up, but treatment group had bigger and older loans.</li>
+</ul></li>
+<li><p>Highlights after 18 months:</p>
+<ol type="1">
+<li>Decline in informal borrowing. 2. No difference in borrowed amount. 3. No difference in (nondurable) consumption, but increase in purchase of durable goods. 4. No impact on entrepreneurship, but invest in existing businesses. 5. Increase in profitability of some businesses (upper tail)</li>
+</ol></li>
+<li><p>Highlights after 42 months:</p>
+<ol type="1">
+<li>Businesses have more assets, more businesses are more profitable 2. Average still small <span class="math inline">\(\Rightarrow\)</span> doesn’t help small businesses 3. No evidence of consumption change</li>
+</ol></li>
+<li><p>No effect on female empowerment outcomes.</p></li>
+<li><p>Almost 70% of households do not have an MFI loan, despite eligibility, yet borrow from other sources.</p></li>
+</ul>
+<p><img src="Images/Banerjee_Baseline_1.png" class="img-fluid"></p>
+<p style="font-size: 14px;">
+</p><p>NOTE: Baseline survey covers a different set of households.</p>
+<p></p>
+<p>The authors estimate the following regression model in each period after the intervention,<a href="#fn15" class="footnote-ref" id="fnref15" role="doc-noteref"><sup>15</sup></a></p>
+<p><span class="math display">\[
+            y_{ia} = \alpha + \beta \times Treat_{ia} + X_a'\gamma + \varepsilon_{ia}
+\]</span></p>
+<p>where <span class="math inline">\(i\)</span> represents the individual and <span class="math inline">\(a\)</span> the area (neighbourhood).</p>
+<ul>
+<li><span class="math inline">\(X_a\)</span> is a vector of area controls , including population, per capita literature, etc.</li>
+</ul>
+<p><img src="Images/Banerjee_Regression_1.png" class="img-fluid"> <img src="Images/Banerjee_Regression_3.png" class="img-fluid"> <img src="Images/Banerjee_Regression_2.png" class="img-fluid"></p>
+<p>Conclusion:</p>
+<p><em>“microcredit is not for every household, or even most households, and <strong>it does not lead to the miraculous social transformation</strong> some proponents have claimed…allows some households to sacrifice some instantaneous utility (temptation goods or leisure) in order to finance lumpy purchases, either for their home or in order to establish or expand a business”</em></p>
+<p>Similar results found in other RCTs, including ``Estimating the impact of microcredit on those who take it up: Evidence from a randomized experiment in Morocco’’ by Cr’{e}pon, Devoto, Duflo &amp; Parient’{e} (2015)</p>
+<ul>
+<li>Clearer research design with untreated control group</li>
+<li>No evidence of a gain in income or consumption</li>
+</ul>
+<!---
+
+simulation of the small sample variance
+
+--->
+<section id="notes-on-sample-variance-in-r" class="level4" data-number="7.7.1.1">
+<h4 data-number="7.7.1.1" class="anchored" data-anchor-id="notes-on-sample-variance-in-r"><span class="header-section-number">7.7.1.1</span> Notes on sample variance (in R)</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>data1 <span class="ot">&lt;-</span><span class="fu">data.frame</span>(<span class="at">y0 =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">2</span>,<span class="dv">4</span>),</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="at">y1 =</span> <span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">3</span>)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>data1<span class="sc">$</span>tau <span class="ot">&lt;-</span>  data1<span class="sc">$</span>y1<span class="sc">-</span>data1<span class="sc">$</span>y0</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>data1<span class="sc">$</span>St <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">sd</span>(data1<span class="sc">$</span>y1)<span class="sc">^</span><span class="dv">2</span>,<span class="fu">sd</span>(data1<span class="sc">$</span>y0)<span class="sc">^</span><span class="dv">2</span>,<span class="fu">sd</span>(data1<span class="sc">$</span>tau)<span class="sc">^</span><span class="dv">2</span>,<span class="cn">NA</span>)</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">"Finite Sample Variance Tau-hat:"</span>, data1<span class="sc">$</span>St[<span class="dv">1</span>]<span class="sc">/</span><span class="dv">2</span><span class="sc">+</span>data1<span class="sc">$</span>St[<span class="dv">2</span>]<span class="sc">/</span><span class="dv">2</span><span class="sc">-</span>data1<span class="sc">$</span>St[<span class="dv">3</span>]<span class="sc">/</span><span class="dv">4</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Finite Sample Variance Tau-hat: 0.5"</code></pre>
+</div>
+</div>
+<p>Code out all the possible realizations of W</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>){</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  j <span class="ot">&lt;-</span> i <span class="sc">+</span> <span class="dv">1</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="cf">while</span> (j <span class="sc">&lt;=</span> <span class="dv">4</span>) {</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    data1[<span class="fu">paste0</span>(<span class="st">"w"</span>, m)] <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>((<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(data1) <span class="sc">==</span> i) <span class="sc">|</span> (<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(data1) <span class="sc">==</span> j))</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    m <span class="ot">&lt;-</span> m <span class="sc">+</span> <span class="dv">1</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    j <span class="ot">&lt;-</span> j <span class="sc">+</span> <span class="dv">1</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>tauhat <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="cn">NA</span>, <span class="at">nrow =</span> <span class="dv">6</span>, <span class="at">ncol =</span> <span class="dv">1</span>)</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>) {</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>  data1[<span class="fu">paste0</span>(<span class="st">"yobs"</span>, i)] <span class="ot">&lt;-</span> data1<span class="sc">$</span>y1 <span class="sc">*</span> data1[<span class="fu">paste0</span>(<span class="st">"w"</span>, i)] <span class="sc">+</span> data1<span class="sc">$</span>y0 <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> data1[<span class="fu">paste0</span>(<span class="st">"w"</span>, i)])</span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>  model <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="fu">paste0</span>(<span class="st">"yobs"</span>, i, <span class="st">" ~ "</span>, <span class="st">"w"</span>, i), <span class="at">data =</span> data1)</span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>  tauhat[i, <span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="fu">coef</span>(model)[<span class="fu">paste0</span>(<span class="st">"w"</span>, i)]</span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste0</span>(<span class="st">"Finite Sample Variance Tau-hat is "</span>, <span class="fu">sd</span>(tauhat)<span class="sc">^</span><span class="dv">2</span><span class="sc">*</span><span class="dv">5</span><span class="sc">/</span><span class="dv">6</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Finite Sample Variance Tau-hat is 0.5"</code></pre>
+</div>
+</div>
+
+
+</section>
+</section>
+</section>
+<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn1"><p>Imbens, G.W. &amp; Wooldridge, J.M. 2009, “Recent Developments in the Econometrics of Program Evaluation”, Journal of economic literature, vol.&nbsp;47, no. 1, pp.&nbsp;5-86.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>Oreopoulos, P. 2011, “Why Do Skilled Immigrants Struggle in the Labor Market? A Field Experiment with Thirteen Thousand Resumes”, American economic journal. Economic policy, vol.&nbsp;3, no. 4, pp. 148-171.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>Common Alternatives include Multivariate ANOVA (MANOVA) and Analysis of Covariance (ANCOVA)<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p>Check your EC124 notes on this.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn5"><p>Dupas, P. &amp; Robinson, J. 2013, “Why Don’t the Poor Save More? Evidence from Health Savings Experiments”, The American economic review, vol.&nbsp;103, no. 4, pp.&nbsp;1138-1171.<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn6"><p>Do ensure that you can show this.<a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn7"><p>Here I am avoiding finite sample notation. This is not a big issue as you can always define the expectation as an average in the finite sample.<a href="#fnref7" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn8"><p>Deaton, A. 2010, “Instruments, Randomization, and Learning about Development”, Journal of economic literature, vol.&nbsp;48, no. 2, pp. 424-455.<a href="#fnref8" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn9"><p>Focus on the intuition of the results, not the equation. Taken from Deaton’s (2010, p.444) discussion of Freedman (2008). In this equation <span class="math inline">\(X_i\)</span> is single covariate.<a href="#fnref9" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn10"><p>Subject of first seminar.<a href="#fnref10" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn11"><p>Here I am being more general over the choice of the estimator <span class="math inline">\(\hat{\tau}\)</span> and I am approximating the distribution of the test-statistic with the standard normal.<a href="#fnref11" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn12"><p>Here I am being more general over the choice of the estimator <span class="math inline">\(\hat{\tau}\)</span> and I am approximating the distribution of the test-statistic with the standard normal.<a href="#fnref12" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn13"><p><span style="color: blue">Banerjee, A., Duflo, E., Glennerster, R. &amp; Kinnan, C. 2015, “The Miracle of Microfinance? Evidence from a Randomized Evaluation”, American economic journal. Applied economics, vol.&nbsp;7, no. 1, pp. 22-53.</span><a href="#fnref13" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn14"><p><em>More generally used in discussion of non-compliance.</em><a href="#fnref14" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn15"><p>I have use the authors’ notation.<a href="#fnref15" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./causality.html" class="pagination-link" aria-label="Causality">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Causality</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./stratified.html" class="pagination-link" aria-label="Stratified Experiments">
+        <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Stratified Experiments</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
