@@ -1,9 +1,630 @@
-# Causality
+# Causal Inference
 
-This is a book created from markdown and executable code.
+## Notation
 
-See @knuth84 for additional discussion of literate programming.
+-   Upper-case letters to denote random variables, lower-case specific values; e.g. $E[Y_i|X_i=x]$
+-   $Y_i$ - typically outcome variable, discrete or continuous
+-   $X_i$ - single covariate ($\beta X_i$) or vector of covariates($X_i'\beta$).[^1]
+-   $Z_i$ - instrumental variable(s)
+-   $W_i$ - discrete variable denoting status in experiment.[^2]
+-   $D_i$ - discrete (dummy) indicator function, also used to denote treatment status; e.g. $D_i = \mathbf{1}\{male_i\}$.[^3]
 
-```{r}
-1 + 1
-```
+[^1]: May also denote endogenous variable in IV setting.
+
+[^2]: Notation used by Imbens and Rubin (2015).
+
+[^3]:Notation used by Angrist & Pischke in MM and MHE. Used by most Economists for quasi-experiments.
+
+-   Greek ($\alpha,\;\beta,\;...$) and English alphabet ($a,\;b,\;...$) used interchangeably to denote parameters in a model.
+-   Common uses (NOT rules):
+    -   Mean and standard-deviation: $\mu$ and $\sigma$
+	-   Vector of covariates: $X_i'\beta$ or $X_i'\gamma$ 
+	  -   Fixed-effects: $\delta_t$, $\alpha_i$
+-   *Typical* exceptions:
+    -   Error terms: $\epsilon$ (*epsilon*), $\varepsilon$ (*varepsilon*), and $e$; $\upsilon$ (*upsilon*) and $u$; or $\nu$ (*nu*) and $v$
+-   The hat symbol is used to denote an estimator; e.g., $\hat{\beta}$. 
+-   The bar symbol is used to denote the sample average; e.g., $\bar{Y}$. 
+
+## On Causation
+To define causation we need a framework within which to examine a causal effect.
+
+-   There is more than one framework.
+-   In this module we will focus on the Potential Outcomes (PO) Framework, attributed to Neyman and Rubin.[^4]
+-   Other frameworks, include Directed Acyclic Graphs (DAGs).[^5]
+-   See Hoover (2008; on Moodle) for a richer discussion on 'causality’ within Economics. Includes structural models and time-series.
+
+[^4]: More discussion on its history in Chapter 1 of Imbens and Rubin (2015)}
+
+[^5]: See Pearl and Mackenzie (2018) - *The Book of Why* - and Imbens (2020) discussion of DAGs and the PO framework (on Moodle).
+
+::: {.callout-tip icon="false"}
+### Consider the question
+Would the introduction of a tax deduction for student loan repayments affect your decision to apply for a Master's degree?[^6]
+
+[^6]: Adaptation of paracetamol example in Imbens and Rubin (2015)
+
+:::
+
+\begin{equation*}
+			Y(\text{tax break})\qquad\text{and}\qquad Y(\text{status quo})
+\end{equation*}
+
+where $Y$ is the outcome denoting the decision to apply.
+
+
+Then there are 4 potential scenarios:
+
+1.    Apply only with future tax deduction:
+		\begin{equation*}
+			Y(\text{tax break})=\text{\textcolor{blue}{apply}}\quad\text{and}\quad Y(\text{status quo})=\text{\textcolor{red}{don't apply}}
+		\end{equation*}
+2.    Don't apply in either case:
+		\begin{equation*}
+			Y(\text{tax break})=\text{\textcolor{red}{don't apply}}\quad\text{and}\quad Y(\text{status quo})=\text{\textcolor{red}{don't apply}}
+		\end{equation*}
+3.    Apply regardless:
+		\begin{equation*}
+		Y(\text{tax break})=\text{\textcolor{blue}{apply}}\quad\text{and}\quad Y(\text{status quo})=\text{\textcolor{blue}{apply}}
+		\end{equation*}
+4.    Don't apply with deduction, but under status quo:
+		\begin{equation*}
+			Y(\text{tax break})=\text{\textcolor{red}{don't apply}}\quad\text{and}\quad Y(\text{status quo})=\text{\textcolor{blue}{apply}}
+		\end{equation*}
+
+
+In, 
+
+-   scenarios (2) and (3) there is *no causal effect* of the treatment,
+-   scenarios (1) and (4) there is *a causal effect*
+
+Notice two things (Imbens and Rubin, 2015, p. 6),
+
+1.   "First, the definition of the causal effect depends on the potential outcomes, but it does not depend on which outcome is actually observed."
+2.    "Second, the causal effect is the comparison of potential outcomes, for the same unit, at the same moment in time post-treatment. In particular, the causal effect is not *defined* in terms of comparisons of outcomes at different times."[^7]
+
+[^7]: Emphasis added.
+
+
+## Potential Outcome Framework
+
+PO framework has 3 components:
+
+:::{.callout-note icon="false"}
+### 1. Potential Outcomes (PO)
+
+The outcomes corresponding to different *levels* of treatment or *manipulation* "no causation without manipulation" (Rubin, 1975, p. 238).
+
+:::
+
+-    Potential outcomes are *a priori* observable, but *a posteriori* (after treatment) only one outcome is observable.
+
+	
+:::{.callout-tip icon="false"}
+### 2. Multiple units
+
+Given the limitation of observation, one must observe multiple units to infer a causal effect.   
+:::
+
+-   Need to make a key stability assumption: Stable Unit Treatment Value Assumption (SUTVA). 
+
+:::{.callout-important icon="false"}
+### 3. Assignment mechanism
+What determines assignment into treatment?   
+:::
+
+-   In **experimental data** this is randomization, while in **observational data** randomization is not the case. 
+
+
+### Potential Outcome Notation
+
+We denote the PO of outcome Y as, [^8]
+
+[^8]: Here, I follow the notation of Guido W. Imbens. You should be comfortable with alternative notations, such as superscripts ($Y^1_{i},Y^0_{i}$) and subscripts ($Y_{i1},Y_{i0}$; as in MM and MHE).
+
+\begin{align*}
+				Y_i(1)\quad&\text{if}\quad W_i=1 \\
+				Y_i(0)\quad&\text{if}\quad W_i=0 
+\end{align*}
+
+for discrete treatment (can be generalized to continuous; week 3).
+
+The observed outcome, $Y^{obs}_i$, can written as
+		\begin{align*}
+			Y^{obs}_i=Y_i(W_i)&=Y_i(0)+W_i\cdot\left(Y_i(1)-Y_i(0)\right) \\
+			&=(1-W_i)Y_i(0)+W_iY_i(1)
+		\end{align*}
+		
+Where $W$ is a random variable that determines treatment status.
+
+1.    The idea of potential outcomes should be familiar to an Economist: a supply and demand function provides a set of potential quantities at unobserved prices ($\pi$), 
+			\begin{equation*}
+				\{q^d(\pi),q^s(\pi)\} 
+			\end{equation*}
+While we only ever observe the equilibrium price ($p$) and $\{q^d(p),q^s(p)\}$.
+
+2.    We can define the *missing* outcome, $Y^{mis}_i$, can written as
+			\begin{equation*}
+				Y^{mis}_i=Y_i(1-W_i)=Y_i(1)+W_i\cdot\left(Y_i(0)-Y_i(1)\right)
+			\end{equation*}
+Imbens and Rubin (2015, p. 34) describe the Causal Inference problem as a "missing data proble".
+
+## Average Treatment Effects
+### Individual Treatment Effect (ITE)
+We can define the ITE as, 
+		\begin{equation*}
+			Y_i(1)-Y_i(0)
+		\end{equation*}
+		
+This notation is such that the ITE depends on the unit of observation ($i$), 
+
+:::{.callout-note icon="false"}
+### Heterogeneous TE's
+
+\begin{equation*}
+			Y_i(1)-Y_i(0) = \tau_i \quad\forall\quad i=1,...,N
+\end{equation*}
+:::
+
+:::{.callout-note icon="false"}
+### Homogeneous TE's
+
+\begin{equation*}
+		Y_i(1)-Y_i(0) = \tau \quad\forall\quad i=1,...,N
+\end{equation*}
+:::
+
+We can also introduce *time* as a dimension, 
+	\begin{equation*}
+		Y_{it}(1)-Y_{it}(0)
+	\end{equation*}
+	
+This notation is such that the ITE depends on the unit of observation ($i$),
+
+:::{.callout-tip icon="false"}
+### Dynamic, heterogeneous TE's
+
+\begin{equation*}
+		Y_{it}(1)-Y_{it}(0) = \tau_{it} \quad\forall\quad i\;\text{and}\;t 
+\end{equation*}
+:::
+
+:::{.callout-tip icon="false"}
+### Dynamic, homogeneous TE's
+
+\begin{equation*}
+	Y_{it}(1)-Y_{it}(0) = \tau_{t} \quad\forall\quad i\;\text{and}\;t 
+\end{equation*}
+:::
+
+:::{.callout-tip icon="false"}
+### Static, heterogeneous TE's
+\begin{equation*}
+	Y_{it}(1)-Y_{it}(0) = \tau_i \quad\forall\quad i\;\text{and}\;t 
+\end{equation*}
+:::
+
+:::{.callout-tip icon="false"}
+### Static, homogeneous TE's
+\begin{equation*}
+	Y_{it}(1)-Y_{it}(0) = \tau \quad\forall\quad i\;\text{and}\;t 
+\end{equation*}
+:::
+
+### Additive Treatment Effect
+Implicit to our notation is the **assumption** that treatment effects are **additive**:
+\begin{equation*}
+	Y_{it}(1) = Y_{it}(0)+\tau_{it}
+\end{equation*}
+		
+-   **Is this important?** Consider the case $\ln(Y_{it})$.
+
+We have actually have made an important assumption regarding the **causal model**.
+-   What about continuous treatments; for example, the tax rate?
+\begin{equation*}
+	Y_{it}(s) = f_{it}(s) \qquad s\in \mathbb{R}
+\end{equation*}
+We could assume the causal model is linear, 
+\begin{equation*}
+	f_{it}(s) = Y_{it}(0) + \gamma_{it} s
+\end{equation*}
+
+### Population, Finite Sample and Super Population
+You can think about the data for which you observe,
+
+-   treatment status, covariates, and outcomes
+
+as the *population*. All **conclusions are conditional** on this population. 
+
+
+However, you can also think about the observed values as (random) draws from a potentially
+
+-   infinite *super population*
+
+In this instance, we refer to the observed population as a *finite sample*.
+
+### Average Treatment Effects -Finite Sample
+
+Much of the EC338 discussion will concern itself with *causal **estimands*** (statistical objects to be estimated). 
+
+Suppose, you have a *fixed sample* of units. The Average Treatment Effect can be defined as 
+		
+:::{.callout-note icon="false"}
+### Def.: ATE for finite sample
+\begin{equation*}
+	\tau_{\small{ATE}}^{fs} = \frac{1}{N}\sum_{i=1}^{N}(Y_i(1)-Y_i(0))
+\end{equation*}
+:::
+
+If we restrict the sample to those (un)treated then we can estimate the Average Treatment Effect of the Treated (ATT/ATET)
+
+:::{.callout-note icon="false"}
+### Def.: ATT for finite sample
+\begin{equation*}
+	\tau_{\small{ATT}}^{fs} = \frac{1}{N_1}\sum_{i:W_i=1}^{N}(Y_i(1)-Y_i(0))
+\end{equation*}
+:::
+
+### Population Average Treatment Effects
+
+Another interpretation can be applied to these ATE estimands. If the finite sample is a random draw from a potentially infinite super-population. Then, we can define the same ATE’s for the super-population as,[^9]
+
+[^9]:In Economics, this notation is more common.
+	
+- 	Population ATE (or PATE): $\tau_{\small{ATE}} = E[Y_i(1)-Y_i(0)]$
+- 	Population ATT (or PATT): $\tau_{\small{ATT}} = E[Y_i(1)-Y_i(0)|W_i=1]$
+- 	Population ATU (or PATU): $\tau_{\small{ATU}} = E[Y_i(1)-Y_i(0)|W_i=0]$
+
+	
+For continuous variables (more in week 3), 
+
+- 	Average Causal Effect: $\tau_{\small{\text{ACE}}} = E[Y_i(s+1)-Y_i(s)] \quad s\in \mathbb{R}$
+
+<center>**Which do we prefer? ATT or ATE**</center>
+
+### ATE or ATT
+We prefer the ATE if (see Imbens and Wooldridge, 2009, pp. 14-15), 
+
+-   We want to learn about the effect on the entire population. That is, mandatory exposure.
+
+		
+We prefer the ATT if,
+
+-   The population includes individuals that will not take up the policy. 
+
+:::{.callout-tip icon="false"}
+### Example
+A policy that targets single mothers.
+:::
+
+-   Where the program will voluntary, so those not enrolled will not necessarily be treated.
+
+		
+The ATT is "informative about the effect of entirely eliminating the current program" (*ibid*).  
+
+### Conditional Treatment Effect's
+
+One way to move away from the broad scope of both the ATT and ATE is to think about the TE of subpopulations with specific characteristics,
+
+-   Conditional ATE (or CATE): $\tau_{\small{CATE}}(x) = E[Y_i(1)-Y_i(0)|X_i=x]$
+-   Conditional ATT (or CATT): $\tau_{\small{CATT}}(x) = E[Y_i(1)-Y_i(0)|W_i=1,X_i=x]$
+
+### Beyond the mean
+
+There is a reason much of the literature concerns itself with *Average* TE's, 
+	
+\begin{equation*}
+	\tau_{\small{ATE}} = E[Y_i(1)-Y_i(0)] = E[Y_i(1)]-E[Y_i(0)]
+\end{equation*}
+Since the expectation (or sample average) function is linear.
+
+-   Crucially, this allows identification using two samples. As you never observe both $Y_i(1)$ and $Y_i(0)$
+
+	
+If we consider the full distribution of ITE's, 
+\begin{equation*}
+	F_{Y(1)-Y(0)}
+\end{equation*}
+We could consider other percentiles ($q$) of the distribution,
+	
+\begin{equation*}
+	\tilde{\tau}_q = F^{-1}_{Y(1)-Y(0)}(q)
+\end{equation*}
+
+
+The problem is that the q-th percentile is not a linear function,
+		
+\begin{equation*}
+	\tilde{\tau}_q = F^{-1}_{Y(1)-Y(0)}(q) \neq F^{-1}_{Y(1)}(q)-F^{-1}_{Y(0)}(q)
+\end{equation*}
+	
+**unless** there is perfect rank correlation between $Y_i(1)$ and $Y_i(0)$.
+
+We can define the q-th quantile treatment effect as,
+		
+\begin{equation*}
+	\tau_q = F^{-1}_{Y(1)}(q)-F^{-1}_{Y(0)}(q)
+\end{equation*}
+		
+which *may* be identified in the data. The interpretation of these effects can be hard to describe (see Imbens and Wooldridge, 2009, p. 17).
+		
+
+-   "In a randomized experiment, one can identify $f_{Y(0)}(y)$ and $f_{Y(1)}(y)$ (and any functional thereof) but not the joint distribution of $f_{Y(1),Y(0)}(y,z)$." (*ibid*)
+
+### Fundamental Problem
+
+The PO framework makes clear the fundamental causal inference problem:
+
+:::{.callout-important icon="false"}
+### "missing data problem'' (Imbens and Rubin, 2015, p. 34)}
+
+We only ever observe one potential outcome.
+:::
+		
+We can compute, 
+\begin{equation*}
+	\bar{Y}_1 - \bar{Y}_0 = \frac{1}{N_1}\sum_{i:W_i=1}^{N}Y_i - \frac{1}{N_0}\sum_{i:W_i=0}^{N}Y_i
+\end{equation*}
+	
+This is an estimator for,
+	
+\begin{equation*}
+	E[Y_i|W_i=1]-E[Y_i|W_i=0]=\underbrace{E\left[Y_i(1)|W_i=1\right]-E\left[Y_i(0)|W_i=0\right]}_\text{`observed' difference}
+\end{equation*}
+		
+The observed difference, 
+\begin{equation*}
+  \underbrace{E\left[Y_i(1)|W_i=1\right]-E\left[Y_i(0)|W_i=0\right]}_\text{`observed' difference}
+\end{equation*}
+is not the same as 
+
+1.    $\tau_{ATT}=E\left[Y_i(1)-Y_i(0)|W_i=1\right]$ 
+2.    or  $\space \tau_{ATU}=E\left[Y_i(1)-Y_i(0)|W_i=0\right]$ 
+
+	
+Instead,
+
+:::{.callout-note icon="false"}
+### Decomposition of 'observed' difference
+\begin{align*}
+	&E\left[Y_i|W_i=1\right]-E\left[Y_i|W_i=0\right] \\
+	=&E\left[Y_i(1)|W_i=1\right]-E\left[Y_i(0)|W_i=0\right] \\
+	=&\underbrace{E\left[Y_i(1)|W_i=1\right]-\textcolor{red}{E\left[Y_i(0)|W_i=1\right]}}_{\tau_{att}=E\left[Y_i(1)-Y_i(0)|W_i=1\right]}+\underbrace{\textcolor{red}{E\left[Y_i(0)|W_i=1\right]}-E\left[Y_i(0)|W_i=0\right]}_\text{Selection}
+\end{align*}
+:::
+
+
+Another way to describe the "missing data problem" is, 
+		
+:::{.callout-important icon="false"}
+### Unobserved counterfactual
+We never observe the counterfactual,
+\begin{equation*}
+		E\left[Y_i(0)|W_i=1\right]
+\end{equation*}
+:::
+
+
+-   Note: we get the ATT, not the ATE (without further assumptions) or ATU.
+-   If we assume homogenous treatment effects these are all the same.
+-   With *unconfoundedness*, 
+\begin{equation*}
+	Y(1),Y(0) \perp W
+\end{equation*}
+ATT gives you ATE, and ATU is the same as ATE (more on this in week 2). 
+
+-   But we always start with ATT.
+
+## Multiple Units
+
+Since we cannot observe both
+		
+\begin{equation*}
+	Y_i(1)\quad \text{and}\quad Y_i(0) \quad \text{for any }i
+\end{equation*}
+
+We always need to learn about $f_Y(1)$ and $f_Y(0)$ from two (or more) samples; be this,
+
+-   Different units at the same time,
+-   the same units at different times, 
+-   or a combination of both.
+
+### SUTVA
+
+The Stable Unit Treatment Value Assumption (SUTVA) is an overarching assumption for this entire module,
+		
+:::{.callout-note icon="false"}
+### Assumption: SUTVA
+
+"The potential outcomes for any unit do not vary with the treatments assigned to other units, and, for each unit, there are no different forms or versions of each treatment level, which lead to different potential outcomes." (Imbens and Rubin, 2015, p.10)
+:::
+
+This assumption,
+
+1.    **Rules out interference between treatment units.** This rules out any spillover effects between 'treatment' and 'control'. 
+2.    **Ensures that there are no hidden variations in the treatment level.** It is okay for there to be different levels of treatment, so long as they are explicit and well-defined a priori.
+
+In economics, SUTVA can be a controversial assumption. 
+		
+:::{.callout-tip icon="false"}
+### For example,
+
+General equilibrium effects, violate SUTVA. In almost all case, we need to assume a partial equilibrium setting. 
+:::
+
+-   In many cases, studies treat collections of units (e.g., classrooms, states, etc.) as the unit of treatment' to overcome these concerns.
+
+		
+## Assignment Mechanism
+
+Much of this module is focused on understanding the ways in which the joint distribution of $f_{Y(1),Y(0)}$ relates to W (the treatment). 
+
+
+:::{.callout-note icon="false"}
+### Def.: Independence
+\begin{equation*}
+	Y(1),Y(0) \perp W
+\end{equation*}
+:::
+
+or
+
+:::{.callout-note icon="false"}
+### Def.: Unconfoundedness or Conditional Independence
+\begin{equation*}
+	Y(1),Y(0) \perp W |X
+\end{equation*}
+:::
+
+-   "Without unconfoundedness, there is no general approach to estimating treatment
+	effects.'' (Imbens and Wooldridge, 2009, p.7)
+-   Relates to notion of *strong ignorability*.
+-   **Randomization** is a *mechanism* that gives us unconfoundedness.
+	
+In Applied Microeconometrics, the notion of causality is commonly associated with controlled (week 2) or quasi-experiments ('natural' experiments).
+	
+-   Experiments are used to directly change the marginal distribution of X (typically, endogenous), while avoiding a direct impact on the marginal distribution of Y. 
+-   Thus, experiments can be used to infer a causal relationship between X and Y, based on the conditional distribution $f_{Y|X}$. 
+-   Such experiments are commonly referred to as 'instruments'.[^10]
+
+[^10]:For more on this discussion see Angrist & Krueger (2001).
+
+		
+:::{.callout-note icon="false"}
+### Quasi-experiment
+
+Experiment where assignment is determined by some non-random criteria; for example, a cut-off/threshold or age-eligibility.
+:::
+
+## 'Natural' Experiments
+
+In Economics, 'natural' quasi-experiments are generally associated with formal **institutions** that affect the behaviour of economic agents.[^11]
+		
+-   In practice, the term (public) **policy** is commonly used in reference to such institutions. 
+-   Hence, the language of *policy evaluation* is used a lot in the discussion of causal inference, including in Angrist & Pischke's MM & MHE.
+-   Like controlled experiments, 'natural' experiments create the conditions of a **treated** and **control** group.
+
+**BUT** without random assignment, these groups are not directly comparably.
+
+[^11]: Here, the word institution is used in the broader sense of "rules of the game", as defined by laws, regulations, and public policy (North, 1991).
+
+Natural experiments can be based on:
+
+<table>
+<tr>
+<td>1. Introduction of a new policy </td>
+<td><span style="color: blue">e.g. extension of marital rights to common-law couples</span></td>
+</tr>
+
+<tr>
+<td>2. Changes in existing policies </td>
+<td><span style="color: blue">e.g. increase in the coverage of unemployment insurance </span></td>
+</tr>
+
+<tr>
+<td>3. Design of a policy</td>
+<td><span style="color: blue">e.g. discontinuities in the marginal income tax rate </span></td>
+</tr>
+
+</table>
+<!-- <tr> </tr> is a new row, <td> </td> is a new entry in the row -->
+### Reduced Form
+
+Sometimes, we're interested in the direct impact of the **exogenous** 'natural'-experiment instrument, $Z$, on a particular outcome $Y$.
+		
+\begin{equation*}
+	Z\Rightarrow Y
+\end{equation*} 
+	
+:::{.callout-tip icon="false"}
+### For example
+
+In a **policy evaluation** setting we might be interested in how a the introduction of a child support grant improved early childhood development.
+:::
+		
+Here, the relationship between $Z$ and $Y$ is often referred to as the **reduced form** relationship.
+
+### Instruments for Structureal Equations
+
+We can also use the exogenous instrument, $Z$, to study the relationship between outcome $Y$ and another variable $X$, where $X$ is **endogenous**.	
+\begin{align*}
+		X&\rightarrow Y \\
+		\uparrow & \\
+		Z & \\
+\end{align*} 
+	
+:::{.callout-tip icon="false"}
+### For example
+
+We may use a change in immigration policy to study how the distribution of immigrants within a local labour market affects the wages and employment of native workers.
+::: 
+	
+Here, the relationship between $X$ and $Y$ is referred to as the **structural** relationship (more in week 6).
+
+## Example
+
+Consider the case of A-level examinations in England in 2020/2021.[^12]
+
+[^12]: Infographic sourced from <a href="https://www.gov.uk/government/publications/infographic-a-level-results-2022/infographics-for-a-level-results-2022">gov.uk</a>
+
+<center>
+![omittedImage](.png)
+</center>
+
+Consider the case of A-level examinations in England in 2020/2021.[^13]
+
+[^13]:Infographic sourced from <a href="https://www.gov.uk/government/publications/infographic-a-level-results-2021/infographics-for-a-level-results-2021">gov.uk</a>
+
+\begin{center}
+![omittedImage01](.png)
+\end{center}
+
+No doubt, in a few years economists will examine the impact of dropping A-level examines on university graduation rates and evening labour market outcomes. 
+	
+\begin{align*}
+  Y_i&=1\{\text{graduate}\} \\
+	D_i&=1\{\text{no A-level exam}\}
+\end{align*}
+	
+Who is treated?
+
+-    2020 and 2021 A-level cohort
+
+Who is untreated?
+
+-   all other cohorts
+-   non-students
+
+
+What do $\tau_{\small{ATE}}$, $\tau_{\small{ATT}}$, and $\tau_{\small{ATU}}$ represent in this setting?[^14]
+
+[^14]: In weeks 6 & 7 we will also define the Local Average Treatment Effect (LATE), which is the treatment effect of policy-*compliers*.
+	
+-   $\tau_{\small{ATE}}$: the expected impact of dropping exams for **any** student (anyone ?).
+-   $\tau_{\small{ATT}}$: the expected impact of dropping exams for students in the **2021 cohort**.
+-   $\tau_{\small{ATU}}$: the expected impact of dropping exams for students in **all other cohorts** (everyone else ?).
+		
+
+
+Do you expect the $\tau_{\small{ATT}}=\tau_{\small{ATE}}$? 
+	
+Should we thinking of $\tau_{\small{ATT}}(X_i)$ and $\tau_{\small{ATE}}(X_i)$ instead? What would $X_i$ be set to?
+
+### Selection
+
+To assess the impact of dropping A-level exams we might choose to compare two cohorts: e.g. pre-pandemic 2019 cohort ($D=0$: treated) and 2021 cohort ($D=1$: control):
+	
+\begin{align*}
+		&E\left[Y_i|D_i=1\right]-E\left[Y_i|D_i=0\right] \\
+		=&E\left[Y_i(1)|D_i=1\right]-E\left[Y_i(0)|D_i=0\right] \\
+		=&\underbrace{E\left[Y_i(1)|D_i=1\right]-\textcolor{red}{E\left[Y_i(0)|D_i=1\right]}}_{\tau_{\small{ATT}}=E\left[Y_i(1)-Y_i(0)|D_i=1\right]}+\underbrace{\textcolor{red}{E\left[Y_i(0)|D_i=1\right]}-E\left[Y_i(0)|D_i=0\right]}_\text{Selection}
+\end{align*}
+	
+As we never observe both $Y_i(1)$ and $Y_i(0)$ for any one individual, any comparison across two groups of individuals (i.e. treatment and control) will include some selection component.
+
+
+
+<center>
+<p>**Is selection the same thing as endogeneity?**</p>
+<p>	and </p>
+<p>	**Is unconfoundedness the same as exogeneity?** </p>
+</center>
